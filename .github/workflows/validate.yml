@@ -1,0 +1,45 @@
+name: validate
+
+# PR gate for the Phase-B pipeline (honua-io/honua-evidence#1, #2, #3):
+# re-run the aggregation in --check (drift-gate) mode against live producer
+# snapshots, then make sure the static site still builds cleanly from
+# whatever data/capability-matrix.v1.json is committed.
+
+on:
+  pull_request:
+    paths:
+      - "scripts/**"
+      - "data/**"
+      - ".github/workflows/aggregate.yml"
+      - ".github/workflows/validate.yml"
+  push:
+    branches: [trunk]
+    paths:
+      - "scripts/**"
+      - "data/**"
+      - ".github/workflows/aggregate.yml"
+      - ".github/workflows/validate.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Aggregate drift check
+        env:
+          HONUA_EVIDENCE_TOKEN: ${{ secrets.HONUA_EVIDENCE_TOKEN }}
+        run: python3 scripts/aggregate.py --check
+
+      - name: Build site
+        run: python3 scripts/build-site.py
+
+      - name: Sanity-check generated page count
+        run: |
+          count=$(find site -name '*.html' | wc -l)
+          echo "Generated $count HTML pages."
+          test "$count" -gt 2
