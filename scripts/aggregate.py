@@ -480,16 +480,33 @@ def main() -> int:
         # generatedAt/freshness necessarily churn between runs; compare
         # everything else so --check catches structural/content drift
         # without permanently failing simply because time passed.
-        current_stable = strip_volatile(json.loads(current))
-        rendered_stable = strip_volatile(matrix)
-        if current_stable != rendered_stable:
+        committed = json.loads(current)
+        # Structural gate (fails PRs): every capability key in the committed
+        # aggregate must exist in the canonical vocabulary. Unknown keys from
+        # live producers already failed during build_matrix above.
+        canonical = {c["key"] for c in matrix["capabilities"]}
+        committed_keys = {c["key"] for c in committed.get("capabilities", [])}
+        unknown_committed = sorted(committed_keys - canonical)
+        if unknown_committed:
             print(
-                f"::error::{args.output} is stale relative to current producer snapshots. Run "
-                "`python3 scripts/aggregate.py` and commit the result.",
+                f"::error::{args.output} contains keys absent from the canonical vocabulary: "
+                + ", ".join(unknown_committed),
                 file=sys.stderr,
             )
             return 1
-        print(f"{args.output} is up to date ({len(matrix['capabilities'])} capabilities).")
+        # Content drift (does NOT fail PRs): producers move constantly; content
+        # refresh is the scheduled aggregate job's responsibility, which
+        # regenerates and commits. Failing PRs on upstream motion would make
+        # every producer merge break this repo's checks.
+        current_stable = strip_volatile(committed)
+        rendered_stable = strip_volatile(matrix)
+        if current_stable != rendered_stable:
+            print(
+                f"::notice::{args.output} differs from current producer snapshots; the "
+                "scheduled aggregate run will refresh it. (Not a PR failure.)"
+            )
+        else:
+            print(f"{args.output} is up to date ({len(matrix['capabilities'])} capabilities).")
         return 0
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
