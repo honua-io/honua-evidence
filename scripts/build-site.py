@@ -535,6 +535,11 @@ table.data-table tbody tr:last-child td { border-bottom: none; }
 """
 
 
+def write_domain_files(site_dir):
+    (site_dir / "CNAME").write_text("evidence.honua.io\n", encoding="utf-8")
+    (site_dir / ".nojekyll").write_text("", encoding="utf-8")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path, default=DEFAULT_INPUT)
@@ -575,6 +580,7 @@ def main() -> int:
         (args.output / "capabilities" / f"{slug(cap['key'])}.html").write_text(page, encoding="utf-8")
 
     page_count = 2 + len(matrix["capabilities"])  # index + freshness + one per capability
+    write_domain_files(args.output)
     print(f"Built {page_count} pages ({len(matrix['capabilities'])} capabilities) into {args.output}")
     return 0
 
