@@ -8,18 +8,73 @@ honua-evidence is the aggregation and publication home for Honua's capability ev
 
 ```
 producers (pull, never push into us)
-  honua-server        → server-capabilities.v1.json   (canonical capability keys + crosswalks + test/CITE evidence)
-  honua-sdk-js/.net/py → sdk-coverage.v1.json          (per-capability SDK coverage)
-  honua-samples       → sample manifests + run results (executable evidence)
-  geobench            → benchmark run summaries
+  honua-server   docs/gis/data/capability-keys.v1.json     canonical capability vocabulary (drift-gate source of truth)
+                 docs/gis/data/capability-matrix.v1.json   Phase-A evidence snapshot: entry/test counts, CITE, parity,
+                                                            esriAssess, interop, geobench, per capability key
+                 issues, label cap/<category>               known-gaps preview (category-level, cached at build time)
+  honua-sdk-js         config/sdk-coverage.v1.json          per-capability SDK coverage
+  honua-sdk-dotnet     contracts/sdk-coverage.v1.json       per-capability SDK coverage
+  honua-sdk-python     compatibility/sdk-coverage.v1.json   per-capability SDK coverage
+  honua-samples        run-samples workflow artifact        samples-coverage.v1.json (executable-sample evidence)
+                        (honua-io/honua-samples#5)
 
-aggregate (this repo, CI)
-  capability-matrix.v1.json   ← validated against the canonical key list; unknown keys fail the build
+aggregate (scripts/aggregate.py, stdlib Python only, CI: .github/workflows/aggregate.yml)
+  data/capability-matrix.v1.json   ← every producer key validated against capability-keys.v1.json;
+                                      an unknown key FAILS the build (the drift gate)
+                                    ← per-producer freshness ledger: {fetchedAt, sourceVersion, status}
+                                      status is "fresh" | "stale" | "missing" -- a producer that can't
+                                      be reached is recorded as missing, never silently dropped
 
-publish
-  evidence index (static site)    one page per capability: summary → evidence by type → known gaps & roadmap → raw receipts
-  per-prospect evidence briefs    BUYER-SHAREABLE Markdown, generated from a capability selection
+publish (scripts/build-site.py, stdlib Python only, zero frameworks)
+  site/                              GitHub Pages, deployed by aggregate.yml
+    index.html                       all capabilities, filterable, receipts-first
+    capabilities/<key>.html          one L2 page per capability: evidence by type → SDK coverage →
+                                      samples → known gaps → raw receipt links
+    freshness.html                   the producer freshness ledger, rendered
+    data/capability-matrix.v1.json   the JSON download
+
+  → https://honua-io.github.io/honua-evidence/ (default Pages URL; no custom domain yet --
+    DNS/CNAME is a pending decision, see honua-io/honua-server#2892. All links inside the
+    site are relative so a domain can be added later without a rewrite.)
 ```
+
+### Producers
+
+| Producer | Snapshot | Freshness threshold |
+|---|---|---|
+| [honua-server](https://github.com/honua-io/honua-server) | [capability-keys.v1.json](https://github.com/honua-io/honua-server/blob/trunk/docs/gis/data/capability-keys.v1.json) (canonical vocabulary) | 14 days |
+| [honua-server](https://github.com/honua-io/honua-server) | [capability-matrix.v1.json](https://github.com/honua-io/honua-server/blob/trunk/docs/gis/data/capability-matrix.v1.json) (Phase-A evidence) | 14 days |
+| [honua-sdk-js](https://github.com/honua-io/honua-sdk-js) | [config/sdk-coverage.v1.json](https://github.com/honua-io/honua-sdk-js/blob/trunk/config/sdk-coverage.v1.json) | 30 days |
+| [honua-sdk-dotnet](https://github.com/honua-io/honua-sdk-dotnet) | [contracts/sdk-coverage.v1.json](https://github.com/honua-io/honua-sdk-dotnet/blob/trunk/contracts/sdk-coverage.v1.json) | 30 days |
+| [honua-sdk-python](https://github.com/honua-io/honua-sdk-python) | [compatibility/sdk-coverage.v1.json](https://github.com/honua-io/honua-sdk-python/blob/trunk/compatibility/sdk-coverage.v1.json) | 30 days |
+| [honua-samples](https://github.com/honua-io/honua-samples) | [run-samples](https://github.com/honua-io/honua-samples/actions/workflows/run-samples.yml) workflow artifact `samples-coverage` | 3 days |
+| [honua-server issues](https://github.com/honua-io/honua-server/issues) | open issues by `cap/<category>` label | live query (no fixed version) |
+
+### Freshness semantics
+
+Each producer gets one entry in the `freshness` ledger of `data/capability-matrix.v1.json`:
+
+- **`fresh`** — the source was pulled successfully and its age (commit date for repo files,
+  workflow-run date for the samples artifact) is within that producer's threshold.
+- **`stale`** — pulled successfully, but older than its threshold. Thresholds are the
+  `DEFAULT_STALENESS_DAYS` dict at the top of `scripts/aggregate.py`; override any of them
+  without editing the script via the `HONUA_EVIDENCE_STALENESS_JSON` env var (a JSON object,
+  e.g. `{"samples": 5}`).
+- **`missing`** — the pull failed outright (network error, missing/expired artifact, or no
+  `HONUA_EVIDENCE_TOKEN` for a producer that needs cross-repo auth). Never silently omitted;
+  the site renders the ledger and every capability's SDK/sample sections say so plainly.
+
+### How to add a producer
+
+1. Add a `fetch_*` function in `scripts/aggregate.py` that returns a `Fetched` (data,
+   `sourceVersion`, and an `error` on failure — never raise past the caller).
+2. Register its name in `DEFAULT_STALENESS_DAYS` and `SOURCE_REPO_LINKS` (build-site.py).
+3. Join its per-capability keys into `capabilities_out` in `build_matrix()`, keyed to the
+   canonical vocabulary. Any key it reports that isn't in `capability-keys.v1.json` fails the
+   build — that's the drift gate; new keys land in honua-server first.
+4. Add an entry to the `freshness` dict and to the producer table above.
+5. If it's cross-repo (not a public raw file), the honua-evidence workflow needs read access —
+   see the `HONUA_EVIDENCE_TOKEN` note in `.github/workflows/aggregate.yml`.
 
 Design rules:
 
@@ -28,9 +83,27 @@ Design rules:
 - **Nothing terminates in a claim.** Every rendered statement links one level down and bottoms out in an artifact a third party hosts or can re-run.
 - **Gaps ship next to strengths.** Capabilities with partial or pending evidence say so, in writing, on the same page.
 
+## Local usage
+
+```sh
+python3 scripts/aggregate.py            # pull producers, write data/capability-matrix.v1.json
+python3 scripts/aggregate.py --check    # drift/freshness check only, non-zero exit on drift (CI mode)
+python3 scripts/build-site.py           # render site/ from data/capability-matrix.v1.json
+```
+
+Both scripts are Python 3 standard library only — no `pip install`, no `npm install`. Network
+access is required for `aggregate.py` (it pulls from `raw.githubusercontent.com` and the GitHub
+API); `build-site.py` is offline and only reads the already-aggregated JSON.
+
 ## Status
 
-Bootstrap. Phase A of the rollout runs aggregation inside honua-server CI; this repo takes over in Phase B (lift-and-shift of the CI job — the versioned schema is the contract). Coordination: [honua-server#2892](https://github.com/honua-io/honua-server/issues/2892).
+Phase B (honua-io/honua-server#2892) landed the aggregation pipeline, freshness ledger, and the
+core evidence index (issues [#1](https://github.com/honua-io/honua-evidence/issues/1),
+[#3](https://github.com/honua-io/honua-evidence/issues/3), and the core of
+[#2](https://github.com/honua-io/honua-evidence/issues/2)). Remaining scope — richer per-test/
+per-run evidence detail, DNS cutover from honua-site, dispatch senders on producer repos, and
+full per-capability gaps ingestion — stays open on those issues and on
+[#5](https://github.com/honua-io/honua-evidence/issues/5).
 
 ## License
 
