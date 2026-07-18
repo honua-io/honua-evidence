@@ -2,7 +2,7 @@
   "schemaVersion": "2.0.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-07-18T01:37:31Z",
+  "generatedAt": "2026-07-18T08:13:54Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, and a known-gaps preview, keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -20,43 +20,43 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-07-18T01:37:29Z",
+      "fetchedAt": "2026-07-18T08:13:52Z",
       "sourceVersion": "e0df679127fe@2026-07-17T09:50:30Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-07-18T01:37:29Z",
-      "sourceVersion": "91d61202decf@2026-07-18T00:22:45Z",
+      "fetchedAt": "2026-07-18T08:13:52Z",
+      "sourceVersion": "94f8cf91e4bf@2026-07-18T01:18:35Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-07-18T01:37:29Z",
-      "sourceVersion": "7524ca5c871a@2026-07-17T21:08:47Z",
+      "fetchedAt": "2026-07-18T08:13:53Z",
+      "sourceVersion": "1d65f69414f5@2026-07-18T02:18:46Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-07-18T01:37:30Z",
+      "fetchedAt": "2026-07-18T08:13:53Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-07-18T01:37:30Z",
+      "fetchedAt": "2026-07-18T08:13:54Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-07-18T01:37:31Z",
+      "fetchedAt": "2026-07-18T08:13:54Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "fetch failed: HTTP Error 401: Unauthorized"
     },
     "open-issues": {
-      "fetchedAt": "2026-07-18T01:37:31Z",
+      "fetchedAt": "2026-07-18T08:13:54Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "no GitHub token available for issue lookup (set HONUA_EVIDENCE_TOKEN)"
@@ -260,7 +260,7 @@
       "category": "AI",
       "edition": "Community",
       "entryCount": 4,
-      "provingTestCount": 65,
+      "provingTestCount": 71,
       "maturity": {
         "implemented": 4
       },
@@ -4454,10 +4454,13 @@
           "status": "covered",
           "sinceVersion": "0.1.0-beta.0",
           "entrypoints": [
-            "connect(), Source (protocol: \"wms\")"
+            "@honua/sdk-js/map",
+            "Source descriptor",
+            "connect()"
           ],
           "evidence": [
-            "test/contract/wms.test.ts"
+            "test/connect-wms-wmts.test.ts",
+            "test/raster-source-strategy.test.ts"
           ]
         },
         "dotnet": {
@@ -4524,10 +4527,13 @@
           "status": "covered",
           "sinceVersion": "0.1.0-beta.0",
           "entrypoints": [
-            "connect(), Source (protocol: \"wmts\")"
+            "@honua/sdk-js/map",
+            "Source descriptor",
+            "connect()"
           ],
           "evidence": [
-            "test/contract/wmts.test.ts"
+            "test/connect-wms-wmts.test.ts",
+            "test/raster-source-strategy.test.ts"
           ]
         },
         "dotnet": {
