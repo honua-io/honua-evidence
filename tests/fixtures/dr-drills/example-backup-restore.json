@@ -1,0 +1,31 @@
+{
+  "schema": "honua-evidence.dr-drill-envelope/v1",
+  "id": "2026-07-15-backup-restore-aws-ecs",
+  "capabilityKeys": ["dr.backup-automation", "dr.rto-rpo-reporting"],
+  "drill": "backup-restore",
+  "cloud": "aws",
+  "target": "aws-ecs",
+  "environment": "validation",
+  "capturedAt": "2026-07-15T03:12:44Z",
+  "verdict": "pass",
+  "measurements": {
+    "backup_method": "pg_basebackup+wal-archive",
+    "restore_seconds": 187,
+    "restored_table_count": 42,
+    "postgis_extension_count": 3,
+    "rto_seconds": 210,
+    "rpo_seconds": 60
+  },
+  "targets": {
+    "rto_target_seconds": 900,
+    "rpo_target_seconds": 300
+  },
+  "checks": [
+    { "name": "restored_application_tables", "verdict": "pass" },
+    { "name": "postgis_extensions_present", "verdict": "pass" },
+    { "name": "restore_within_rto", "verdict": "pass" }
+  ],
+  "sourceRepo": "honua-io/honua-terraform",
+  "sourceRef": "a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4",
+  "sourceRunUrl": "https://github.com/honua-io/honua-terraform/actions/runs/123456789"
+}

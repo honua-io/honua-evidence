@@ -1,15 +1,17 @@
 name: validate
 
-# PR gate for the Phase-B pipeline (honua-io/honua-evidence#1, #2, #3):
-# re-run the aggregation in --check (drift-gate) mode against live producer
-# snapshots, then make sure the static site still builds cleanly from
-# whatever data/capability-matrix.v1.json is committed.
+# PR gate for the Phase-B pipeline (honua-io/honua-evidence#1, #2, #3, #8):
+# runs the ingestion/freshness unit tests, re-runs the aggregation in --check
+# (drift-gate) mode against live producer snapshots, then makes sure the
+# static site still builds cleanly from whatever data/capability-matrix.v1.json
+# is committed.
 
 on:
   pull_request:
     paths:
       - "scripts/**"
       - "data/**"
+      - "tests/**"
       - ".github/workflows/aggregate.yml"
       - ".github/workflows/validate.yml"
   push:
@@ -17,6 +19,7 @@ on:
     paths:
       - "scripts/**"
       - "data/**"
+      - "tests/**"
       - ".github/workflows/aggregate.yml"
       - ".github/workflows/validate.yml"
   workflow_dispatch: {}
@@ -29,6 +32,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Unit tests (ingestion + freshness computation)
+        run: python3 -m unittest discover -s tests -v
 
       - name: Aggregate drift check
         env:

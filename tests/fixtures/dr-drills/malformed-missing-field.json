@@ -1,0 +1,10 @@
+{
+  "schema": "honua-evidence.dr-drill-envelope/v1",
+  "id": "2026-07-10-failover-aws-eks",
+  "capabilityKeys": ["dr.failover"],
+  "drill": "failover",
+  "cloud": "aws",
+  "target": "aws-eks",
+  "environment": "validation",
+  "verdict": "pass"
+}
