@@ -2,7 +2,7 @@
   "schemaVersion": "2.0.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-07-21T09:06:42Z",
+  "generatedAt": "2026-07-22T09:05:03Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, and a known-gaps preview, keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -20,43 +20,43 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-07-21T09:06:39Z",
+      "fetchedAt": "2026-07-22T09:05:00Z",
       "sourceVersion": "e0df679127fe@2026-07-17T09:50:30Z",
-      "ageDays": 3,
+      "ageDays": 4,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-07-21T09:06:39Z",
-      "sourceVersion": "50c334ed8f4d@2026-07-21T07:30:04Z",
+      "fetchedAt": "2026-07-22T09:05:01Z",
+      "sourceVersion": "635cc484b9b1@2026-07-21T17:24:51Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-07-21T09:06:40Z",
+      "fetchedAt": "2026-07-22T09:05:01Z",
       "sourceVersion": "ec58b44045b8@2026-07-21T07:22:28Z",
-      "ageDays": 0,
+      "ageDays": 1,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-07-21T09:06:41Z",
+      "fetchedAt": "2026-07-22T09:05:02Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
-      "ageDays": 3,
+      "ageDays": 4,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-07-21T09:06:41Z",
+      "fetchedAt": "2026-07-22T09:05:02Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
-      "ageDays": 3,
+      "ageDays": 4,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-07-21T09:06:42Z",
+      "fetchedAt": "2026-07-22T09:05:03Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "fetch failed: HTTP Error 401: Unauthorized"
     },
     "open-issues": {
-      "fetchedAt": "2026-07-21T09:06:42Z",
+      "fetchedAt": "2026-07-22T09:05:03Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "no GitHub token available for issue lookup (set HONUA_EVIDENCE_TOKEN)"
@@ -69,7 +69,7 @@
       "category": "ControlPlane",
       "edition": "Community",
       "entryCount": 364,
-      "provingTestCount": 944,
+      "provingTestCount": 945,
       "maturity": {
         "implemented": 364
       },
@@ -725,7 +725,7 @@
       "category": "Analytics",
       "edition": "Pro",
       "entryCount": 1,
-      "provingTestCount": 4,
+      "provingTestCount": 5,
       "maturity": {
         "implemented": 1
       },
@@ -801,7 +801,7 @@
       "category": "Analytics",
       "edition": "Pro",
       "entryCount": 1,
-      "provingTestCount": 3,
+      "provingTestCount": 4,
       "maturity": {
         "implemented": 1
       },
@@ -3206,7 +3206,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 2,
-      "provingTestCount": 28,
+      "provingTestCount": 29,
       "maturity": {
         "implemented": 2
       },
@@ -4169,7 +4169,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 12,
-      "provingTestCount": 81,
+      "provingTestCount": 100,
       "maturity": {
         "implemented": 12
       },
