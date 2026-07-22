@@ -1,0 +1,6 @@
+{
+  "schema": "honua-evidence.live-canary-envelope/v1",
+  "manifestId": "demo-canary-broken",
+  "targetEnvironment": "demo.honua.io",
+  "runAt": "2026-07-19T06:00:00Z"
+}

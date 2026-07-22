@@ -52,6 +52,9 @@ SOURCE_REPO_LINKS = {
     "sdk-python": "https://github.com/honua-io/honua-sdk-python/blob/trunk/compatibility/sdk-coverage.v1.json",
     "samples": "https://github.com/honua-io/honua-samples/actions/workflows/run-samples.yml",
     "open-issues": "https://github.com/honua-io/honua-server/issues?q=is%3Aopen+label%3Acap%2F%2A",
+    "cite": "https://github.com/honua-io/honua-server/blob/trunk/docs/cite-status.md",
+    "dr-drills": "https://github.com/honua-io/honua-evidence/tree/trunk/data/producers/dr-drills",
+    "live-canary": "https://github.com/honua-io/honua-evidence/tree/trunk/data/producers/live-canary",
 }
 
 
@@ -284,6 +287,20 @@ def render_evidence_table(cap: dict[str, Any]) -> str:
         rows.append(
             f"<tr><td>Esri migration assessment</td><td>assessKey(s)</td><td>{esc(', '.join(cap['esriAssess']))}</td></tr>"
         )
+    if cap.get("dr"):
+        for entry in cap["dr"]:
+            detail = f"{esc(entry.get('drill', ''))} / {esc(entry.get('target', '') or '—')} ({esc(entry.get('environment', '') or '—')})"
+            rows.append(
+                f"<tr><td>DR drill</td><td>{detail}</td>"
+                f"<td>{esc(entry.get('verdict', ''))} — captured {esc(entry.get('capturedAt', ''))}</td></tr>"
+            )
+    if cap.get("liveCanary"):
+        for entry in cap["liveCanary"]:
+            detail = f"{esc(entry.get('probeName', '') or '—')} / {esc(entry.get('targetEnvironment', ''))}"
+            rows.append(
+                f"<tr><td>Live canary probe</td><td>{detail}</td>"
+                f"<td>{esc(entry.get('status', ''))} — last green {esc(entry.get('lastGreenAt', ''))}</td></tr>"
+            )
     if cap.get("geobench"):
         rows.append(
             f"<tr><td>Geobench scenario(s)</td><td>{esc(', '.join(cap['geobench']))}</td>"
@@ -400,6 +417,8 @@ def render_capability_page(cap: dict[str, Any], matrix: dict[str, Any], generate
       <a href="https://github.com/honua-io/honua-sdk-dotnet/blob/trunk/contracts/sdk-coverage.v1.json" target="_blank" rel="noopener noreferrer">sdk-dotnet coverage</a> ·
       <a href="https://github.com/honua-io/honua-sdk-python/blob/trunk/compatibility/sdk-coverage.v1.json" target="_blank" rel="noopener noreferrer">sdk-python coverage</a></li>
   <li><a href="https://github.com/honua-io/honua-samples/actions/workflows/run-samples.yml" target="_blank" rel="noopener noreferrer">honua-samples run-samples CI</a> — executable sample run history.</li>
+  <li><a href="https://github.com/honua-io/honua-server/blob/trunk/docs/cite-status.md" target="_blank" rel="noopener noreferrer">docs/cite-status.md</a> — CITE evidence freshness ("Last reviewed" date + source sha).</li>
+  <li><a href="https://github.com/honua-io/honua-evidence/tree/trunk/data/producers/dr-drills" target="_blank" rel="noopener noreferrer">data/producers/dr-drills/</a> · <a href="https://github.com/honua-io/honua-evidence/tree/trunk/data/producers/live-canary" target="_blank" rel="noopener noreferrer">data/producers/live-canary/</a> — pushed evidence envelopes (see <a href="https://github.com/honua-io/honua-evidence/blob/trunk/docs/producer-contracts.md" target="_blank" rel="noopener noreferrer">docs/producer-contracts.md</a>).</li>
   <li><a href="../data/capability-matrix.v1.json">capability-matrix.v1.json</a> — the full enriched aggregate backing this page.</li>
 </ul>
 """
@@ -423,6 +442,18 @@ def render_freshness_page(matrix: dict[str, Any], generated_at: str) -> str:
             f"<td>{esc(entry.get('fetchedAt', ''))}</td>"
             f"<td>{esc(entry.get('detail', '') or '')}</td></tr>"
         )
+    warnings = matrix.get("ingestionWarnings") or []
+    warnings_block = ""
+    if warnings:
+        items = "".join(f"<li>{esc(w)}</li>" for w in warnings)
+        warnings_block = f"""
+<h2>Ingestion warnings</h2>
+<p class="note">Non-fatal problems from pushed-envelope producers (a malformed envelope, or an
+envelope referencing a capability key outside the canonical vocabulary) — surfaced here rather than
+failing the build. See <a href="https://github.com/honua-io/honua-evidence/blob/trunk/docs/producer-contracts.md"
+target="_blank" rel="noopener noreferrer">docs/producer-contracts.md</a>.</p>
+<ul class="gaps-list">{items}</ul>
+"""
     body = f"""
 <p class="lead"><a href="index.html">← Back to the capability index</a></p>
 <h1>Producer freshness ledger</h1>
@@ -436,7 +467,7 @@ source is older than its staleness threshold is marked <strong>stale</strong>.</
   <tbody>{"".join(rows)}</tbody>
 </table>
 </div>
-"""
+{warnings_block}"""
     return render_page(
         title="Producer freshness | honua-evidence",
         description="Per-producer freshness ledger for the honua-evidence capability aggregate.",

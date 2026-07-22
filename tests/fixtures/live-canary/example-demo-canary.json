@@ -1,0 +1,27 @@
+{
+  "schema": "honua-evidence.live-canary-envelope/v1",
+  "manifestId": "demo-canary-2026-07-20T06:00:00Z",
+  "targetEnvironment": "demo.honua.io",
+  "targetUrl": "https://demo.honua.io",
+  "runAt": "2026-07-20T06:00:03Z",
+  "overallStatus": "green",
+  "sourceRepo": "honua-io/honua-release",
+  "sourceRef": "b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5",
+  "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/987654321",
+  "probes": [
+    {
+      "probeName": "ogc-api-features-smoke",
+      "capabilityKeys": ["serve.ogc-api-features"],
+      "status": "green",
+      "lastGreenAt": "2026-07-20T06:00:03Z",
+      "detail": "GET /ogc/collections -> 200, 12 collections"
+    },
+    {
+      "probeName": "wfs-getcapabilities",
+      "capabilityKeys": ["serve.wfs"],
+      "status": "green",
+      "lastGreenAt": "2026-07-20T06:00:05Z",
+      "detail": "GET /wfs?REQUEST=GetCapabilities -> 200"
+    }
+  ]
+}
