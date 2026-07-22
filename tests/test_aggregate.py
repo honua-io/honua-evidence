@@ -186,6 +186,31 @@ class DrDrillFixtureTests(unittest.TestCase):
         entry = fetched.ledger_entry(agg.DEFAULT_STALENESS_DAYS)
         self.assertEqual(entry["status"], "missing")
 
+    def test_non_string_capability_key_is_warned_not_crashed(self):
+        # A malformed hand-authored envelope with a non-string entry in
+        # 'capabilityKeys' (e.g. an object instead of a string) must be
+        # skipped with a warning, not raise when later joined onto the
+        # (unhashable-safe) canonical key set.
+        with tempfile.TemporaryDirectory() as tmp:
+            agg.DR_DRILLS_DIR = Path(tmp)
+            (Path(tmp) / "bad.json").write_text(
+                json.dumps(
+                    {
+                        "schema": "x",
+                        "id": "d1",
+                        "drill": "backup-restore",
+                        "capturedAt": "2026-07-15T03:12:44Z",
+                        "verdict": "pass",
+                        "capabilityKeys": [{}],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            fetched = agg.fetch_dr_drills()
+        self.assertFalse(fetched.ok)
+        self.assertEqual(fetched.data, [])
+        self.assertTrue(any("must be a non-empty list of strings" in w for w in fetched.warnings))
+
 
 class LiveCanaryFixtureTests(unittest.TestCase):
     def setUp(self):
@@ -213,6 +238,29 @@ class LiveCanaryFixtureTests(unittest.TestCase):
             fetched = agg.fetch_live_canary()
         self.assertFalse(fetched.ok)
         self.assertIn("none pushed yet", fetched.error)
+
+    def test_non_object_probe_is_warned_not_crashed(self):
+        # A malformed manifest where 'probes' is a list of strings instead
+        # of probe objects must be skipped with a warning, not raise
+        # AttributeError from probe.get(...) inside _live_canary_items.
+        with tempfile.TemporaryDirectory() as tmp:
+            agg.LIVE_CANARY_DIR = Path(tmp)
+            (Path(tmp) / "bad.json").write_text(
+                json.dumps(
+                    {
+                        "schema": "x",
+                        "manifestId": "m1",
+                        "targetEnvironment": "demo.honua.io",
+                        "runAt": "2026-07-20T06:00:00Z",
+                        "probes": ["bad"],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            fetched = agg.fetch_live_canary()
+        self.assertFalse(fetched.ok)
+        self.assertEqual(fetched.data, [])
+        self.assertTrue(any("must be a list of objects" in w for w in fetched.warnings))
 
 
 class JoinLocalProducerTests(unittest.TestCase):
@@ -266,7 +314,23 @@ class JoinLocalProducerTests(unittest.TestCase):
         by_key, warnings = agg.join_local_producer("live-canary", envelopes, self.CANONICAL, agg._live_canary_items)
         self.assertIn("serve.ogc-api-features", by_key)
         self.assertEqual(len(by_key["serve.ogc-api-features"]), 1)
-        self.assertTrue(any("no 'capabilityKeys'" in w for w in warnings))
+        self.assertTrue(any("valid 'capabilityKeys'" in w for w in warnings))
+
+    def test_live_canary_probe_with_non_string_capability_key_warns_and_is_skipped(self):
+        # A probe whose 'capabilityKeys' list contains a non-string item
+        # (e.g. an object) must be skipped with a warning rather than
+        # raising when checked against the canonical key set.
+        envelopes = [
+            {
+                "manifestId": "m1", "targetEnvironment": "demo.honua.io", "runAt": "2026-07-20T06:00:00Z",
+                "probes": [
+                    {"probeName": "bad-keys-probe", "capabilityKeys": [{}], "status": "green"},
+                ],
+            }
+        ]
+        by_key, warnings = agg.join_local_producer("live-canary", envelopes, self.CANONICAL, agg._live_canary_items)
+        self.assertEqual(by_key, {})
+        self.assertTrue(any("valid 'capabilityKeys'" in w for w in warnings))
 
 
 class BuildMatrixIngestionWarningsTests(unittest.TestCase):

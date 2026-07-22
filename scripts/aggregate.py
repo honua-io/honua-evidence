@@ -390,10 +390,13 @@ def fetch_dr_drills() -> Fetched:
     envelopes, warnings = _load_envelopes("dr-drills", DR_DRILLS_DIR, DR_DRILL_REQUIRED_FIELDS)
     valid: list[dict] = []
     for e in envelopes:
-        if isinstance(e.get("capabilityKeys"), list) and e["capabilityKeys"]:
+        keys = e.get("capabilityKeys")
+        if isinstance(keys, list) and keys and all(isinstance(k, str) and k for k in keys):
             valid.append(e)
         else:
-            warnings.append(f"dr-drills: envelope {e.get('id', '?')!r}: 'capabilityKeys' must be a non-empty list, skipped")
+            warnings.append(
+                f"dr-drills: envelope {e.get('id', '?')!r}: 'capabilityKeys' must be a non-empty list of strings, skipped"
+            )
 
     fetched = Fetched("dr-drills", data=valid, warnings=warnings)
     if not valid:
@@ -419,10 +422,13 @@ def fetch_live_canary() -> Fetched:
     envelopes, warnings = _load_envelopes("live-canary", LIVE_CANARY_DIR, LIVE_CANARY_REQUIRED_FIELDS)
     valid: list[dict] = []
     for e in envelopes:
-        if isinstance(e.get("probes"), list):
+        probes = e.get("probes")
+        if isinstance(probes, list) and all(isinstance(p, dict) for p in probes):
             valid.append(e)
         else:
-            warnings.append(f"live-canary: manifest {e.get('manifestId', '?')!r}: 'probes' must be a list, skipped")
+            warnings.append(
+                f"live-canary: manifest {e.get('manifestId', '?')!r}: 'probes' must be a list of objects, skipped"
+            )
 
     fetched = Fetched("live-canary", data=valid, warnings=warnings)
     if not valid:
@@ -457,10 +463,11 @@ def _live_canary_items(envelope: dict) -> tuple[list[tuple[str, dict]], list[str
     warnings: list[str] = []
     for probe in envelope.get("probes", []):
         keys = probe.get("capabilityKeys")
-        if not isinstance(keys, list) or not keys:
+        if not isinstance(keys, list) or not keys or not all(isinstance(k, str) and k for k in keys):
             warnings.append(
                 f"live-canary: manifest {envelope.get('manifestId', '?')!r}: probe "
-                f"{probe.get('probeName', '?')!r} has no 'capabilityKeys', skipped"
+                f"{probe.get('probeName', '?')!r} has no valid 'capabilityKeys' (must be a "
+                "non-empty list of strings), skipped"
             )
             continue
         summary = {
