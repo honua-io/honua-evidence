@@ -10,7 +10,10 @@ canonical vocabulary, and ENRICHES the result with:
 
   * per-capability SDK coverage (honua-sdk-js / -dotnet / -python)
   * per-capability executable-sample coverage (honua-samples CI artifact)
-  * per-capability known-gaps preview (open honua-server issues, cap/* labels)
+  * per-capability known-gaps preview (open honua-server issues, cap/* labels),
+    joined at the individual capability-KEY level when an issue's advisory
+    "Capability Key(s)" issue-form field parses to a canonical key, falling
+    back to the coarser category-level attachment otherwise (issue #5)
   * CITE freshness (honua-server docs/cite-status.md "Last reviewed" date + sha)
   * cross-repo pushed-envelope producers: terraform DR drills and live/canary
     probe results (see docs/producer-contracts.md)
@@ -33,6 +36,13 @@ capability key referenced by an operator/automation-pushed envelope is a
 WARNING (surfaced in the matrix's `ingestionWarnings` and printed visibly),
 never a build failure -- a typo in a hand-authored evidence envelope must not
 take down the whole aggregation pipeline. See docs/producer-contracts.md.
+
+Same forgiving contract for the per-capability known-gaps join (issue #5):
+honua-server's bug/feature/tech-debt issue forms carry an advisory, free-text
+"Capability Key(s)" field (comma-separated, not validated at issue-creation
+time). A token in that field that doesn't match honua-server's canonical
+capability-keys.v1.json is a WARNING, never a build failure -- it's ordinary
+human-authored issue-tracker text, not a producer contract.
 """
 from __future__ import annotations
 
@@ -51,7 +61,7 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = REPO_ROOT / "data" / "capability-matrix.v1.json"
-SCHEMA_VERSION = "2.1.0"
+SCHEMA_VERSION = "2.2.0"
 USER_AGENT = "honua-evidence-aggregate/1 (+https://github.com/honua-io/honua-evidence)"
 
 SERVER_KEYS_URL = "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json"
@@ -530,14 +540,22 @@ def fetch_open_issues(categories: list[str]) -> Fetched:
             # used deliberately instead of /search/issues (30/min secondary
             # limit) -- one query per capability category quickly exhausts
             # the search quota and produced flaky, silently-truncated
-            # results when this used /search/issues.
+            # results when this used /search/issues. The list response
+            # already includes each issue's full body (no extra per-issue
+            # call needed) -- that body is where issue #5's per-key join
+            # parses the advisory "Capability Key(s)" field from.
             issues = http_get_json(
                 f"https://api.github.com/repos/{GAPS_REPO}/issues"
                 f"?labels={label}&state=open&per_page=10&sort=created&direction=asc",
                 api=True,
             )
             by_category[category] = [
-                {"number": it["number"], "title": it["title"], "url": it["html_url"]}
+                {
+                    "number": it["number"],
+                    "title": it["title"],
+                    "url": it["html_url"],
+                    "body": it.get("body") or "",
+                }
                 for it in issues
                 if "pull_request" not in it
             ]
@@ -550,6 +568,147 @@ def fetch_open_issues(categories: list[str]) -> Fetched:
     # judged purely by fetchedAt recency (always "fresh" at build time),
     # not by a commit/artifact age.
     return Fetched("open-issues", data=by_category, source_version="live-query")
+
+
+# --- per-capability-key gap join (honua-io/honua-evidence#5) ---------------
+#
+# honua-server's bug.yml/feature.yml/tech-debt.yml issue forms all carry an
+# `id: capability-keys` field (label text varies slightly -- "Capability
+# Key(s)" on bug/feature, "Capability Key(s) (optional)" on tech-debt) that
+# authors may fill with a comma-separated list of capability keys. Two shapes
+# are observed in real honua-server issues:
+#
+#  1. The GitHub issue-form rendering of that field, e.g.:
+#         ### Capability Key(s)
+#
+#         editing.feature-edits, geocoding.single-line
+#     (or the literal text "_No response_" if the optional field was left
+#     blank -- GitHub's own placeholder for an unanswered optional field).
+#  2. A free-text inline mention embedded in a hand-written or scripted issue
+#     body (this is what every real cap/*-labeled honua-server issue found
+#     while building this join actually used, form rendering included, e.g.):
+#         Capability key(s): `serve.wms`, `serve.wmts` (aggregate gap).
+#
+# Both are handled by locating the "capability key(s)" mention and either
+# reading the rest of its own line (shape 2, and shape 1 when the field ended
+# up on one line) or, if that's blank, the next non-blank line (shape 1's
+# separate value line).
+CAPABILITY_KEYS_FIELD_RE = re.compile(
+    r"^[ \t]{0,3}#{0,6}[ \t]*capability key\(s\)(?:[ \t]*\(optional\))?[ \t]*:?[ \t]*(.*)$",
+    re.IGNORECASE | re.MULTILINE,
+)
+_CAPABILITY_KEY_BACKTICK_RE = re.compile(r"`([^`]+)`")
+_NO_RESPONSE_VALUES = {"_no response_", "n/a", "none", "-"}
+
+
+def _capability_keys_field_value(body: str) -> str | None:
+    """Returns the raw (unvalidated) text of the 'Capability Key(s)' field in
+    an issue body, or None if the field isn't present at all."""
+    match = CAPABILITY_KEYS_FIELD_RE.search(body)
+    if match is None:
+        return None
+    same_line = match.group(1).strip()
+    if same_line:
+        return same_line
+    # Header-only line (issue-form rendering): the value is the next
+    # non-blank line, unless we run into the next field's header first.
+    for line in body[match.end():].splitlines():
+        stripped = line.strip()
+        if not stripped:
+            continue
+        if stripped.startswith("#"):
+            return None
+        return stripped
+    return None
+
+
+def _clean_capability_key_token(token: str) -> str:
+    token = token.strip().strip("`").strip(" .,;:()")
+    # Defends against inline prose that didn't backtick-quote its keys (a
+    # capability key is never itself whitespace-bearing): keep only the
+    # first whitespace-delimited word.
+    token = re.split(r"\s", token, maxsplit=1)[0]
+    return token.strip(" .,;:()")
+
+
+def _capability_key_tokens(raw_value: str) -> list[str]:
+    if not raw_value or raw_value.strip().lower() in _NO_RESPONSE_VALUES:
+        return []
+    # Trailing explanatory prose in real issues is always parenthetical and
+    # comes after every actual key token (see module docstring's real-world
+    # example) -- truncate there so a backtick-quoted filename/reference
+    # mentioned only in that prose (e.g. "`capability-keys.v1.json`") isn't
+    # mistaken for a capability key.
+    value = raw_value.split("(", 1)[0]
+    spans = _CAPABILITY_KEY_BACKTICK_RE.findall(value)
+    # Backtick-quoted keys are treated as the ground truth when present --
+    # real issues embed explanatory prose outside the backticks (see module
+    # docstring). Otherwise the whole value is a plain comma-separated list
+    # (the clean issue-form rendering).
+    source = spans if spans else [value]
+    tokens: list[str] = []
+    for span in source:
+        for token in span.split(","):
+            cleaned = _clean_capability_key_token(token)
+            if cleaned:
+                tokens.append(cleaned)
+    return tokens
+
+
+def parse_issue_capability_keys(body: str, canonical_keys: set[str]) -> tuple[list[str], list[str]]:
+    """Parses honua-server's advisory 'Capability Key(s)' issue-form field out
+    of an issue body and validates each comma-separated token against the
+    canonical capability vocabulary. Returns (valid_keys, invalid_tokens):
+    valid_keys is de-duplicated and order-preserving; invalid_tokens is every
+    parsed token absent from canonical_keys, for warning/logging -- an
+    unrecognized token here is never fatal, this field is advisory human-
+    authored issue-tracker text, not a producer contract."""
+    raw_value = _capability_keys_field_value(body or "")
+    if raw_value is None:
+        return [], []
+    valid: list[str] = []
+    invalid: list[str] = []
+    seen: set[str] = set()
+    for token in _capability_key_tokens(raw_value):
+        if token in canonical_keys:
+            if token not in seen:
+                valid.append(token)
+                seen.add(token)
+        else:
+            invalid.append(token)
+    return valid, invalid
+
+
+def join_gaps_by_key(
+    by_category: dict[str, list[dict[str, Any]]], canonical_keys: set[str]
+) -> tuple[dict[str, list[dict[str, Any]]], dict[str, list[dict[str, Any]]], list[str]]:
+    """Splits each category's open honua-server issues into a per-capability-
+    KEY join (issues whose advisory 'Capability Key(s)' field parses to at
+    least one canonical key) and a category-level fallback (every other
+    issue in that category: field absent, empty/"_No response_", or every
+    parsed token unrecognized). An issue with a mix of valid and invalid
+    tokens joins only on its valid keys -- it is NOT also added to the
+    category fallback, since it does carry usable per-capability signal.
+    honua-io/honua-evidence#5."""
+    gaps_by_key: dict[str, list[dict[str, Any]]] = {}
+    gaps_by_category: dict[str, list[dict[str, Any]]] = {}
+    warnings: list[str] = []
+    for category, issues in by_category.items():
+        for issue in issues:
+            ref = {"number": issue["number"], "title": issue["title"], "url": issue["url"]}
+            valid_keys, invalid_tokens = parse_issue_capability_keys(issue.get("body") or "", canonical_keys)
+            for token in invalid_tokens:
+                warnings.append(
+                    f"open-issues: {GAPS_REPO}#{issue['number']}: 'Capability Key(s)' field references "
+                    f"unknown capability key {token!r} (not in honua-server's canonical "
+                    "capability-keys.v1.json) -- ignored"
+                )
+            if valid_keys:
+                for key in valid_keys:
+                    gaps_by_key.setdefault(key, []).append(ref)
+            else:
+                gaps_by_category.setdefault(category, []).append(ref)
+    return gaps_by_key, gaps_by_category, warnings
 
 
 def normalize_sdk_capabilities(sdk_name: str, raw: dict[str, Any]) -> dict[str, dict[str, Any]]:
@@ -631,7 +790,21 @@ def build_matrix(*, staleness: dict[str, int]) -> tuple[dict[str, Any], list[str
     live_by_key, live_warnings = join_local_producer(
         "live-canary", live_canary.data or [], canonical_keys, _live_canary_items
     )
-    ingestion_warnings = sorted(set(dr_drills.warnings) | set(live_canary.warnings) | set(dr_warnings) | set(live_warnings))
+
+    # --- known-gaps join (issue #5): per-capability-KEY where an open issue's
+    # advisory 'Capability Key(s)' field parses to a canonical key, with a
+    # category-level fallback for issues that don't carry that signal. An
+    # unrecognized token in the field is a warning, not a drift-gate failure
+    # -- see module docstring. ---
+    gaps_by_key: dict[str, list[dict[str, Any]]] = {}
+    gaps_by_category: dict[str, list[dict[str, Any]]] = {}
+    gap_warnings: list[str] = []
+    if open_issues.ok:
+        gaps_by_key, gaps_by_category, gap_warnings = join_gaps_by_key(open_issues.data, canonical_keys)
+
+    ingestion_warnings = sorted(
+        set(dr_drills.warnings) | set(live_canary.warnings) | set(dr_warnings) | set(live_warnings) | set(gap_warnings)
+    )
 
     capabilities_out = []
     for key in sorted(canonical_keys):
@@ -642,7 +815,9 @@ def build_matrix(*, staleness: dict[str, int]) -> tuple[dict[str, Any], list[str
             sdk_cov = normalized_sdks.get(sdk, {}).get(key)
             sdks_entry[sdk] = sdk_cov if sdk_cov is not None else {"status": "not-covered"}
 
-        gaps = open_issues.data.get(canon["category"], []) if open_issues.ok else []
+        key_gaps = gaps_by_key.get(key, []) if open_issues.ok else []
+        category_gaps = gaps_by_category.get(canon["category"], []) if open_issues.ok else []
+        effective_gaps = key_gaps if key_gaps else category_gaps
 
         capabilities_out.append(
             {
@@ -664,9 +839,16 @@ def build_matrix(*, staleness: dict[str, int]) -> tuple[dict[str, Any], list[str
                 "sdks": sdks_entry,
                 "samples": samples_by_key.get(key, []),
                 "openIssues": {
-                    "count": len(gaps),
-                    "refs": gaps,
-                    "categoryLevel": True,
+                    "count": len(effective_gaps),
+                    "refs": effective_gaps,
+                    # True when 'refs' above fell back to the category-wide
+                    # attachment (no open issue parsed a key-level match for
+                    # this specific capability); False when 'refs' is the
+                    # finer-grained per-key join. 'keyRefs'/'categoryRefs'
+                    # below always carry both, independent of the fallback.
+                    "categoryLevel": not bool(key_gaps),
+                    "keyRefs": key_gaps,
+                    "categoryRefs": category_gaps,
                     "label": f"cap/{category_to_label_slug(canon['category'])}",
                 },
             }
