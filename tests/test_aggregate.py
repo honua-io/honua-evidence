@@ -1,6 +1,7 @@
 """Unit tests for scripts/aggregate.py's cross-repo evidence joins
 (honua-io/honua-evidence#8): CITE freshness, and the two pushed-envelope
-producers (terraform DR drills, live canary / cloud e2e results).
+producers (terraform DR drills, live canary / cloud e2e results); and
+honua-io/honua-evidence#5's per-capability-key known-gaps join.
 
 Run: python3 -m unittest discover -s tests
      (or, if pytest happens to be installed: python3 -m pytest tests)
@@ -331,6 +332,210 @@ class JoinLocalProducerTests(unittest.TestCase):
         by_key, warnings = agg.join_local_producer("live-canary", envelopes, self.CANONICAL, agg._live_canary_items)
         self.assertEqual(by_key, {})
         self.assertTrue(any("valid 'capabilityKeys'" in w for w in warnings))
+
+
+class CapabilityKeysFieldParsingTests(unittest.TestCase):
+    """Parses honua-server's advisory 'Capability Key(s)' issue-form field
+    (honua-io/honua-evidence#5) out of real-shaped issue bodies. Two shapes
+    are covered: the GitHub issue-form rendering (### header + value line)
+    and the free-text inline mention every currently-open cap/*-labeled
+    honua-server issue actually uses in practice."""
+
+    CANONICAL = {
+        "editing.feature-edits",
+        "geocoding.single-line",
+        "serve.wms",
+        "serve.wmts",
+        "ops.observability",
+    }
+
+    def test_form_rendered_single_key(self):
+        body = (
+            "### Problem Summary\n\nSomething broke.\n\n"
+            "### Capability Key(s)\n\ngeocoding.single-line\n\n"
+            "### Affected Repo(s)\n\nhonua-server\n"
+        )
+        valid, invalid = agg.parse_issue_capability_keys(body, self.CANONICAL)
+        self.assertEqual(valid, ["geocoding.single-line"])
+        self.assertEqual(invalid, [])
+
+    def test_form_rendered_multiple_keys_comma_separated(self):
+        body = (
+            "### Capability Key(s)\n\n"
+            "editing.feature-edits,  geocoding.single-line \n\n"
+            "### Affected Repo(s)\n\nhonua-server\n"
+        )
+        valid, invalid = agg.parse_issue_capability_keys(body, self.CANONICAL)
+        self.assertEqual(valid, ["editing.feature-edits", "geocoding.single-line"])
+        self.assertEqual(invalid, [])
+
+    def test_form_rendered_no_response_yields_no_keys(self):
+        body = "### Capability Key(s)\n\n_No response_\n\n### Affected Repo(s)\n\nhonua-server\n"
+        valid, invalid = agg.parse_issue_capability_keys(body, self.CANONICAL)
+        self.assertEqual(valid, [])
+        self.assertEqual(invalid, [])
+
+    def test_tech_debt_variant_label_with_optional_suffix(self):
+        body = "### Capability Key(s) (optional)\n\nserve.wms\n\n### Affected Repos\n\nhonua-server\n"
+        valid, invalid = agg.parse_issue_capability_keys(body, self.CANONICAL)
+        self.assertEqual(valid, ["serve.wms"])
+
+    def test_inline_free_text_single_backtick_quoted_key_with_trailing_prose(self):
+        # This is the shape every real open honua-server cap/*-labeled issue
+        # actually uses: a plain sentence, not the strict form rendering.
+        body = (
+            "### Affected Repos\n\n`honua-io/honua-server` only.\n\n"
+            "Capability key(s): `ops.observability` (no dedicated audit-logging "
+            "capability key exists in `capability-keys.v1.json` today).\n\n"
+            "Related to #2861.\n"
+        )
+        valid, invalid = agg.parse_issue_capability_keys(body, self.CANONICAL)
+        self.assertEqual(valid, ["ops.observability"])
+        self.assertEqual(invalid, [])
+
+    def test_inline_free_text_multiple_backtick_quoted_keys(self):
+        body = (
+            "Capability key(s): `serve.wms`, `serve.wmts` (aggregate — this snapshot "
+            "spans every CITE-gated protocol surface).\n\nRelated to #2861.\n"
+        )
+        valid, invalid = agg.parse_issue_capability_keys(body, self.CANONICAL)
+        self.assertEqual(valid, ["serve.wms", "serve.wmts"])
+        self.assertEqual(invalid, [])
+
+    def test_invalid_key_is_reported_separately_and_not_treated_as_valid(self):
+        body = "### Capability Key(s)\n\nserve.wms, serve.totally-made-up\n\n### Affected Repo(s)\n\nx\n"
+        valid, invalid = agg.parse_issue_capability_keys(body, self.CANONICAL)
+        self.assertEqual(valid, ["serve.wms"])
+        self.assertEqual(invalid, ["serve.totally-made-up"])
+
+    def test_all_invalid_keys_yields_empty_valid_list(self):
+        body = "Capability key(s): `not.a.real.key`.\n"
+        valid, invalid = agg.parse_issue_capability_keys(body, self.CANONICAL)
+        self.assertEqual(valid, [])
+        self.assertEqual(invalid, ["not.a.real.key"])
+
+    def test_field_absent_yields_no_keys_and_no_invalid_tokens(self):
+        body = "### Problem Summary\n\nNo capability field mentioned anywhere here.\n"
+        valid, invalid = agg.parse_issue_capability_keys(body, self.CANONICAL)
+        self.assertEqual(valid, [])
+        self.assertEqual(invalid, [])
+
+    def test_empty_body_yields_no_keys(self):
+        valid, invalid = agg.parse_issue_capability_keys("", self.CANONICAL)
+        self.assertEqual(valid, [])
+        self.assertEqual(invalid, [])
+
+    def test_duplicate_keys_are_deduplicated_preserving_order(self):
+        body = "### Capability Key(s)\n\nserve.wms, serve.wms, serve.wmts\n"
+        valid, invalid = agg.parse_issue_capability_keys(body, self.CANONICAL)
+        self.assertEqual(valid, ["serve.wms", "serve.wmts"])
+
+
+class JoinGapsByKeyTests(unittest.TestCase):
+    """join_gaps_by_key splits open honua-server issues into a per-
+    capability-KEY join and a category-level fallback (honua-io/
+    honua-evidence#5)."""
+
+    CANONICAL = {"serve.wms", "serve.wmts", "geocoding.single-line"}
+
+    def test_issue_with_valid_key_joins_at_key_level_only(self):
+        by_category = {
+            "Serve": [
+                {
+                    "number": 100,
+                    "title": "WMS bug",
+                    "url": "https://example/100",
+                    "body": "### Capability Key(s)\n\nserve.wms\n",
+                }
+            ]
+        }
+        gaps_by_key, gaps_by_category, warnings = agg.join_gaps_by_key(by_category, self.CANONICAL)
+        self.assertEqual(warnings, [])
+        self.assertEqual(len(gaps_by_key["serve.wms"]), 1)
+        self.assertEqual(gaps_by_key["serve.wms"][0]["number"], 100)
+        self.assertEqual(gaps_by_category, {})
+
+    def test_issue_without_key_falls_back_to_category_level(self):
+        by_category = {
+            "Serve": [
+                {"number": 101, "title": "Generic serve issue", "url": "https://example/101", "body": "no field here"}
+            ]
+        }
+        gaps_by_key, gaps_by_category, warnings = agg.join_gaps_by_key(by_category, self.CANONICAL)
+        self.assertEqual(gaps_by_key, {})
+        self.assertEqual(len(gaps_by_category["Serve"]), 1)
+        self.assertEqual(gaps_by_category["Serve"][0]["number"], 101)
+        self.assertEqual(warnings, [])
+
+    def test_issue_with_only_invalid_key_falls_back_to_category_and_warns(self):
+        by_category = {
+            "Serve": [
+                {
+                    "number": 102,
+                    "title": "Typo'd key",
+                    "url": "https://example/102",
+                    "body": "### Capability Key(s)\n\nserve.totally-made-up\n",
+                }
+            ]
+        }
+        gaps_by_key, gaps_by_category, warnings = agg.join_gaps_by_key(by_category, self.CANONICAL)
+        self.assertEqual(gaps_by_key, {})
+        self.assertEqual(len(gaps_by_category["Serve"]), 1)
+        self.assertEqual(len(warnings), 1)
+        self.assertIn("102", warnings[0])
+        self.assertIn("serve.totally-made-up", warnings[0])
+        self.assertIn("unknown capability key", warnings[0])
+
+    def test_issue_referencing_multiple_keys_joins_each_key(self):
+        by_category = {
+            "Serve": [
+                {
+                    "number": 103,
+                    "title": "Cross-protocol gap",
+                    "url": "https://example/103",
+                    "body": "Capability key(s): `serve.wms`, `serve.wmts`.\n",
+                }
+            ]
+        }
+        gaps_by_key, gaps_by_category, warnings = agg.join_gaps_by_key(by_category, self.CANONICAL)
+        self.assertEqual(gaps_by_category, {})
+        self.assertIn("serve.wms", gaps_by_key)
+        self.assertIn("serve.wmts", gaps_by_key)
+        self.assertEqual(gaps_by_key["serve.wms"][0]["number"], 103)
+        self.assertEqual(gaps_by_key["serve.wmts"][0]["number"], 103)
+
+    def test_mixed_categories_and_issues(self):
+        by_category = {
+            "Serve": [
+                {
+                    "number": 104,
+                    "title": "Key-level",
+                    "url": "u4",
+                    "body": "### Capability Key(s)\n\nserve.wms\n",
+                },
+                {"number": 105, "title": "Category-level", "url": "u5", "body": ""},
+            ],
+            "Geocoding": [
+                {
+                    "number": 106,
+                    "title": "Also key-level",
+                    "url": "u6",
+                    "body": "Capability key(s): `geocoding.single-line`.",
+                }
+            ],
+        }
+        gaps_by_key, gaps_by_category, warnings = agg.join_gaps_by_key(by_category, self.CANONICAL)
+        self.assertEqual(warnings, [])
+        self.assertEqual([r["number"] for r in gaps_by_key["serve.wms"]], [104])
+        self.assertEqual([r["number"] for r in gaps_by_key["geocoding.single-line"]], [106])
+        self.assertEqual([r["number"] for r in gaps_by_category["Serve"]], [105])
+        self.assertNotIn("Geocoding", gaps_by_category)
+
+    def test_empty_by_category_yields_empty_everything(self):
+        gaps_by_key, gaps_by_category, warnings = agg.join_gaps_by_key({}, self.CANONICAL)
+        self.assertEqual(gaps_by_key, {})
+        self.assertEqual(gaps_by_category, {})
+        self.assertEqual(warnings, [])
 
 
 class BuildMatrixIngestionWarningsTests(unittest.TestCase):

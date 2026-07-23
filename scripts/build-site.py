@@ -372,21 +372,54 @@ def render_samples_table(cap: dict[str, Any]) -> str:
     )
 
 
-def render_gaps(cap: dict[str, Any]) -> str:
-    issues = cap.get("openIssues", {})
-    refs = issues.get("refs", [])
-    if not refs:
-        return '<p class="none">No open honua-server issues tagged for this capability’s category.</p>'
-    note = (
-        '<p class="note">Gaps are currently attached at the <strong>category</strong> level '
-        f'(<code>{esc(issues.get("label", ""))}</code> label), not the individual capability key '
-        "— finer-grained per-capability mapping is remaining work (honua-io/honua-evidence#5).</p>"
-    )
+def _render_gaps_list(refs: list[dict[str, Any]]) -> str:
     items = "".join(
         f'<li><a href="{esc(ref["url"])}" target="_blank" rel="noopener noreferrer">#{esc(ref["number"])}</a> {esc(ref["title"])}</li>'
         for ref in refs
     )
-    return note + f'<ul class="gaps-list">{items}</ul>'
+    return f'<ul class="gaps-list">{items}</ul>'
+
+
+def render_gaps(cap: dict[str, Any]) -> str:
+    """Prefers issues joined at the individual capability-KEY level (an open
+    issue whose advisory 'Capability Key(s)' field parsed to this key --
+    honua-io/honua-evidence#5); falls back to the coarser category-wide
+    attachment when no open issue in the category carried that per-key
+    signal. When both exist, the category-wide issues are still shown,
+    clearly labeled as broader-than-this-key, rather than hidden."""
+    issues = cap.get("openIssues", {})
+    key_refs = issues.get("keyRefs") or []
+    category_refs = issues.get("categoryRefs") or []
+    if not key_refs and not category_refs:
+        # Backward-compat: a matrix generated before issue #5's key-level
+        # join only carries the flat 'refs' list (always category-level).
+        category_refs = issues.get("refs") or []
+    label = esc(issues.get("label", ""))
+
+    if not key_refs and not category_refs:
+        return '<p class="none">No open honua-server issues tagged for this capability’s category.</p>'
+
+    if key_refs:
+        html_out = (
+            '<p class="note">Gaps below are joined at the <strong>capability-key</strong> level: '
+            f"open honua-server issues whose advisory <code>Capability Key(s)</code> field named "
+            f"<code>{esc(cap['key'])}</code> directly.</p>"
+        ) + _render_gaps_list(key_refs)
+        if category_refs:
+            html_out += (
+                '<p class="note">Additional open issues tagged '
+                f"<code>{label}</code> for this capability’s category, but without a "
+                "capability-key match to this specific capability:</p>"
+            ) + _render_gaps_list(category_refs)
+        return html_out
+
+    note = (
+        '<p class="note">Gaps are attached at the <strong>category</strong> level '
+        f"(<code>{label}</code> label), not the individual capability key — none of the open "
+        "issues in this category parsed a capability key matching this specific capability "
+        "(honua-io/honua-evidence#5).</p>"
+    )
+    return note + _render_gaps_list(category_refs)
 
 
 def render_capability_page(cap: dict[str, Any], matrix: dict[str, Any], generated_at: str) -> str:
