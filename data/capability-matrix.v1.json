@@ -2,7 +2,7 @@
   "schemaVersion": "2.1.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-07-22T16:33:28Z",
+  "generatedAt": "2026-07-23T09:03:59Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -23,61 +23,61 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-07-22T16:33:03Z",
+      "fetchedAt": "2026-07-23T09:03:56Z",
       "sourceVersion": "939f0400ee24@2026-07-22T16:26:59Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-07-22T16:33:04Z",
-      "sourceVersion": "939f0400ee24@2026-07-22T16:26:59Z",
+      "fetchedAt": "2026-07-23T09:03:57Z",
+      "sourceVersion": "afbb2a92d15c@2026-07-22T22:57:05Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-07-22T16:33:04Z",
+      "fetchedAt": "2026-07-23T09:03:57Z",
       "sourceVersion": "ec58b44045b8@2026-07-21T07:22:28Z",
-      "ageDays": 1,
+      "ageDays": 2,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-07-22T16:33:05Z",
+      "fetchedAt": "2026-07-23T09:03:58Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
-      "ageDays": 4,
+      "ageDays": 5,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-07-22T16:33:06Z",
+      "fetchedAt": "2026-07-23T09:03:58Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
-      "ageDays": 4,
+      "ageDays": 5,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-07-22T16:33:08Z",
-      "sourceVersion": "ba1dc82d5b14@2026-07-22T07:44:13Z",
-      "ageDays": 0,
-      "status": "fresh"
+      "fetchedAt": "2026-07-23T09:03:59Z",
+      "sourceVersion": null,
+      "status": "missing",
+      "detail": "fetch failed: HTTP Error 401: Unauthorized"
     },
     "open-issues": {
-      "fetchedAt": "2026-07-22T16:33:28Z",
-      "sourceVersion": "live-query",
-      "ageDays": null,
-      "status": "fresh"
+      "fetchedAt": "2026-07-23T09:03:59Z",
+      "sourceVersion": null,
+      "status": "missing",
+      "detail": "no GitHub token available for issue lookup (set HONUA_EVIDENCE_TOKEN)"
     },
     "cite": {
-      "fetchedAt": "2026-07-22T16:33:09Z",
+      "fetchedAt": "2026-07-23T09:03:59Z",
       "sourceVersion": "6e04241ff154@2026-05-20T00:00:00Z",
-      "ageDays": 63,
+      "ageDays": 64,
       "status": "stale"
     },
     "dr-drills": {
-      "fetchedAt": "2026-07-22T16:33:09Z",
+      "fetchedAt": "2026-07-23T09:03:59Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "no DR drill evidence envelopes found under data/producers/dr-drills/ (none pushed yet)"
     },
     "live-canary": {
-      "fetchedAt": "2026-07-22T16:33:09Z",
+      "fetchedAt": "2026-07-23T09:03:59Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "no live-canary evidence envelopes found under data/producers/live-canary/ (none pushed yet)"
@@ -91,7 +91,7 @@
       "category": "ControlPlane",
       "edition": "Community",
       "entryCount": 364,
-      "provingTestCount": 945,
+      "provingTestCount": 947,
       "maturity": {
         "implemented": 364
       },
@@ -135,19 +135,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 346,
-            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
-            "url": "https://github.com/honua-io/honua-server/issues/346"
-          },
-          {
-            "number": 2898,
-            "title": "feat(profiles): deployment-profile export from capability selection (?caps= \u2192 config/Helm values + edition derivation)",
-            "url": "https://github.com/honua-io/honua-server/issues/2898"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/control-plane"
       }
@@ -667,24 +656,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 3,
-        "refs": [
-          {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/analytics"
       }
@@ -720,24 +693,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 3,
-        "refs": [
-          {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/analytics"
       }
@@ -773,24 +730,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 3,
-        "refs": [
-          {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/analytics"
       }
@@ -801,7 +742,7 @@
       "category": "Analytics",
       "edition": "Pro",
       "entryCount": 1,
-      "provingTestCount": 8,
+      "provingTestCount": 10,
       "maturity": {
         "implemented": 1
       },
@@ -826,24 +767,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 3,
-        "refs": [
-          {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/analytics"
       }
@@ -854,7 +779,7 @@
       "category": "Analytics",
       "edition": "Pro",
       "entryCount": 1,
-      "provingTestCount": 5,
+      "provingTestCount": 7,
       "maturity": {
         "implemented": 1
       },
@@ -879,24 +804,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 3,
-        "refs": [
-          {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/analytics"
       }
@@ -907,7 +816,7 @@
       "category": "Analytics",
       "edition": "Community",
       "entryCount": 2,
-      "provingTestCount": 3,
+      "provingTestCount": 6,
       "maturity": {
         "implemented": 2
       },
@@ -938,24 +847,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 3,
-        "refs": [
-          {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/analytics"
       }
@@ -991,24 +884,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 3,
-        "refs": [
-          {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/analytics"
       }
@@ -1044,24 +921,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 3,
-        "refs": [
-          {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/analytics"
       }
@@ -1069,6 +930,43 @@
     {
       "key": "analytics.sun-shadow",
       "displayName": "Sun/Shadow Analysis",
+      "category": "Analytics",
+      "edition": "Pro",
+      "entryCount": 1,
+      "provingTestCount": 5,
+      "maturity": {
+        "implemented": 1
+      },
+      "noSurface": null,
+      "cite": [],
+      "parity": [],
+      "esriAssess": [],
+      "interop": [],
+      "geobench": [],
+      "dr": [],
+      "liveCanary": [],
+      "sdks": {
+        "js": {
+          "status": "not-covered"
+        },
+        "dotnet": {
+          "status": "not-covered"
+        },
+        "python": {
+          "status": "not-covered"
+        }
+      },
+      "samples": [],
+      "openIssues": {
+        "count": 0,
+        "refs": [],
+        "categoryLevel": true,
+        "label": "cap/analytics"
+      }
+    },
+    {
+      "key": "analytics.viewshed",
+      "displayName": "Viewshed",
       "category": "Analytics",
       "edition": "Pro",
       "entryCount": 1,
@@ -1097,77 +995,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 3,
-        "refs": [
-          {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          }
-        ],
-        "categoryLevel": true,
-        "label": "cap/analytics"
-      }
-    },
-    {
-      "key": "analytics.viewshed",
-      "displayName": "Viewshed",
-      "category": "Analytics",
-      "edition": "Pro",
-      "entryCount": 1,
-      "provingTestCount": 3,
-      "maturity": {
-        "implemented": 1
-      },
-      "noSurface": null,
-      "cite": [],
-      "parity": [],
-      "esriAssess": [],
-      "interop": [],
-      "geobench": [],
-      "dr": [],
-      "liveCanary": [],
-      "sdks": {
-        "js": {
-          "status": "not-covered"
-        },
-        "dotnet": {
-          "status": "not-covered"
-        },
-        "python": {
-          "status": "not-covered"
-        }
-      },
-      "samples": [],
-      "openIssues": {
-        "count": 3,
-        "refs": [
-          {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/analytics"
       }
@@ -1582,29 +1411,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
-        "refs": [
-          {
-            "number": 971,
-            "title": "Collaborative map session transport: presence, cursors, and follow state",
-            "url": "https://github.com/honua-io/honua-server/issues/971"
-          },
-          {
-            "number": 1278,
-            "title": "Studio Map multiplayer collaboration API: presence + live cursors + collaborative markup + feature-pinned comments + activity feed",
-            "url": "https://github.com/honua-io/honua-server/issues/1278"
-          },
-          {
-            "number": 2443,
-            "title": "Collaborative web map editor + annotations/comments",
-            "url": "https://github.com/honua-io/honua-server/issues/2443"
-          },
-          {
-            "number": 2444,
-            "title": "Instant share + embed (public map links)",
-            "url": "https://github.com/honua-io/honua-server/issues/2444"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/collaboration"
       }
@@ -1640,24 +1448,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 3,
-        "refs": [
-          {
-            "number": 2310,
-            "title": "Demo-capability program: Demo A/B/C + open-data provisioner + sensor handling + live-demo enablement",
-            "url": "https://github.com/honua-io/honua-server/issues/2310"
-          },
-          {
-            "number": 2309,
-            "title": "Demo matrix: publish all service types on the demo backend (be ready to demo anything)",
-            "url": "https://github.com/honua-io/honua-server/issues/2309"
-          },
-          {
-            "number": 2308,
-            "title": "Demo: NetCDF + Zarr datacubes served to xarray + ArcGIS Pro + OGC (Maui ocean data)",
-            "url": "https://github.com/honua-io/honua-server/issues/2308"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/demo"
       }
@@ -1712,19 +1504,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 1240,
-            "title": "Epic: ArcGIS Portal/Sharing facade + generateToken/OAuth2 (client repoint unlock)",
-            "url": "https://github.com/honua-io/honua-server/issues/1240"
-          },
-          {
-            "number": 2451,
-            "title": "CSW (Catalog Service for the Web) endpoint",
-            "url": "https://github.com/honua-io/honua-server/issues/2451"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/discovery"
       }
@@ -1930,14 +1711,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 1,
-        "refs": [
-          {
-            "number": 1726,
-            "title": "chore: per-layer generation streams for branch-version posts (scale, deferred)",
-            "url": "https://github.com/honua-io/honua-server/issues/1726"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/editing"
       }
@@ -1999,14 +1774,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 1,
-        "refs": [
-          {
-            "number": 1726,
-            "title": "chore: per-layer generation streams for branch-version posts (scale, deferred)",
-            "url": "https://github.com/honua-io/honua-server/issues/1726"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/editing"
       }
@@ -2047,24 +1816,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 3,
-        "refs": [
-          {
-            "number": 374,
-            "title": "Data enrichment API: spatial join enrichment with demographic, POI, and boundary datasets",
-            "url": "https://github.com/honua-io/honua-server/issues/374"
-          },
-          {
-            "number": 2281,
-            "title": "feat(enrich): bundle open boundary/timezone datasets (Natural Earth) as enrichment sources",
-            "url": "https://github.com/honua-io/honua-server/issues/2281"
-          },
-          {
-            "number": 2283,
-            "title": "feat(enrich): async/batch enrichment job via canonical process/job runtime",
-            "url": "https://github.com/honua-io/honua-server/issues/2283"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/enrichment"
       }
@@ -2110,14 +1863,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 1,
-        "refs": [
-          {
-            "number": 2430,
-            "title": "Promote Offline / disconnected sync to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2430"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/field-ops"
       }
@@ -2170,14 +1917,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 1,
-        "refs": [
-          {
-            "number": 2430,
-            "title": "Promote Offline / disconnected sync to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2430"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/field-ops"
       }
@@ -2218,19 +1959,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 1263,
-            "title": "Epic: geocoding GeocodeServer compat + Esri locator import",
-            "url": "https://github.com/honua-io/honua-server/issues/1263"
-          },
-          {
-            "number": 2152,
-            "title": "Esri .loc/.lox locator import",
-            "url": "https://github.com/honua-io/honua-server/issues/2152"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/geocoding"
       }
@@ -2270,19 +2000,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 1263,
-            "title": "Epic: geocoding GeocodeServer compat + Esri locator import",
-            "url": "https://github.com/honua-io/honua-server/issues/1263"
-          },
-          {
-            "number": 2152,
-            "title": "Esri .loc/.lox locator import",
-            "url": "https://github.com/honua-io/honua-server/issues/2152"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/geocoding"
       }
@@ -2337,31 +2056,10 @@
           ]
         }
       },
-      "samples": [
-        {
-          "id": "geocode-single-line",
-          "title": "Single-line forward geocode (plain REST)",
-          "url": "https://samples.honua.io/geocode-single-line",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "pro"
-        }
-      ],
+      "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 1263,
-            "title": "Epic: geocoding GeocodeServer compat + Esri locator import",
-            "url": "https://github.com/honua-io/honua-server/issues/1263"
-          },
-          {
-            "number": 2152,
-            "title": "Esri .loc/.lox locator import",
-            "url": "https://github.com/honua-io/honua-server/issues/2152"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/geocoding"
       }
@@ -2416,19 +2114,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 1263,
-            "title": "Epic: geocoding GeocodeServer compat + Esri locator import",
-            "url": "https://github.com/honua-io/honua-server/issues/1263"
-          },
-          {
-            "number": 2152,
-            "title": "Esri .loc/.lox locator import",
-            "url": "https://github.com/honua-io/honua-server/issues/2152"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/geocoding"
       }
@@ -2468,34 +2155,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
-        "refs": [
-          {
-            "number": 346,
-            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
-            "url": "https://github.com/honua-io/honua-server/issues/346"
-          },
-          {
-            "number": 1240,
-            "title": "Epic: ArcGIS Portal/Sharing facade + generateToken/OAuth2 (client repoint unlock)",
-            "url": "https://github.com/honua-io/honua-server/issues/1240"
-          },
-          {
-            "number": 1273,
-            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
-            "url": "https://github.com/honua-io/honua-server/issues/1273"
-          },
-          {
-            "number": 1275,
-            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
-            "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 1372,
-            "title": "Portal facade conformance: extend arcgis-stub interop lane + licensed ArcGIS Pro/Field Maps evidence (#1096) for #1240",
-            "url": "https://github.com/honua-io/honua-server/issues/1372"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/identity"
       }
@@ -2506,9 +2167,9 @@
       "category": "Identity",
       "edition": "Enterprise",
       "entryCount": 13,
-      "provingTestCount": 23,
+      "provingTestCount": 24,
       "maturity": {
-        "implemented": 13
+        "experimental": 13
       },
       "noSurface": null,
       "cite": [],
@@ -2531,34 +2192,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
-        "refs": [
-          {
-            "number": 346,
-            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
-            "url": "https://github.com/honua-io/honua-server/issues/346"
-          },
-          {
-            "number": 1240,
-            "title": "Epic: ArcGIS Portal/Sharing facade + generateToken/OAuth2 (client repoint unlock)",
-            "url": "https://github.com/honua-io/honua-server/issues/1240"
-          },
-          {
-            "number": 1273,
-            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
-            "url": "https://github.com/honua-io/honua-server/issues/1273"
-          },
-          {
-            "number": 1275,
-            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
-            "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 1372,
-            "title": "Portal facade conformance: extend arcgis-stub interop lane + licensed ArcGIS Pro/Field Maps evidence (#1096) for #1240",
-            "url": "https://github.com/honua-io/honua-server/issues/1372"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/identity"
       }
@@ -2569,7 +2204,7 @@
       "category": "Identity",
       "edition": "Pro",
       "entryCount": 6,
-      "provingTestCount": 7,
+      "provingTestCount": 13,
       "maturity": {
         "implemented": 6
       },
@@ -2609,34 +2244,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
-        "refs": [
-          {
-            "number": 346,
-            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
-            "url": "https://github.com/honua-io/honua-server/issues/346"
-          },
-          {
-            "number": 1240,
-            "title": "Epic: ArcGIS Portal/Sharing facade + generateToken/OAuth2 (client repoint unlock)",
-            "url": "https://github.com/honua-io/honua-server/issues/1240"
-          },
-          {
-            "number": 1273,
-            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
-            "url": "https://github.com/honua-io/honua-server/issues/1273"
-          },
-          {
-            "number": 1275,
-            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
-            "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 1372,
-            "title": "Portal facade conformance: extend arcgis-stub interop lane + licensed ArcGIS Pro/Field Maps evidence (#1096) for #1240",
-            "url": "https://github.com/honua-io/honua-server/issues/1372"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/identity"
       }
@@ -2681,34 +2290,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
-        "refs": [
-          {
-            "number": 346,
-            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
-            "url": "https://github.com/honua-io/honua-server/issues/346"
-          },
-          {
-            "number": 1240,
-            "title": "Epic: ArcGIS Portal/Sharing facade + generateToken/OAuth2 (client repoint unlock)",
-            "url": "https://github.com/honua-io/honua-server/issues/1240"
-          },
-          {
-            "number": 1273,
-            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
-            "url": "https://github.com/honua-io/honua-server/issues/1273"
-          },
-          {
-            "number": 1275,
-            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
-            "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 1372,
-            "title": "Portal facade conformance: extend arcgis-stub interop lane + licensed ArcGIS Pro/Field Maps evidence (#1096) for #1240",
-            "url": "https://github.com/honua-io/honua-server/issues/1372"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/identity"
       }
@@ -2765,34 +2348,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
-        "refs": [
-          {
-            "number": 346,
-            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
-            "url": "https://github.com/honua-io/honua-server/issues/346"
-          },
-          {
-            "number": 1240,
-            "title": "Epic: ArcGIS Portal/Sharing facade + generateToken/OAuth2 (client repoint unlock)",
-            "url": "https://github.com/honua-io/honua-server/issues/1240"
-          },
-          {
-            "number": 1273,
-            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
-            "url": "https://github.com/honua-io/honua-server/issues/1273"
-          },
-          {
-            "number": 1275,
-            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
-            "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 1372,
-            "title": "Portal facade conformance: extend arcgis-stub interop lane + licensed ArcGIS Pro/Field Maps evidence (#1096) for #1240",
-            "url": "https://github.com/honua-io/honua-server/issues/1372"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/identity"
       }
@@ -2840,34 +2397,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
-        "refs": [
-          {
-            "number": 346,
-            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
-            "url": "https://github.com/honua-io/honua-server/issues/346"
-          },
-          {
-            "number": 1240,
-            "title": "Epic: ArcGIS Portal/Sharing facade + generateToken/OAuth2 (client repoint unlock)",
-            "url": "https://github.com/honua-io/honua-server/issues/1240"
-          },
-          {
-            "number": 1273,
-            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
-            "url": "https://github.com/honua-io/honua-server/issues/1273"
-          },
-          {
-            "number": 1275,
-            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
-            "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 1372,
-            "title": "Portal facade conformance: extend arcgis-stub interop lane + licensed ArcGIS Pro/Field Maps evidence (#1096) for #1240",
-            "url": "https://github.com/honua-io/honua-server/issues/1372"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/identity"
       }
@@ -2903,34 +2434,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
-        "refs": [
-          {
-            "number": 346,
-            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
-            "url": "https://github.com/honua-io/honua-server/issues/346"
-          },
-          {
-            "number": 1240,
-            "title": "Epic: ArcGIS Portal/Sharing facade + generateToken/OAuth2 (client repoint unlock)",
-            "url": "https://github.com/honua-io/honua-server/issues/1240"
-          },
-          {
-            "number": 1273,
-            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
-            "url": "https://github.com/honua-io/honua-server/issues/1273"
-          },
-          {
-            "number": 1275,
-            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
-            "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 1372,
-            "title": "Portal facade conformance: extend arcgis-stub interop lane + licensed ArcGIS Pro/Field Maps evidence (#1096) for #1240",
-            "url": "https://github.com/honua-io/honua-server/issues/1372"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/identity"
       }
@@ -2966,34 +2471,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
-        "refs": [
-          {
-            "number": 346,
-            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
-            "url": "https://github.com/honua-io/honua-server/issues/346"
-          },
-          {
-            "number": 1240,
-            "title": "Epic: ArcGIS Portal/Sharing facade + generateToken/OAuth2 (client repoint unlock)",
-            "url": "https://github.com/honua-io/honua-server/issues/1240"
-          },
-          {
-            "number": 1273,
-            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
-            "url": "https://github.com/honua-io/honua-server/issues/1273"
-          },
-          {
-            "number": 1275,
-            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
-            "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 1372,
-            "title": "Portal facade conformance: extend arcgis-stub interop lane + licensed ArcGIS Pro/Field Maps evidence (#1096) for #1240",
-            "url": "https://github.com/honua-io/honua-server/issues/1372"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/identity"
       }
@@ -3027,131 +2506,10 @@
           "status": "not-covered"
         }
       },
-      "samples": [
-        {
-          "id": "browser-featureserver-query",
-          "title": "Hello FeatureServer (headless browser, plain fetch+DOM)",
-          "url": "https://samples.honua.io/browser-featureserver-query",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-07-22T07:44:04.651Z"
-          }
-        },
-        {
-          "id": "hello-featureserver-rest",
-          "title": "Hello FeatureServer (plain REST)",
-          "url": "https://samples.honua.io/hello-featureserver-rest",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-07-22T07:44:04.651Z"
-          }
-        },
-        {
-          "id": "odata-query-rest",
-          "title": "OData v4 filtered query (plain REST)",
-          "url": "https://samples.honua.io/odata-query-rest",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-07-22T07:44:04.651Z"
-          }
-        },
-        {
-          "id": "ogc-features-python",
-          "title": "OGC API Features walkthrough (Python)",
-          "url": "https://samples.honua.io/ogc-features-python",
-          "sdks": [
-            "python"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-07-22T07:44:04.651Z"
-          }
-        },
-        {
-          "id": "stac-search-rest",
-          "title": "STAC catalog + item geometry (plain REST)",
-          "url": "https://samples.honua.io/stac-search-rest",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-07-22T07:44:04.651Z"
-          }
-        },
-        {
-          "id": "wms-getmap-check",
-          "title": "WMS GetCapabilities + GetMap check (bash + curl)",
-          "url": "https://samples.honua.io/wms-getmap-check",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-07-22T07:44:04.651Z"
-          }
-        }
-      ],
+      "samples": [],
       "openIssues": {
-        "count": 7,
-        "refs": [
-          {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
-            "number": 1716,
-            "title": "test: live Amazon Redshift integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1716"
-          },
-          {
-            "number": 1717,
-            "title": "test: live Snowflake integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1717"
-          },
-          {
-            "number": 1718,
-            "title": "test: live Databricks integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1718"
-          },
-          {
-            "number": 2436,
-            "title": "Promote experimental data-warehouse providers (Redshift / Snowflake / Databricks) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2436"
-          },
-          {
-            "number": 2445,
-            "title": "Drag-and-drop data upload \u2192 instant styled map",
-            "url": "https://github.com/honua-io/honua-server/issues/2445"
-          },
-          {
-            "number": 2452,
-            "title": "BigQuery feature-store provider",
-            "url": "https://github.com/honua-io/honua-server/issues/2452"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/import"
       }
@@ -3192,44 +2550,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
-        "refs": [
-          {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
-            "number": 1716,
-            "title": "test: live Amazon Redshift integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1716"
-          },
-          {
-            "number": 1717,
-            "title": "test: live Snowflake integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1717"
-          },
-          {
-            "number": 1718,
-            "title": "test: live Databricks integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1718"
-          },
-          {
-            "number": 2436,
-            "title": "Promote experimental data-warehouse providers (Redshift / Snowflake / Databricks) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2436"
-          },
-          {
-            "number": 2445,
-            "title": "Drag-and-drop data upload \u2192 instant styled map",
-            "url": "https://github.com/honua-io/honua-server/issues/2445"
-          },
-          {
-            "number": 2452,
-            "title": "BigQuery feature-store provider",
-            "url": "https://github.com/honua-io/honua-server/issues/2452"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/import"
       }
@@ -3270,44 +2592,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
-        "refs": [
-          {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
-            "number": 1716,
-            "title": "test: live Amazon Redshift integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1716"
-          },
-          {
-            "number": 1717,
-            "title": "test: live Snowflake integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1717"
-          },
-          {
-            "number": 1718,
-            "title": "test: live Databricks integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1718"
-          },
-          {
-            "number": 2436,
-            "title": "Promote experimental data-warehouse providers (Redshift / Snowflake / Databricks) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2436"
-          },
-          {
-            "number": 2445,
-            "title": "Drag-and-drop data upload \u2192 instant styled map",
-            "url": "https://github.com/honua-io/honua-server/issues/2445"
-          },
-          {
-            "number": 2452,
-            "title": "BigQuery feature-store provider",
-            "url": "https://github.com/honua-io/honua-server/issues/2452"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/import"
       }
@@ -3454,14 +2740,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 1,
-        "refs": [
-          {
-            "number": 1562,
-            "title": "Plugin/extension SDK \u2014 phase 2: computed fields, custom endpoints, background services, manifest/security hardening",
-            "url": "https://github.com/honua-io/honua-server/issues/1562"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/extensibility"
       }
@@ -3597,34 +2877,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
-        "refs": [
-          {
-            "number": 1259,
-            "title": "Epic: port Esri geoprocessing (GP) services to Honua",
-            "url": "https://github.com/honua-io/honua-server/issues/1259"
-          },
-          {
-            "number": 2145,
-            "title": "arcpy / toolbox (.tbx/.pyt) translation lane",
-            "url": "https://github.com/honua-io/honua-server/issues/2145"
-          },
-          {
-            "number": 2241,
-            "title": "Imagery/ML GP lane via cloud-native inference delegation (SageMaker/Vertex/Azure ML/ONNX)",
-            "url": "https://github.com/honua-io/honua-server/issues/2241"
-          },
-          {
-            "number": 2283,
-            "title": "feat(enrich): async/batch enrichment job via canonical process/job runtime",
-            "url": "https://github.com/honua-io/honua-server/issues/2283"
-          },
-          {
-            "number": 2438,
-            "title": "Raster function chains + deep-learning inference serving",
-            "url": "https://github.com/honua-io/honua-server/issues/2438"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/process"
       }
@@ -3669,34 +2923,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
-        "refs": [
-          {
-            "number": 1259,
-            "title": "Epic: port Esri geoprocessing (GP) services to Honua",
-            "url": "https://github.com/honua-io/honua-server/issues/1259"
-          },
-          {
-            "number": 2145,
-            "title": "arcpy / toolbox (.tbx/.pyt) translation lane",
-            "url": "https://github.com/honua-io/honua-server/issues/2145"
-          },
-          {
-            "number": 2241,
-            "title": "Imagery/ML GP lane via cloud-native inference delegation (SageMaker/Vertex/Azure ML/ONNX)",
-            "url": "https://github.com/honua-io/honua-server/issues/2241"
-          },
-          {
-            "number": 2283,
-            "title": "feat(enrich): async/batch enrichment job via canonical process/job runtime",
-            "url": "https://github.com/honua-io/honua-server/issues/2283"
-          },
-          {
-            "number": 2438,
-            "title": "Raster function chains + deep-learning inference serving",
-            "url": "https://github.com/honua-io/honua-server/issues/2438"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/process"
       }
@@ -3743,29 +2971,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
-        "refs": [
-          {
-            "number": 2308,
-            "title": "Demo: NetCDF + Zarr datacubes served to xarray + ArcGIS Pro + OGC (Maui ocean data)",
-            "url": "https://github.com/honua-io/honua-server/issues/2308"
-          },
-          {
-            "number": 2241,
-            "title": "Imagery/ML GP lane via cloud-native inference delegation (SageMaker/Vertex/Azure ML/ONNX)",
-            "url": "https://github.com/honua-io/honua-server/issues/2241"
-          },
-          {
-            "number": 2438,
-            "title": "Raster function chains + deep-learning inference serving",
-            "url": "https://github.com/honua-io/honua-server/issues/2438"
-          },
-          {
-            "number": 2442,
-            "title": "Point cloud + photogrammetry serving (LAS/LAZ, 3D mesh, orthomosaic)",
-            "url": "https://github.com/honua-io/honua-server/issues/2442"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/raster"
       }
@@ -3805,29 +3012,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
-        "refs": [
-          {
-            "number": 2308,
-            "title": "Demo: NetCDF + Zarr datacubes served to xarray + ArcGIS Pro + OGC (Maui ocean data)",
-            "url": "https://github.com/honua-io/honua-server/issues/2308"
-          },
-          {
-            "number": 2241,
-            "title": "Imagery/ML GP lane via cloud-native inference delegation (SageMaker/Vertex/Azure ML/ONNX)",
-            "url": "https://github.com/honua-io/honua-server/issues/2241"
-          },
-          {
-            "number": 2438,
-            "title": "Raster function chains + deep-learning inference serving",
-            "url": "https://github.com/honua-io/honua-server/issues/2438"
-          },
-          {
-            "number": 2442,
-            "title": "Point cloud + photogrammetry serving (LAS/LAZ, 3D mesh, orthomosaic)",
-            "url": "https://github.com/honua-io/honua-server/issues/2442"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/raster"
       }
@@ -3868,29 +3054,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
-        "refs": [
-          {
-            "number": 2308,
-            "title": "Demo: NetCDF + Zarr datacubes served to xarray + ArcGIS Pro + OGC (Maui ocean data)",
-            "url": "https://github.com/honua-io/honua-server/issues/2308"
-          },
-          {
-            "number": 2241,
-            "title": "Imagery/ML GP lane via cloud-native inference delegation (SageMaker/Vertex/Azure ML/ONNX)",
-            "url": "https://github.com/honua-io/honua-server/issues/2241"
-          },
-          {
-            "number": 2438,
-            "title": "Raster function chains + deep-learning inference serving",
-            "url": "https://github.com/honua-io/honua-server/issues/2438"
-          },
-          {
-            "number": 2442,
-            "title": "Point cloud + photogrammetry serving (LAS/LAZ, 3D mesh, orthomosaic)",
-            "url": "https://github.com/honua-io/honua-server/issues/2442"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/raster"
       }
@@ -3937,29 +3102,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
-        "refs": [
-          {
-            "number": 2308,
-            "title": "Demo: NetCDF + Zarr datacubes served to xarray + ArcGIS Pro + OGC (Maui ocean data)",
-            "url": "https://github.com/honua-io/honua-server/issues/2308"
-          },
-          {
-            "number": 2241,
-            "title": "Imagery/ML GP lane via cloud-native inference delegation (SageMaker/Vertex/Azure ML/ONNX)",
-            "url": "https://github.com/honua-io/honua-server/issues/2241"
-          },
-          {
-            "number": 2438,
-            "title": "Raster function chains + deep-learning inference serving",
-            "url": "https://github.com/honua-io/honua-server/issues/2438"
-          },
-          {
-            "number": 2442,
-            "title": "Point cloud + photogrammetry serving (LAS/LAZ, 3D mesh, orthomosaic)",
-            "url": "https://github.com/honua-io/honua-server/issues/2442"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/raster"
       }
@@ -3995,29 +3139,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
-        "refs": [
-          {
-            "number": 2308,
-            "title": "Demo: NetCDF + Zarr datacubes served to xarray + ArcGIS Pro + OGC (Maui ocean data)",
-            "url": "https://github.com/honua-io/honua-server/issues/2308"
-          },
-          {
-            "number": 2241,
-            "title": "Imagery/ML GP lane via cloud-native inference delegation (SageMaker/Vertex/Azure ML/ONNX)",
-            "url": "https://github.com/honua-io/honua-server/issues/2241"
-          },
-          {
-            "number": 2438,
-            "title": "Raster function chains + deep-learning inference serving",
-            "url": "https://github.com/honua-io/honua-server/issues/2438"
-          },
-          {
-            "number": 2442,
-            "title": "Point cloud + photogrammetry serving (LAS/LAZ, 3D mesh, orthomosaic)",
-            "url": "https://github.com/honua-io/honua-server/issues/2442"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/raster"
       }
@@ -4074,14 +3197,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 1,
-        "refs": [
-          {
-            "number": 2447,
-            "title": "Directions + isochrone API with turn-by-turn",
-            "url": "https://github.com/honua-io/honua-server/issues/2447"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/routing"
       }
@@ -4117,14 +3234,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 1,
-        "refs": [
-          {
-            "number": 2442,
-            "title": "Point cloud + photogrammetry serving (LAS/LAZ, 3D mesh, orthomosaic)",
-            "url": "https://github.com/honua-io/honua-server/issues/2442"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/scene"
       }
@@ -4169,14 +3280,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 1,
-        "refs": [
-          {
-            "number": 2442,
-            "title": "Point cloud + photogrammetry serving (LAS/LAZ, 3D mesh, orthomosaic)",
-            "url": "https://github.com/honua-io/honua-server/issues/2442"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/scene"
       }
@@ -4212,14 +3317,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 1,
-        "refs": [
-          {
-            "number": 2442,
-            "title": "Point cloud + photogrammetry serving (LAS/LAZ, 3D mesh, orthomosaic)",
-            "url": "https://github.com/honua-io/honua-server/issues/2442"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/scene"
       }
@@ -4267,19 +3366,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2434,
-            "title": "Promote SensorThings (OGC STA) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2434"
-          },
-          {
-            "number": 2435,
-            "title": "Promote Federated Query (cross-source) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2435"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/serve"
       }
@@ -4325,19 +3413,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2434,
-            "title": "Promote SensorThings (OGC STA) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2434"
-          },
-          {
-            "number": 2435,
-            "title": "Promote Federated Query (cross-source) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2435"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/serve"
       }
@@ -4427,50 +3504,10 @@
           ]
         }
       },
-      "samples": [
-        {
-          "id": "browser-featureserver-query",
-          "title": "Hello FeatureServer (headless browser, plain fetch+DOM)",
-          "url": "https://samples.honua.io/browser-featureserver-query",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-07-22T07:44:04.651Z"
-          }
-        },
-        {
-          "id": "hello-featureserver-rest",
-          "title": "Hello FeatureServer (plain REST)",
-          "url": "https://samples.honua.io/hello-featureserver-rest",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-07-22T07:44:04.651Z"
-          }
-        }
-      ],
+      "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2434,
-            "title": "Promote SensorThings (OGC STA) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2434"
-          },
-          {
-            "number": 2435,
-            "title": "Promote Federated Query (cross-source) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2435"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/serve"
       }
@@ -4516,19 +3553,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2434,
-            "title": "Promote SensorThings (OGC STA) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2434"
-          },
-          {
-            "number": 2435,
-            "title": "Promote Federated Query (cross-source) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2435"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/serve"
       }
@@ -4588,19 +3614,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2434,
-            "title": "Promote SensorThings (OGC STA) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2434"
-          },
-          {
-            "number": 2435,
-            "title": "Promote Federated Query (cross-source) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2435"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/serve"
       }
@@ -4668,19 +3683,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2434,
-            "title": "Promote SensorThings (OGC STA) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2434"
-          },
-          {
-            "number": 2435,
-            "title": "Promote Federated Query (cross-source) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2435"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/serve"
       }
@@ -4691,7 +3695,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 45,
-      "provingTestCount": 307,
+      "provingTestCount": 309,
       "maturity": {
         "implemented": 45
       },
@@ -4763,19 +3767,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2434,
-            "title": "Promote SensorThings (OGC STA) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2434"
-          },
-          {
-            "number": 2435,
-            "title": "Promote Federated Query (cross-source) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2435"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/serve"
       }
@@ -4822,19 +3815,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2434,
-            "title": "Promote SensorThings (OGC STA) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2434"
-          },
-          {
-            "number": 2435,
-            "title": "Promote Federated Query (cross-source) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2435"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/serve"
       }
@@ -4878,19 +3860,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2434,
-            "title": "Promote SensorThings (OGC STA) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2434"
-          },
-          {
-            "number": 2435,
-            "title": "Promote Federated Query (cross-source) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2435"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/serve"
       }
@@ -4939,19 +3910,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2434,
-            "title": "Promote SensorThings (OGC STA) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2434"
-          },
-          {
-            "number": 2435,
-            "title": "Promote Federated Query (cross-source) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2435"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/serve"
       }
@@ -4962,7 +3922,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 30,
-      "provingTestCount": 181,
+      "provingTestCount": 182,
       "maturity": {
         "implemented": 30
       },
@@ -5017,36 +3977,10 @@
           "note": "Read/query only (service_document, metadata, layers, features, and pagination helpers). No create/update/delete entity-set operations are implemented, so the write half of 'query and edit features through OData v4' is not covered."
         }
       },
-      "samples": [
-        {
-          "id": "odata-query-rest",
-          "title": "OData v4 filtered query (plain REST)",
-          "url": "https://samples.honua.io/odata-query-rest",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-07-22T07:44:04.651Z"
-          }
-        }
-      ],
+      "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2434,
-            "title": "Promote SensorThings (OGC STA) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2434"
-          },
-          {
-            "number": 2435,
-            "title": "Promote Federated Query (cross-source) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2435"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/serve"
       }
@@ -5087,19 +4021,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2434,
-            "title": "Promote SensorThings (OGC STA) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2434"
-          },
-          {
-            "number": 2435,
-            "title": "Promote Federated Query (cross-source) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2435"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/serve"
       }
@@ -5135,19 +4058,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2434,
-            "title": "Promote SensorThings (OGC STA) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2434"
-          },
-          {
-            "number": 2435,
-            "title": "Promote Federated Query (cross-source) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2435"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/serve"
       }
@@ -5158,7 +4070,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 21,
-      "provingTestCount": 242,
+      "provingTestCount": 246,
       "maturity": {
         "implemented": 21
       },
@@ -5231,36 +4143,10 @@
           ]
         }
       },
-      "samples": [
-        {
-          "id": "ogc-features-python",
-          "title": "OGC API Features walkthrough (Python)",
-          "url": "https://samples.honua.io/ogc-features-python",
-          "sdks": [
-            "python"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-07-22T07:44:04.651Z"
-          }
-        }
-      ],
+      "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2434,
-            "title": "Promote SensorThings (OGC STA) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2434"
-          },
-          {
-            "number": 2435,
-            "title": "Promote Federated Query (cross-source) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2435"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/serve"
       }
@@ -5271,7 +4157,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 10,
-      "provingTestCount": 116,
+      "provingTestCount": 129,
       "maturity": {
         "implemented": 10
       },
@@ -5319,19 +4205,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2434,
-            "title": "Promote SensorThings (OGC STA) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2434"
-          },
-          {
-            "number": 2435,
-            "title": "Promote Federated Query (cross-source) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2435"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/serve"
       }
@@ -5387,19 +4262,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2434,
-            "title": "Promote SensorThings (OGC STA) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2434"
-          },
-          {
-            "number": 2435,
-            "title": "Promote Federated Query (cross-source) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2435"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/serve"
       }
@@ -5410,7 +4274,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 13,
-      "provingTestCount": 61,
+      "provingTestCount": 62,
       "maturity": {
         "implemented": 13
       },
@@ -5462,19 +4326,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2434,
-            "title": "Promote SensorThings (OGC STA) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2434"
-          },
-          {
-            "number": 2435,
-            "title": "Promote Federated Query (cross-source) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2435"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/serve"
       }
@@ -5510,19 +4363,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2434,
-            "title": "Promote SensorThings (OGC STA) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2434"
-          },
-          {
-            "number": 2435,
-            "title": "Promote Federated Query (cross-source) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2435"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/serve"
       }
@@ -5573,36 +4415,10 @@
           ]
         }
       },
-      "samples": [
-        {
-          "id": "stac-search-rest",
-          "title": "STAC catalog + item geometry (plain REST)",
-          "url": "https://samples.honua.io/stac-search-rest",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-07-22T07:44:04.651Z"
-          }
-        }
-      ],
+      "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2434,
-            "title": "Promote SensorThings (OGC STA) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2434"
-          },
-          {
-            "number": 2435,
-            "title": "Promote Federated Query (cross-source) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2435"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/serve"
       }
@@ -5613,7 +4429,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 7,
-      "provingTestCount": 35,
+      "provingTestCount": 37,
       "maturity": {
         "implemented": 7
       },
@@ -5650,19 +4466,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2434,
-            "title": "Promote SensorThings (OGC STA) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2434"
-          },
-          {
-            "number": 2435,
-            "title": "Promote Federated Query (cross-source) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2435"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/serve"
       }
@@ -5708,19 +4513,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2434,
-            "title": "Promote SensorThings (OGC STA) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2434"
-          },
-          {
-            "number": 2435,
-            "title": "Promote Federated Query (cross-source) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2435"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/serve"
       }
@@ -5813,19 +4607,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2434,
-            "title": "Promote SensorThings (OGC STA) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2434"
-          },
-          {
-            "number": 2435,
-            "title": "Promote Federated Query (cross-source) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2435"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/serve"
       }
@@ -5900,36 +4683,10 @@
           ]
         }
       },
-      "samples": [
-        {
-          "id": "wms-getmap-check",
-          "title": "WMS GetCapabilities + GetMap check (bash + curl)",
-          "url": "https://samples.honua.io/wms-getmap-check",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-07-22T07:44:04.651Z"
-          }
-        }
-      ],
+      "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2434,
-            "title": "Promote SensorThings (OGC STA) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2434"
-          },
-          {
-            "number": 2435,
-            "title": "Promote Federated Query (cross-source) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2435"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/serve"
       }
@@ -6003,19 +4760,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2434,
-            "title": "Promote SensorThings (OGC STA) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2434"
-          },
-          {
-            "number": 2435,
-            "title": "Promote Federated Query (cross-source) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2435"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/serve"
       }
@@ -6187,19 +4933,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2440,
-            "title": "Real-time moving-object track fusion (ADS-B / AIS / GPS)",
-            "url": "https://github.com/honua-io/honua-server/issues/2440"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/streaming"
       }
@@ -6235,19 +4970,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2441,
-            "title": "Military symbology rendering (MIL-STD-2525 / APP-6)",
-            "url": "https://github.com/honua-io/honua-server/issues/2441"
-          },
-          {
-            "number": 2445,
-            "title": "Drag-and-drop data upload \u2192 instant styled map",
-            "url": "https://github.com/honua-io/honua-server/issues/2445"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/styling"
       }
@@ -6292,19 +5016,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2441,
-            "title": "Military symbology rendering (MIL-STD-2525 / APP-6)",
-            "url": "https://github.com/honua-io/honua-server/issues/2441"
-          },
-          {
-            "number": 2445,
-            "title": "Drag-and-drop data upload \u2192 instant styled map",
-            "url": "https://github.com/honua-io/honua-server/issues/2445"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/styling"
       }
@@ -6360,19 +5073,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 2441,
-            "title": "Military symbology rendering (MIL-STD-2525 / APP-6)",
-            "url": "https://github.com/honua-io/honua-server/issues/2441"
-          },
-          {
-            "number": 2445,
-            "title": "Drag-and-drop data upload \u2192 instant styled map",
-            "url": "https://github.com/honua-io/honua-server/issues/2445"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "label": "cap/styling"
       }
@@ -6498,7 +5200,7 @@
       "category": "Temporal",
       "edition": "Pro",
       "entryCount": 2,
-      "provingTestCount": 5,
+      "provingTestCount": 7,
       "maturity": {
         "implemented": 2
       },
