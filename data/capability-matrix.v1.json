@@ -2,7 +2,7 @@
   "schemaVersion": "2.2.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-07-25T09:06:31Z",
+  "generatedAt": "2026-07-26T07:47:50Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -23,61 +23,61 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-07-25T09:06:23Z",
+      "fetchedAt": "2026-07-26T07:47:36Z",
       "sourceVersion": "2453a74f08aa@2026-07-24T00:44:08Z",
-      "ageDays": 1,
+      "ageDays": 2,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-07-25T09:06:24Z",
+      "fetchedAt": "2026-07-26T07:47:37Z",
       "sourceVersion": "8dc2824d688a@2026-07-25T09:06:07Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-07-25T09:06:24Z",
+      "fetchedAt": "2026-07-26T07:47:37Z",
       "sourceVersion": "ec58b44045b8@2026-07-21T07:22:28Z",
-      "ageDays": 4,
+      "ageDays": 5,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-07-25T09:06:24Z",
+      "fetchedAt": "2026-07-26T07:47:38Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
-      "ageDays": 7,
+      "ageDays": 8,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-07-25T09:06:24Z",
+      "fetchedAt": "2026-07-26T07:47:39Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
-      "ageDays": 7,
+      "ageDays": 8,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-07-25T09:06:25Z",
-      "sourceVersion": "5a81aa0af920@2026-07-25T07:29:41Z",
+      "fetchedAt": "2026-07-26T07:47:40Z",
+      "sourceVersion": "5a81aa0af920@2026-07-26T07:47:15Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-07-25T09:06:31Z",
+      "fetchedAt": "2026-07-26T07:47:50Z",
       "sourceVersion": "live-query",
       "ageDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-07-25T09:06:25Z",
+      "fetchedAt": "2026-07-26T07:47:40Z",
       "sourceVersion": "78a8102ab717@2026-05-20T00:00:00Z",
-      "ageDays": 66,
+      "ageDays": 67,
       "status": "stale"
     },
     "dr-drills": {
-      "fetchedAt": "2026-07-25T09:06:25Z",
+      "fetchedAt": "2026-07-26T07:47:40Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "no DR drill evidence envelopes found under data/producers/dr-drills/ (none pushed yet)"
     },
     "live-canary": {
-      "fetchedAt": "2026-07-25T09:06:25Z",
+      "fetchedAt": "2026-07-26T07:47:40Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "no live-canary evidence envelopes found under data/producers/live-canary/ (none pushed yet)"
@@ -3660,7 +3660,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-07-25T07:29:35.829Z"
+            "at": "2026-07-26T07:47:07.656Z"
           }
         },
         {
@@ -3674,7 +3674,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-07-25T07:29:35.829Z"
+            "at": "2026-07-26T07:47:07.656Z"
           }
         },
         {
@@ -3688,7 +3688,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-07-25T07:29:35.829Z"
+            "at": "2026-07-26T07:47:07.656Z"
           }
         },
         {
@@ -3702,7 +3702,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-07-25T07:29:35.829Z"
+            "at": "2026-07-26T07:47:07.656Z"
           }
         },
         {
@@ -3716,7 +3716,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-07-25T07:29:35.829Z"
+            "at": "2026-07-26T07:47:07.656Z"
           }
         },
         {
@@ -3730,7 +3730,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-07-25T07:29:35.829Z"
+            "at": "2026-07-26T07:47:07.656Z"
           }
         }
       ],
@@ -5419,7 +5419,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-07-25T07:29:35.829Z"
+            "at": "2026-07-26T07:47:07.656Z"
           }
         },
         {
@@ -5433,7 +5433,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-07-25T07:29:35.829Z"
+            "at": "2026-07-26T07:47:07.656Z"
           }
         }
       ],
@@ -6113,7 +6113,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-07-25T07:29:35.829Z"
+            "at": "2026-07-26T07:47:07.656Z"
           }
         }
       ],
@@ -6366,7 +6366,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-07-25T07:29:35.829Z"
+            "at": "2026-07-26T07:47:07.656Z"
           }
         }
       ],
@@ -6773,7 +6773,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-07-25T07:29:35.829Z"
+            "at": "2026-07-26T07:47:07.656Z"
           }
         }
       ],
@@ -7152,7 +7152,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-07-25T07:29:35.829Z"
+            "at": "2026-07-26T07:47:07.656Z"
           }
         }
       ],
