@@ -44,6 +44,16 @@ jobs:
       - name: Build site
         run: python3 scripts/build-site.py
 
+      # Issue #4's generator, smoke-run against the committed matrix: proves
+      # a real brief and the proof-counts block render cleanly and pass the
+      # buyer-shareable output guard (private-repo names / personal emails
+      # abort generation) on every PR that touches scripts/ or data/.
+      - name: Generate evidence brief (smoke + buyer-shareable guard)
+        run: |
+          python3 scripts/generate-brief.py brief --prospect "CI Smoke Prospect" \
+            --caps serve.ogc-api-features,editing.featureserver-edits --output - > /dev/null
+          python3 scripts/generate-brief.py proof-counts --output - > /dev/null
+
       # Issue #2's acceptance gate, CI-encoded: internal links + fragments,
       # static a11y pass (lang/title/headings/alt/labels/captions), Pages
       # domain files, and the card -> L2 -> raw-artifact receipt walk for the

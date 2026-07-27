@@ -121,6 +121,13 @@ python3 scripts/build-site.py           # render site/ from data/capability-matr
 python3 scripts/validate-site.py        # offline site gate: links, a11y, structure, receipt walk
 python3 scripts/validate-site.py --online  # + HTTP-check the external receipt-walk hops (CI PR gate)
 python3 -m unittest discover -s tests   # unit tests (ingestion, freshness, drift/warning contracts)
+
+# Per-prospect evidence briefs (#4): BUYER-SHAREABLE Markdown from the matrix.
+python3 scripts/generate-brief.py brief --prospect "Acme County" \
+    --caps serve.ogc-api-features,editing.featureserver-edits   # or --caps-url "...?caps=..."
+python3 scripts/generate-brief.py brief --prospect "Acme County" \
+    --caps-file honua-caps.json         # honua-esri-assess --emit honua-caps output
+python3 scripts/generate-brief.py proof-counts --output -   # conformance-counts refresh block
 ```
 
 All scripts are Python 3 standard library only — no `pip install`, no `npm install`. Network
@@ -129,6 +136,34 @@ API); `build-site.py` is offline and only reads the already-aggregated JSON, and
 `validate-site.py` is offline unless given `--online`. The test suite is
 `unittest`-only (no pytest dependency), but is pytest-discoverable too if pytest happens to be
 installed.
+
+## Evidence briefs
+
+`scripts/generate-brief.py` (issue [#4](https://github.com/honua-io/honua-evidence/issues/4))
+turns a capability key list — a comma-separated intake list, a shareable
+`?caps=<keys>[&units=<estimate>]` catalog URL, or a `honua-caps.v1` JSON file
+produced by honua-esri-assess's `--emit honua-caps` estate crosswalk — into a
+per-prospect, BUYER-SHAREABLE Markdown evidence brief rendered offline from
+the committed `data/capability-matrix.v1.json`: front matter with the
+proof-asset classification and matrix version, one card per capability
+(evidence table + link to its L2 page on evidence.honua.io), an edition
+estimate, and the freshness ledger restated in full. Two hard rules, both
+CI-tested:
+
+- **Gaps cannot be removed.** Every card carries its gap disclosures (open
+  issues, uncovered SDK lanes, missing/stale producers) and there is no flag
+  to omit them. Delivery is human-in-the-loop only: the generator writes a
+  file (default `dist/briefs/`, gitignored); a person reviews and sends it.
+- **Buyer-shareable output guard.** This repo is public and briefs leave the
+  building, so the rendered text is scanned for internal-only strings
+  (private repo names, personal email addresses) before anything is written;
+  a hit aborts without writing. Public contact only: info@honua.io
+  (security@honua.io for security questions).
+
+`generate-brief.py proof-counts` emits the marker-delimited protocol-
+conformance counts block (per-suite CITE passed/total plus staleness and
+unjoined-suite disclosures) used to refresh the sales proof-asset package's
+conformance summary per release via a reviewed PR.
 
 ## Status
 
