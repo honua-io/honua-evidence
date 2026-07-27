@@ -39,9 +39,15 @@ publish (scripts/build-site.py, stdlib Python only, zero frameworks)
     freshness.html                   the producer freshness ledger, rendered
     data/capability-matrix.v1.json   the JSON download
 
-  → https://honua-io.github.io/honua-evidence/ (default Pages URL; no custom domain yet --
-    DNS/CNAME is a pending decision, see honua-io/honua-server#2892. All links inside the
-    site are relative so a domain can be added later without a rewrite.)
+  → https://evidence.honua.io/ (custom domain, live -- build-site.py emits the CNAME file;
+    https://honua-io.github.io/honua-evidence/ redirects there via GitHub Pages. All links
+    inside the site are relative, so both hosts serve identically.)
+
+validate (scripts/validate-site.py, stdlib Python only, CI: validate.yml + aggregate.yml)
+  internal links + fragments, static a11y pass (lang/title/headings/img alt/
+  control labels/table captions+scope), CNAME/.nojekyll presence, and the
+  issue-#2 receipt walk: index card -> capabilities/editing-featureserver-edits.html
+  -> raw receipts, with every external hop HTTP-checked in the PR gate (--online)
 ```
 
 ### Producers
@@ -112,12 +118,15 @@ Design rules:
 python3 scripts/aggregate.py            # pull producers, write data/capability-matrix.v1.json
 python3 scripts/aggregate.py --check    # drift/freshness check only, non-zero exit on drift (CI mode)
 python3 scripts/build-site.py           # render site/ from data/capability-matrix.v1.json
+python3 scripts/validate-site.py        # offline site gate: links, a11y, structure, receipt walk
+python3 scripts/validate-site.py --online  # + HTTP-check the external receipt-walk hops (CI PR gate)
 python3 -m unittest discover -s tests   # unit tests (ingestion, freshness, drift/warning contracts)
 ```
 
-Both scripts are Python 3 standard library only — no `pip install`, no `npm install`. Network
+All scripts are Python 3 standard library only — no `pip install`, no `npm install`. Network
 access is required for `aggregate.py` (it pulls from `raw.githubusercontent.com` and the GitHub
-API); `build-site.py` is offline and only reads the already-aggregated JSON. The test suite is
+API); `build-site.py` is offline and only reads the already-aggregated JSON, and
+`validate-site.py` is offline unless given `--online`. The test suite is
 `unittest`-only (no pytest dependency), but is pytest-discoverable too if pytest happens to be
 installed.
 
@@ -125,9 +134,11 @@ installed.
 
 Phase B (honua-io/honua-server#2892) landed the aggregation pipeline, freshness ledger, and the
 core evidence index (issues [#1](https://github.com/honua-io/honua-evidence/issues/1),
-[#3](https://github.com/honua-io/honua-evidence/issues/3), and the core of
-[#2](https://github.com/honua-io/honua-evidence/issues/2)). Remaining scope — richer per-test/
-per-run evidence detail, DNS cutover from honua-site, dispatch senders on producer repos, and
+[#3](https://github.com/honua-io/honua-evidence/issues/3), and
+[#2](https://github.com/honua-io/honua-evidence/issues/2): the evidence index site, live at
+[evidence.honua.io](https://evidence.honua.io/), with its a11y/link/receipt-walk CI gate in
+`scripts/validate-site.py`). Remaining scope — richer per-test/per-run evidence detail,
+the honua-site L2-page redirect decision, dispatch senders on producer repos, and
 full per-capability gaps ingestion — stays open on those issues and on
 [#5](https://github.com/honua-io/honua-evidence/issues/5).
 
