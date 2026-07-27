@@ -77,7 +77,12 @@ def capability_status(cap: dict[str, Any]) -> str:
 
 
 def sdk_status_badge(status: str | None) -> str:
-    return {"covered": "green", "partial": "amber", "not-covered": "gray"}.get(status or "not-covered", "gray")
+    # "producer-missing" = the SDK's coverage snapshot could not be fetched at
+    # all (aggregate.py's explicit no-fabrication marker), distinct from
+    # "not-covered" (snapshot loaded and genuinely omits the key).
+    return {"covered": "green", "partial": "amber", "not-covered": "gray", "producer-missing": "gray"}.get(
+        status or "not-covered", "gray"
+    )
 
 
 PAGE_HEAD = """<!doctype html>
@@ -146,7 +151,11 @@ def render_index(matrix: dict[str, Any]) -> str:
             f'<span class="sdk-chip {sdk_status_badge(cap["sdks"].get(sdk, {}).get("status"))}" title="{esc(sdk)}">{esc(sdk[:2].upper())}</span>'
             for sdk in ("js", "dotnet", "python")
         )
-        sample_count = len(cap.get("samples", []))
+        # samples == null means the samples producer snapshot was unavailable
+        # at aggregation time (coverage unknown) -- render "?" rather than a
+        # fabricated 0 (an empty list, by contrast, IS a real zero).
+        samples_field = cap.get("samples")
+        sample_count = "?" if samples_field is None else len(samples_field)
         gap_count = cap.get("openIssues", {}).get("count", 0)
         rows.append(
             "<tr data-key=\"{key}\" data-category=\"{cat}\" data-edition=\"{ed}\" data-status=\"{status}\">"
@@ -353,6 +362,15 @@ def render_sdk_table(cap: dict[str, Any]) -> str:
 
 def render_samples_table(cap: dict[str, Any]) -> str:
     samples = cap.get("samples", [])
+    if samples is None:
+        # aggregate.py's explicit degradation marker: the samples artifact
+        # could not be fetched this run, so coverage is UNKNOWN -- do not
+        # present it as "no samples exist".
+        return (
+            '<p class="none">Sample coverage unknown: the honua-samples coverage artifact was '
+            'unavailable at the last aggregation run (see the <a href="../freshness.html">producer '
+            "freshness ledger</a>).</p>"
+        )
     if not samples:
         return '<p class="none">No executable sample published for this capability yet.</p>'
     rows = []

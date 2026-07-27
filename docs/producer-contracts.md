@@ -38,6 +38,24 @@ Gate consumers should treat an **absent key** in `freshness` (the producer
 isn't listed at all) as equivalent to `missing`/`blocked` — that was exactly
 honua-release#62's `cite` producer state before this issue landed.
 
+### Per-capability degradation markers (no fabricated evidence)
+
+The ledger is producer-granular; two per-capability fields additionally carry
+their own explicit degradation markers so a missing producer can never be
+mistaken for a real coverage claim:
+
+- `capabilities[*].sdks.<js|dotnet|python>` is `{"status": "producer-missing"}`
+  when that SDK's coverage snapshot could not be fetched at all (e.g.
+  honua-sdk-dotnet before `contracts/sdk-coverage.v1.json` first lands on its
+  trunk). `{"status": "not-covered"}` is reserved for a snapshot that loaded
+  successfully and genuinely does not list the key.
+- `capabilities[*].samples` is `null` when the honua-samples coverage artifact
+  was unavailable this run (coverage unknown); `[]` means the artifact was
+  fetched and lists no sample for the key.
+
+A **stale**-but-readable snapshot keeps its real data in the capability rows
+and is flagged only in the ledger — old evidence is still evidence.
+
 ## CITE freshness (`cite`)
 
 Ingested from honua-server's hand-maintained
