@@ -72,6 +72,13 @@ jobs:
       - name: Build site
         run: python3 scripts/build-site.py
 
+      # Offline gate only (structure, internal links, a11y, receipt-walk
+      # shape): a third-party outage must not block the daily deploy. The
+      # PR gate (validate.yml) runs the same validator with --online, which
+      # HTTP-checks every external receipt hop.
+      - name: Validate site before deploy
+        run: python3 scripts/validate-site.py
+
       - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0
         with:
           path: site
