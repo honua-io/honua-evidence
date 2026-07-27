@@ -2,7 +2,7 @@
   "schemaVersion": "2.2.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-07-27T02:32:10Z",
+  "generatedAt": "2026-07-27T03:56:29Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -23,61 +23,61 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-07-27T02:32:02Z",
+      "fetchedAt": "2026-07-27T03:56:15Z",
       "sourceVersion": "2453a74f08aa@2026-07-24T00:44:08Z",
       "ageDays": 3,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-07-27T02:32:02Z",
+      "fetchedAt": "2026-07-27T03:56:15Z",
       "sourceVersion": "1b2014e9739c@2026-07-27T02:31:41Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-07-27T02:32:02Z",
-      "sourceVersion": "ec58b44045b8@2026-07-21T07:22:28Z",
-      "ageDays": 5,
+      "fetchedAt": "2026-07-27T03:56:16Z",
+      "sourceVersion": "ff64e26c3e30@2026-07-27T03:55:54Z",
+      "ageDays": 0,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-07-27T02:32:03Z",
+      "fetchedAt": "2026-07-27T03:56:17Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "ageDays": 9,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-07-27T02:32:03Z",
+      "fetchedAt": "2026-07-27T03:56:17Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "ageDays": 9,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-07-27T02:32:04Z",
+      "fetchedAt": "2026-07-27T03:56:18Z",
       "sourceVersion": "5a81aa0af920@2026-07-26T07:47:15Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-07-27T02:32:10Z",
+      "fetchedAt": "2026-07-27T03:56:29Z",
       "sourceVersion": "live-query",
       "ageDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-07-27T02:32:04Z",
+      "fetchedAt": "2026-07-27T03:56:19Z",
       "sourceVersion": "78a8102ab717@2026-05-20T00:00:00Z",
       "ageDays": 68,
       "status": "stale"
     },
     "dr-drills": {
-      "fetchedAt": "2026-07-27T02:32:04Z",
+      "fetchedAt": "2026-07-27T03:56:19Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "no DR drill evidence envelopes found under data/producers/dr-drills/ (none pushed yet)"
     },
     "live-canary": {
-      "fetchedAt": "2026-07-27T02:32:04Z",
+      "fetchedAt": "2026-07-27T03:56:19Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "no live-canary evidence envelopes found under data/producers/live-canary/ (none pushed yet)"
@@ -2277,6 +2277,7 @@
           ],
           "evidence": [
             "scripts/first-map-live-evidence.mjs",
+            "scripts/live-conformance-evidence.mjs",
             "test/connect.test.ts",
             "test/contract/conformance.test.ts",
             "test/contract/geoservices-conformance.test.ts",
@@ -5384,6 +5385,7 @@
           ],
           "evidence": [
             "scripts/first-map-live-evidence.mjs",
+            "scripts/live-conformance-evidence.mjs",
             "test/connect.test.ts",
             "test/contract/conformance.test.ts",
             "test/contract/geoservices-conformance.test.ts",
@@ -6085,6 +6087,7 @@
             "connect()"
           ],
           "evidence": [
+            "scripts/live-conformance-evidence.mjs",
             "test/contract/odata-backend-agnostic.test.ts"
           ]
         },
@@ -6331,6 +6334,7 @@
             "connect()"
           ],
           "evidence": [
+            "scripts/live-conformance-evidence.mjs",
             "test/contract/ogc-features-backend-agnostic.test.ts"
           ]
         },
@@ -6742,6 +6746,7 @@
             "connect()"
           ],
           "evidence": [
+            "scripts/live-conformance-evidence.mjs",
             "test/contract/stac-backend-agnostic.test.ts"
           ]
         },
@@ -7018,6 +7023,7 @@
             "connect()"
           ],
           "evidence": [
+            "scripts/live-conformance-evidence.mjs",
             "test/contract/wfs-backend-agnostic.test.ts"
           ]
         },
@@ -7124,6 +7130,7 @@
             "connect()"
           ],
           "evidence": [
+            "scripts/live-conformance-evidence.mjs",
             "test/connect-wms-wmts.test.ts",
             "test/raster-source-strategy.test.ts"
           ]
@@ -7238,6 +7245,7 @@
             "connect()"
           ],
           "evidence": [
+            "scripts/live-conformance-evidence.mjs",
             "test/connect-wms-wmts.test.ts",
             "test/raster-source-strategy.test.ts"
           ]
