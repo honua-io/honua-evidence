@@ -1,7 +1,12 @@
-"""Unit tests for scripts/aggregate.py's cross-repo evidence joins
-(honua-io/honua-evidence#8): CITE freshness, and the two pushed-envelope
-producers (terraform DR drills, live canary / cloud e2e results); and
-honua-io/honua-evidence#5's per-capability-key known-gaps join.
+"""Unit tests for scripts/aggregate.py.
+
+Covers honua-io/honua-evidence#1's aggregation pipeline end-to-end (happy
+path, drift-gate hard fail on unknown capability keys, explicit missing/stale
+producer degradation -- all with every network fetcher stubbed out);
+honua-io/honua-evidence#8's cross-repo evidence joins (CITE freshness, and
+the two pushed-envelope producers: terraform DR drills, live canary / cloud
+e2e results); and honua-io/honua-evidence#5's per-capability-key known-gaps
+join.
 
 Run: python3 -m unittest discover -s tests
      (or, if pytest happens to be installed: python3 -m pytest tests)
@@ -13,6 +18,8 @@ data/producers/ directories or the network-pulled producers.
 """
 from __future__ import annotations
 
+import contextlib
+import io
 import json
 import shutil
 import sys
@@ -20,6 +27,7 @@ import tempfile
 import unittest
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from unittest import mock
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 FIXTURES = Path(__file__).resolve().parent / "fixtures"
@@ -558,6 +566,252 @@ class BuildMatrixIngestionWarningsTests(unittest.TestCase):
         self.assertEqual(unknown_keys, set())
         self.assertEqual(by_key, {})
         self.assertTrue(warnings)
+
+
+# --- end-to-end pipeline tests (honua-io/honua-evidence#1) ------------------
+#
+# build_matrix() is driven with EVERY network fetcher stubbed out, proving the
+# ingest -> validate -> join -> emit pipeline contract without touching the
+# network: happy path, the unknown-key drift gate (hard fail), explicit
+# "missing" degradation for an absent producer (the honua-sdk-dotnet
+# before-first-snapshot case), and explicit "stale" degradation for an
+# outdated samples artifact (its 3-day freshness rule).
+
+CANONICAL_KEYS_DOC = {
+    "schemaVersion": "1.0.0",
+    "capabilities": [
+        {"key": "serve.wms", "displayName": "WMS", "category": "Serve", "edition": "Community"},
+        {
+            "key": "geocoding.single-line",
+            "displayName": "Single-line geocoding",
+            "category": "Geocoding",
+            "edition": "Pro",
+        },
+    ],
+}
+
+
+def _sv(days_old: int) -> str:
+    """A '<sha>@<ISO8601>' sourceVersion whose date is days_old days ago."""
+    return f"{'a' * 12}@{_iso(datetime.now(timezone.utc) - timedelta(days=days_old))}"
+
+
+def _default_fetches() -> dict:
+    """One healthy snapshot per producer. Individual tests overwrite entries
+    to simulate a missing/stale/drifted producer."""
+    return {
+        "server_keys": agg.Fetched(
+            "server-keys", data=json.loads(json.dumps(CANONICAL_KEYS_DOC)), source_version=_sv(1)
+        ),
+        "server_matrix": agg.Fetched(
+            "server-matrix",
+            data={
+                "capabilities": [
+                    {
+                        "key": "serve.wms",
+                        "entryCount": 3,
+                        "provingTestCount": 5,
+                        "maturity": {"level": "ga"},
+                        "cite": [{"suite": "wms13", "passed": 199, "total": 199}],
+                        "parity": [],
+                        "esriAssess": [],
+                        "interop": [],
+                        "geobench": [],
+                    }
+                ],
+                "unjoinedCiteSuites": ["gpkg12"],
+            },
+            source_version=_sv(1),
+        ),
+        "sdk": {
+            "js": agg.Fetched(
+                "sdk-js",
+                data={"capabilities": [{"key": "serve.wms", "status": "covered", "sinceVersion": "1.2.0"}]},
+                source_version=_sv(2),
+            ),
+            # A loaded-but-empty snapshot: legitimately "not-covered" per key.
+            "dotnet": agg.Fetched("sdk-dotnet", data={"coverage": []}, source_version=_sv(2)),
+            "python": agg.Fetched("sdk-python", data={"capabilities": []}, source_version=_sv(2)),
+        },
+        "samples": agg.Fetched(
+            "samples",
+            data={"capabilities": {"serve.wms": [{"id": "wms-quickstart", "title": "WMS quickstart"}]}},
+            source_version=_sv(1),
+        ),
+        "cite": agg.Fetched(
+            "cite",
+            data={"lastReviewed": "2026-05-17", "sourceSha": "a" * 12, "reportUrl": "https://example/cite"},
+            source_version=_sv(5),
+        ),
+        # The two pushed-envelope producers and the token-gated issues query
+        # default to their honest real-world "nothing available" states.
+        "dr_drills": agg.Fetched("dr-drills", error="no DR drill evidence envelopes found (none pushed yet)"),
+        "live_canary": agg.Fetched("live-canary", error="no live-canary evidence envelopes found (none pushed yet)"),
+        "open_issues": agg.Fetched("open-issues", error="no GitHub token available for issue lookup"),
+    }
+
+
+@contextlib.contextmanager
+def _patched_producers(fetches: dict):
+    with contextlib.ExitStack() as stack:
+        stack.enter_context(mock.patch.object(agg, "fetch_server_keys", return_value=fetches["server_keys"]))
+        stack.enter_context(mock.patch.object(agg, "fetch_server_matrix", return_value=fetches["server_matrix"]))
+        stack.enter_context(mock.patch.object(agg, "fetch_sdk", side_effect=lambda sdk: fetches["sdk"][sdk]))
+        stack.enter_context(mock.patch.object(agg, "fetch_samples", return_value=fetches["samples"]))
+        stack.enter_context(mock.patch.object(agg, "fetch_cite_status", return_value=fetches["cite"]))
+        stack.enter_context(mock.patch.object(agg, "fetch_dr_drills", return_value=fetches["dr_drills"]))
+        stack.enter_context(mock.patch.object(agg, "fetch_live_canary", return_value=fetches["live_canary"]))
+        stack.enter_context(mock.patch.object(agg, "fetch_open_issues", return_value=fetches["open_issues"]))
+        yield
+
+
+def _cap(matrix: dict, key: str) -> dict:
+    return next(c for c in matrix["capabilities"] if c["key"] == key)
+
+
+class BuildMatrixHappyPathTests(unittest.TestCase):
+    def test_all_producers_join_cleanly_with_empty_drift_gate(self):
+        with _patched_producers(_default_fetches()):
+            matrix, unknown_keys = agg.build_matrix(staleness=dict(agg.DEFAULT_STALENESS_DAYS))
+
+        self.assertEqual(unknown_keys, [])
+        self.assertEqual(matrix["schemaVersion"], agg.SCHEMA_VERSION)
+        self.assertEqual([c["key"] for c in matrix["capabilities"]], ["geocoding.single-line", "serve.wms"])
+        self.assertEqual(matrix["unjoinedCiteSuites"], ["gpkg12"])
+
+        wms = _cap(matrix, "serve.wms")
+        # Server base fields pass through unchanged (never re-derived).
+        self.assertEqual(wms["entryCount"], 3)
+        self.assertEqual(wms["provingTestCount"], 5)
+        self.assertEqual(wms["cite"][0]["suite"], "wms13")
+        # Enrichment joins.
+        self.assertEqual(wms["sdks"]["js"], {"status": "covered", "sinceVersion": "1.2.0"})
+        self.assertEqual(wms["sdks"]["dotnet"], {"status": "not-covered"})  # snapshot loaded, key absent
+        self.assertEqual(wms["samples"], [{"id": "wms-quickstart", "title": "WMS quickstart"}])
+
+        geo = _cap(matrix, "geocoding.single-line")
+        self.assertEqual(geo["entryCount"], 0)
+        self.assertEqual(geo["samples"], [])  # artifact fetched, genuinely no sample: a real zero
+
+        for producer in ("server-keys", "server-matrix", "sdk-js", "sdk-dotnet", "sdk-python", "samples", "cite"):
+            self.assertEqual(matrix["freshness"][producer]["status"], "fresh", producer)
+        # Not-yet-producing producers appear explicitly -- never omitted.
+        for producer in ("dr-drills", "live-canary"):
+            self.assertEqual(matrix["freshness"][producer]["status"], "missing", producer)
+            self.assertTrue(matrix["freshness"][producer]["detail"])
+
+    def test_main_happy_path_writes_output_and_exits_zero(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "capability-matrix.v1.json"
+            argv = ["aggregate.py", "--output", str(out)]
+            with _patched_producers(_default_fetches()), mock.patch.object(sys, "argv", argv):
+                rc = agg.main()
+            self.assertEqual(rc, 0)
+            written = json.loads(out.read_text(encoding="utf-8"))
+        self.assertEqual(len(written["capabilities"]), 2)
+        self.assertEqual(written["schemaVersion"], agg.SCHEMA_VERSION)
+
+
+class BuildMatrixDriftGateTests(unittest.TestCase):
+    """Unknown capability keys from any PULLED producer (server matrix, SDK
+    snapshots, samples artifact) must hard-fail the build."""
+
+    def test_unknown_key_in_sdk_snapshot_is_reported(self):
+        fetches = _default_fetches()
+        fetches["sdk"]["js"].data["capabilities"].append({"key": "serve.bogus", "status": "covered"})
+        with _patched_producers(fetches):
+            _, unknown_keys = agg.build_matrix(staleness=dict(agg.DEFAULT_STALENESS_DAYS))
+        self.assertEqual(unknown_keys, ["serve.bogus"])
+
+    def test_unknown_key_in_server_matrix_is_reported(self):
+        fetches = _default_fetches()
+        fetches["server_matrix"].data["capabilities"].append({"key": "made.up", "entryCount": 1})
+        with _patched_producers(fetches):
+            _, unknown_keys = agg.build_matrix(staleness=dict(agg.DEFAULT_STALENESS_DAYS))
+        self.assertEqual(unknown_keys, ["made.up"])
+
+    def test_unknown_key_in_samples_artifact_is_reported(self):
+        fetches = _default_fetches()
+        fetches["samples"].data["capabilities"]["samples.bogus"] = [{"id": "x"}]
+        with _patched_producers(fetches):
+            _, unknown_keys = agg.build_matrix(staleness=dict(agg.DEFAULT_STALENESS_DAYS))
+        self.assertEqual(unknown_keys, ["samples.bogus"])
+
+    def test_main_exits_nonzero_and_writes_nothing_on_unknown_key(self):
+        fetches = _default_fetches()
+        fetches["sdk"]["js"].data["capabilities"].append({"key": "serve.bogus", "status": "covered"})
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "capability-matrix.v1.json"
+            argv = ["aggregate.py", "--output", str(out)]
+            err = io.StringIO()
+            with _patched_producers(fetches), mock.patch.object(sys, "argv", argv), \
+                    mock.patch.object(sys, "stderr", err):
+                rc = agg.main()
+            self.assertEqual(rc, 1)
+            self.assertFalse(out.exists(), "drift-gate failure must not write an output artifact")
+            self.assertIn("serve.bogus", err.getvalue())
+            self.assertIn("Unknown capability key", err.getvalue())
+
+
+class BuildMatrixMissingProducerTests(unittest.TestCase):
+    """A producer that can't be read degrades to an explicit 'missing' state:
+    in the freshness ledger AND at the per-capability granularity -- never
+    silently omitted, never fabricated as a real coverage claim. This is the
+    honua-sdk-dotnet before-first-snapshot case (sdk-dotnet#273)."""
+
+    def test_missing_sdk_dotnet_yields_ledger_missing_and_per_key_producer_missing(self):
+        fetches = _default_fetches()
+        fetches["sdk"]["dotnet"] = agg.Fetched(
+            "sdk-dotnet", error="fetch failed: HTTP Error 404: Not Found"
+        )
+        with _patched_producers(fetches):
+            matrix, unknown_keys = agg.build_matrix(staleness=dict(agg.DEFAULT_STALENESS_DAYS))
+
+        self.assertEqual(unknown_keys, [])
+        ledger = matrix["freshness"]["sdk-dotnet"]
+        self.assertEqual(ledger["status"], "missing")
+        self.assertIn("404", ledger["detail"])
+        for cap in matrix["capabilities"]:
+            self.assertEqual(cap["sdks"]["dotnet"], {"status": "producer-missing"}, cap["key"])
+            self.assertNotEqual(cap["sdks"]["dotnet"].get("status"), "not-covered")
+
+    def test_missing_samples_producer_yields_null_samples_not_a_fabricated_zero(self):
+        fetches = _default_fetches()
+        fetches["samples"] = agg.Fetched("samples", error="no successful run-samples run found on trunk")
+        with _patched_producers(fetches):
+            matrix, _ = agg.build_matrix(staleness=dict(agg.DEFAULT_STALENESS_DAYS))
+
+        self.assertEqual(matrix["freshness"]["samples"]["status"], "missing")
+        for cap in matrix["capabilities"]:
+            self.assertIsNone(cap["samples"], cap["key"])
+
+
+class BuildMatrixStaleSamplesTests(unittest.TestCase):
+    """The samples artifact carries a 3-day freshness rule: older than that,
+    the ledger flags it 'stale' -- but the (real, just old) evidence stays
+    joined per capability. Old evidence is still evidence."""
+
+    def test_samples_default_threshold_is_three_days(self):
+        self.assertEqual(agg.DEFAULT_STALENESS_DAYS["samples"], 3)
+
+    def test_samples_older_than_three_days_flagged_stale_with_data_kept(self):
+        fetches = _default_fetches()
+        fetches["samples"].source_version = _sv(10)
+        with _patched_producers(fetches):
+            matrix, unknown_keys = agg.build_matrix(staleness=dict(agg.DEFAULT_STALENESS_DAYS))
+
+        self.assertEqual(unknown_keys, [])
+        ledger = matrix["freshness"]["samples"]
+        self.assertEqual(ledger["status"], "stale")
+        self.assertEqual(ledger["ageDays"], 10)
+        self.assertEqual(_cap(matrix, "serve.wms")["samples"], [{"id": "wms-quickstart", "title": "WMS quickstart"}])
+
+    def test_samples_within_three_days_is_fresh(self):
+        fetches = _default_fetches()
+        fetches["samples"].source_version = _sv(2)
+        with _patched_producers(fetches):
+            matrix, _ = agg.build_matrix(staleness=dict(agg.DEFAULT_STALENESS_DAYS))
+        self.assertEqual(matrix["freshness"]["samples"]["status"], "fresh")
 
 
 if __name__ == "__main__":

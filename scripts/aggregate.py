@@ -27,6 +27,19 @@ present; anonymous requests are used otherwise (subject to GitHub's lower
 unauthenticated rate limit) and any producer that can't be reached is
 recorded as "missing" rather than silently omitted or failing the run.
 
+Honest degradation is a hard rule at BOTH granularities. Producer level: the
+freshness ledger records "fresh" | "stale" | "missing" for every producer,
+always. Per-capability level: when an SDK coverage snapshot could not be
+fetched at all (e.g. honua-sdk-dotnet before its contracts/sdk-coverage.v1.json
+first lands on trunk), each capability's `sdks.<sdk>` entry is the explicit
+marker {"status": "producer-missing"} -- NEVER the fabricated coverage claim
+{"status": "not-covered"}, which is reserved for a successfully fetched
+snapshot that genuinely does not list the key. Likewise, when the samples
+artifact is unavailable each capability's `samples` field is null (coverage
+unknown), never [] (a positive "zero samples" claim). A stale-but-readable
+snapshot keeps its real data and is flagged only in the ledger -- old evidence
+is still evidence; fabricated evidence is not.
+
 Unknown capability keys -- present in the honua-server matrix, an SDK
 snapshot, or the samples artifact, but absent from honua-server's canonical
 capability-keys.v1.json -- FAIL the build. This is the drift gate (issue #1's
@@ -61,7 +74,7 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = REPO_ROOT / "data" / "capability-matrix.v1.json"
-SCHEMA_VERSION = "2.2.0"
+SCHEMA_VERSION = "2.3.0"
 USER_AGENT = "honua-evidence-aggregate/1 (+https://github.com/honua-io/honua-evidence)"
 
 SERVER_KEYS_URL = "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json"
@@ -812,6 +825,16 @@ def build_matrix(*, staleness: dict[str, int]) -> tuple[dict[str, Any], list[str
         base = server_matrix_by_key.get(key, {})
         sdks_entry = {}
         for sdk in SDK_URLS:
+            if not sdk_fetches[sdk].ok:
+                # The snapshot itself could not be fetched (repo/file absent,
+                # network failure): degrade to an explicit producer-missing
+                # marker. "not-covered" is a positive coverage claim reserved
+                # for a snapshot that loaded and genuinely omits this key --
+                # emitting it here would fabricate evidence (e.g. for
+                # honua-sdk-dotnet before contracts/sdk-coverage.v1.json first
+                # lands on its trunk).
+                sdks_entry[sdk] = {"status": "producer-missing"}
+                continue
             sdk_cov = normalized_sdks.get(sdk, {}).get(key)
             sdks_entry[sdk] = sdk_cov if sdk_cov is not None else {"status": "not-covered"}
 
@@ -837,7 +860,10 @@ def build_matrix(*, staleness: dict[str, int]) -> tuple[dict[str, Any], list[str
                 "dr": dr_by_key.get(key, []),
                 "liveCanary": live_by_key.get(key, []),
                 "sdks": sdks_entry,
-                "samples": samples_by_key.get(key, []),
+                # null = samples producer snapshot unavailable this run
+                # (coverage unknown); [] = artifact fetched and genuinely
+                # lists no sample for this key. Never conflate the two.
+                "samples": samples_by_key.get(key, []) if samples.ok else None,
                 "openIssues": {
                     "count": len(effective_gaps),
                     "refs": effective_gaps,
