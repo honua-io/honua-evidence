@@ -2,7 +2,7 @@
   "schemaVersion": "2.3.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-07-28T09:12:21Z",
+  "generatedAt": "2026-07-28T19:30:18Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -25,61 +25,61 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-07-28T09:12:12Z",
+      "fetchedAt": "2026-07-28T19:30:10Z",
       "sourceVersion": "2453a74f08aa@2026-07-24T00:44:08Z",
       "ageDays": 4,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-07-28T09:12:12Z",
-      "sourceVersion": "d4cda13292c6@2026-07-28T00:19:42Z",
+      "fetchedAt": "2026-07-28T19:30:10Z",
+      "sourceVersion": "2eff18b0ba1a@2026-07-28T18:11:58Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-07-28T09:12:13Z",
+      "fetchedAt": "2026-07-28T19:30:10Z",
       "sourceVersion": "333ecb8452c1@2026-07-28T08:09:47Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-07-28T09:12:13Z",
+      "fetchedAt": "2026-07-28T19:30:11Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "ageDays": 10,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-07-28T09:12:13Z",
+      "fetchedAt": "2026-07-28T19:30:11Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "ageDays": 10,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-07-28T09:12:14Z",
+      "fetchedAt": "2026-07-28T19:30:12Z",
       "sourceVersion": "dca5aa235f6d@2026-07-28T07:49:00Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-07-28T09:12:21Z",
+      "fetchedAt": "2026-07-28T19:30:18Z",
       "sourceVersion": "live-query",
       "ageDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-07-28T09:12:14Z",
+      "fetchedAt": "2026-07-28T19:30:12Z",
       "sourceVersion": "b59384faea3c@2026-07-27T00:00:00Z",
       "ageDays": 1,
       "status": "fresh"
     },
     "dr-drills": {
-      "fetchedAt": "2026-07-28T09:12:14Z",
+      "fetchedAt": "2026-07-28T19:30:12Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "no DR drill evidence envelopes found under data/producers/dr-drills/ (none pushed yet)"
     },
     "live-canary": {
-      "fetchedAt": "2026-07-28T09:12:14Z",
+      "fetchedAt": "2026-07-28T19:30:12Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "no live-canary evidence envelopes found under data/producers/live-canary/ (none pushed yet)"
@@ -5246,7 +5246,7 @@
           "protocol": "featureserver",
           "freshness": {
             "state": "stale",
-            "ageDays": 62,
+            "ageDays": 82,
             "runDate": "2026-05-07T14:05:19.209522Z"
           }
         },
@@ -5667,7 +5667,7 @@
           "protocol": "mapserver",
           "freshness": {
             "state": "stale",
-            "ageDays": 62,
+            "ageDays": 82,
             "runDate": "2026-05-07T14:05:19.321037Z"
           }
         },
@@ -6248,7 +6248,7 @@
           "protocol": "ogc-features",
           "freshness": {
             "state": "stale",
-            "ageDays": 62,
+            "ageDays": 82,
             "runDate": "2026-05-07T14:05:39.990000Z"
           }
         },
@@ -6257,7 +6257,7 @@
           "protocol": "ogc-features",
           "freshness": {
             "state": "stale",
-            "ageDays": 62,
+            "ageDays": 82,
             "runDate": "2026-05-07T14:07:17.988831Z"
           }
         },
@@ -6266,7 +6266,7 @@
           "protocol": "ogc-features",
           "freshness": {
             "state": "stale",
-            "ageDays": 62,
+            "ageDays": 82,
             "runDate": "2026-05-07T14:05:27.279118Z"
           }
         },
@@ -6387,7 +6387,7 @@
           "protocol": "ogc-maps",
           "freshness": {
             "state": "stale",
-            "ageDays": 62,
+            "ageDays": 82,
             "runDate": "2026-05-07T14:05:39.755000Z"
           }
         },
@@ -6396,7 +6396,7 @@
           "protocol": "ogc-maps",
           "freshness": {
             "state": "stale",
-            "ageDays": 62,
+            "ageDays": 82,
             "runDate": "2026-05-07T14:05:53.364000Z"
           }
         }
@@ -6572,7 +6572,7 @@
           "protocol": "ogc-tiles",
           "freshness": {
             "state": "stale",
-            "ageDays": 62,
+            "ageDays": 82,
             "runDate": "2026-05-07T14:05:53.364000Z"
           }
         }
@@ -6813,7 +6813,7 @@
           "protocol": "mvt",
           "freshness": {
             "state": "stale",
-            "ageDays": 62,
+            "ageDays": 82,
             "runDate": "2026-05-07T14:05:52.394000Z"
           }
         }
@@ -6986,7 +6986,7 @@
           "protocol": "wfs",
           "freshness": {
             "state": "stale",
-            "ageDays": 62,
+            "ageDays": 82,
             "runDate": "2026-05-07T14:05:40.991000Z"
           }
         },
@@ -6995,7 +6995,7 @@
           "protocol": "wfs",
           "freshness": {
             "state": "stale",
-            "ageDays": 62,
+            "ageDays": 82,
             "runDate": "2026-05-07T14:07:17.989246Z"
           }
         },
@@ -7004,7 +7004,7 @@
           "protocol": "wfs",
           "freshness": {
             "state": "stale",
-            "ageDays": 62,
+            "ageDays": 82,
             "runDate": "2026-05-07T14:05:27.279118Z"
           }
         }
@@ -7106,7 +7106,7 @@
           "protocol": "wms",
           "freshness": {
             "state": "stale",
-            "ageDays": 62,
+            "ageDays": 82,
             "runDate": "2026-05-07T14:05:39.001000Z"
           }
         },
@@ -7115,7 +7115,7 @@
           "protocol": "wms",
           "freshness": {
             "state": "stale",
-            "ageDays": 62,
+            "ageDays": 82,
             "runDate": "2026-05-07T14:05:53.364000Z"
           }
         },
@@ -7239,7 +7239,7 @@
           "protocol": "wmts",
           "freshness": {
             "state": "stale",
-            "ageDays": 62,
+            "ageDays": 82,
             "runDate": "2026-05-07T14:05:37.557000Z"
           }
         },
@@ -7248,7 +7248,7 @@
           "protocol": "wmts",
           "freshness": {
             "state": "stale",
-            "ageDays": 62,
+            "ageDays": 82,
             "runDate": "2026-05-07T14:05:53.364000Z"
           }
         },
