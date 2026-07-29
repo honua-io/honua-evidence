@@ -2,7 +2,7 @@
   "schemaVersion": "2.3.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-07-28T20:23:53Z",
+  "generatedAt": "2026-07-29T01:04:22Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -25,61 +25,61 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-07-28T20:23:38Z",
+      "fetchedAt": "2026-07-29T01:04:07Z",
       "sourceVersion": "2453a74f08aa@2026-07-24T00:44:08Z",
-      "ageDays": 4,
+      "ageDays": 5,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-07-28T20:23:39Z",
-      "sourceVersion": "6003641f29b1@2026-07-28T19:32:24Z",
+      "fetchedAt": "2026-07-29T01:04:08Z",
+      "sourceVersion": "f012686d460c@2026-07-28T22:28:01Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-07-28T20:23:40Z",
+      "fetchedAt": "2026-07-29T01:04:08Z",
       "sourceVersion": "333ecb8452c1@2026-07-28T08:09:47Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-07-28T20:23:40Z",
+      "fetchedAt": "2026-07-29T01:04:09Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
-      "ageDays": 10,
+      "ageDays": 11,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-07-28T20:23:41Z",
+      "fetchedAt": "2026-07-29T01:04:10Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
-      "ageDays": 10,
+      "ageDays": 11,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-07-28T20:23:42Z",
+      "fetchedAt": "2026-07-29T01:04:11Z",
       "sourceVersion": "dca5aa235f6d@2026-07-28T07:49:00Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-07-28T20:23:53Z",
+      "fetchedAt": "2026-07-29T01:04:22Z",
       "sourceVersion": "live-query",
       "ageDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-07-28T20:23:43Z",
+      "fetchedAt": "2026-07-29T01:04:12Z",
       "sourceVersion": "b59384faea3c@2026-07-27T00:00:00Z",
-      "ageDays": 1,
+      "ageDays": 2,
       "status": "fresh"
     },
     "dr-drills": {
-      "fetchedAt": "2026-07-28T20:23:43Z",
+      "fetchedAt": "2026-07-29T01:04:12Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "no DR drill evidence envelopes found under data/producers/dr-drills/ (none pushed yet)"
     },
     "live-canary": {
-      "fetchedAt": "2026-07-28T20:23:43Z",
+      "fetchedAt": "2026-07-29T01:04:12Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "no live-canary evidence envelopes found under data/producers/live-canary/ (none pushed yet)"
@@ -2611,10 +2611,10 @@
       "displayName": "Forward Geocoding",
       "category": "Geocoding",
       "edition": "Community",
-      "entryCount": 9,
-      "provingTestCount": 47,
+      "entryCount": 10,
+      "provingTestCount": 57,
       "maturity": {
-        "implemented": 9
+        "implemented": 10
       },
       "noSurface": null,
       "cite": [],
