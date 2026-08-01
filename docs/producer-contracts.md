@@ -159,10 +159,10 @@ drills run on an operator-driven cadence, not continuously.
 ### Live canary / cloud e2e (`live-canary`)
 
 Schema: `honua-evidence.live-canary-envelope/v1`. One manifest file per canary
-run under `data/producers/live-canary/*.json`, produced by honua-release#61's
-planned scheduled demo canary / cloud e2e workflow (**not yet landed as of
-this ingestion** — the `live-canary` producer will correctly report `missing`
-until that workflow starts pushing envelopes here).
+run under `data/producers/live-canary/*.json`, produced by honua-release's
+scheduled demo canary / cloud e2e workflow. The producer reports `fresh`,
+`stale`, or `missing` from the newest valid delivered envelope using the
+three-day threshold below.
 
 ```jsonc
 {

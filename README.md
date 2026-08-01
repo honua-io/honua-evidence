@@ -22,7 +22,7 @@ producers (pull, never push into us)
 producers (pushed envelopes -- an out-of-band job commits INTO this repo; we never fetch from theirs; #8)
   honua-terraform      data/producers/dr-drills/*.json      DR drill evidence (backup-restore/failover runbooks)
   honua-release        data/producers/live-canary/*.json    live/deployed-environment canary + cloud e2e results
-                        (honua-io/honua-release#61, not yet landed -- reports "missing" until it pushes envelopes)
+                        (honua-io/honua-release#72; scheduled canaries actively push versioned envelopes)
 
 aggregate (scripts/aggregate.py, stdlib Python only, CI: .github/workflows/aggregate.yml)
   data/capability-matrix.v1.json   ← every producer key validated against capability-keys.v1.json;
@@ -63,7 +63,7 @@ validate (scripts/validate-site.py, stdlib Python only, CI: validate.yml + aggre
 | [honua-server issues](https://github.com/honua-io/honua-server/issues) | open issues by `cap/<category>` label | live query (no fixed version) |
 | [honua-server](https://github.com/honua-io/honua-server) | [cite-status.md](https://github.com/honua-io/honua-server/blob/trunk/docs/cite-status.md) "Last reviewed" date + commit sha | 14 days |
 | [honua-terraform](https://github.com/honua-io/honua-terraform) | pushed envelopes under [`data/producers/dr-drills/`](data/producers/dr-drills/) | 45 days |
-| [honua-release](https://github.com/honua-io/honua-release) | pushed envelopes under [`data/producers/live-canary/`](data/producers/live-canary/) (not yet producing any — honua-io/honua-release#61) | 3 days |
+| [honua-release](https://github.com/honua-io/honua-release) | pushed envelopes under [`data/producers/live-canary/`](data/producers/live-canary/) | 3 days |
 
 The last two rows are **pushed-envelope** producers, not network pulls — see
 [`docs/producer-contracts.md`](docs/producer-contracts.md) for their schemas,
@@ -180,10 +180,10 @@ full per-capability gaps ingestion — stays open on those issues and on
 [#8](https://github.com/honua-io/honua-evidence/issues/8) added CITE freshness
 (timestamp + source sha) and two new pushed-envelope producers, DR drills and
 live/canary results (contracts documented in
-[`docs/producer-contracts.md`](docs/producer-contracts.md)). Both new
-pushed-envelope producers report `missing` until honua-terraform and
-honua-release (#61) actually start committing envelopes — this repo never
-fabricates evidence for a producer that hasn't produced anything yet.
+[`docs/producer-contracts.md`](docs/producer-contracts.md)). honua-release now
+commits scheduled live-canary envelopes; a producer such as DR drills still
+reports `missing` until it actually contributes evidence — this repo never
+fabricates evidence for a producer that has not produced anything yet.
 
 ## License
 

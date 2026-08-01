@@ -437,11 +437,9 @@ def fetch_dr_drills() -> Fetched:
 
 def fetch_live_canary() -> Fetched:
     """Live/deployed-environment canary and cloud e2e results (honua-io/
-    honua-evidence#8). honua-release#61's scheduled demo canary / cloud e2e
+    honua-evidence#8). honua-release's scheduled demo canary / cloud e2e
     workflow pushes one manifest envelope per run into
-    data/producers/live-canary/ (see docs/producer-contracts.md). That
-    workflow does not exist yet as of this ingestion landing, so this producer
-    is expected to report "missing" until it does -- never fabricated."""
+    data/producers/live-canary/ (see docs/producer-contracts.md)."""
     envelopes, warnings = _load_envelopes("live-canary", LIVE_CANARY_DIR, LIVE_CANARY_REQUIRED_FIELDS)
     valid: list[dict] = []
     for e in envelopes:
