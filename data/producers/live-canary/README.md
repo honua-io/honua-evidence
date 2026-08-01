@@ -7,9 +7,10 @@ expected to commit one JSON manifest envelope per run here.
 
 The scheduled demo canary now commits a versioned envelope after each live run.
 `scripts/aggregate.py` selects the newest valid envelope and reports its
-freshness without converting missing, stale, partial, or failed evidence into a
-fabricated pass. Files in this directory are run receipts, not templates for
-hand-authored evidence.
+freshness, then joins each valid probe-level status onto its declared capability
+keys. The envelope-level `overallStatus` remains in the raw run receipt; it is
+not currently projected into the capability matrix. Files in this directory are
+run receipts, not templates for hand-authored evidence.
 
 See [`docs/producer-contracts.md`](../../../docs/producer-contracts.md) for
 the full envelope schema, an example, and the freshness semantics. Test
