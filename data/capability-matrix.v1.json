@@ -2,7 +2,7 @@
   "schemaVersion": "2.3.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-08-03T03:59:04Z",
+  "generatedAt": "2026-08-03T08:45:02Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -25,61 +25,61 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-08-03T03:58:51Z",
+      "fetchedAt": "2026-08-03T08:44:47Z",
       "sourceVersion": "2453a74f08aa@2026-07-24T00:44:08Z",
       "ageDays": 10,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-08-03T03:58:51Z",
+      "fetchedAt": "2026-08-03T08:44:48Z",
       "sourceVersion": "ec5e3efe475d@2026-08-02T20:24:43Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-08-03T03:58:52Z",
+      "fetchedAt": "2026-08-03T08:44:48Z",
       "sourceVersion": "333ecb8452c1@2026-07-28T08:09:47Z",
-      "ageDays": 5,
+      "ageDays": 6,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-08-03T03:58:52Z",
+      "fetchedAt": "2026-08-03T08:44:49Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "ageDays": 16,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-08-03T03:58:53Z",
+      "fetchedAt": "2026-08-03T08:44:50Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "ageDays": 16,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-08-03T03:58:54Z",
-      "sourceVersion": "c0b7d2f9fcd5@2026-08-02T07:42:07Z",
+      "fetchedAt": "2026-08-03T08:44:51Z",
+      "sourceVersion": "c0b7d2f9fcd5@2026-08-03T08:44:20Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-08-03T03:59:04Z",
+      "fetchedAt": "2026-08-03T08:45:02Z",
       "sourceVersion": "live-query",
       "ageDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-08-03T03:58:55Z",
+      "fetchedAt": "2026-08-03T08:44:51Z",
       "sourceVersion": "b59384faea3c@2026-07-27T00:00:00Z",
       "ageDays": 7,
       "status": "fresh"
     },
     "dr-drills": {
-      "fetchedAt": "2026-08-03T03:58:55Z",
+      "fetchedAt": "2026-08-03T08:44:51Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "no DR drill evidence envelopes found under data/producers/dr-drills/ (none pushed yet)"
     },
     "live-canary": {
-      "fetchedAt": "2026-08-03T03:58:55Z",
+      "fetchedAt": "2026-08-03T08:44:51Z",
       "sourceVersion": "2d11318fa253@2026-08-03T03:58:35Z",
       "ageDays": 0,
       "status": "fresh"
@@ -4000,7 +4000,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-02T07:41:59.581Z"
+            "at": "2026-08-03T08:44:14.177Z"
           }
         },
         {
@@ -4014,7 +4014,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-02T07:41:59.581Z"
+            "at": "2026-08-03T08:44:14.177Z"
           }
         },
         {
@@ -4028,7 +4028,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-02T07:41:59.581Z"
+            "at": "2026-08-03T08:44:14.177Z"
           }
         },
         {
@@ -4042,7 +4042,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-02T07:41:59.581Z"
+            "at": "2026-08-03T08:44:14.177Z"
           }
         },
         {
@@ -4056,7 +4056,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-02T07:41:59.581Z"
+            "at": "2026-08-03T08:44:14.177Z"
           }
         },
         {
@@ -4070,7 +4070,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-02T07:41:59.581Z"
+            "at": "2026-08-03T08:44:14.177Z"
           }
         }
       ],
@@ -5247,11 +5247,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3085"
           },
           {
-            "number": 3086,
-            "title": "raster: codify the PostGIS-first, database-SLO-aware execution boundary",
-            "url": "https://github.com/honua-io/honua-server/issues/3086"
-          },
-          {
             "number": 3088,
             "title": "gp(raster): introduce typed reference-based raster source contracts",
             "url": "https://github.com/honua-io/honua-server/issues/3088"
@@ -5270,6 +5265,11 @@
             "number": 3091,
             "title": "gp(raster): add an engine capability and raster cost registry",
             "url": "https://github.com/honua-io/honua-server/issues/3091"
+          },
+          {
+            "number": 3092,
+            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
+            "url": "https://github.com/honua-io/honua-server/issues/3092"
           }
         ],
         "categoryLevel": true,
@@ -5296,11 +5296,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3085"
           },
           {
-            "number": 3086,
-            "title": "raster: codify the PostGIS-first, database-SLO-aware execution boundary",
-            "url": "https://github.com/honua-io/honua-server/issues/3086"
-          },
-          {
             "number": 3088,
             "title": "gp(raster): introduce typed reference-based raster source contracts",
             "url": "https://github.com/honua-io/honua-server/issues/3088"
@@ -5319,6 +5314,11 @@
             "number": 3091,
             "title": "gp(raster): add an engine capability and raster cost registry",
             "url": "https://github.com/honua-io/honua-server/issues/3091"
+          },
+          {
+            "number": 3092,
+            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
+            "url": "https://github.com/honua-io/honua-server/issues/3092"
           }
         ],
         "label": "cap/process"
@@ -5387,11 +5387,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3085"
           },
           {
-            "number": 3086,
-            "title": "raster: codify the PostGIS-first, database-SLO-aware execution boundary",
-            "url": "https://github.com/honua-io/honua-server/issues/3086"
-          },
-          {
             "number": 3088,
             "title": "gp(raster): introduce typed reference-based raster source contracts",
             "url": "https://github.com/honua-io/honua-server/issues/3088"
@@ -5410,6 +5405,11 @@
             "number": 3091,
             "title": "gp(raster): add an engine capability and raster cost registry",
             "url": "https://github.com/honua-io/honua-server/issues/3091"
+          },
+          {
+            "number": 3092,
+            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
+            "url": "https://github.com/honua-io/honua-server/issues/3092"
           }
         ],
         "categoryLevel": true,
@@ -5436,11 +5436,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3085"
           },
           {
-            "number": 3086,
-            "title": "raster: codify the PostGIS-first, database-SLO-aware execution boundary",
-            "url": "https://github.com/honua-io/honua-server/issues/3086"
-          },
-          {
             "number": 3088,
             "title": "gp(raster): introduce typed reference-based raster source contracts",
             "url": "https://github.com/honua-io/honua-server/issues/3088"
@@ -5459,6 +5454,11 @@
             "number": 3091,
             "title": "gp(raster): add an engine capability and raster cost registry",
             "url": "https://github.com/honua-io/honua-server/issues/3091"
+          },
+          {
+            "number": 3092,
+            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
+            "url": "https://github.com/honua-io/honua-server/issues/3092"
           }
         ],
         "label": "cap/process"
@@ -5519,16 +5519,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3085"
           },
           {
-            "number": 3086,
-            "title": "raster: codify the PostGIS-first, database-SLO-aware execution boundary",
-            "url": "https://github.com/honua-io/honua-server/issues/3086"
-          },
-          {
-            "number": 3087,
-            "title": "build: make native-AOT/no-GDAL the enforceable serving-image invariant",
-            "url": "https://github.com/honua-io/honua-server/issues/3087"
-          },
-          {
             "number": 3088,
             "title": "gp(raster): introduce typed reference-based raster source contracts",
             "url": "https://github.com/honua-io/honua-server/issues/3088"
@@ -5552,6 +5542,16 @@
             "number": 3092,
             "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
             "url": "https://github.com/honua-io/honua-server/issues/3092"
+          },
+          {
+            "number": 3094,
+            "title": "gp(raster): add a dedicated managed PostGIS raster worker profile",
+            "url": "https://github.com/honua-io/honua-server/issues/3094"
+          },
+          {
+            "number": 3093,
+            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
+            "url": "https://github.com/honua-io/honua-server/issues/3093"
           }
         ],
         "categoryLevel": true,
@@ -5568,16 +5568,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3085"
           },
           {
-            "number": 3086,
-            "title": "raster: codify the PostGIS-first, database-SLO-aware execution boundary",
-            "url": "https://github.com/honua-io/honua-server/issues/3086"
-          },
-          {
-            "number": 3087,
-            "title": "build: make native-AOT/no-GDAL the enforceable serving-image invariant",
-            "url": "https://github.com/honua-io/honua-server/issues/3087"
-          },
-          {
             "number": 3088,
             "title": "gp(raster): introduce typed reference-based raster source contracts",
             "url": "https://github.com/honua-io/honua-server/issues/3088"
@@ -5601,6 +5591,16 @@
             "number": 3092,
             "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
             "url": "https://github.com/honua-io/honua-server/issues/3092"
+          },
+          {
+            "number": 3094,
+            "title": "gp(raster): add a dedicated managed PostGIS raster worker profile",
+            "url": "https://github.com/honua-io/honua-server/issues/3094"
+          },
+          {
+            "number": 3093,
+            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
+            "url": "https://github.com/honua-io/honua-server/issues/3093"
           }
         ],
         "label": "cap/raster"
@@ -5654,16 +5654,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3085"
           },
           {
-            "number": 3086,
-            "title": "raster: codify the PostGIS-first, database-SLO-aware execution boundary",
-            "url": "https://github.com/honua-io/honua-server/issues/3086"
-          },
-          {
-            "number": 3087,
-            "title": "build: make native-AOT/no-GDAL the enforceable serving-image invariant",
-            "url": "https://github.com/honua-io/honua-server/issues/3087"
-          },
-          {
             "number": 3088,
             "title": "gp(raster): introduce typed reference-based raster source contracts",
             "url": "https://github.com/honua-io/honua-server/issues/3088"
@@ -5687,6 +5677,16 @@
             "number": 3092,
             "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
             "url": "https://github.com/honua-io/honua-server/issues/3092"
+          },
+          {
+            "number": 3094,
+            "title": "gp(raster): add a dedicated managed PostGIS raster worker profile",
+            "url": "https://github.com/honua-io/honua-server/issues/3094"
+          },
+          {
+            "number": 3093,
+            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
+            "url": "https://github.com/honua-io/honua-server/issues/3093"
           }
         ],
         "categoryLevel": true,
@@ -5703,16 +5703,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3085"
           },
           {
-            "number": 3086,
-            "title": "raster: codify the PostGIS-first, database-SLO-aware execution boundary",
-            "url": "https://github.com/honua-io/honua-server/issues/3086"
-          },
-          {
-            "number": 3087,
-            "title": "build: make native-AOT/no-GDAL the enforceable serving-image invariant",
-            "url": "https://github.com/honua-io/honua-server/issues/3087"
-          },
-          {
             "number": 3088,
             "title": "gp(raster): introduce typed reference-based raster source contracts",
             "url": "https://github.com/honua-io/honua-server/issues/3088"
@@ -5736,6 +5726,16 @@
             "number": 3092,
             "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
             "url": "https://github.com/honua-io/honua-server/issues/3092"
+          },
+          {
+            "number": 3094,
+            "title": "gp(raster): add a dedicated managed PostGIS raster worker profile",
+            "url": "https://github.com/honua-io/honua-server/issues/3094"
+          },
+          {
+            "number": 3093,
+            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
+            "url": "https://github.com/honua-io/honua-server/issues/3093"
           }
         ],
         "label": "cap/raster"
@@ -5790,16 +5790,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3085"
           },
           {
-            "number": 3086,
-            "title": "raster: codify the PostGIS-first, database-SLO-aware execution boundary",
-            "url": "https://github.com/honua-io/honua-server/issues/3086"
-          },
-          {
-            "number": 3087,
-            "title": "build: make native-AOT/no-GDAL the enforceable serving-image invariant",
-            "url": "https://github.com/honua-io/honua-server/issues/3087"
-          },
-          {
             "number": 3088,
             "title": "gp(raster): introduce typed reference-based raster source contracts",
             "url": "https://github.com/honua-io/honua-server/issues/3088"
@@ -5823,6 +5813,16 @@
             "number": 3092,
             "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
             "url": "https://github.com/honua-io/honua-server/issues/3092"
+          },
+          {
+            "number": 3094,
+            "title": "gp(raster): add a dedicated managed PostGIS raster worker profile",
+            "url": "https://github.com/honua-io/honua-server/issues/3094"
+          },
+          {
+            "number": 3093,
+            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
+            "url": "https://github.com/honua-io/honua-server/issues/3093"
           }
         ],
         "categoryLevel": true,
@@ -5839,16 +5839,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3085"
           },
           {
-            "number": 3086,
-            "title": "raster: codify the PostGIS-first, database-SLO-aware execution boundary",
-            "url": "https://github.com/honua-io/honua-server/issues/3086"
-          },
-          {
-            "number": 3087,
-            "title": "build: make native-AOT/no-GDAL the enforceable serving-image invariant",
-            "url": "https://github.com/honua-io/honua-server/issues/3087"
-          },
-          {
             "number": 3088,
             "title": "gp(raster): introduce typed reference-based raster source contracts",
             "url": "https://github.com/honua-io/honua-server/issues/3088"
@@ -5872,6 +5862,16 @@
             "number": 3092,
             "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
             "url": "https://github.com/honua-io/honua-server/issues/3092"
+          },
+          {
+            "number": 3094,
+            "title": "gp(raster): add a dedicated managed PostGIS raster worker profile",
+            "url": "https://github.com/honua-io/honua-server/issues/3094"
+          },
+          {
+            "number": 3093,
+            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
+            "url": "https://github.com/honua-io/honua-server/issues/3093"
           }
         ],
         "label": "cap/raster"
@@ -5932,16 +5932,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3085"
           },
           {
-            "number": 3086,
-            "title": "raster: codify the PostGIS-first, database-SLO-aware execution boundary",
-            "url": "https://github.com/honua-io/honua-server/issues/3086"
-          },
-          {
-            "number": 3087,
-            "title": "build: make native-AOT/no-GDAL the enforceable serving-image invariant",
-            "url": "https://github.com/honua-io/honua-server/issues/3087"
-          },
-          {
             "number": 3088,
             "title": "gp(raster): introduce typed reference-based raster source contracts",
             "url": "https://github.com/honua-io/honua-server/issues/3088"
@@ -5965,6 +5955,16 @@
             "number": 3092,
             "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
             "url": "https://github.com/honua-io/honua-server/issues/3092"
+          },
+          {
+            "number": 3094,
+            "title": "gp(raster): add a dedicated managed PostGIS raster worker profile",
+            "url": "https://github.com/honua-io/honua-server/issues/3094"
+          },
+          {
+            "number": 3093,
+            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
+            "url": "https://github.com/honua-io/honua-server/issues/3093"
           }
         ],
         "categoryLevel": true,
@@ -5981,16 +5981,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3085"
           },
           {
-            "number": 3086,
-            "title": "raster: codify the PostGIS-first, database-SLO-aware execution boundary",
-            "url": "https://github.com/honua-io/honua-server/issues/3086"
-          },
-          {
-            "number": 3087,
-            "title": "build: make native-AOT/no-GDAL the enforceable serving-image invariant",
-            "url": "https://github.com/honua-io/honua-server/issues/3087"
-          },
-          {
             "number": 3088,
             "title": "gp(raster): introduce typed reference-based raster source contracts",
             "url": "https://github.com/honua-io/honua-server/issues/3088"
@@ -6014,6 +6004,16 @@
             "number": 3092,
             "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
             "url": "https://github.com/honua-io/honua-server/issues/3092"
+          },
+          {
+            "number": 3094,
+            "title": "gp(raster): add a dedicated managed PostGIS raster worker profile",
+            "url": "https://github.com/honua-io/honua-server/issues/3094"
+          },
+          {
+            "number": 3093,
+            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
+            "url": "https://github.com/honua-io/honua-server/issues/3093"
           }
         ],
         "label": "cap/raster"
@@ -6063,16 +6063,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3085"
           },
           {
-            "number": 3086,
-            "title": "raster: codify the PostGIS-first, database-SLO-aware execution boundary",
-            "url": "https://github.com/honua-io/honua-server/issues/3086"
-          },
-          {
-            "number": 3087,
-            "title": "build: make native-AOT/no-GDAL the enforceable serving-image invariant",
-            "url": "https://github.com/honua-io/honua-server/issues/3087"
-          },
-          {
             "number": 3088,
             "title": "gp(raster): introduce typed reference-based raster source contracts",
             "url": "https://github.com/honua-io/honua-server/issues/3088"
@@ -6096,6 +6086,16 @@
             "number": 3092,
             "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
             "url": "https://github.com/honua-io/honua-server/issues/3092"
+          },
+          {
+            "number": 3094,
+            "title": "gp(raster): add a dedicated managed PostGIS raster worker profile",
+            "url": "https://github.com/honua-io/honua-server/issues/3094"
+          },
+          {
+            "number": 3093,
+            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
+            "url": "https://github.com/honua-io/honua-server/issues/3093"
           }
         ],
         "categoryLevel": true,
@@ -6112,16 +6112,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3085"
           },
           {
-            "number": 3086,
-            "title": "raster: codify the PostGIS-first, database-SLO-aware execution boundary",
-            "url": "https://github.com/honua-io/honua-server/issues/3086"
-          },
-          {
-            "number": 3087,
-            "title": "build: make native-AOT/no-GDAL the enforceable serving-image invariant",
-            "url": "https://github.com/honua-io/honua-server/issues/3087"
-          },
-          {
             "number": 3088,
             "title": "gp(raster): introduce typed reference-based raster source contracts",
             "url": "https://github.com/honua-io/honua-server/issues/3088"
@@ -6145,6 +6135,16 @@
             "number": 3092,
             "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
             "url": "https://github.com/honua-io/honua-server/issues/3092"
+          },
+          {
+            "number": 3094,
+            "title": "gp(raster): add a dedicated managed PostGIS raster worker profile",
+            "url": "https://github.com/honua-io/honua-server/issues/3094"
+          },
+          {
+            "number": 3093,
+            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
+            "url": "https://github.com/honua-io/honua-server/issues/3093"
           }
         ],
         "label": "cap/raster"
@@ -6854,7 +6854,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-02T07:41:59.581Z"
+            "at": "2026-08-03T08:44:14.177Z"
           }
         },
         {
@@ -6868,7 +6868,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-02T07:41:59.581Z"
+            "at": "2026-08-03T08:44:14.177Z"
           }
         }
       ],
@@ -8055,7 +8055,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-02T07:41:59.581Z"
+            "at": "2026-08-03T08:44:14.177Z"
           }
         }
       ],
@@ -8645,7 +8645,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-02T07:41:59.581Z"
+            "at": "2026-08-03T08:44:14.177Z"
           }
         }
       ],
@@ -9334,7 +9334,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-02T07:41:59.581Z"
+            "at": "2026-08-03T08:44:14.177Z"
           }
         }
       ],
@@ -10211,7 +10211,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-02T07:41:59.581Z"
+            "at": "2026-08-03T08:44:14.177Z"
           }
         }
       ],
