@@ -2,7 +2,7 @@
   "schemaVersion": "2.3.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-08-03T08:45:02Z",
+  "generatedAt": "2026-08-03T10:04:58Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -25,68 +25,88 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-08-03T08:44:47Z",
+      "fetchedAt": "2026-08-03T10:04:43Z",
       "sourceVersion": "2453a74f08aa@2026-07-24T00:44:08Z",
       "ageDays": 10,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-08-03T08:44:48Z",
+      "fetchedAt": "2026-08-03T10:04:44Z",
       "sourceVersion": "ec5e3efe475d@2026-08-02T20:24:43Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-08-03T08:44:48Z",
-      "sourceVersion": "333ecb8452c1@2026-07-28T08:09:47Z",
-      "ageDays": 6,
+      "fetchedAt": "2026-08-03T10:04:44Z",
+      "sourceVersion": "9a472444559d@2026-08-03T10:04:18Z",
+      "ageDays": 0,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-08-03T08:44:49Z",
+      "fetchedAt": "2026-08-03T10:04:45Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "ageDays": 16,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-08-03T08:44:50Z",
+      "fetchedAt": "2026-08-03T10:04:45Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "ageDays": 16,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-08-03T08:44:51Z",
+      "fetchedAt": "2026-08-03T10:04:47Z",
       "sourceVersion": "c0b7d2f9fcd5@2026-08-03T08:44:20Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-08-03T08:45:02Z",
+      "fetchedAt": "2026-08-03T10:04:58Z",
       "sourceVersion": "live-query",
       "ageDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-08-03T08:44:51Z",
+      "fetchedAt": "2026-08-03T10:04:47Z",
       "sourceVersion": "b59384faea3c@2026-07-27T00:00:00Z",
       "ageDays": 7,
       "status": "fresh"
     },
     "dr-drills": {
-      "fetchedAt": "2026-08-03T08:44:51Z",
+      "fetchedAt": "2026-08-03T10:04:47Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "no DR drill evidence envelopes found under data/producers/dr-drills/ (none pushed yet)"
     },
     "live-canary": {
-      "fetchedAt": "2026-08-03T08:44:51Z",
+      "fetchedAt": "2026-08-03T10:04:47Z",
       "sourceVersion": "2d11318fa253@2026-08-03T03:58:35Z",
       "ageDays": 0,
       "status": "fresh"
     }
   },
   "ingestionWarnings": [
-    "open-issues: honua-io/honua-server#3033: 'Capability Key(s)' field references unknown capability key 'cap/streaming' (not in honua-server's canonical capability-keys.v1.json) -- ignored"
+    "open-issues: honua-io/honua-server#2438: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#3033: 'Capability Key(s)' field references unknown capability key 'cap/streaming' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#3068: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#3085: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#3088: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#3089: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#3091: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#3092: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#3093: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#3094: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#3095: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#3096: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#3097: 'Capability Key(s)' field references unknown capability key 'ops' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#3097: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#3098: 'Capability Key(s)' field references unknown capability key 'import' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#3098: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#3099: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#3101: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#3104: 'Capability Key(s)' field references unknown capability key 'ops' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#3104: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#3105: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored"
   ],
   "capabilities": [
     {
@@ -701,7 +721,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 3,
         "refs": [
           {
             "number": 953,
@@ -717,16 +737,6 @@
             "number": 2453,
             "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3095,
-            "title": "gp(raster): wire existing PostGIS surface and zonal-statistics primitives",
-            "url": "https://github.com/honua-io/honua-server/issues/3095"
-          },
-          {
-            "number": 3096,
-            "title": "gp(raster): add PostGIS executors for overlapping raster transforms and analytics",
-            "url": "https://github.com/honua-io/honua-server/issues/3096"
           }
         ],
         "categoryLevel": true,
@@ -746,16 +756,6 @@
             "number": 2453,
             "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3095,
-            "title": "gp(raster): wire existing PostGIS surface and zonal-statistics primitives",
-            "url": "https://github.com/honua-io/honua-server/issues/3095"
-          },
-          {
-            "number": 3096,
-            "title": "gp(raster): add PostGIS executors for overlapping raster transforms and analytics",
-            "url": "https://github.com/honua-io/honua-server/issues/3096"
           }
         ],
         "label": "cap/analytics"
@@ -792,7 +792,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 3,
         "refs": [
           {
             "number": 953,
@@ -808,16 +808,6 @@
             "number": 2453,
             "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3095,
-            "title": "gp(raster): wire existing PostGIS surface and zonal-statistics primitives",
-            "url": "https://github.com/honua-io/honua-server/issues/3095"
-          },
-          {
-            "number": 3096,
-            "title": "gp(raster): add PostGIS executors for overlapping raster transforms and analytics",
-            "url": "https://github.com/honua-io/honua-server/issues/3096"
           }
         ],
         "categoryLevel": true,
@@ -837,16 +827,6 @@
             "number": 2453,
             "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3095,
-            "title": "gp(raster): wire existing PostGIS surface and zonal-statistics primitives",
-            "url": "https://github.com/honua-io/honua-server/issues/3095"
-          },
-          {
-            "number": 3096,
-            "title": "gp(raster): add PostGIS executors for overlapping raster transforms and analytics",
-            "url": "https://github.com/honua-io/honua-server/issues/3096"
           }
         ],
         "label": "cap/analytics"
@@ -883,7 +863,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 3,
         "refs": [
           {
             "number": 953,
@@ -899,16 +879,6 @@
             "number": 2453,
             "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3095,
-            "title": "gp(raster): wire existing PostGIS surface and zonal-statistics primitives",
-            "url": "https://github.com/honua-io/honua-server/issues/3095"
-          },
-          {
-            "number": 3096,
-            "title": "gp(raster): add PostGIS executors for overlapping raster transforms and analytics",
-            "url": "https://github.com/honua-io/honua-server/issues/3096"
           }
         ],
         "categoryLevel": true,
@@ -928,16 +898,6 @@
             "number": 2453,
             "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3095,
-            "title": "gp(raster): wire existing PostGIS surface and zonal-statistics primitives",
-            "url": "https://github.com/honua-io/honua-server/issues/3095"
-          },
-          {
-            "number": 3096,
-            "title": "gp(raster): add PostGIS executors for overlapping raster transforms and analytics",
-            "url": "https://github.com/honua-io/honua-server/issues/3096"
           }
         ],
         "label": "cap/analytics"
@@ -974,7 +934,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 3,
         "refs": [
           {
             "number": 953,
@@ -990,16 +950,6 @@
             "number": 2453,
             "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3095,
-            "title": "gp(raster): wire existing PostGIS surface and zonal-statistics primitives",
-            "url": "https://github.com/honua-io/honua-server/issues/3095"
-          },
-          {
-            "number": 3096,
-            "title": "gp(raster): add PostGIS executors for overlapping raster transforms and analytics",
-            "url": "https://github.com/honua-io/honua-server/issues/3096"
           }
         ],
         "categoryLevel": true,
@@ -1019,16 +969,6 @@
             "number": 2453,
             "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3095,
-            "title": "gp(raster): wire existing PostGIS surface and zonal-statistics primitives",
-            "url": "https://github.com/honua-io/honua-server/issues/3095"
-          },
-          {
-            "number": 3096,
-            "title": "gp(raster): add PostGIS executors for overlapping raster transforms and analytics",
-            "url": "https://github.com/honua-io/honua-server/issues/3096"
           }
         ],
         "label": "cap/analytics"
@@ -1065,7 +1005,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 3,
         "refs": [
           {
             "number": 953,
@@ -1081,16 +1021,6 @@
             "number": 2453,
             "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3095,
-            "title": "gp(raster): wire existing PostGIS surface and zonal-statistics primitives",
-            "url": "https://github.com/honua-io/honua-server/issues/3095"
-          },
-          {
-            "number": 3096,
-            "title": "gp(raster): add PostGIS executors for overlapping raster transforms and analytics",
-            "url": "https://github.com/honua-io/honua-server/issues/3096"
           }
         ],
         "categoryLevel": true,
@@ -1110,16 +1040,6 @@
             "number": 2453,
             "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3095,
-            "title": "gp(raster): wire existing PostGIS surface and zonal-statistics primitives",
-            "url": "https://github.com/honua-io/honua-server/issues/3095"
-          },
-          {
-            "number": 3096,
-            "title": "gp(raster): add PostGIS executors for overlapping raster transforms and analytics",
-            "url": "https://github.com/honua-io/honua-server/issues/3096"
           }
         ],
         "label": "cap/analytics"
@@ -1162,7 +1082,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 3,
         "refs": [
           {
             "number": 953,
@@ -1178,16 +1098,6 @@
             "number": 2453,
             "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3095,
-            "title": "gp(raster): wire existing PostGIS surface and zonal-statistics primitives",
-            "url": "https://github.com/honua-io/honua-server/issues/3095"
-          },
-          {
-            "number": 3096,
-            "title": "gp(raster): add PostGIS executors for overlapping raster transforms and analytics",
-            "url": "https://github.com/honua-io/honua-server/issues/3096"
           }
         ],
         "categoryLevel": true,
@@ -1207,16 +1117,6 @@
             "number": 2453,
             "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3095,
-            "title": "gp(raster): wire existing PostGIS surface and zonal-statistics primitives",
-            "url": "https://github.com/honua-io/honua-server/issues/3095"
-          },
-          {
-            "number": 3096,
-            "title": "gp(raster): add PostGIS executors for overlapping raster transforms and analytics",
-            "url": "https://github.com/honua-io/honua-server/issues/3096"
           }
         ],
         "label": "cap/analytics"
@@ -1253,7 +1153,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 3,
         "refs": [
           {
             "number": 953,
@@ -1269,16 +1169,6 @@
             "number": 2453,
             "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3095,
-            "title": "gp(raster): wire existing PostGIS surface and zonal-statistics primitives",
-            "url": "https://github.com/honua-io/honua-server/issues/3095"
-          },
-          {
-            "number": 3096,
-            "title": "gp(raster): add PostGIS executors for overlapping raster transforms and analytics",
-            "url": "https://github.com/honua-io/honua-server/issues/3096"
           }
         ],
         "categoryLevel": true,
@@ -1298,16 +1188,6 @@
             "number": 2453,
             "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3095,
-            "title": "gp(raster): wire existing PostGIS surface and zonal-statistics primitives",
-            "url": "https://github.com/honua-io/honua-server/issues/3095"
-          },
-          {
-            "number": 3096,
-            "title": "gp(raster): add PostGIS executors for overlapping raster transforms and analytics",
-            "url": "https://github.com/honua-io/honua-server/issues/3096"
           }
         ],
         "label": "cap/analytics"
@@ -1385,16 +1265,6 @@
             "number": 2453,
             "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3095,
-            "title": "gp(raster): wire existing PostGIS surface and zonal-statistics primitives",
-            "url": "https://github.com/honua-io/honua-server/issues/3095"
-          },
-          {
-            "number": 3096,
-            "title": "gp(raster): add PostGIS executors for overlapping raster transforms and analytics",
-            "url": "https://github.com/honua-io/honua-server/issues/3096"
           }
         ],
         "label": "cap/analytics"
@@ -1431,7 +1301,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 3,
         "refs": [
           {
             "number": 953,
@@ -1447,16 +1317,6 @@
             "number": 2453,
             "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3095,
-            "title": "gp(raster): wire existing PostGIS surface and zonal-statistics primitives",
-            "url": "https://github.com/honua-io/honua-server/issues/3095"
-          },
-          {
-            "number": 3096,
-            "title": "gp(raster): add PostGIS executors for overlapping raster transforms and analytics",
-            "url": "https://github.com/honua-io/honua-server/issues/3096"
           }
         ],
         "categoryLevel": true,
@@ -1476,16 +1336,6 @@
             "number": 2453,
             "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3095,
-            "title": "gp(raster): wire existing PostGIS surface and zonal-statistics primitives",
-            "url": "https://github.com/honua-io/honua-server/issues/3095"
-          },
-          {
-            "number": 3096,
-            "title": "gp(raster): add PostGIS executors for overlapping raster transforms and analytics",
-            "url": "https://github.com/honua-io/honua-server/issues/3096"
           }
         ],
         "label": "cap/analytics"
@@ -1522,7 +1372,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 3,
         "refs": [
           {
             "number": 953,
@@ -1538,16 +1388,6 @@
             "number": 2453,
             "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3095,
-            "title": "gp(raster): wire existing PostGIS surface and zonal-statistics primitives",
-            "url": "https://github.com/honua-io/honua-server/issues/3095"
-          },
-          {
-            "number": 3096,
-            "title": "gp(raster): add PostGIS executors for overlapping raster transforms and analytics",
-            "url": "https://github.com/honua-io/honua-server/issues/3096"
           }
         ],
         "categoryLevel": true,
@@ -1567,16 +1407,6 @@
             "number": 2453,
             "title": "Spatial SQL analytics toolbox (warehouse-pushed)",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3095,
-            "title": "gp(raster): wire existing PostGIS surface and zonal-statistics primitives",
-            "url": "https://github.com/honua-io/honua-server/issues/3095"
-          },
-          {
-            "number": 3096,
-            "title": "gp(raster): add PostGIS executors for overlapping raster transforms and analytics",
-            "url": "https://github.com/honua-io/honua-server/issues/3096"
           }
         ],
         "label": "cap/analytics"
@@ -4075,7 +3905,7 @@
         }
       ],
       "openIssues": {
-        "count": 10,
+        "count": 8,
         "refs": [
           {
             "number": 953,
@@ -4111,16 +3941,6 @@
             "number": 2452,
             "title": "BigQuery feature-store provider",
             "url": "https://github.com/honua-io/honua-server/issues/2452"
-          },
-          {
-            "number": 3089,
-            "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
-            "url": "https://github.com/honua-io/honua-server/issues/3089"
-          },
-          {
-            "number": 3098,
-            "title": "raster ingest: move large imports to a durable staged worker pipeline",
-            "url": "https://github.com/honua-io/honua-server/issues/3098"
           },
           {
             "number": 3099,
@@ -4165,16 +3985,6 @@
             "number": 2452,
             "title": "BigQuery feature-store provider",
             "url": "https://github.com/honua-io/honua-server/issues/2452"
-          },
-          {
-            "number": 3089,
-            "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
-            "url": "https://github.com/honua-io/honua-server/issues/3089"
-          },
-          {
-            "number": 3098,
-            "title": "raster ingest: move large imports to a durable staged worker pipeline",
-            "url": "https://github.com/honua-io/honua-server/issues/3098"
           },
           {
             "number": 3099,
@@ -4221,7 +4031,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 10,
+        "count": 8,
         "refs": [
           {
             "number": 953,
@@ -4257,16 +4067,6 @@
             "number": 2452,
             "title": "BigQuery feature-store provider",
             "url": "https://github.com/honua-io/honua-server/issues/2452"
-          },
-          {
-            "number": 3089,
-            "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
-            "url": "https://github.com/honua-io/honua-server/issues/3089"
-          },
-          {
-            "number": 3098,
-            "title": "raster ingest: move large imports to a durable staged worker pipeline",
-            "url": "https://github.com/honua-io/honua-server/issues/3098"
           },
           {
             "number": 3099,
@@ -4311,16 +4111,6 @@
             "number": 2452,
             "title": "BigQuery feature-store provider",
             "url": "https://github.com/honua-io/honua-server/issues/2452"
-          },
-          {
-            "number": 3089,
-            "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
-            "url": "https://github.com/honua-io/honua-server/issues/3089"
-          },
-          {
-            "number": 3098,
-            "title": "raster ingest: move large imports to a durable staged worker pipeline",
-            "url": "https://github.com/honua-io/honua-server/issues/3098"
           },
           {
             "number": 3099,
@@ -4367,7 +4157,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 10,
+        "count": 8,
         "refs": [
           {
             "number": 953,
@@ -4403,16 +4193,6 @@
             "number": 2452,
             "title": "BigQuery feature-store provider",
             "url": "https://github.com/honua-io/honua-server/issues/2452"
-          },
-          {
-            "number": 3089,
-            "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
-            "url": "https://github.com/honua-io/honua-server/issues/3089"
-          },
-          {
-            "number": 3098,
-            "title": "raster ingest: move large imports to a durable staged worker pipeline",
-            "url": "https://github.com/honua-io/honua-server/issues/3098"
           },
           {
             "number": 3099,
@@ -4457,16 +4237,6 @@
             "number": 2452,
             "title": "BigQuery feature-store provider",
             "url": "https://github.com/honua-io/honua-server/issues/2452"
-          },
-          {
-            "number": 3089,
-            "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
-            "url": "https://github.com/honua-io/honua-server/issues/3089"
-          },
-          {
-            "number": 3098,
-            "title": "raster ingest: move large imports to a durable staged worker pipeline",
-            "url": "https://github.com/honua-io/honua-server/issues/3098"
           },
           {
             "number": 3099,
@@ -4625,71 +4395,21 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 1,
         "refs": [
-          {
-            "number": 3092,
-            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
-            "url": "https://github.com/honua-io/honua-server/issues/3092"
-          },
-          {
-            "number": 3093,
-            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
-            "url": "https://github.com/honua-io/honua-server/issues/3093"
-          },
-          {
-            "number": 3097,
-            "title": "postgres(raster): isolate and govern asynchronous raster database workloads",
-            "url": "https://github.com/honua-io/honua-server/issues/3097"
-          },
           {
             "number": 3099,
             "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
             "url": "https://github.com/honua-io/honua-server/issues/3099"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3104,
-            "title": "ops(raster): expose engine, placement, database load, artifact I/O, and Batch cost",
-            "url": "https://github.com/honua-io/honua-server/issues/3104"
           }
         ],
         "categoryLevel": true,
         "keyRefs": [],
         "categoryRefs": [
           {
-            "number": 3092,
-            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
-            "url": "https://github.com/honua-io/honua-server/issues/3092"
-          },
-          {
-            "number": 3093,
-            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
-            "url": "https://github.com/honua-io/honua-server/issues/3093"
-          },
-          {
-            "number": 3097,
-            "title": "postgres(raster): isolate and govern asynchronous raster database workloads",
-            "url": "https://github.com/honua-io/honua-server/issues/3097"
-          },
-          {
             "number": 3099,
             "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
             "url": "https://github.com/honua-io/honua-server/issues/3099"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3104,
-            "title": "ops(raster): expose engine, placement, database load, artifact I/O, and Batch cost",
-            "url": "https://github.com/honua-io/honua-server/issues/3104"
           }
         ],
         "label": "cap/ops"
@@ -4948,71 +4668,21 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 1,
         "refs": [
-          {
-            "number": 3092,
-            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
-            "url": "https://github.com/honua-io/honua-server/issues/3092"
-          },
-          {
-            "number": 3093,
-            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
-            "url": "https://github.com/honua-io/honua-server/issues/3093"
-          },
-          {
-            "number": 3097,
-            "title": "postgres(raster): isolate and govern asynchronous raster database workloads",
-            "url": "https://github.com/honua-io/honua-server/issues/3097"
-          },
           {
             "number": 3099,
             "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
             "url": "https://github.com/honua-io/honua-server/issues/3099"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3104,
-            "title": "ops(raster): expose engine, placement, database load, artifact I/O, and Batch cost",
-            "url": "https://github.com/honua-io/honua-server/issues/3104"
           }
         ],
         "categoryLevel": true,
         "keyRefs": [],
         "categoryRefs": [
           {
-            "number": 3092,
-            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
-            "url": "https://github.com/honua-io/honua-server/issues/3092"
-          },
-          {
-            "number": 3093,
-            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
-            "url": "https://github.com/honua-io/honua-server/issues/3093"
-          },
-          {
-            "number": 3097,
-            "title": "postgres(raster): isolate and govern asynchronous raster database workloads",
-            "url": "https://github.com/honua-io/honua-server/issues/3097"
-          },
-          {
             "number": 3099,
             "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
             "url": "https://github.com/honua-io/honua-server/issues/3099"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3104,
-            "title": "ops(raster): expose engine, placement, database load, artifact I/O, and Batch cost",
-            "url": "https://github.com/honua-io/honua-server/issues/3104"
           }
         ],
         "label": "cap/ops"
@@ -5224,22 +4894,62 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 9,
+        "count": 29,
         "refs": [
           {
-            "number": 1259,
-            "title": "Epic: port Esri geoprocessing (GP) services to Honua",
-            "url": "https://github.com/honua-io/honua-server/issues/1259"
+            "number": 3095,
+            "title": "gp(raster): wire existing PostGIS surface and zonal-statistics primitives",
+            "url": "https://github.com/honua-io/honua-server/issues/3095"
           },
           {
-            "number": 2145,
-            "title": "arcpy / toolbox (.tbx/.pyt) translation lane",
-            "url": "https://github.com/honua-io/honua-server/issues/2145"
+            "number": 3096,
+            "title": "gp(raster): add PostGIS executors for overlapping raster transforms and analytics",
+            "url": "https://github.com/honua-io/honua-server/issues/3096"
+          },
+          {
+            "number": 3089,
+            "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
+            "url": "https://github.com/honua-io/honua-server/issues/3089"
+          },
+          {
+            "number": 3098,
+            "title": "raster ingest: move large imports to a durable staged worker pipeline",
+            "url": "https://github.com/honua-io/honua-server/issues/3098"
+          },
+          {
+            "number": 3092,
+            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
+            "url": "https://github.com/honua-io/honua-server/issues/3092"
+          },
+          {
+            "number": 3093,
+            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
+            "url": "https://github.com/honua-io/honua-server/issues/3093"
+          },
+          {
+            "number": 3097,
+            "title": "postgres(raster): isolate and govern asynchronous raster database workloads",
+            "url": "https://github.com/honua-io/honua-server/issues/3097"
+          },
+          {
+            "number": 3101,
+            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
+            "url": "https://github.com/honua-io/honua-server/issues/3101"
+          },
+          {
+            "number": 3104,
+            "title": "ops(raster): expose engine, placement, database load, artifact I/O, and Batch cost",
+            "url": "https://github.com/honua-io/honua-server/issues/3104"
           },
           {
             "number": 2438,
             "title": "Raster function chains compiled to PostGIS or durable GP",
             "url": "https://github.com/honua-io/honua-server/issues/2438"
+          },
+          {
+            "number": 3068,
+            "title": "bug(security): row-level security and field masking are not applied to geoprocessing background layer reads",
+            "url": "https://github.com/honua-io/honua-server/issues/3068"
           },
           {
             "number": 3085,
@@ -5270,10 +4980,216 @@
             "number": 3092,
             "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
             "url": "https://github.com/honua-io/honua-server/issues/3092"
+          },
+          {
+            "number": 2438,
+            "title": "Raster function chains compiled to PostGIS or durable GP",
+            "url": "https://github.com/honua-io/honua-server/issues/2438"
+          },
+          {
+            "number": 3068,
+            "title": "bug(security): row-level security and field masking are not applied to geoprocessing background layer reads",
+            "url": "https://github.com/honua-io/honua-server/issues/3068"
+          },
+          {
+            "number": 3085,
+            "title": "Epic: PostGIS-first raster execution with isolated GDAL/AWS Batch offload",
+            "url": "https://github.com/honua-io/honua-server/issues/3085"
+          },
+          {
+            "number": 3088,
+            "title": "gp(raster): introduce typed reference-based raster source contracts",
+            "url": "https://github.com/honua-io/honua-server/issues/3088"
+          },
+          {
+            "number": 3090,
+            "title": "gp(raster): eliminate submit-side whole-COG download and base64 materialization",
+            "url": "https://github.com/honua-io/honua-server/issues/3090"
+          },
+          {
+            "number": 3089,
+            "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
+            "url": "https://github.com/honua-io/honua-server/issues/3089"
+          },
+          {
+            "number": 3091,
+            "title": "gp(raster): add an engine capability and raster cost registry",
+            "url": "https://github.com/honua-io/honua-server/issues/3091"
+          },
+          {
+            "number": 3092,
+            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
+            "url": "https://github.com/honua-io/honua-server/issues/3092"
+          },
+          {
+            "number": 3094,
+            "title": "gp(raster): add a dedicated managed PostGIS raster worker profile",
+            "url": "https://github.com/honua-io/honua-server/issues/3094"
+          },
+          {
+            "number": 3093,
+            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
+            "url": "https://github.com/honua-io/honua-server/issues/3093"
+          },
+          {
+            "number": 3105,
+            "title": "photogrammetry: produce orthomosaics as raster GP artifacts and keep 3D serving separate",
+            "url": "https://github.com/honua-io/honua-server/issues/3105"
+          },
+          {
+            "number": 3101,
+            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
+            "url": "https://github.com/honua-io/honua-server/issues/3101"
           }
         ],
-        "categoryLevel": true,
-        "keyRefs": [],
+        "categoryLevel": false,
+        "keyRefs": [
+          {
+            "number": 3095,
+            "title": "gp(raster): wire existing PostGIS surface and zonal-statistics primitives",
+            "url": "https://github.com/honua-io/honua-server/issues/3095"
+          },
+          {
+            "number": 3096,
+            "title": "gp(raster): add PostGIS executors for overlapping raster transforms and analytics",
+            "url": "https://github.com/honua-io/honua-server/issues/3096"
+          },
+          {
+            "number": 3089,
+            "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
+            "url": "https://github.com/honua-io/honua-server/issues/3089"
+          },
+          {
+            "number": 3098,
+            "title": "raster ingest: move large imports to a durable staged worker pipeline",
+            "url": "https://github.com/honua-io/honua-server/issues/3098"
+          },
+          {
+            "number": 3092,
+            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
+            "url": "https://github.com/honua-io/honua-server/issues/3092"
+          },
+          {
+            "number": 3093,
+            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
+            "url": "https://github.com/honua-io/honua-server/issues/3093"
+          },
+          {
+            "number": 3097,
+            "title": "postgres(raster): isolate and govern asynchronous raster database workloads",
+            "url": "https://github.com/honua-io/honua-server/issues/3097"
+          },
+          {
+            "number": 3101,
+            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
+            "url": "https://github.com/honua-io/honua-server/issues/3101"
+          },
+          {
+            "number": 3104,
+            "title": "ops(raster): expose engine, placement, database load, artifact I/O, and Batch cost",
+            "url": "https://github.com/honua-io/honua-server/issues/3104"
+          },
+          {
+            "number": 2438,
+            "title": "Raster function chains compiled to PostGIS or durable GP",
+            "url": "https://github.com/honua-io/honua-server/issues/2438"
+          },
+          {
+            "number": 3068,
+            "title": "bug(security): row-level security and field masking are not applied to geoprocessing background layer reads",
+            "url": "https://github.com/honua-io/honua-server/issues/3068"
+          },
+          {
+            "number": 3085,
+            "title": "Epic: PostGIS-first raster execution with isolated GDAL/AWS Batch offload",
+            "url": "https://github.com/honua-io/honua-server/issues/3085"
+          },
+          {
+            "number": 3088,
+            "title": "gp(raster): introduce typed reference-based raster source contracts",
+            "url": "https://github.com/honua-io/honua-server/issues/3088"
+          },
+          {
+            "number": 3090,
+            "title": "gp(raster): eliminate submit-side whole-COG download and base64 materialization",
+            "url": "https://github.com/honua-io/honua-server/issues/3090"
+          },
+          {
+            "number": 3089,
+            "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
+            "url": "https://github.com/honua-io/honua-server/issues/3089"
+          },
+          {
+            "number": 3091,
+            "title": "gp(raster): add an engine capability and raster cost registry",
+            "url": "https://github.com/honua-io/honua-server/issues/3091"
+          },
+          {
+            "number": 3092,
+            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
+            "url": "https://github.com/honua-io/honua-server/issues/3092"
+          },
+          {
+            "number": 2438,
+            "title": "Raster function chains compiled to PostGIS or durable GP",
+            "url": "https://github.com/honua-io/honua-server/issues/2438"
+          },
+          {
+            "number": 3068,
+            "title": "bug(security): row-level security and field masking are not applied to geoprocessing background layer reads",
+            "url": "https://github.com/honua-io/honua-server/issues/3068"
+          },
+          {
+            "number": 3085,
+            "title": "Epic: PostGIS-first raster execution with isolated GDAL/AWS Batch offload",
+            "url": "https://github.com/honua-io/honua-server/issues/3085"
+          },
+          {
+            "number": 3088,
+            "title": "gp(raster): introduce typed reference-based raster source contracts",
+            "url": "https://github.com/honua-io/honua-server/issues/3088"
+          },
+          {
+            "number": 3090,
+            "title": "gp(raster): eliminate submit-side whole-COG download and base64 materialization",
+            "url": "https://github.com/honua-io/honua-server/issues/3090"
+          },
+          {
+            "number": 3089,
+            "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
+            "url": "https://github.com/honua-io/honua-server/issues/3089"
+          },
+          {
+            "number": 3091,
+            "title": "gp(raster): add an engine capability and raster cost registry",
+            "url": "https://github.com/honua-io/honua-server/issues/3091"
+          },
+          {
+            "number": 3092,
+            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
+            "url": "https://github.com/honua-io/honua-server/issues/3092"
+          },
+          {
+            "number": 3094,
+            "title": "gp(raster): add a dedicated managed PostGIS raster worker profile",
+            "url": "https://github.com/honua-io/honua-server/issues/3094"
+          },
+          {
+            "number": 3093,
+            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
+            "url": "https://github.com/honua-io/honua-server/issues/3093"
+          },
+          {
+            "number": 3105,
+            "title": "photogrammetry: produce orthomosaics as raster GP artifacts and keep 3D serving separate",
+            "url": "https://github.com/honua-io/honua-server/issues/3105"
+          },
+          {
+            "number": 3101,
+            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
+            "url": "https://github.com/honua-io/honua-server/issues/3101"
+          }
+        ],
         "categoryRefs": [
           {
             "number": 1259,
@@ -5284,41 +5200,6 @@
             "number": 2145,
             "title": "arcpy / toolbox (.tbx/.pyt) translation lane",
             "url": "https://github.com/honua-io/honua-server/issues/2145"
-          },
-          {
-            "number": 2438,
-            "title": "Raster function chains compiled to PostGIS or durable GP",
-            "url": "https://github.com/honua-io/honua-server/issues/2438"
-          },
-          {
-            "number": 3085,
-            "title": "Epic: PostGIS-first raster execution with isolated GDAL/AWS Batch offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3085"
-          },
-          {
-            "number": 3088,
-            "title": "gp(raster): introduce typed reference-based raster source contracts",
-            "url": "https://github.com/honua-io/honua-server/issues/3088"
-          },
-          {
-            "number": 3090,
-            "title": "gp(raster): eliminate submit-side whole-COG download and base64 materialization",
-            "url": "https://github.com/honua-io/honua-server/issues/3090"
-          },
-          {
-            "number": 3089,
-            "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
-            "url": "https://github.com/honua-io/honua-server/issues/3089"
-          },
-          {
-            "number": 3091,
-            "title": "gp(raster): add an engine capability and raster cost registry",
-            "url": "https://github.com/honua-io/honua-server/issues/3091"
-          },
-          {
-            "number": 3092,
-            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
-            "url": "https://github.com/honua-io/honua-server/issues/3092"
           }
         ],
         "label": "cap/process"
@@ -5364,7 +5245,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 9,
+        "count": 2,
         "refs": [
           {
             "number": 1259,
@@ -5375,41 +5256,6 @@
             "number": 2145,
             "title": "arcpy / toolbox (.tbx/.pyt) translation lane",
             "url": "https://github.com/honua-io/honua-server/issues/2145"
-          },
-          {
-            "number": 2438,
-            "title": "Raster function chains compiled to PostGIS or durable GP",
-            "url": "https://github.com/honua-io/honua-server/issues/2438"
-          },
-          {
-            "number": 3085,
-            "title": "Epic: PostGIS-first raster execution with isolated GDAL/AWS Batch offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3085"
-          },
-          {
-            "number": 3088,
-            "title": "gp(raster): introduce typed reference-based raster source contracts",
-            "url": "https://github.com/honua-io/honua-server/issues/3088"
-          },
-          {
-            "number": 3090,
-            "title": "gp(raster): eliminate submit-side whole-COG download and base64 materialization",
-            "url": "https://github.com/honua-io/honua-server/issues/3090"
-          },
-          {
-            "number": 3089,
-            "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
-            "url": "https://github.com/honua-io/honua-server/issues/3089"
-          },
-          {
-            "number": 3091,
-            "title": "gp(raster): add an engine capability and raster cost registry",
-            "url": "https://github.com/honua-io/honua-server/issues/3091"
-          },
-          {
-            "number": 3092,
-            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
-            "url": "https://github.com/honua-io/honua-server/issues/3092"
           }
         ],
         "categoryLevel": true,
@@ -5424,41 +5270,6 @@
             "number": 2145,
             "title": "arcpy / toolbox (.tbx/.pyt) translation lane",
             "url": "https://github.com/honua-io/honua-server/issues/2145"
-          },
-          {
-            "number": 2438,
-            "title": "Raster function chains compiled to PostGIS or durable GP",
-            "url": "https://github.com/honua-io/honua-server/issues/2438"
-          },
-          {
-            "number": 3085,
-            "title": "Epic: PostGIS-first raster execution with isolated GDAL/AWS Batch offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3085"
-          },
-          {
-            "number": 3088,
-            "title": "gp(raster): introduce typed reference-based raster source contracts",
-            "url": "https://github.com/honua-io/honua-server/issues/3088"
-          },
-          {
-            "number": 3090,
-            "title": "gp(raster): eliminate submit-side whole-COG download and base64 materialization",
-            "url": "https://github.com/honua-io/honua-server/issues/3090"
-          },
-          {
-            "number": 3089,
-            "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
-            "url": "https://github.com/honua-io/honua-server/issues/3089"
-          },
-          {
-            "number": 3091,
-            "title": "gp(raster): add an engine capability and raster cost registry",
-            "url": "https://github.com/honua-io/honua-server/issues/3091"
-          },
-          {
-            "number": 3092,
-            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
-            "url": "https://github.com/honua-io/honua-server/issues/3092"
           }
         ],
         "label": "cap/process"
@@ -5506,22 +5317,12 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 9,
+        "count": 3,
         "refs": [
           {
-            "number": 2438,
-            "title": "Raster function chains compiled to PostGIS or durable GP",
-            "url": "https://github.com/honua-io/honua-server/issues/2438"
-          },
-          {
-            "number": 3085,
-            "title": "Epic: PostGIS-first raster execution with isolated GDAL/AWS Batch offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3085"
-          },
-          {
-            "number": 3088,
-            "title": "gp(raster): introduce typed reference-based raster source contracts",
-            "url": "https://github.com/honua-io/honua-server/issues/3088"
+            "number": 3090,
+            "title": "gp(raster): eliminate submit-side whole-COG download and base64 materialization",
+            "url": "https://github.com/honua-io/honua-server/issues/3090"
           },
           {
             "number": 3090,
@@ -5529,48 +5330,17 @@
             "url": "https://github.com/honua-io/honua-server/issues/3090"
           },
           {
-            "number": 3089,
-            "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
-            "url": "https://github.com/honua-io/honua-server/issues/3089"
-          },
-          {
-            "number": 3091,
-            "title": "gp(raster): add an engine capability and raster cost registry",
-            "url": "https://github.com/honua-io/honua-server/issues/3091"
-          },
-          {
-            "number": 3092,
-            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
-            "url": "https://github.com/honua-io/honua-server/issues/3092"
-          },
-          {
-            "number": 3094,
-            "title": "gp(raster): add a dedicated managed PostGIS raster worker profile",
-            "url": "https://github.com/honua-io/honua-server/issues/3094"
-          },
-          {
-            "number": 3093,
-            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
-            "url": "https://github.com/honua-io/honua-server/issues/3093"
+            "number": 3102,
+            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
+            "url": "https://github.com/honua-io/honua-server/issues/3102"
           }
         ],
-        "categoryLevel": true,
-        "keyRefs": [],
-        "categoryRefs": [
+        "categoryLevel": false,
+        "keyRefs": [
           {
-            "number": 2438,
-            "title": "Raster function chains compiled to PostGIS or durable GP",
-            "url": "https://github.com/honua-io/honua-server/issues/2438"
-          },
-          {
-            "number": 3085,
-            "title": "Epic: PostGIS-first raster execution with isolated GDAL/AWS Batch offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3085"
-          },
-          {
-            "number": 3088,
-            "title": "gp(raster): introduce typed reference-based raster source contracts",
-            "url": "https://github.com/honua-io/honua-server/issues/3088"
+            "number": 3090,
+            "title": "gp(raster): eliminate submit-side whole-COG download and base64 materialization",
+            "url": "https://github.com/honua-io/honua-server/issues/3090"
           },
           {
             "number": 3090,
@@ -5578,31 +5348,12 @@
             "url": "https://github.com/honua-io/honua-server/issues/3090"
           },
           {
-            "number": 3089,
-            "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
-            "url": "https://github.com/honua-io/honua-server/issues/3089"
-          },
-          {
-            "number": 3091,
-            "title": "gp(raster): add an engine capability and raster cost registry",
-            "url": "https://github.com/honua-io/honua-server/issues/3091"
-          },
-          {
-            "number": 3092,
-            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
-            "url": "https://github.com/honua-io/honua-server/issues/3092"
-          },
-          {
-            "number": 3094,
-            "title": "gp(raster): add a dedicated managed PostGIS raster worker profile",
-            "url": "https://github.com/honua-io/honua-server/issues/3094"
-          },
-          {
-            "number": 3093,
-            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
-            "url": "https://github.com/honua-io/honua-server/issues/3093"
+            "number": 3102,
+            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
+            "url": "https://github.com/honua-io/honua-server/issues/3102"
           }
         ],
+        "categoryRefs": [],
         "label": "cap/raster"
       }
     },
@@ -5641,103 +5392,11 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 9,
-        "refs": [
-          {
-            "number": 2438,
-            "title": "Raster function chains compiled to PostGIS or durable GP",
-            "url": "https://github.com/honua-io/honua-server/issues/2438"
-          },
-          {
-            "number": 3085,
-            "title": "Epic: PostGIS-first raster execution with isolated GDAL/AWS Batch offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3085"
-          },
-          {
-            "number": 3088,
-            "title": "gp(raster): introduce typed reference-based raster source contracts",
-            "url": "https://github.com/honua-io/honua-server/issues/3088"
-          },
-          {
-            "number": 3090,
-            "title": "gp(raster): eliminate submit-side whole-COG download and base64 materialization",
-            "url": "https://github.com/honua-io/honua-server/issues/3090"
-          },
-          {
-            "number": 3089,
-            "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
-            "url": "https://github.com/honua-io/honua-server/issues/3089"
-          },
-          {
-            "number": 3091,
-            "title": "gp(raster): add an engine capability and raster cost registry",
-            "url": "https://github.com/honua-io/honua-server/issues/3091"
-          },
-          {
-            "number": 3092,
-            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
-            "url": "https://github.com/honua-io/honua-server/issues/3092"
-          },
-          {
-            "number": 3094,
-            "title": "gp(raster): add a dedicated managed PostGIS raster worker profile",
-            "url": "https://github.com/honua-io/honua-server/issues/3094"
-          },
-          {
-            "number": 3093,
-            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
-            "url": "https://github.com/honua-io/honua-server/issues/3093"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 2438,
-            "title": "Raster function chains compiled to PostGIS or durable GP",
-            "url": "https://github.com/honua-io/honua-server/issues/2438"
-          },
-          {
-            "number": 3085,
-            "title": "Epic: PostGIS-first raster execution with isolated GDAL/AWS Batch offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3085"
-          },
-          {
-            "number": 3088,
-            "title": "gp(raster): introduce typed reference-based raster source contracts",
-            "url": "https://github.com/honua-io/honua-server/issues/3088"
-          },
-          {
-            "number": 3090,
-            "title": "gp(raster): eliminate submit-side whole-COG download and base64 materialization",
-            "url": "https://github.com/honua-io/honua-server/issues/3090"
-          },
-          {
-            "number": 3089,
-            "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
-            "url": "https://github.com/honua-io/honua-server/issues/3089"
-          },
-          {
-            "number": 3091,
-            "title": "gp(raster): add an engine capability and raster cost registry",
-            "url": "https://github.com/honua-io/honua-server/issues/3091"
-          },
-          {
-            "number": 3092,
-            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
-            "url": "https://github.com/honua-io/honua-server/issues/3092"
-          },
-          {
-            "number": 3094,
-            "title": "gp(raster): add a dedicated managed PostGIS raster worker profile",
-            "url": "https://github.com/honua-io/honua-server/issues/3094"
-          },
-          {
-            "number": 3093,
-            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
-            "url": "https://github.com/honua-io/honua-server/issues/3093"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/raster"
       }
     },
@@ -5777,103 +5436,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 9,
+        "count": 1,
         "refs": [
           {
-            "number": 2438,
-            "title": "Raster function chains compiled to PostGIS or durable GP",
-            "url": "https://github.com/honua-io/honua-server/issues/2438"
-          },
-          {
-            "number": 3085,
-            "title": "Epic: PostGIS-first raster execution with isolated GDAL/AWS Batch offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3085"
-          },
-          {
-            "number": 3088,
-            "title": "gp(raster): introduce typed reference-based raster source contracts",
-            "url": "https://github.com/honua-io/honua-server/issues/3088"
-          },
-          {
-            "number": 3090,
-            "title": "gp(raster): eliminate submit-side whole-COG download and base64 materialization",
-            "url": "https://github.com/honua-io/honua-server/issues/3090"
-          },
-          {
-            "number": 3089,
-            "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
-            "url": "https://github.com/honua-io/honua-server/issues/3089"
-          },
-          {
-            "number": 3091,
-            "title": "gp(raster): add an engine capability and raster cost registry",
-            "url": "https://github.com/honua-io/honua-server/issues/3091"
-          },
-          {
-            "number": 3092,
-            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
-            "url": "https://github.com/honua-io/honua-server/issues/3092"
-          },
-          {
-            "number": 3094,
-            "title": "gp(raster): add a dedicated managed PostGIS raster worker profile",
-            "url": "https://github.com/honua-io/honua-server/issues/3094"
-          },
-          {
-            "number": 3093,
-            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
-            "url": "https://github.com/honua-io/honua-server/issues/3093"
+            "number": 3103,
+            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
+            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
-        "categoryLevel": true,
-        "keyRefs": [],
-        "categoryRefs": [
+        "categoryLevel": false,
+        "keyRefs": [
           {
-            "number": 2438,
-            "title": "Raster function chains compiled to PostGIS or durable GP",
-            "url": "https://github.com/honua-io/honua-server/issues/2438"
-          },
-          {
-            "number": 3085,
-            "title": "Epic: PostGIS-first raster execution with isolated GDAL/AWS Batch offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3085"
-          },
-          {
-            "number": 3088,
-            "title": "gp(raster): introduce typed reference-based raster source contracts",
-            "url": "https://github.com/honua-io/honua-server/issues/3088"
-          },
-          {
-            "number": 3090,
-            "title": "gp(raster): eliminate submit-side whole-COG download and base64 materialization",
-            "url": "https://github.com/honua-io/honua-server/issues/3090"
-          },
-          {
-            "number": 3089,
-            "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
-            "url": "https://github.com/honua-io/honua-server/issues/3089"
-          },
-          {
-            "number": 3091,
-            "title": "gp(raster): add an engine capability and raster cost registry",
-            "url": "https://github.com/honua-io/honua-server/issues/3091"
-          },
-          {
-            "number": 3092,
-            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
-            "url": "https://github.com/honua-io/honua-server/issues/3092"
-          },
-          {
-            "number": 3094,
-            "title": "gp(raster): add a dedicated managed PostGIS raster worker profile",
-            "url": "https://github.com/honua-io/honua-server/issues/3094"
-          },
-          {
-            "number": 3093,
-            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
-            "url": "https://github.com/honua-io/honua-server/issues/3093"
+            "number": 3103,
+            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
+            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
+        "categoryRefs": [],
         "label": "cap/raster"
       }
     },
@@ -5919,103 +5498,11 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 9,
-        "refs": [
-          {
-            "number": 2438,
-            "title": "Raster function chains compiled to PostGIS or durable GP",
-            "url": "https://github.com/honua-io/honua-server/issues/2438"
-          },
-          {
-            "number": 3085,
-            "title": "Epic: PostGIS-first raster execution with isolated GDAL/AWS Batch offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3085"
-          },
-          {
-            "number": 3088,
-            "title": "gp(raster): introduce typed reference-based raster source contracts",
-            "url": "https://github.com/honua-io/honua-server/issues/3088"
-          },
-          {
-            "number": 3090,
-            "title": "gp(raster): eliminate submit-side whole-COG download and base64 materialization",
-            "url": "https://github.com/honua-io/honua-server/issues/3090"
-          },
-          {
-            "number": 3089,
-            "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
-            "url": "https://github.com/honua-io/honua-server/issues/3089"
-          },
-          {
-            "number": 3091,
-            "title": "gp(raster): add an engine capability and raster cost registry",
-            "url": "https://github.com/honua-io/honua-server/issues/3091"
-          },
-          {
-            "number": 3092,
-            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
-            "url": "https://github.com/honua-io/honua-server/issues/3092"
-          },
-          {
-            "number": 3094,
-            "title": "gp(raster): add a dedicated managed PostGIS raster worker profile",
-            "url": "https://github.com/honua-io/honua-server/issues/3094"
-          },
-          {
-            "number": 3093,
-            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
-            "url": "https://github.com/honua-io/honua-server/issues/3093"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 2438,
-            "title": "Raster function chains compiled to PostGIS or durable GP",
-            "url": "https://github.com/honua-io/honua-server/issues/2438"
-          },
-          {
-            "number": 3085,
-            "title": "Epic: PostGIS-first raster execution with isolated GDAL/AWS Batch offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3085"
-          },
-          {
-            "number": 3088,
-            "title": "gp(raster): introduce typed reference-based raster source contracts",
-            "url": "https://github.com/honua-io/honua-server/issues/3088"
-          },
-          {
-            "number": 3090,
-            "title": "gp(raster): eliminate submit-side whole-COG download and base64 materialization",
-            "url": "https://github.com/honua-io/honua-server/issues/3090"
-          },
-          {
-            "number": 3089,
-            "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
-            "url": "https://github.com/honua-io/honua-server/issues/3089"
-          },
-          {
-            "number": 3091,
-            "title": "gp(raster): add an engine capability and raster cost registry",
-            "url": "https://github.com/honua-io/honua-server/issues/3091"
-          },
-          {
-            "number": 3092,
-            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
-            "url": "https://github.com/honua-io/honua-server/issues/3092"
-          },
-          {
-            "number": 3094,
-            "title": "gp(raster): add a dedicated managed PostGIS raster worker profile",
-            "url": "https://github.com/honua-io/honua-server/issues/3094"
-          },
-          {
-            "number": 3093,
-            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
-            "url": "https://github.com/honua-io/honua-server/issues/3093"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/raster"
       }
     },
@@ -6050,103 +5537,11 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 9,
-        "refs": [
-          {
-            "number": 2438,
-            "title": "Raster function chains compiled to PostGIS or durable GP",
-            "url": "https://github.com/honua-io/honua-server/issues/2438"
-          },
-          {
-            "number": 3085,
-            "title": "Epic: PostGIS-first raster execution with isolated GDAL/AWS Batch offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3085"
-          },
-          {
-            "number": 3088,
-            "title": "gp(raster): introduce typed reference-based raster source contracts",
-            "url": "https://github.com/honua-io/honua-server/issues/3088"
-          },
-          {
-            "number": 3090,
-            "title": "gp(raster): eliminate submit-side whole-COG download and base64 materialization",
-            "url": "https://github.com/honua-io/honua-server/issues/3090"
-          },
-          {
-            "number": 3089,
-            "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
-            "url": "https://github.com/honua-io/honua-server/issues/3089"
-          },
-          {
-            "number": 3091,
-            "title": "gp(raster): add an engine capability and raster cost registry",
-            "url": "https://github.com/honua-io/honua-server/issues/3091"
-          },
-          {
-            "number": 3092,
-            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
-            "url": "https://github.com/honua-io/honua-server/issues/3092"
-          },
-          {
-            "number": 3094,
-            "title": "gp(raster): add a dedicated managed PostGIS raster worker profile",
-            "url": "https://github.com/honua-io/honua-server/issues/3094"
-          },
-          {
-            "number": 3093,
-            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
-            "url": "https://github.com/honua-io/honua-server/issues/3093"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 2438,
-            "title": "Raster function chains compiled to PostGIS or durable GP",
-            "url": "https://github.com/honua-io/honua-server/issues/2438"
-          },
-          {
-            "number": 3085,
-            "title": "Epic: PostGIS-first raster execution with isolated GDAL/AWS Batch offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3085"
-          },
-          {
-            "number": 3088,
-            "title": "gp(raster): introduce typed reference-based raster source contracts",
-            "url": "https://github.com/honua-io/honua-server/issues/3088"
-          },
-          {
-            "number": 3090,
-            "title": "gp(raster): eliminate submit-side whole-COG download and base64 materialization",
-            "url": "https://github.com/honua-io/honua-server/issues/3090"
-          },
-          {
-            "number": 3089,
-            "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
-            "url": "https://github.com/honua-io/honua-server/issues/3089"
-          },
-          {
-            "number": 3091,
-            "title": "gp(raster): add an engine capability and raster cost registry",
-            "url": "https://github.com/honua-io/honua-server/issues/3091"
-          },
-          {
-            "number": 3092,
-            "title": "gp(raster): select engine and placement from residency, cost, DB health, and policy",
-            "url": "https://github.com/honua-io/honua-server/issues/3092"
-          },
-          {
-            "number": 3094,
-            "title": "gp(raster): add a dedicated managed PostGIS raster worker profile",
-            "url": "https://github.com/honua-io/honua-server/issues/3094"
-          },
-          {
-            "number": 3093,
-            "title": "gp: make local versus AWS Batch workload selection raster-aware per job",
-            "url": "https://github.com/honua-io/honua-server/issues/3093"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/raster"
       }
     },
@@ -6253,17 +5648,12 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
+        "count": 1,
         "refs": [
           {
             "number": 2442,
             "title": "Point-cloud and 3D-mesh serving (LAS/LAZ/COPC and scene artifacts)",
             "url": "https://github.com/honua-io/honua-server/issues/2442"
-          },
-          {
-            "number": 3105,
-            "title": "photogrammetry: produce orthomosaics as raster GP artifacts and keep 3D serving separate",
-            "url": "https://github.com/honua-io/honua-server/issues/3105"
           }
         ],
         "categoryLevel": true,
@@ -6273,11 +5663,6 @@
             "number": 2442,
             "title": "Point-cloud and 3D-mesh serving (LAS/LAZ/COPC and scene artifacts)",
             "url": "https://github.com/honua-io/honua-server/issues/2442"
-          },
-          {
-            "number": 3105,
-            "title": "photogrammetry: produce orthomosaics as raster GP artifacts and keep 3D serving separate",
-            "url": "https://github.com/honua-io/honua-server/issues/3105"
           }
         ],
         "label": "cap/scene"
@@ -6323,17 +5708,12 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
+        "count": 1,
         "refs": [
           {
             "number": 2442,
             "title": "Point-cloud and 3D-mesh serving (LAS/LAZ/COPC and scene artifacts)",
             "url": "https://github.com/honua-io/honua-server/issues/2442"
-          },
-          {
-            "number": 3105,
-            "title": "photogrammetry: produce orthomosaics as raster GP artifacts and keep 3D serving separate",
-            "url": "https://github.com/honua-io/honua-server/issues/3105"
           }
         ],
         "categoryLevel": true,
@@ -6343,11 +5723,6 @@
             "number": 2442,
             "title": "Point-cloud and 3D-mesh serving (LAS/LAZ/COPC and scene artifacts)",
             "url": "https://github.com/honua-io/honua-server/issues/2442"
-          },
-          {
-            "number": 3105,
-            "title": "photogrammetry: produce orthomosaics as raster GP artifacts and keep 3D serving separate",
-            "url": "https://github.com/honua-io/honua-server/issues/3105"
           }
         ],
         "label": "cap/scene"
@@ -6384,17 +5759,12 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
+        "count": 1,
         "refs": [
           {
             "number": 2442,
             "title": "Point-cloud and 3D-mesh serving (LAS/LAZ/COPC and scene artifacts)",
             "url": "https://github.com/honua-io/honua-server/issues/2442"
-          },
-          {
-            "number": 3105,
-            "title": "photogrammetry: produce orthomosaics as raster GP artifacts and keep 3D serving separate",
-            "url": "https://github.com/honua-io/honua-server/issues/3105"
           }
         ],
         "categoryLevel": true,
@@ -6404,11 +5774,6 @@
             "number": 2442,
             "title": "Point-cloud and 3D-mesh serving (LAS/LAZ/COPC and scene artifacts)",
             "url": "https://github.com/honua-io/honua-server/issues/2442"
-          },
-          {
-            "number": 3105,
-            "title": "photogrammetry: produce orthomosaics as raster GP artifacts and keep 3D serving separate",
-            "url": "https://github.com/honua-io/honua-server/issues/3105"
           }
         ],
         "label": "cap/scene"
@@ -6457,7 +5822,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 2,
         "refs": [
           {
             "number": 2434,
@@ -6468,21 +5833,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "categoryLevel": true,
@@ -6497,21 +5847,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "label": "cap/serve"
@@ -6558,7 +5893,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 2,
         "refs": [
           {
             "number": 2434,
@@ -6569,21 +5904,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "categoryLevel": true,
@@ -6598,21 +5918,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "label": "cap/serve"
@@ -6873,7 +6178,7 @@
         }
       ],
       "openIssues": {
-        "count": 5,
+        "count": 2,
         "refs": [
           {
             "number": 2434,
@@ -6884,21 +6189,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "categoryLevel": true,
@@ -6913,21 +6203,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "label": "cap/serve"
@@ -6974,7 +6249,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 2,
         "refs": [
           {
             "number": 2434,
@@ -6985,21 +6260,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "categoryLevel": true,
@@ -7014,21 +6274,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "label": "cap/serve"
@@ -7089,7 +6334,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 2,
         "refs": [
           {
             "number": 2434,
@@ -7100,21 +6345,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "categoryLevel": true,
@@ -7129,21 +6359,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "label": "cap/serve"
@@ -7212,7 +6427,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 2,
         "refs": [
           {
             "number": 2434,
@@ -7223,21 +6438,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "categoryLevel": true,
@@ -7252,21 +6452,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "label": "cap/serve"
@@ -7483,7 +6668,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 2,
         "refs": [
           {
             "number": 2434,
@@ -7494,21 +6679,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "categoryLevel": true,
@@ -7523,21 +6693,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "label": "cap/serve"
@@ -7585,7 +6740,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 2,
         "refs": [
           {
             "number": 2434,
@@ -7596,21 +6751,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "categoryLevel": true,
@@ -7625,21 +6765,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "label": "cap/serve"
@@ -7684,7 +6809,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 2,
         "refs": [
           {
             "number": 2434,
@@ -7695,21 +6820,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "categoryLevel": true,
@@ -7724,21 +6834,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "label": "cap/serve"
@@ -7788,7 +6883,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 2,
         "refs": [
           {
             "number": 2434,
@@ -7799,21 +6894,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "categoryLevel": true,
@@ -7828,21 +6908,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "label": "cap/serve"
@@ -8060,7 +7125,7 @@
         }
       ],
       "openIssues": {
-        "count": 5,
+        "count": 2,
         "refs": [
           {
             "number": 2434,
@@ -8071,21 +7136,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "categoryLevel": true,
@@ -8100,21 +7150,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "label": "cap/serve"
@@ -8156,36 +7191,22 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 1,
         "refs": [
-          {
-            "number": 2434,
-            "title": "Promote SensorThings (OGC STA) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2434"
-          },
-          {
-            "number": 2435,
-            "title": "Promote Federated Query (cross-source) to GA",
-            "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
           {
             "number": 3103,
             "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
             "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
-        "categoryLevel": true,
-        "keyRefs": [],
+        "categoryLevel": false,
+        "keyRefs": [
+          {
+            "number": 3103,
+            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
+            "url": "https://github.com/honua-io/honua-server/issues/3103"
+          }
+        ],
         "categoryRefs": [
           {
             "number": 2434,
@@ -8196,21 +7217,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "label": "cap/serve"
@@ -8360,7 +7366,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 2,
         "refs": [
           {
             "number": 2434,
@@ -8371,21 +7377,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "categoryLevel": true,
@@ -8400,21 +7391,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "label": "cap/serve"
@@ -8650,7 +7626,7 @@
         }
       ],
       "openIssues": {
-        "count": 5,
+        "count": 2,
         "refs": [
           {
             "number": 2434,
@@ -8661,21 +7637,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "categoryLevel": true,
@@ -8690,21 +7651,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "label": "cap/serve"
@@ -8775,7 +7721,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 2,
         "refs": [
           {
             "number": 2434,
@@ -8786,21 +7732,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "categoryLevel": true,
@@ -8815,21 +7746,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "label": "cap/serve"
@@ -8887,7 +7803,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 2,
         "refs": [
           {
             "number": 2434,
@@ -8898,21 +7814,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "categoryLevel": true,
@@ -8927,21 +7828,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "label": "cap/serve"
@@ -9011,7 +7897,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 2,
         "refs": [
           {
             "number": 2434,
@@ -9022,21 +7908,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "categoryLevel": true,
@@ -9051,21 +7922,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "label": "cap/serve"
@@ -9102,7 +7958,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 2,
         "refs": [
           {
             "number": 2434,
@@ -9113,21 +7969,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "categoryLevel": true,
@@ -9142,21 +7983,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "label": "cap/serve"
@@ -9339,7 +8165,7 @@
         }
       ],
       "openIssues": {
-        "count": 5,
+        "count": 2,
         "refs": [
           {
             "number": 2434,
@@ -9350,21 +8176,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "categoryLevel": true,
@@ -9379,21 +8190,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "label": "cap/serve"
@@ -9562,7 +8358,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 2,
         "refs": [
           {
             "number": 2434,
@@ -9573,21 +8369,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "categoryLevel": true,
@@ -9602,21 +8383,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "label": "cap/serve"
@@ -9776,7 +8542,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 2,
         "refs": [
           {
             "number": 2434,
@@ -9787,21 +8553,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "categoryLevel": true,
@@ -9816,21 +8567,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "label": "cap/serve"
@@ -9940,7 +8676,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 2,
         "refs": [
           {
             "number": 2434,
@@ -9951,21 +8687,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "categoryLevel": true,
@@ -9980,21 +8701,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "label": "cap/serve"
@@ -10179,6 +8885,7 @@
           "entrypoints": [
             "@honua/sdk-js/map",
             "Source descriptor",
+            "Source.query()",
             "connect()"
           ],
           "evidence": [
@@ -10216,7 +8923,7 @@
         }
       ],
       "openIssues": {
-        "count": 5,
+        "count": 2,
         "refs": [
           {
             "number": 2434,
@@ -10227,21 +8934,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "categoryLevel": true,
@@ -10256,21 +8948,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "label": "cap/serve"
@@ -10474,7 +9151,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 2,
         "refs": [
           {
             "number": 2434,
@@ -10485,21 +9162,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "categoryLevel": true,
@@ -10514,21 +9176,6 @@
             "number": 2435,
             "title": "Promote Federated Query (cross-source) to GA",
             "url": "https://github.com/honua-io/honua-server/issues/2435"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3102,
-            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
-            "url": "https://github.com/honua-io/honua-server/issues/3102"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
         "label": "cap/serve"
