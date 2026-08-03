@@ -2,7 +2,7 @@
   "schemaVersion": "2.3.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-08-03T20:02:00Z",
+  "generatedAt": "2026-08-03T21:55:24Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -25,61 +25,61 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-08-03T20:01:41Z",
+      "fetchedAt": "2026-08-03T21:55:11Z",
       "sourceVersion": "2453a74f08aa@2026-07-24T00:44:08Z",
       "ageDays": 10,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-08-03T20:01:42Z",
-      "sourceVersion": "ec5e3efe475d@2026-08-02T20:24:43Z",
+      "fetchedAt": "2026-08-03T21:55:11Z",
+      "sourceVersion": "239dfdc705b0@2026-08-03T21:54:59Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-08-03T20:01:43Z",
+      "fetchedAt": "2026-08-03T21:55:12Z",
       "sourceVersion": "9a472444559d@2026-08-03T10:04:18Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-08-03T20:01:44Z",
+      "fetchedAt": "2026-08-03T21:55:12Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
-      "ageDays": 16,
+      "ageDays": 17,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-08-03T20:01:45Z",
+      "fetchedAt": "2026-08-03T21:55:13Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
-      "ageDays": 16,
+      "ageDays": 17,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-08-03T20:01:47Z",
+      "fetchedAt": "2026-08-03T21:55:14Z",
       "sourceVersion": "c0b7d2f9fcd5@2026-08-03T08:44:20Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-08-03T20:02:00Z",
+      "fetchedAt": "2026-08-03T21:55:24Z",
       "sourceVersion": "live-query",
       "ageDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-08-03T20:01:47Z",
+      "fetchedAt": "2026-08-03T21:55:15Z",
       "sourceVersion": "b59384faea3c@2026-07-27T00:00:00Z",
       "ageDays": 7,
       "status": "fresh"
     },
     "dr-drills": {
-      "fetchedAt": "2026-08-03T20:01:47Z",
+      "fetchedAt": "2026-08-03T21:55:15Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "no DR drill evidence envelopes found under data/producers/dr-drills/ (none pushed yet)"
     },
     "live-canary": {
-      "fetchedAt": "2026-08-03T20:01:47Z",
+      "fetchedAt": "2026-08-03T21:55:15Z",
       "sourceVersion": "2d11318fa253@2026-08-03T20:01:17Z",
       "ageDays": 0,
       "status": "fresh"
@@ -609,7 +609,7 @@
       "category": "Alerts",
       "edition": "Pro",
       "entryCount": 18,
-      "provingTestCount": 39,
+      "provingTestCount": 46,
       "maturity": {
         "implemented": 18
       },
@@ -1804,10 +1804,10 @@
       "displayName": "Map Collaboration Sessions",
       "category": "Collaboration",
       "edition": "Community",
-      "entryCount": 7,
-      "provingTestCount": 17,
+      "entryCount": 9,
+      "provingTestCount": 60,
       "maturity": {
-        "implemented": 7
+        "implemented": 9
       },
       "noSurface": null,
       "cite": [],
@@ -1935,7 +1935,7 @@
       "category": "Discovery",
       "edition": "Community",
       "entryCount": 2,
-      "provingTestCount": 13,
+      "provingTestCount": 15,
       "maturity": {
         "implemented": 2
       },
@@ -2381,7 +2381,7 @@
       "category": "Editing",
       "edition": "Pro",
       "entryCount": 7,
-      "provingTestCount": 84,
+      "provingTestCount": 94,
       "maturity": {
         "implemented": 7
       },
@@ -3240,7 +3240,7 @@
       "category": "Identity",
       "edition": "Pro",
       "entryCount": 6,
-      "provingTestCount": 13,
+      "provingTestCount": 20,
       "maturity": {
         "implemented": 6
       },
@@ -9676,7 +9676,7 @@
       "category": "Streaming",
       "edition": "Pro",
       "entryCount": 2,
-      "provingTestCount": 43,
+      "provingTestCount": 64,
       "maturity": {
         "implemented": 2
       },
