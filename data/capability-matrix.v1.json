@@ -2,7 +2,7 @@
   "schemaVersion": "2.3.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-08-04T03:42:29Z",
+  "generatedAt": "2026-08-04T07:49:26Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -25,61 +25,61 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-08-04T03:42:13Z",
+      "fetchedAt": "2026-08-04T07:49:14Z",
       "sourceVersion": "2453a74f08aa@2026-07-24T00:44:08Z",
       "ageDays": 11,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-08-04T03:42:14Z",
+      "fetchedAt": "2026-08-04T07:49:15Z",
       "sourceVersion": "421f2669bdb6@2026-08-03T23:33:35Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-08-04T03:42:14Z",
+      "fetchedAt": "2026-08-04T07:49:15Z",
       "sourceVersion": "9a472444559d@2026-08-03T10:04:18Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-08-04T03:42:15Z",
+      "fetchedAt": "2026-08-04T07:49:16Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "ageDays": 17,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-08-04T03:42:15Z",
+      "fetchedAt": "2026-08-04T07:49:16Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "ageDays": 17,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-08-04T03:42:16Z",
-      "sourceVersion": "c0b7d2f9fcd5@2026-08-03T08:44:20Z",
+      "fetchedAt": "2026-08-04T07:49:17Z",
+      "sourceVersion": "c0b7d2f9fcd5@2026-08-04T07:48:48Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-08-04T03:42:29Z",
+      "fetchedAt": "2026-08-04T07:49:26Z",
       "sourceVersion": "live-query",
       "ageDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-08-04T03:42:17Z",
+      "fetchedAt": "2026-08-04T07:49:17Z",
       "sourceVersion": "b59384faea3c@2026-07-27T00:00:00Z",
       "ageDays": 8,
       "status": "fresh"
     },
     "dr-drills": {
-      "fetchedAt": "2026-08-04T03:42:17Z",
+      "fetchedAt": "2026-08-04T07:49:17Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "no DR drill evidence envelopes found under data/producers/dr-drills/ (none pushed yet)"
     },
     "live-canary": {
-      "fetchedAt": "2026-08-04T03:42:17Z",
+      "fetchedAt": "2026-08-04T07:49:17Z",
       "sourceVersion": "2d11318fa253@2026-08-04T03:41:54Z",
       "ageDays": 0,
       "status": "fresh"
@@ -3887,7 +3887,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-03T08:44:14.177Z"
+            "at": "2026-08-04T07:48:43.551Z"
           }
         },
         {
@@ -3901,7 +3901,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-03T08:44:14.177Z"
+            "at": "2026-08-04T07:48:43.551Z"
           }
         },
         {
@@ -3915,7 +3915,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-03T08:44:14.177Z"
+            "at": "2026-08-04T07:48:43.551Z"
           }
         },
         {
@@ -3929,7 +3929,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-03T08:44:14.177Z"
+            "at": "2026-08-04T07:48:43.551Z"
           }
         },
         {
@@ -3943,7 +3943,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-03T08:44:14.177Z"
+            "at": "2026-08-04T07:48:43.551Z"
           }
         },
         {
@@ -3957,7 +3957,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-03T08:44:14.177Z"
+            "at": "2026-08-04T07:48:43.551Z"
           }
         }
       ],
@@ -6344,7 +6344,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-03T08:44:14.177Z"
+            "at": "2026-08-04T07:48:43.551Z"
           }
         },
         {
@@ -6358,7 +6358,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-03T08:44:14.177Z"
+            "at": "2026-08-04T07:48:43.551Z"
           }
         }
       ],
@@ -7369,7 +7369,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-03T08:44:14.177Z"
+            "at": "2026-08-04T07:48:43.551Z"
           }
         }
       ],
@@ -7934,7 +7934,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-03T08:44:14.177Z"
+            "at": "2026-08-04T07:48:43.551Z"
           }
         }
       ],
@@ -8505,7 +8505,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-03T08:44:14.177Z"
+            "at": "2026-08-04T07:48:43.551Z"
           }
         }
       ],
@@ -9359,7 +9359,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-03T08:44:14.177Z"
+            "at": "2026-08-04T07:48:43.551Z"
           }
         }
       ],
