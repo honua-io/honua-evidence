@@ -2,7 +2,7 @@
   "schemaVersion": "2.3.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-08-06T00:36:45Z",
+  "generatedAt": "2026-08-06T07:50:30Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -25,61 +25,61 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-08-06T00:36:30Z",
+      "fetchedAt": "2026-08-06T07:50:10Z",
       "sourceVersion": "2453a74f08aa@2026-07-24T00:44:08Z",
-      "ageDays": 12,
+      "ageDays": 13,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-08-06T00:36:31Z",
+      "fetchedAt": "2026-08-06T07:50:11Z",
       "sourceVersion": "61b7038e1887@2026-08-05T18:38:08Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-08-06T00:36:31Z",
+      "fetchedAt": "2026-08-06T07:50:12Z",
       "sourceVersion": "ac29d1601f49@2026-08-05T13:33:02Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-08-06T00:36:32Z",
+      "fetchedAt": "2026-08-06T07:50:13Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "ageDays": 19,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-08-06T00:36:32Z",
+      "fetchedAt": "2026-08-06T07:50:13Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "ageDays": 19,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-08-06T00:36:34Z",
-      "sourceVersion": "80eca95635a2@2026-08-06T00:36:09Z",
+      "fetchedAt": "2026-08-06T07:50:15Z",
+      "sourceVersion": "80eca95635a2@2026-08-06T07:49:50Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-08-06T00:36:45Z",
+      "fetchedAt": "2026-08-06T07:50:30Z",
       "sourceVersion": "live-query",
       "ageDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-08-06T00:36:34Z",
+      "fetchedAt": "2026-08-06T07:50:16Z",
       "sourceVersion": "b59384faea3c@2026-07-27T00:00:00Z",
       "ageDays": 10,
       "status": "fresh"
     },
     "dr-drills": {
-      "fetchedAt": "2026-08-06T00:36:34Z",
+      "fetchedAt": "2026-08-06T07:50:16Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "no DR drill evidence envelopes found under data/producers/dr-drills/ (none pushed yet)"
     },
     "live-canary": {
-      "fetchedAt": "2026-08-06T00:36:34Z",
+      "fetchedAt": "2026-08-06T07:50:16Z",
       "sourceVersion": "2d11318fa253@2026-08-04T19:59:34Z",
       "ageDays": 1,
       "status": "fresh"
@@ -3935,7 +3935,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-06T00:36:04.628Z"
+            "at": "2026-08-06T07:49:43.618Z"
           }
         },
         {
@@ -3949,7 +3949,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-06T00:36:04.628Z"
+            "at": "2026-08-06T07:49:43.618Z"
           }
         },
         {
@@ -3963,7 +3963,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-06T00:36:04.628Z"
+            "at": "2026-08-06T07:49:43.618Z"
           }
         },
         {
@@ -3977,7 +3977,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-06T00:36:04.628Z"
+            "at": "2026-08-06T07:49:43.618Z"
           }
         },
         {
@@ -3991,7 +3991,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-06T00:36:04.628Z"
+            "at": "2026-08-06T07:49:43.618Z"
           }
         },
         {
@@ -4005,7 +4005,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-06T00:36:04.628Z"
+            "at": "2026-08-06T07:49:43.618Z"
           }
         }
       ],
@@ -6488,7 +6488,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-06T00:36:04.628Z"
+            "at": "2026-08-06T07:49:43.618Z"
           }
         },
         {
@@ -6502,7 +6502,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-06T00:36:04.628Z"
+            "at": "2026-08-06T07:49:43.618Z"
           }
         }
       ],
@@ -7561,7 +7561,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-06T00:36:04.628Z"
+            "at": "2026-08-06T07:49:43.618Z"
           }
         }
       ],
@@ -8174,7 +8174,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-06T00:36:04.628Z"
+            "at": "2026-08-06T07:49:43.618Z"
           }
         }
       ],
@@ -8769,7 +8769,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-06T00:36:04.628Z"
+            "at": "2026-08-06T07:49:43.618Z"
           }
         }
       ],
@@ -9695,7 +9695,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-08-06T00:36:04.628Z"
+            "at": "2026-08-06T07:49:43.618Z"
           }
         }
       ],
