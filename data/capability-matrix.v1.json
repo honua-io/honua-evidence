@@ -2,7 +2,7 @@
   "schemaVersion": "2.3.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-08-09T19:19:34Z",
+  "generatedAt": "2026-08-09T20:50:21Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -25,63 +25,63 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-08-09T19:19:23Z",
+      "fetchedAt": "2026-08-09T20:50:05Z",
       "sourceVersion": "2453a74f08aa@2026-07-24T00:44:08Z",
       "ageDays": 16,
       "status": "stale"
     },
     "server-matrix": {
-      "fetchedAt": "2026-08-09T19:19:24Z",
-      "sourceVersion": "61b7038e1887@2026-08-05T18:38:08Z",
-      "ageDays": 4,
+      "fetchedAt": "2026-08-09T20:50:06Z",
+      "sourceVersion": "ec6a41b2493c@2026-08-09T10:27:07Z",
+      "ageDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-08-09T19:19:24Z",
+      "fetchedAt": "2026-08-09T20:50:07Z",
       "sourceVersion": "cb9c86f6ed81@2026-08-09T19:19:03Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-08-09T19:19:25Z",
+      "fetchedAt": "2026-08-09T20:50:07Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
-      "ageDays": 22,
+      "ageDays": 23,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-08-09T19:19:25Z",
+      "fetchedAt": "2026-08-09T20:50:08Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
-      "ageDays": 22,
+      "ageDays": 23,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-08-09T19:19:26Z",
+      "fetchedAt": "2026-08-09T20:50:09Z",
       "sourceVersion": "29a263750950@2026-08-09T05:59:58Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-08-09T19:19:34Z",
+      "fetchedAt": "2026-08-09T20:50:21Z",
       "sourceVersion": "live-query",
       "ageDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-08-09T19:19:26Z",
+      "fetchedAt": "2026-08-09T20:50:10Z",
       "sourceVersion": "b59384faea3c@2026-07-27T00:00:00Z",
       "ageDays": 13,
       "status": "fresh"
     },
     "dr-drills": {
-      "fetchedAt": "2026-08-09T19:19:26Z",
+      "fetchedAt": "2026-08-09T20:50:10Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "no DR drill evidence envelopes found under data/producers/dr-drills/ (none pushed yet)"
     },
     "live-canary": {
-      "fetchedAt": "2026-08-09T19:19:26Z",
+      "fetchedAt": "2026-08-09T20:50:10Z",
       "sourceVersion": "2d11318fa253@2026-08-04T19:59:34Z",
-      "ageDays": 4,
+      "ageDays": 5,
       "status": "stale"
     }
   },
@@ -1798,7 +1798,7 @@
       "category": "Collaboration",
       "edition": "Community",
       "entryCount": 9,
-      "provingTestCount": 63,
+      "provingTestCount": 65,
       "maturity": {
         "implemented": 9
       },
