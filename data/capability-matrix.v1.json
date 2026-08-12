@@ -2,7 +2,7 @@
   "schemaVersion": "2.3.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-08-12T17:56:20Z",
+  "generatedAt": "2026-08-12T23:08:15Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -25,63 +25,63 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-08-12T17:56:04Z",
+      "fetchedAt": "2026-08-12T23:08:06Z",
       "sourceVersion": "2453a74f08aa@2026-07-24T00:44:08Z",
       "ageDays": 19,
       "status": "stale"
     },
     "server-matrix": {
-      "fetchedAt": "2026-08-12T17:56:04Z",
+      "fetchedAt": "2026-08-12T23:08:06Z",
       "sourceVersion": "3099da565c18@2026-08-11T01:42:32Z",
       "ageDays": 1,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-08-12T17:56:05Z",
-      "sourceVersion": "c5d602382af6@2026-08-12T04:13:10Z",
+      "fetchedAt": "2026-08-12T23:08:07Z",
+      "sourceVersion": "f693a6bb00ed@2026-08-12T23:07:48Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-08-12T17:56:06Z",
+      "fetchedAt": "2026-08-12T23:08:07Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
-      "ageDays": 25,
+      "ageDays": 26,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-08-12T17:56:07Z",
+      "fetchedAt": "2026-08-12T23:08:08Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
-      "ageDays": 25,
+      "ageDays": 26,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-08-12T17:56:08Z",
+      "fetchedAt": "2026-08-12T23:08:08Z",
       "sourceVersion": "0228724323ae@2026-08-12T06:45:15Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-08-12T17:56:20Z",
+      "fetchedAt": "2026-08-12T23:08:15Z",
       "sourceVersion": "live-query",
       "ageDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-08-12T17:56:09Z",
+      "fetchedAt": "2026-08-12T23:08:09Z",
       "sourceVersion": "d4e37dc442ff@2026-08-12T00:00:00Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "dr-drills": {
-      "fetchedAt": "2026-08-12T17:56:09Z",
+      "fetchedAt": "2026-08-12T23:08:09Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "no DR drill evidence envelopes found under data/producers/dr-drills/ (none pushed yet)"
     },
     "live-canary": {
-      "fetchedAt": "2026-08-12T17:56:09Z",
+      "fetchedAt": "2026-08-12T23:08:09Z",
       "sourceVersion": "2d11318fa253@2026-08-04T19:59:34Z",
-      "ageDays": 7,
+      "ageDays": 8,
       "status": "stale"
     }
   },
@@ -8451,9 +8451,11 @@
           "evidence": [
             "scripts/live-conformance-evidence.mjs",
             "test/contract/stac-backend-agnostic.test.ts",
+            "test/playwright/stac-imagery-browser.spec.mjs",
+            "test/stac-imagery-browser.test.ts",
             "test/stac-workflow.test.ts"
           ],
-          "note": "Searches a raw STAC API or walks static catalog links with client-side filtering. Adds bounded GET/POST search, server-driven pagination, cancellation, signed URL refresh, and typed asset selection without changing the supported connect() STAC protocol claim. Asset maturity and handoff remain explicit; GeoArrow is metadata-only and Zarr/NetCDF are unavailable."
+          "note": "Searches a raw STAC API or walks static catalog links with client-side filtering. Adds bounded GET/POST search, server-driven pagination, cancellation, signed URL refresh, and typed asset selection without changing the supported connect() STAC protocol claim. The walkthrough executes authenticated, byte-bounded PMTiles v3 inspection with redacted range evidence, but does not mount the archive as a tile source; pmtiles-static remains renderer proof. Asset maturity and handoff remain explicit; GeoArrow is metadata-only and Zarr/NetCDF are unavailable."
         },
         "dotnet": {
           "status": "covered",
