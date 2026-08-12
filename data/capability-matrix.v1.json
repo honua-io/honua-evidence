@@ -2,7 +2,7 @@
   "schemaVersion": "2.3.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-08-12T07:59:44Z",
+  "generatedAt": "2026-08-12T17:56:20Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -25,61 +25,61 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-08-12T07:59:30Z",
+      "fetchedAt": "2026-08-12T17:56:04Z",
       "sourceVersion": "2453a74f08aa@2026-07-24T00:44:08Z",
       "ageDays": 19,
       "status": "stale"
     },
     "server-matrix": {
-      "fetchedAt": "2026-08-12T07:59:30Z",
+      "fetchedAt": "2026-08-12T17:56:04Z",
       "sourceVersion": "3099da565c18@2026-08-11T01:42:32Z",
       "ageDays": 1,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-08-12T07:59:31Z",
+      "fetchedAt": "2026-08-12T17:56:05Z",
       "sourceVersion": "c5d602382af6@2026-08-12T04:13:10Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-08-12T07:59:31Z",
+      "fetchedAt": "2026-08-12T17:56:06Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "ageDays": 25,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-08-12T07:59:32Z",
+      "fetchedAt": "2026-08-12T17:56:07Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "ageDays": 25,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-08-12T07:59:33Z",
+      "fetchedAt": "2026-08-12T17:56:08Z",
       "sourceVersion": "0228724323ae@2026-08-12T06:45:15Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-08-12T07:59:44Z",
+      "fetchedAt": "2026-08-12T17:56:20Z",
       "sourceVersion": "live-query",
       "ageDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-08-12T07:59:34Z",
-      "sourceVersion": "b59384faea3c@2026-07-27T00:00:00Z",
-      "ageDays": 16,
-      "status": "stale"
+      "fetchedAt": "2026-08-12T17:56:09Z",
+      "sourceVersion": "d4e37dc442ff@2026-08-12T00:00:00Z",
+      "ageDays": 0,
+      "status": "fresh"
     },
     "dr-drills": {
-      "fetchedAt": "2026-08-12T07:59:34Z",
+      "fetchedAt": "2026-08-12T17:56:09Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "no DR drill evidence envelopes found under data/producers/dr-drills/ (none pushed yet)"
     },
     "live-canary": {
-      "fetchedAt": "2026-08-12T07:59:34Z",
+      "fetchedAt": "2026-08-12T17:56:09Z",
       "sourceVersion": "2d11318fa253@2026-08-04T19:59:34Z",
       "ageDays": 7,
       "status": "stale"
@@ -96,8 +96,7 @@
     "open-issues: honua-io/honua-server#3101: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#3104: 'Capability Key(s)' field references unknown capability key 'ops' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#3104: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
-    "open-issues: honua-io/honua-server#3105: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
-    "open-issues: honua-io/honua-server#3167: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored"
+    "open-issues: honua-io/honua-server#3105: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored"
   ],
   "capabilities": [
     {
@@ -4911,7 +4910,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 22,
+        "count": 20,
         "refs": [
           {
             "number": 3089,
@@ -4944,11 +4943,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3085"
           },
           {
-            "number": 3090,
-            "title": "gp(raster): eliminate submit-side whole-COG download and base64 materialization",
-            "url": "https://github.com/honua-io/honua-server/issues/3090"
-          },
-          {
             "number": 3089,
             "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
             "url": "https://github.com/honua-io/honua-server/issues/3089"
@@ -4974,11 +4968,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3105"
           },
           {
-            "number": 3167,
-            "title": "docs(adr): amend ADR-0071 raster execution boundary to the single-engine decision",
-            "url": "https://github.com/honua-io/honua-server/issues/3167"
-          },
-          {
             "number": 2438,
             "title": "Raster function chains compiled to durable GP",
             "url": "https://github.com/honua-io/honua-server/issues/2438"
@@ -4987,11 +4976,6 @@
             "number": 3085,
             "title": "Epic: single-engine raster execution on the isolated GDAL worker (PostGIS as serving/storage plane)",
             "url": "https://github.com/honua-io/honua-server/issues/3085"
-          },
-          {
-            "number": 3090,
-            "title": "gp(raster): eliminate submit-side whole-COG download and base64 materialization",
-            "url": "https://github.com/honua-io/honua-server/issues/3090"
           },
           {
             "number": 3089,
@@ -5012,6 +4996,11 @@
             "number": 3104,
             "title": "ops(raster): expose placement, artifact I/O, and Batch cost",
             "url": "https://github.com/honua-io/honua-server/issues/3104"
+          },
+          {
+            "number": 3105,
+            "title": "photogrammetry: produce orthomosaics as raster GP artifacts and keep 3D serving separate",
+            "url": "https://github.com/honua-io/honua-server/issues/3105"
           },
           {
             "number": 3105,
@@ -5057,11 +5046,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3085"
           },
           {
-            "number": 3090,
-            "title": "gp(raster): eliminate submit-side whole-COG download and base64 materialization",
-            "url": "https://github.com/honua-io/honua-server/issues/3090"
-          },
-          {
             "number": 3089,
             "title": "gp(raster): publish large outputs as artifacts with atomic catalog/PostGIS registration",
             "url": "https://github.com/honua-io/honua-server/issues/3089"
@@ -5087,11 +5071,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3105"
           },
           {
-            "number": 3167,
-            "title": "docs(adr): amend ADR-0071 raster execution boundary to the single-engine decision",
-            "url": "https://github.com/honua-io/honua-server/issues/3167"
-          },
-          {
             "number": 2438,
             "title": "Raster function chains compiled to durable GP",
             "url": "https://github.com/honua-io/honua-server/issues/2438"
@@ -5100,11 +5079,6 @@
             "number": 3085,
             "title": "Epic: single-engine raster execution on the isolated GDAL worker (PostGIS as serving/storage plane)",
             "url": "https://github.com/honua-io/honua-server/issues/3085"
-          },
-          {
-            "number": 3090,
-            "title": "gp(raster): eliminate submit-side whole-COG download and base64 materialization",
-            "url": "https://github.com/honua-io/honua-server/issues/3090"
           },
           {
             "number": 3089,
@@ -5125,6 +5099,11 @@
             "number": 3104,
             "title": "ops(raster): expose placement, artifact I/O, and Batch cost",
             "url": "https://github.com/honua-io/honua-server/issues/3104"
+          },
+          {
+            "number": 3105,
+            "title": "photogrammetry: produce orthomosaics as raster GP artifacts and keep 3D serving separate",
+            "url": "https://github.com/honua-io/honua-server/issues/3105"
           },
           {
             "number": 3105,
@@ -5231,18 +5210,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 2,
         "refs": [
-          {
-            "number": 3090,
-            "title": "gp(raster): eliminate submit-side whole-COG download and base64 materialization",
-            "url": "https://github.com/honua-io/honua-server/issues/3090"
-          },
-          {
-            "number": 3090,
-            "title": "gp(raster): eliminate submit-side whole-COG download and base64 materialization",
-            "url": "https://github.com/honua-io/honua-server/issues/3090"
-          },
           {
             "number": 3102,
             "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
@@ -5256,16 +5225,6 @@
         ],
         "categoryLevel": false,
         "keyRefs": [
-          {
-            "number": 3090,
-            "title": "gp(raster): eliminate submit-side whole-COG download and base64 materialization",
-            "url": "https://github.com/honua-io/honua-server/issues/3090"
-          },
-          {
-            "number": 3090,
-            "title": "gp(raster): eliminate submit-side whole-COG download and base64 materialization",
-            "url": "https://github.com/honua-io/honua-server/issues/3090"
-          },
           {
             "number": 3102,
             "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
