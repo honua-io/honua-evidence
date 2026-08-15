@@ -2,7 +2,7 @@
   "schemaVersion": "2.3.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-08-15T05:44:40Z",
+  "generatedAt": "2026-08-15T07:03:25Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -25,61 +25,61 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-08-15T05:44:31Z",
+      "fetchedAt": "2026-08-15T07:03:13Z",
       "sourceVersion": "2453a74f08aa@2026-07-24T00:44:08Z",
       "ageDays": 22,
       "status": "stale"
     },
     "server-matrix": {
-      "fetchedAt": "2026-08-15T05:44:31Z",
+      "fetchedAt": "2026-08-15T07:03:13Z",
       "sourceVersion": "9c1829cb9482@2026-08-14T06:46:20Z",
-      "ageDays": 0,
+      "ageDays": 1,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-08-15T05:44:32Z",
+      "fetchedAt": "2026-08-15T07:03:14Z",
       "sourceVersion": "653fd86be0eb@2026-08-13T22:07:19Z",
       "ageDays": 1,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-08-15T05:44:32Z",
+      "fetchedAt": "2026-08-15T07:03:14Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "ageDays": 28,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-08-15T05:44:33Z",
+      "fetchedAt": "2026-08-15T07:03:15Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "ageDays": 28,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-08-15T05:44:33Z",
+      "fetchedAt": "2026-08-15T07:03:16Z",
       "sourceVersion": "250f40ae65a2@2026-08-15T05:44:15Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-08-15T05:44:40Z",
+      "fetchedAt": "2026-08-15T07:03:25Z",
       "sourceVersion": "live-query",
       "ageDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-08-15T05:44:33Z",
+      "fetchedAt": "2026-08-15T07:03:16Z",
       "sourceVersion": "d4e37dc442ff@2026-08-12T00:00:00Z",
       "ageDays": 3,
       "status": "fresh"
     },
     "dr-drills": {
-      "fetchedAt": "2026-08-15T05:44:33Z",
+      "fetchedAt": "2026-08-15T07:03:16Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "no DR drill evidence envelopes found under data/producers/dr-drills/ (none pushed yet)"
     },
     "live-canary": {
-      "fetchedAt": "2026-08-15T05:44:33Z",
+      "fetchedAt": "2026-08-15T07:03:16Z",
       "sourceVersion": "2d11318fa253@2026-08-04T19:59:34Z",
       "ageDays": 10,
       "status": "stale"
