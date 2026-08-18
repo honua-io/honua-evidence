@@ -2,7 +2,7 @@
   "schemaVersion": "2.3.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-08-18T02:33:25Z",
+  "generatedAt": "2026-08-18T03:20:16Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -25,61 +25,61 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-08-18T02:33:16Z",
-      "sourceVersion": "2453a74f08aa@2026-07-24T00:44:08Z",
-      "ageDays": 25,
-      "status": "stale"
+      "fetchedAt": "2026-08-18T03:20:04Z",
+      "sourceVersion": "834fec8f31f4@2026-08-18T03:19:43Z",
+      "ageDays": 0,
+      "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-08-18T02:33:17Z",
-      "sourceVersion": "4e611d20c3b4@2026-08-18T02:32:59Z",
+      "fetchedAt": "2026-08-18T03:20:04Z",
+      "sourceVersion": "834fec8f31f4@2026-08-18T03:19:43Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-08-18T02:33:17Z",
+      "fetchedAt": "2026-08-18T03:20:05Z",
       "sourceVersion": "653fd86be0eb@2026-08-13T22:07:19Z",
       "ageDays": 4,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-08-18T02:33:18Z",
+      "fetchedAt": "2026-08-18T03:20:05Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "ageDays": 31,
       "status": "stale"
     },
     "sdk-python": {
-      "fetchedAt": "2026-08-18T02:33:18Z",
+      "fetchedAt": "2026-08-18T03:20:06Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "ageDays": 31,
       "status": "stale"
     },
     "samples": {
-      "fetchedAt": "2026-08-18T02:33:18Z",
+      "fetchedAt": "2026-08-18T03:20:07Z",
       "sourceVersion": "250f40ae65a2@2026-08-17T05:52:43Z",
       "ageDays": 0,
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-08-18T02:33:25Z",
+      "fetchedAt": "2026-08-18T03:20:16Z",
       "sourceVersion": "live-query",
       "ageDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-08-18T02:33:19Z",
+      "fetchedAt": "2026-08-18T03:20:07Z",
       "sourceVersion": "d4e37dc442ff@2026-08-12T00:00:00Z",
       "ageDays": 6,
       "status": "fresh"
     },
     "dr-drills": {
-      "fetchedAt": "2026-08-18T02:33:19Z",
+      "fetchedAt": "2026-08-18T03:20:07Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "no DR drill evidence envelopes found under data/producers/dr-drills/ (none pushed yet)"
     },
     "live-canary": {
-      "fetchedAt": "2026-08-18T02:33:19Z",
+      "fetchedAt": "2026-08-18T03:20:07Z",
       "sourceVersion": "e09071d82fd6@2026-08-18T01:53:14Z",
       "ageDays": 0,
       "status": "fresh"
@@ -104,10 +104,10 @@
       "displayName": "Admin Control Plane",
       "category": "ControlPlane",
       "edition": "Community",
-      "entryCount": 370,
-      "provingTestCount": 1030,
+      "entryCount": 368,
+      "provingTestCount": 1029,
       "maturity": {
-        "implemented": 370
+        "implemented": 368
       },
       "noSurface": null,
       "cite": [],
@@ -185,7 +185,7 @@
       "noSurface": {
         "capability": "ai.agent-operations",
         "reasonCode": "cross-cutting-gate",
-        "reason": "Validation-layer gate applied across several existing MCP/spec routes rather than a distinct route of its own; see ai.spec-apply, ai.grounding, ai.workflow-generation for the gated route surfaces.",
+        "reason": "Validation-layer gate applied across several existing MCP/spec routes rather than a distinct route of its own; see ai.spec-apply and ai.grounding for the gated route surfaces.",
         "category": "Ai",
         "edition": "Pro"
       },
@@ -329,7 +329,7 @@
       "category": "AI",
       "edition": "Community",
       "entryCount": 4,
-      "provingTestCount": 81,
+      "provingTestCount": 84,
       "maturity": {
         "implemented": 4
       },
@@ -443,45 +443,6 @@
           "entrypoints": [
             "Honua.Sdk.Spec.IHonuaSpecClient.GetArtifactAsync"
           ]
-        },
-        "python": {
-          "status": "not-covered"
-        }
-      },
-      "samples": [],
-      "openIssues": {
-        "count": 0,
-        "refs": [],
-        "categoryLevel": true,
-        "keyRefs": [],
-        "categoryRefs": [],
-        "label": "cap/ai"
-      }
-    },
-    {
-      "key": "ai.workflow-generation",
-      "displayName": "AI Workflow and Content Generation",
-      "category": "AI",
-      "edition": "Pro",
-      "entryCount": 1,
-      "provingTestCount": 3,
-      "maturity": {
-        "implemented": 1
-      },
-      "noSurface": null,
-      "cite": [],
-      "parity": [],
-      "esriAssess": [],
-      "interop": [],
-      "geobench": [],
-      "dr": [],
-      "liveCanary": [],
-      "sdks": {
-        "js": {
-          "status": "not-covered"
-        },
-        "dotnet": {
-          "status": "not-covered"
         },
         "python": {
           "status": "not-covered"
@@ -827,10 +788,10 @@
       "displayName": "Analysis Artifact Content",
       "category": "Analytics",
       "edition": "Community",
-      "entryCount": 15,
-      "provingTestCount": 23,
+      "entryCount": 13,
+      "provingTestCount": 21,
       "maturity": {
-        "implemented": 15
+        "implemented": 13
       },
       "noSurface": null,
       "cite": [],
@@ -2589,10 +2550,10 @@
       "displayName": "Field Collection Forms",
       "category": "FieldOps",
       "edition": "Community",
-      "entryCount": 22,
-      "provingTestCount": 37,
+      "entryCount": 21,
+      "provingTestCount": 35,
       "maturity": {
-        "implemented": 22
+        "implemented": 21
       },
       "noSurface": null,
       "cite": [],
