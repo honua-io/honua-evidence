@@ -482,6 +482,15 @@ def render_capability_page(cap: dict[str, Any], matrix: dict[str, Any], generate
     )
 
 
+def _age_cell(source_age_days: Any) -> str:
+    """The informational source-artifact age. Deliberately rendered as plain
+    text with no badge: it is a fact about an upstream repo's cadence, not a
+    verdict on this evidence (honua-io/honua-release#89)."""
+    if source_age_days is None:
+        return "—"
+    return f"{esc(str(source_age_days))}d"
+
+
 def render_freshness_page(matrix: dict[str, Any], generated_at: str) -> str:
     rows = []
     for name, entry in matrix.get("freshness", {}).items():
@@ -491,8 +500,26 @@ def render_freshness_page(matrix: dict[str, Any], generated_at: str) -> str:
             f"<td>{render_freshness_badge(entry.get('status', 'missing'))}</td>"
             f"<td>{esc(entry.get('sourceVersion') or '—')}</td>"
             f"<td>{esc(entry.get('fetchedAt', ''))}</td>"
+            f"<td>{_age_cell(entry.get('sourceAgeDays'))}</td>"
             f"<td>{esc(entry.get('detail', '') or '')}</td></tr>"
         )
+    awaiting = matrix.get("awaitingFirstEnvelope") or []
+    awaiting_block = ""
+    if awaiting:
+        items = "".join(
+            f"<li><code>{esc(name)}</code> — envelope schema defined, nothing pushed yet.</li>"
+            for name in awaiting
+        )
+        awaiting_block = f"""
+<h2>Defined, not yet producing</h2>
+<p class="note">These producers have a documented envelope schema and a wired-up ingestion path, but
+have never had a single evidence envelope pushed, so they carry no row above. They are listed here
+rather than shown as <strong>missing</strong>, which is reserved for a producer that used to report
+and stopped. Each row returns automatically with its first envelope. See
+<a href="https://github.com/honua-io/honua-evidence/blob/trunk/docs/producer-contracts.md"
+target="_blank" rel="noopener noreferrer">docs/producer-contracts.md</a>.</p>
+<ul class="gaps-list">{items}</ul>
+"""
     warnings = matrix.get("ingestionWarnings") or []
     warnings_block = ""
     if warnings:
@@ -509,15 +536,22 @@ target="_blank" rel="noopener noreferrer">docs/producer-contracts.md</a>.</p>
 <p class="lead"><a href="index.html">← Back to the capability index</a></p>
 <h1>Producer freshness ledger</h1>
 <p>Every capability page's evidence is pulled from these producer snapshots. A producer that could not
-be reached at build time is marked <strong>missing</strong>, never silently dropped; a producer whose
-source is older than its staleness threshold is marked <strong>stale</strong>.</p>
+be reached at build time is marked <strong>missing</strong>, never silently dropped; a producer that
+has not been <em>observed</em> inside its staleness threshold is marked <strong>stale</strong>.</p>
+<p class="note">Observation, not content: for a producer whose source is a file in another repo, the
+observation is this pipeline's own successful fetch, so an upstream that simply has not changed in a
+while is <strong>fresh</strong> — its age is reported in <em>Source age</em>, which is informational
+and never on its own makes a producer stale. For a producer whose timestamp records a run that
+actually happened (a CITE review, a canary run, a DR drill capture), that run <em>is</em> the
+observation and it drives the status, so an upstream job that dies still ages out.</p>
 <div class="table-wrap">
 <table class="data-table">
   <caption class="sr-only">Per-producer freshness</caption>
-  <thead><tr><th scope="col">Producer</th><th scope="col">Status</th><th scope="col">Source version</th><th scope="col">Fetched at</th><th scope="col">Detail</th></tr></thead>
+  <thead><tr><th scope="col">Producer</th><th scope="col">Status</th><th scope="col">Source version</th><th scope="col">Fetched at</th><th scope="col">Source age</th><th scope="col">Detail</th></tr></thead>
   <tbody>{"".join(rows)}</tbody>
 </table>
 </div>
+{awaiting_block}
 {warnings_block}"""
     return render_page(
         title="Producer freshness | honua-evidence",

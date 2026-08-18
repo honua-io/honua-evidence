@@ -73,6 +73,159 @@ class FetchedLedgerEntryTests(unittest.TestCase):
         self.assertEqual(b.warnings, [])
 
 
+class FreshnessBasisTests(unittest.TestCase):
+    """honua-io/honua-release#89: freshness keys off the OBSERVATION, not the
+    content, and the two facts live in two separate fields.
+
+      * fetch-basis producers (an upstream file pulled from another repo):
+        `status` follows the aggregator's own successful `fetchedAt`; the
+        upstream file's commit age is reported as `sourceAgeDays` and can
+        never, on its own, say `stale`.
+      * observation-basis producers (a run/capture/review really happened at
+        that timestamp): `status` follows that timestamp, exactly as before.
+
+    The point of keeping both is that neither blind spot is acceptable: an
+    upstream that simply has not changed must NOT read as stale evidence, and
+    a producer that genuinely stops being observed MUST still age out.
+    """
+
+    def setUp(self):
+        self.now = datetime.now(timezone.utc)
+
+    def _sv(self, days_ago: int) -> str:
+        return f"{'a' * 12}@{_iso(self.now - timedelta(days=days_ago))}"
+
+    # --- fetch basis: stable upstream is not stale evidence -----------------
+
+    def test_fetch_basis_unchanged_upstream_stays_fresh(self):
+        """server-keys: honua-server's capability-keys.v1.json genuinely had not
+        changed in 23 days. The aggregator fetched it successfully today, so
+        the evidence is current -- that is what #89 decided."""
+        fetched = agg.Fetched("server-keys", data={"capabilities": []}, source_version=self._sv(23))
+        entry = fetched.ledger_entry(agg.DEFAULT_STALENESS_DAYS)
+        self.assertEqual(entry["freshnessBasis"], "fetch")
+        self.assertEqual(entry["status"], "fresh")
+        self.assertEqual(entry["ageDays"], 0)
+        self.assertEqual(entry["observedAt"], fetched.fetched_at)
+        # ...and the source-commit age is still reported, just not as a verdict.
+        self.assertEqual(entry["sourceAgeDays"], 23)
+
+    def test_fetch_basis_source_age_can_never_set_stale_on_its_own(self):
+        """The informational field is informational however extreme it gets:
+        an upstream frozen for a year is a fact about that repo's cadence."""
+        for producer in ("server-keys", "sdk-dotnet", "sdk-python", "server-matrix", "sdk-js"):
+            with self.subTest(producer=producer):
+                fetched = agg.Fetched(producer, data={}, source_version=self._sv(365))
+                entry = fetched.ledger_entry(agg.DEFAULT_STALENESS_DAYS)
+                self.assertEqual(entry["status"], "fresh")
+                self.assertEqual(entry["sourceAgeDays"], 365)
+
+    def test_fetch_basis_goes_stale_when_it_stops_being_observed(self):
+        """The half that keeps the gate honest: freshness is the aggregator's
+        own successful fetch, so a producer nobody has successfully looked at
+        inside its threshold still ages out. `fetch` basis is not a licence to
+        never go stale."""
+        stale_fetch = _iso(self.now - timedelta(days=40))
+        fetched = agg.Fetched("server-keys", data={}, source_version=self._sv(0), fetched_at=stale_fetch)
+        entry = fetched.ledger_entry(agg.DEFAULT_STALENESS_DAYS)
+        self.assertEqual(entry["status"], "stale")
+        self.assertEqual(entry["ageDays"], 40)
+        # The upstream file itself is brand new -- it is the OBSERVATION that
+        # went dark, and the ledger says so rather than blaming the content.
+        self.assertEqual(entry["sourceAgeDays"], 0)
+
+    def test_fetch_basis_that_cannot_be_read_is_still_missing(self):
+        entry = agg.Fetched("sdk-python", error="fetch failed: 404").ledger_entry(agg.DEFAULT_STALENESS_DAYS)
+        self.assertEqual(entry["status"], "missing")
+        self.assertEqual(entry["detail"], "fetch failed: 404")
+
+    # --- observation basis: a dead upstream job still ages out --------------
+
+    def test_observation_basis_goes_stale_when_the_upstream_run_stops(self):
+        """live-canary's envelopes stay readable forever once committed, so a
+        canary that STOPPED RUNNING would look permanently fresh if freshness
+        keyed off the aggregator's read of the directory. It keys off the run's
+        own runAt instead, so a dead canary ages out."""
+        fetched = agg.Fetched("live-canary", data=[{"runAt": "x"}], source_version=self._sv(10))
+        entry = fetched.ledger_entry(agg.DEFAULT_STALENESS_DAYS)
+        self.assertEqual(entry["freshnessBasis"], "observation")
+        self.assertEqual(entry["status"], "stale")
+        self.assertEqual(entry["ageDays"], 10)
+        self.assertEqual(entry["observedAt"], agg.source_timestamp(fetched.source_version))
+
+    def test_cite_keeps_observation_basis_and_still_ages_out(self):
+        """cite's sourceVersion carries the date the CITE suite was last
+        REVIEWED -- a real observation, and the one honua-release's
+        evidence-freshness gate scores. #89 must not soften it."""
+        fetched = agg.Fetched("cite", data={"lastReviewed": "x"}, source_version=self._sv(20))
+        entry = fetched.ledger_entry(agg.DEFAULT_STALENESS_DAYS)
+        self.assertEqual(entry["freshnessBasis"], "observation")
+        self.assertEqual(entry["status"], "stale")
+
+    def test_samples_keeps_observation_basis(self):
+        fetched = agg.Fetched("samples", data={}, source_version=self._sv(9))
+        entry = fetched.ledger_entry(agg.DEFAULT_STALENESS_DAYS)
+        self.assertEqual(entry["freshnessBasis"], "observation")
+        self.assertEqual(entry["status"], "stale")
+
+    def test_unlisted_producer_defaults_to_the_stricter_observation_basis(self):
+        """A new producer must opt IN to the fetch basis; forgetting to declare
+        one cannot accidentally make it un-ageable."""
+        fetched = agg.Fetched("brand-new-producer", data={}, source_version=self._sv(400))
+        entry = fetched.ledger_entry({"brand-new-producer": 30})
+        self.assertEqual(entry["freshnessBasis"], "observation")
+        self.assertEqual(entry["status"], "stale")
+
+    def test_observation_basis_without_a_parseable_timestamp_reports_no_age(self):
+        entry = agg.Fetched("open-issues", data={}, source_version="live-query").ledger_entry(
+            agg.DEFAULT_STALENESS_DAYS)
+        # open-issues is fetch-basis precisely because "live-query" carries no
+        # observation timestamp of its own; the fetch IS the observation.
+        self.assertEqual(entry["freshnessBasis"], "fetch")
+        self.assertEqual(entry["status"], "fresh")
+        self.assertIsNone(entry["sourceAgeDays"])
+
+    def test_source_timestamp_parsing(self):
+        self.assertEqual(agg.source_timestamp("abc123abc123@2026-08-12T00:00:00Z"), "2026-08-12T00:00:00Z")
+        self.assertEqual(agg.source_timestamp("2026-08-12T00:00:00Z"), "2026-08-12T00:00:00Z")
+        self.assertIsNone(agg.source_timestamp("live-query"))
+        self.assertIsNone(agg.source_timestamp(None))
+
+
+class FreshnessLedgerRegistryTests(unittest.TestCase):
+    """honua-io/honua-release#89 ask 2: a producer that has NEVER produced an
+    envelope carries no ledger row, so `missing` keeps meaning the thing worth
+    reacting to -- a producer that used to report and stopped."""
+
+    def test_never_produced_pushed_producer_is_dropped_from_the_ledger(self):
+        fetches = {
+            "dr-drills": agg.Fetched("dr-drills", error="no DR drill evidence envelopes found (none pushed yet)"),
+            "cite": agg.Fetched("cite", data={}, source_version=f"{'a' * 12}@{_iso(datetime.now(timezone.utc))}"),
+        }
+        ledger = agg.build_freshness_ledger(fetches, agg.DEFAULT_STALENESS_DAYS)
+        self.assertNotIn("dr-drills", ledger)
+        self.assertIn("cite", ledger)
+        # Dropped, but never hidden: it is declared as awaiting its first envelope.
+        self.assertEqual(agg.awaiting_first_envelope(fetches), ["dr-drills"])
+
+    def test_row_returns_as_soon_as_the_first_envelope_lands(self):
+        captured = _iso(datetime.now(timezone.utc) - timedelta(days=2))
+        fetches = {"dr-drills": agg.Fetched("dr-drills", data=[{"capturedAt": captured}],
+                                            source_version=f"{'b' * 12}@{captured}")}
+        ledger = agg.build_freshness_ledger(fetches, agg.DEFAULT_STALENESS_DAYS)
+        self.assertEqual(ledger["dr-drills"]["status"], "fresh")
+        self.assertEqual(agg.awaiting_first_envelope(fetches), [])
+
+    def test_a_producer_that_has_reported_can_never_vanish_silently(self):
+        """Only producers explicitly listed in AWAITING_FIRST_ENVELOPE may be
+        omitted. Everything else that cannot be read is a loud `missing` row --
+        emptying live-canary's directory must not make the row disappear."""
+        fetches = {"live-canary": agg.Fetched("live-canary", error="no live-canary evidence envelopes found")}
+        ledger = agg.build_freshness_ledger(fetches, agg.DEFAULT_STALENESS_DAYS)
+        self.assertEqual(ledger["live-canary"]["status"], "missing")
+        self.assertEqual(agg.awaiting_first_envelope(fetches), [])
+
+
 class CiteFreshnessParsingTests(unittest.TestCase):
     """Exercises the CITE 'Last reviewed' regex and source_version encoding
     without hitting the network -- fetch_cite_status()'s HTTP calls aren't
@@ -695,10 +848,15 @@ class BuildMatrixHappyPathTests(unittest.TestCase):
 
         for producer in ("server-keys", "server-matrix", "sdk-js", "sdk-dotnet", "sdk-python", "samples", "cite"):
             self.assertEqual(matrix["freshness"][producer]["status"], "fresh", producer)
-        # Not-yet-producing producers appear explicitly -- never omitted.
-        for producer in ("dr-drills", "live-canary"):
+        # A producer that CAN report but currently cannot be read appears
+        # explicitly as `missing` -- never omitted.
+        for producer in ("live-canary", "open-issues"):
             self.assertEqual(matrix["freshness"][producer]["status"], "missing", producer)
             self.assertTrue(matrix["freshness"][producer]["detail"])
+        # dr-drills has never produced an envelope at all, so it carries no
+        # ledger row -- but it is declared, not hidden (honua-release#89).
+        self.assertNotIn("dr-drills", matrix["freshness"])
+        self.assertEqual(matrix["awaitingFirstEnvelope"], ["dr-drills"])
 
     def test_main_happy_path_writes_output_and_exits_zero(self):
         with tempfile.TemporaryDirectory() as tmp:

@@ -27,9 +27,12 @@ producers (pushed envelopes -- an out-of-band job commits INTO this repo; we nev
 aggregate (scripts/aggregate.py, stdlib Python only, CI: .github/workflows/aggregate.yml)
   data/capability-matrix.v1.json   ← every producer key validated against capability-keys.v1.json;
                                       an unknown key FAILS the build (the drift gate)
-                                    ← per-producer freshness ledger: {fetchedAt, sourceVersion, status}
+                                    ← per-producer freshness ledger: {fetchedAt, sourceVersion,
+                                      freshnessBasis, observedAt, ageDays, sourceAgeDays, status}
                                       status is "fresh" | "stale" | "missing" -- a producer that can't
-                                      be reached is recorded as missing, never silently dropped
+                                      be reached is recorded as missing, never silently dropped;
+                                      status follows the OBSERVATION (ageDays), never the upstream
+                                      artifact's own age (sourceAgeDays, informational)
 
 publish (scripts/build-site.py, stdlib Python only, zero frameworks)
   site/                              GitHub Pages, deployed by aggregate.yml
@@ -59,18 +62,22 @@ watchdog (scripts/check-ledger-liveness.py, CI: .github/workflows/ledger-livenes
 
 ### Producers
 
-| Producer | Snapshot | Freshness threshold |
-|---|---|---|
-| [honua-server](https://github.com/honua-io/honua-server) | [capability-keys.v1.json](https://github.com/honua-io/honua-server/blob/trunk/docs/gis/data/capability-keys.v1.json) (canonical vocabulary) | 14 days |
-| [honua-server](https://github.com/honua-io/honua-server) | [capability-matrix.v1.json](https://github.com/honua-io/honua-server/blob/trunk/docs/gis/data/capability-matrix.v1.json) (Phase-A evidence) | 14 days |
-| [honua-sdk-js](https://github.com/honua-io/honua-sdk-js) | [config/sdk-coverage.v1.json](https://github.com/honua-io/honua-sdk-js/blob/trunk/config/sdk-coverage.v1.json) | 30 days |
-| [honua-sdk-dotnet](https://github.com/honua-io/honua-sdk-dotnet) | [contracts/sdk-coverage.v1.json](https://github.com/honua-io/honua-sdk-dotnet/blob/trunk/contracts/sdk-coverage.v1.json) | 30 days |
-| [honua-sdk-python](https://github.com/honua-io/honua-sdk-python) | [compatibility/sdk-coverage.v1.json](https://github.com/honua-io/honua-sdk-python/blob/trunk/compatibility/sdk-coverage.v1.json) | 30 days |
-| [honua-samples](https://github.com/honua-io/honua-samples) | [run-samples](https://github.com/honua-io/honua-samples/actions/workflows/run-samples.yml) workflow artifact `samples-coverage` | 3 days |
-| [honua-server issues](https://github.com/honua-io/honua-server/issues) | open issues by `cap/<category>` label | live query (no fixed version) |
-| [honua-server](https://github.com/honua-io/honua-server) | [cite-status.md](https://github.com/honua-io/honua-server/blob/trunk/docs/cite-status.md) "Last reviewed" date + commit sha | 14 days |
-| [honua-terraform](https://github.com/honua-io/honua-terraform) | pushed envelopes under [`data/producers/dr-drills/`](data/producers/dr-drills/) | 45 days |
-| [honua-release](https://github.com/honua-io/honua-release) | pushed envelopes under [`data/producers/live-canary/`](data/producers/live-canary/) | 3 days |
+Freshness **basis** (see below) is per producer: `fetch` means the status
+follows this pipeline's own successful pull, `observation` means it follows a
+run/capture/review that really happened.
+
+| Producer | Snapshot | Basis | Threshold |
+|---|---|---|---|
+| [honua-server](https://github.com/honua-io/honua-server) | [capability-keys.v1.json](https://github.com/honua-io/honua-server/blob/trunk/docs/gis/data/capability-keys.v1.json) (canonical vocabulary) | fetch | 3 days |
+| [honua-server](https://github.com/honua-io/honua-server) | [capability-matrix.v1.json](https://github.com/honua-io/honua-server/blob/trunk/docs/gis/data/capability-matrix.v1.json) (Phase-A evidence) | fetch | 3 days |
+| [honua-sdk-js](https://github.com/honua-io/honua-sdk-js) | [config/sdk-coverage.v1.json](https://github.com/honua-io/honua-sdk-js/blob/trunk/config/sdk-coverage.v1.json) | fetch | 3 days |
+| [honua-sdk-dotnet](https://github.com/honua-io/honua-sdk-dotnet) | [contracts/sdk-coverage.v1.json](https://github.com/honua-io/honua-sdk-dotnet/blob/trunk/contracts/sdk-coverage.v1.json) | fetch | 3 days |
+| [honua-sdk-python](https://github.com/honua-io/honua-sdk-python) | [compatibility/sdk-coverage.v1.json](https://github.com/honua-io/honua-sdk-python/blob/trunk/compatibility/sdk-coverage.v1.json) | fetch | 3 days |
+| [honua-server issues](https://github.com/honua-io/honua-server/issues) | open issues by `cap/<category>` label | fetch | 3 days |
+| [honua-samples](https://github.com/honua-io/honua-samples) | [run-samples](https://github.com/honua-io/honua-samples/actions/workflows/run-samples.yml) workflow artifact `samples-coverage` | observation | 3 days |
+| [honua-server](https://github.com/honua-io/honua-server) | [cite-status.md](https://github.com/honua-io/honua-server/blob/trunk/docs/cite-status.md) "Last reviewed" date + commit sha | observation | 14 days |
+| [honua-release](https://github.com/honua-io/honua-release) | pushed envelopes under [`data/producers/live-canary/`](data/producers/live-canary/) | observation | 3 days |
+| [honua-iac](https://github.com/honua-io/honua-iac) | pushed envelopes under [`data/producers/dr-drills/`](data/producers/dr-drills/) — **not producing yet**, see [#20](https://github.com/honua-io/honua-evidence/issues/20) | observation | 45 days |
 
 The last two rows are **pushed-envelope** producers, not network pulls — see
 [`docs/producer-contracts.md`](docs/producer-contracts.md) for their schemas,
@@ -79,20 +86,35 @@ deliberately different from the drift gate below, and full worked examples.
 
 ### Freshness semantics
 
-Each producer gets one entry in the `freshness` ledger of `data/capability-matrix.v1.json`:
+Each producer that has ever produced anything gets one entry in the `freshness` ledger of
+`data/capability-matrix.v1.json`:
 
-- **`fresh`** — the source was pulled successfully and its age (commit date for repo files,
-  workflow-run date for the samples artifact) is within that producer's threshold.
-- **`stale`** — pulled successfully, but older than its threshold. Thresholds are the
+- **`fresh`** — read successfully and last **observed** within that producer's threshold.
+- **`stale`** — read successfully, but not observed inside the threshold. Thresholds are the
   `DEFAULT_STALENESS_DAYS` dict at the top of `scripts/aggregate.py`; override any of them
   without editing the script via the `HONUA_EVIDENCE_STALENESS_JSON` env var (a JSON object,
   e.g. `{"samples": 5}`).
-- **`missing`** — the pull failed outright (network error, missing/expired artifact, a
-  pushed-envelope directory with no envelopes yet, or no `HONUA_EVIDENCE_TOKEN` for a
-  producer that needs cross-repo auth). Never silently omitted; the site renders the
-  ledger and every capability's SDK/sample/DR/canary sections say so plainly. An absent
-  key in `freshness` (no entry at all) should be treated by gate consumers the same as
-  `missing` — see `docs/producer-contracts.md`.
+- **`missing`** — the read failed outright (network error, missing/expired artifact, no usable
+  envelope left in a pushed-envelope directory, or no `HONUA_EVIDENCE_TOKEN` for a producer
+  that needs cross-repo auth). Never silently omitted; the site renders the ledger and every
+  capability's SDK/sample/DR/canary sections say so plainly.
+
+**Observation, not content** (honua-io/honua-release#89). `status` is computed from when the
+producer was last *observed* (`ageDays`, from `observedAt`), never from how old the upstream
+artifact happens to be (`sourceAgeDays`, informational). For a `fetch`-basis producer the
+observation is this pipeline's own successful pull, so honua-server not changing a file for a
+month is `fresh` with `sourceAgeDays: 30` — a fact about honua-server's cadence, not stale
+evidence. For an `observation`-basis producer the timestamp records a run that actually happened
+(a CITE review, a canary run, a DR drill capture), so an upstream job that dies still ages out —
+`fetch` basis is not a licence to never go stale either: a producer the aggregator stops being
+able to read is `missing`, and one it has not read inside the threshold is `stale`.
+
+A producer whose envelope schema and ingestion are wired up but that has **never produced
+anything** carries no ledger row at all; it is declared in the matrix's `awaitingFirstEnvelope`
+array, and its row returns automatically on the first envelope. `missing` is reserved for the
+case that matters — a producer that used to report and stopped. An absent key in `freshness`
+(no entry at all, and not in `awaitingFirstEnvelope`) should be treated by gate consumers the
+same as `missing` — see `docs/producer-contracts.md`.
 
 ### How to add a producer
 
@@ -102,11 +124,16 @@ Each producer gets one entry in the `freshness` ledger of `data/capability-matri
    out-of-band job, rather than fetched over HTTP), see `docs/producer-contracts.md`'s
    "Adding a pushed-envelope producer" section instead — that path uses `join_local_producer`
    and a forgiving warn-not-crash contract for unknown keys, not the hard drift gate below.
-2. Register its name in `DEFAULT_STALENESS_DAYS` and `SOURCE_REPO_LINKS` (build-site.py).
+2. Register its name in `DEFAULT_STALENESS_DAYS`, `FRESHNESS_BASIS` (`fetch` only if its
+   `sourceVersion` is an upstream file's commit date — the default `observation` is stricter),
+   and `SOURCE_REPO_LINKS` (build-site.py).
 3. Join its per-capability keys into `capabilities_out` in `build_matrix()`, keyed to the
    canonical vocabulary. Any key it reports that isn't in `capability-keys.v1.json` fails the
    build — that's the drift gate; new keys land in honua-server first.
-4. Add an entry to the `freshness` dict and to the producer table above.
+4. Add it to the `fetches` dict feeding `build_freshness_ledger()` and to the producer table
+   above. If it is a pushed-envelope producer with no envelopes yet, also add it to
+   `AWAITING_FIRST_ENVELOPE` and open an issue for the producer work, so it does not ship a
+   permanently-`missing` row.
 5. If it's cross-repo (not a public raw file), the honua-evidence workflow needs read access —
    see the `HONUA_EVIDENCE_TOKEN` note in `.github/workflows/aggregate.yml`.
 

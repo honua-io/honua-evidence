@@ -74,7 +74,7 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = REPO_ROOT / "data" / "capability-matrix.v1.json"
-SCHEMA_VERSION = "2.3.0"
+SCHEMA_VERSION = "2.4.0"
 USER_AGENT = "honua-evidence-aggregate/1 (+https://github.com/honua-io/honua-evidence)"
 
 SERVER_KEYS_URL = "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json"
@@ -102,18 +102,81 @@ LIVE_CANARY_DIR = REPO_ROOT / "data" / "producers" / "live-canary"
 DR_DRILL_REQUIRED_FIELDS = ("schema", "id", "capabilityKeys", "drill", "capturedAt", "verdict")
 LIVE_CANARY_REQUIRED_FIELDS = ("schema", "manifestId", "targetEnvironment", "runAt", "probes")
 
-# Staleness thresholds (days) per producer. Configurable: override any entry
-# via a JSON object in the HONUA_EVIDENCE_STALENESS_JSON env var, e.g.
-# '{"samples": 5}'. A producer whose fetch fails outright is always "missing"
-# regardless of these thresholds.
+# What each producer's freshness is COMPUTED FROM (honua-io/honua-release#89).
+#
+# Two different facts used to be conflated into one `status`. A producer's
+# `sourceVersion` timestamp means one of two things, depending on the producer:
+#
+#   "observation"  the timestamp records when a run/capture/review actually
+#                  HAPPENED -- a samples CI run, a CITE review, a canary run,
+#                  a DR drill capture. That IS an observation, so it drives
+#                  `status`: if the upstream job dies, the producer ages out
+#                  and goes "stale", which is exactly what should happen.
+#
+#   "fetch"        the timestamp records when an upstream FILE last CHANGED (a
+#                  git commit date). That is a fact about the upstream repo's
+#                  release cadence, not about this pipeline's evidence -- the
+#                  aggregator pulled the file successfully today, so the
+#                  evidence IS current. Content age is kept as the purely
+#                  informational `sourceAgeDays` field and can never set
+#                  "stale" on its own; `status` is driven by this aggregator's
+#                  own last successful `fetchedAt` instead.
+#
+# "fetch" is not a licence to never age out: a producer the aggregator can no
+# longer read is "missing" (the fetch failed), and one it has not successfully
+# read inside its threshold is "stale" (fetchedAt itself aged out). A dead
+# upstream therefore still surfaces -- it just surfaces as the thing that
+# actually broke.
+#
+# Unlisted producers default to "observation", the stricter basis: opting a
+# producer into "fetch" is a deliberate, documented statement that its
+# sourceVersion carries content, not observation. See docs/producer-contracts.md.
+OBSERVATION_BASIS = "observation"
+FETCH_BASIS = "fetch"
+DEFAULT_FRESHNESS_BASIS = OBSERVATION_BASIS
+FRESHNESS_BASIS = {
+    # Upstream files pulled from another repo; sourceVersion is that file's
+    # commit -- content, not observation.
+    "server-keys": FETCH_BASIS,
+    "server-matrix": FETCH_BASIS,
+    "sdk-js": FETCH_BASIS,
+    "sdk-dotnet": FETCH_BASIS,
+    "sdk-python": FETCH_BASIS,
+    # A live GitHub query with no artifact timestamp at all ("live-query"):
+    # the fetch is the only observation there is.
+    "open-issues": FETCH_BASIS,
+    # A successful honua-samples CI run really did execute at that timestamp.
+    "samples": OBSERVATION_BASIS,
+    # cite-status.md's self-declared "Last reviewed" date is when the CITE
+    # suite was actually reviewed -- an observation, and the signal
+    # honua-release's evidence-freshness gate scores.
+    "cite": OBSERVATION_BASIS,
+    "dr-drills": OBSERVATION_BASIS,
+    "live-canary": OBSERVATION_BASIS,
+}
+
+# Staleness thresholds (days) per producer, applied to whichever timestamp
+# that producer's basis (above) says is its last observation: `fetchedAt` for
+# "fetch"-basis producers, the sourceVersion timestamp for "observation"-basis
+# ones. Configurable: override any entry via a JSON object in the
+# HONUA_EVIDENCE_STALENESS_JSON env var, e.g. '{"samples": 5}'. A producer
+# whose fetch fails outright is always "missing" regardless of these.
 DEFAULT_STALENESS_DAYS = {
-    "server-keys": 14,
-    "server-matrix": 14,
-    "sdk-js": 30,
-    "sdk-dotnet": 30,
-    "sdk-python": 30,
+    # Fetch-basis producers: this is "how long may the aggregator have failed
+    # to look at all". The aggregate job runs daily (cron, plus producer
+    # dispatches), so 3 days tolerates two entirely missed runs before the row
+    # ages out. It is deliberately NOT a statement about how often
+    # honua-server or an SDK is expected to change -- that is sourceAgeDays,
+    # which is informational.
+    "server-keys": 3,
+    "server-matrix": 3,
+    "sdk-js": 3,
+    "sdk-dotnet": 3,
+    "sdk-python": 3,
+    "open-issues": 3,
+    # Observation-basis producers: this is "how long since the upstream job
+    # last actually ran".
     "samples": 3,
-    "open-issues": 7,
     # CITE suite runs are expensive and not per-commit; 14 days matches both
     # honua-server's own scripts/ci/check-cite-status-freshness.sh default and
     # honua-release's certification/evidence-freshness.yaml `cite` threshold.
@@ -127,6 +190,25 @@ DEFAULT_STALENESS_DAYS = {
     # for the same reason -- a fast-moving, cheap-to-refresh producer.
     "live-canary": 3,
 }
+DEFAULT_THRESHOLD_DAYS = 14
+
+# Pushed-envelope producers that are fully DEFINED (envelope schema documented,
+# loader wired, capability join ready) but have never had a single envelope
+# pushed. These get no freshness ledger row at all until their first envelope
+# lands: a "missing" row that has ALWAYS been missing teaches nothing, and it
+# dilutes "missing" for the case that matters -- a producer that used to report
+# and then stopped. honua-io/honua-release#89.
+#
+# The row returns automatically on the first pushed envelope; the aggregate run
+# prints a ::notice:: for every producer in this state, and the matrix declares
+# them in its top-level `awaitingFirstEnvelope` array, so a row is dropped from
+# the ledger without being hidden. This applies ONLY to producers listed here,
+# so a producer that HAS reported can never quietly vanish from the ledger by
+# having its directory emptied -- it goes "missing", loudly, as before.
+#
+#   dr-drills -- producer work tracked in honua-io/honua-evidence#20
+#                (honua-iac DR drill emits honua-evidence.dr-drill-envelope/v1).
+AWAITING_FIRST_ENVELOPE = {"dr-drills"}
 
 
 def staleness_thresholds() -> dict[str, int]:
@@ -200,6 +282,17 @@ class Fetched:
         return self.error is None
 
     def ledger_entry(self, thresholds: dict[str, int]) -> dict[str, Any]:
+        """One freshness ledger row. Two facts, two fields, neither pretending
+        to be the other (honua-io/honua-release#89):
+
+          * `ageDays`/`status` -- how long since this producer was last
+            OBSERVED, per its FRESHNESS_BASIS. This is the only thing that can
+            say "stale", i.e. "do not trust this".
+          * `sourceAgeDays` -- how old the upstream artifact itself is. Purely
+            informational: an upstream that simply has not changed in a while
+            is a fact about its release cadence, not a defect in this evidence
+            pipeline, and must never be reported as stale evidence.
+        """
         if not self.ok:
             return {
                 "fetchedAt": self.fetched_at,
@@ -207,17 +300,18 @@ class Fetched:
                 "status": "missing",
                 "detail": self.error,
             }
-        status = "fresh"
-        age_days = None
-        if self.source_version:
-            age_days = commit_age_days(self.source_version)
-        threshold = thresholds.get(self.name, 14)
-        if age_days is not None and age_days > threshold:
-            status = "stale"
+        basis = FRESHNESS_BASIS.get(self.name, DEFAULT_FRESHNESS_BASIS)
+        observed_at = self.fetched_at if basis == FETCH_BASIS else source_timestamp(self.source_version)
+        age_days = age_in_days(observed_at)
+        threshold = thresholds.get(self.name, DEFAULT_THRESHOLD_DAYS)
+        status = "stale" if age_days is not None and age_days > threshold else "fresh"
         return {
             "fetchedAt": self.fetched_at,
             "sourceVersion": self.source_version,
+            "freshnessBasis": basis,
+            "observedAt": observed_at,
             "ageDays": age_days,
+            "sourceAgeDays": commit_age_days(self.source_version),
             "status": status,
         }
 
@@ -225,16 +319,38 @@ class Fetched:
 _COMMIT_DATE_CACHE: dict[str, str] = {}
 
 
-def commit_age_days(source_version: str) -> int | None:
-    """source_version is either 'sha@ISO8601DATE' (our own encoding, cheap
-    path) or a bare timestamp. Returns whole days since that date, or None
-    if it can't be parsed."""
-    date_str = source_version.split("@", 1)[-1]
+def source_timestamp(source_version: str | None) -> str | None:
+    """The ISO 8601 timestamp encoded in a sourceVersion -- either
+    'sha@ISO8601DATE' (our own encoding, cheap path) or a bare timestamp.
+    None when the value carries no parseable timestamp at all (open-issues'
+    'live-query', or a producer whose commit metadata lookup failed)."""
+    if not source_version:
+        return None
+    candidate = source_version.split("@", 1)[-1]
     try:
-        dt = datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+        datetime.strptime(candidate, "%Y-%m-%dT%H:%M:%SZ")
+    except ValueError:
+        return None
+    return candidate
+
+
+def age_in_days(timestamp: str | None) -> int | None:
+    """Whole days between an ISO 8601 UTC timestamp and now, or None if it is
+    absent/unparseable."""
+    if not timestamp:
+        return None
+    try:
+        dt = datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
     except ValueError:
         return None
     return (datetime.now(timezone.utc) - dt).days
+
+
+def commit_age_days(source_version: str | None) -> int | None:
+    """Age in whole days of the upstream artifact a sourceVersion points at.
+    Informational only -- see Fetched.ledger_entry; this value never decides
+    `status`."""
+    return age_in_days(source_timestamp(source_version))
 
 
 def fetch_raw_with_commit(name: str, raw_url: str, owner: str, repo: str, path: str, ref: str = "trunk") -> Fetched:
@@ -745,6 +861,28 @@ def normalize_sdk_capabilities(sdk_name: str, raw: dict[str, Any]) -> dict[str, 
     return out
 
 
+def awaiting_first_envelope(fetches: dict[str, "Fetched"]) -> list[str]:
+    """Producers in AWAITING_FIRST_ENVELOPE that still have no envelope at all.
+    Reported as a ::notice:: by main() so dropping their ledger row is visible
+    rather than silent."""
+    return sorted(
+        name for name, fetched in fetches.items()
+        if name in AWAITING_FIRST_ENVELOPE and not fetched.data
+    )
+
+
+def build_freshness_ledger(fetches: dict[str, "Fetched"], thresholds: dict[str, int]) -> dict[str, Any]:
+    """The matrix's `freshness` block: exactly one row per producer that has
+    ever produced anything.
+
+    A producer listed in AWAITING_FIRST_ENVELOPE that has never had an envelope
+    pushed gets no row -- see that constant for why. Every other producer,
+    including one that has gone genuinely dark, always gets a row
+    (`missing`/`stale`); nothing else is ever omitted."""
+    omit = set(awaiting_first_envelope(fetches))
+    return {name: fetched.ledger_entry(thresholds) for name, fetched in fetches.items() if name not in omit}
+
+
 def build_matrix(*, staleness: dict[str, int]) -> tuple[dict[str, Any], list[str]]:
     """Returns (matrix, unknown_keys). unknown_keys is empty on a clean run;
     a non-empty list means the drift gate should fail the build."""
@@ -878,18 +1016,20 @@ def build_matrix(*, staleness: dict[str, int]) -> tuple[dict[str, Any], list[str
             }
         )
 
-    freshness = {
-        "server-keys": server_keys.ledger_entry(staleness),
-        "server-matrix": server_matrix.ledger_entry(staleness),
-        "sdk-js": sdk_fetches["js"].ledger_entry(staleness),
-        "sdk-dotnet": sdk_fetches["dotnet"].ledger_entry(staleness),
-        "sdk-python": sdk_fetches["python"].ledger_entry(staleness),
-        "samples": samples.ledger_entry(staleness),
-        "open-issues": open_issues.ledger_entry(staleness),
-        "cite": cite.ledger_entry(staleness),
-        "dr-drills": dr_drills.ledger_entry(staleness),
-        "live-canary": live_canary.ledger_entry(staleness),
+    fetches = {
+            "server-keys": server_keys,
+            "server-matrix": server_matrix,
+            "sdk-js": sdk_fetches["js"],
+            "sdk-dotnet": sdk_fetches["dotnet"],
+            "sdk-python": sdk_fetches["python"],
+            "samples": samples,
+            "open-issues": open_issues,
+            "cite": cite,
+            "dr-drills": dr_drills,
+            "live-canary": live_canary,
     }
+    freshness = build_freshness_ledger(fetches, staleness)
+    awaiting = awaiting_first_envelope(fetches)
 
     matrix = {
         "schemaVersion": SCHEMA_VERSION,
@@ -919,6 +1059,12 @@ def build_matrix(*, staleness: dict[str, int]) -> tuple[dict[str, Any], list[str
             "live-canary": "data/producers/live-canary/ (pushed envelopes; see docs/producer-contracts.md)",
         },
         "unjoinedCiteSuites": unjoined_cite_suites,
+        # Pushed-envelope producers that are defined but have never produced an
+        # envelope, and therefore carry no `freshness` row (see
+        # AWAITING_FIRST_ENVELOPE and docs/producer-contracts.md). Declared
+        # here so "not built yet" stays visible and distinguishable from
+        # "reported once and then stopped", which is what `missing` means.
+        "awaitingFirstEnvelope": awaiting,
         "freshness": freshness,
         "ingestionWarnings": ingestion_warnings,
         "capabilities": capabilities_out,
@@ -1004,8 +1150,18 @@ def main() -> int:
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(rendered, encoding="utf-8")
     print(f"Wrote {args.output} ({len(matrix['capabilities'])} capabilities).")
+    for name in matrix.get("awaitingFirstEnvelope", []):
+        print(
+            f"::notice::producer {name} has never had an evidence envelope pushed; it carries no "
+            "freshness ledger row until it does (see docs/producer-contracts.md).",
+            file=sys.stderr,
+        )
     for name, entry in matrix["freshness"].items():
-        print(f"  producer {name}: {entry['status']}" + (f" ({entry['detail']})" if entry.get("detail") else ""))
+        detail = f" ({entry['detail']})" if entry.get("detail") else ""
+        source_age = entry.get("sourceAgeDays")
+        source_note = "" if source_age is None else f", source {source_age}d old"
+        print(f"  producer {name}: {entry['status']}{detail}"
+              f" [basis={entry.get('freshnessBasis', '-')}{source_note}]")
     return 0
 
 
@@ -1013,8 +1169,12 @@ def strip_volatile(matrix: dict[str, Any]) -> dict[str, Any]:
     clone = json.loads(json.dumps(matrix))
     clone.pop("generatedAt", None)
     for entry in clone.get("freshness", {}).values():
+        # Every now-derived field: these necessarily churn between runs, so
+        # comparing them would make --check permanently "drifted".
         entry.pop("fetchedAt", None)
+        entry.pop("observedAt", None)
         entry.pop("ageDays", None)
+        entry.pop("sourceAgeDays", None)
     return clone
 
 

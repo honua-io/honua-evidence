@@ -246,6 +246,30 @@ class BriefContentTests(unittest.TestCase):
         self.assertIn("dr-drills produced no evidence at generation time", text)
         self.assertIn("live-canary produced no evidence at generation time", text)
 
+    def test_never_produced_producer_is_disclosed_as_not_built_not_as_missing(self):
+        """honua-io/honua-release#89: a producer with no ledger row because it
+        has never produced anything is disclosed as "not built yet", not as a
+        snapshot that went missing -- and never silently dropped, because a
+        buyer-shareable brief must not let an absent lane read as coverage."""
+        matrix = synthetic_matrix()
+        del matrix["freshness"]["dr-drills"]
+        matrix["awaitingFirstEnvelope"] = ["dr-drills"]
+        text = render(matrix=matrix)
+        self.assertIn("Producers not built yet", text)
+        self.assertIn("`dr-drills`: **not built yet**", text)
+        self.assertIn("dr-drills has never produced evidence; this lane is not built yet", text)
+        self.assertNotIn("dr-drills produced no evidence at generation time", text)
+        self.assertNotIn("dr-drills snapshot absent from the freshness ledger", text)
+
+    def test_producer_absent_from_ledger_and_not_awaiting_is_still_flagged(self):
+        """The awaitingFirstEnvelope escape hatch applies ONLY to producers the
+        matrix explicitly declares. Anything else missing from the ledger is
+        still called out."""
+        matrix = synthetic_matrix()
+        del matrix["freshness"]["dr-drills"]
+        text = render(matrix=matrix)
+        self.assertIn("dr-drills snapshot absent from the freshness ledger at generation time", text)
+
     def test_l2_links_and_receipts_pointer_present(self):
         text = render(keys=("serve.example",))
         self.assertIn("https://evidence.honua.io/capabilities/serve-example.html", text)
