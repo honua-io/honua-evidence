@@ -53,7 +53,7 @@ import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterable
 from urllib.parse import parse_qs, urlsplit
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -223,10 +223,18 @@ def edition_estimate(caps: list[dict[str, Any]]) -> tuple[str, list[str]]:
     return best, drivers
 
 
-def producer_note(freshness: dict[str, Any], producer: str) -> str | None:
+def producer_note(freshness: dict[str, Any], producer: str,
+                  awaiting: Iterable[str] = ()) -> str | None:
     """A short parenthetical disclosure when the producer behind an evidence
     row is stale or missing; None when it is fresh. An absent ledger entry
-    is treated as missing (see docs/producer-contracts.md)."""
+    is treated as missing, EXCEPT for a producer the matrix declares in
+    `awaitingFirstEnvelope` -- one whose ingestion is wired up but which has
+    never produced a single envelope. That is disclosed as what it is, "not
+    built yet", rather than as a snapshot that went missing (see
+    docs/producer-contracts.md and honua-io/honua-release#89). Either way it is
+    disclosed: nothing here ever reads as coverage."""
+    if producer in set(awaiting):
+        return f"{producer} has never produced evidence; this lane is not built yet"
     entry = freshness.get(producer)
     if entry is None:
         return f"{producer} snapshot absent from the freshness ledger at generation time"
@@ -296,10 +304,20 @@ def render_freshness_section(matrix: dict[str, Any]) -> list[str]:
             degraded.append(f"- `{producer}`: **{status}**" + (f" -- {detail}" if detail else ""))
     if degraded:
         lines += ["", "Degraded producers at generation time:", ""] + degraded
+    awaiting = matrix.get("awaitingFirstEnvelope") or []
+    if awaiting:
+        lines += [
+            "",
+            "Producers not built yet (no ledger row, because they have never produced",
+            "anything at all -- disclosed here rather than shown as a snapshot that went",
+            "missing):",
+            "",
+        ] + [f"- `{producer}`: **not built yet**" for producer in awaiting]
     return lines
 
 
-def render_capability_card(cap: dict[str, Any], freshness: dict[str, Any]) -> list[str]:
+def render_capability_card(cap: dict[str, Any], freshness: dict[str, Any],
+                           awaiting: Iterable[str] = ()) -> list[str]:
     key = cap["key"]
     status = capability_status(cap)
     l2_url = f"{SITE_BASE_URL}capabilities/{slug(key)}.html"
@@ -398,11 +416,11 @@ def render_capability_card(cap: dict[str, Any], freshness: dict[str, Any]) -> li
         rows = cap.get(field) or []
         if rows:
             text = f"{len(rows)} evidence envelope(s) recorded"
-            note = producer_note(freshness, producer)
+            note = producer_note(freshness, producer, awaiting)
             if note:
                 text += f" ({note})"
         else:
-            note = producer_note(freshness, producer)
+            note = producer_note(freshness, producer, awaiting)
             text = "none recorded" + (f" ({note})" if note else "")
         lines.append(f"| {label} | {md_cell(text)} |")
 
@@ -488,7 +506,7 @@ def render_brief(
     lines += render_freshness_section(matrix)
     lines += ["", "## Capability evidence", ""]
     for cap in caps:
-        lines += render_capability_card(cap, freshness)
+        lines += render_capability_card(cap, freshness, matrix.get("awaitingFirstEnvelope") or [])
 
     lines += ["## Disclosures", ""]
     unjoined = matrix.get("unjoinedCiteSuites") or []
