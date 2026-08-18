@@ -48,6 +48,13 @@ validate (scripts/validate-site.py, stdlib Python only, CI: validate.yml + aggre
   control labels/table captions+scope), CNAME/.nojekyll presence, and the
   issue-#2 receipt walk: index card -> capabilities/editing-featureserver-edits.html
   -> raw receipts, with every external hop HTTP-checked in the PR gate (--online)
+
+watchdog (scripts/check-ledger-liveness.py, CI: .github/workflows/ledger-liveness.yml, every 3h)
+  is the ledger still MOVING? -- capability-matrix.v1.json's own generatedAt age (>30h = stalled)
+  plus any `aggregate` run parked un-started for >45m (the leading indicator). Cancels a run
+  parked on an unapprovable deployment, files/updates one alert issue here, and fails red.
+  Exists because the 2026-08-16 deadlock (#17) was invisible in this repo for 42h and surfaced
+  three repos away as a wrong accusation against another producer.
 ```
 
 ### Producers

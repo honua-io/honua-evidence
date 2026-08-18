@@ -17,6 +17,44 @@ name: aggregate
 #
 # No `on: push` trigger here by design: this job commits directly to trunk,
 # and a push trigger on the same branch would re-run itself in a loop.
+#
+# ---------------------------------------------------------------------------
+# WHY THIS IS TWO JOBS AND TWO CONCURRENCY GROUPS (honua-io/honua-evidence#17)
+#
+# It used to be ONE job (`aggregate-and-deploy`) that both regenerated the
+# ledger and deployed Pages, bound to the `github-pages` environment, under a
+# single WORKFLOW-level `concurrency: {group: aggregate-pages,
+# cancel-in-progress: false}`.
+#
+# On 2026-08-16 the scheduled run parked in `waiting` on that environment with
+# `reviewers: []` -- no eligible approver at all, so nothing could ever release
+# it. Because the environment gate is evaluated before the job starts, and
+# because the workflow-level group refused to cancel in progress, that one
+# unapprovable run held `aggregate-pages` for 42 hours: 10 consecutive later
+# runs queued behind it and were cancelled, and data/capability-matrix.v1.json
+# froze at 2026-08-16T05:45:56Z while honua-release's gate-evidence stayed
+# green off the frozen timestamps.
+#
+# The structural fix is that THE LEDGER NO LONGER DEPENDS ON THE ENVIRONMENT.
+#   * `aggregate` carries no `environment:`, so it can never be parked waiting
+#     for an approval that may not be grantable. Its own group serialises the
+#     direct-to-trunk push (cancel-in-progress: false -- never drop a refresh
+#     that is mid-push), and its members always run to completion or time out.
+#   * `deploy` is the only environment-bound job, and its group is
+#     cancel-in-progress: TRUE. A parked deploy is superseded by the next run
+#     instead of blocking it; Pages is last-writer-wins, so nothing is lost by
+#     cancelling an older deploy that a newer one is about to replace.
+#
+# So the worst case degrades from "the freshness source of truth for the whole
+# release gate stops moving" to "the published site lags behind a still-fresh
+# committed ledger", and .github/workflows/ledger-liveness.yml says so out
+# loud from inside this repo rather than being diagnosed three repos away.
+#
+# `timeout-minutes` is a backstop here, NOT the fix: GitHub starts a job's
+# timeout when the job STARTS RUNNING, so time parked in `waiting` on an
+# environment does not count against it (a pending deployment sits for up to
+# 30 days). A timeout alone would not have broken the 2026-08-16 deadlock.
+# ---------------------------------------------------------------------------
 
 on:
   schedule:
@@ -30,16 +68,17 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: aggregate-pages
-  cancel-in-progress: false
-
 jobs:
-  aggregate-and-deploy:
+  aggregate:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    # Steady state is ~30s. Generous ceiling so a hung producer fetch dies
+    # instead of holding the ledger group.
+    timeout-minutes: 20
+    # Serialises the direct-to-trunk commit only. Deliberately NOT the same
+    # group as the Pages deploy, and deliberately NOT environment-bound.
+    concurrency:
+      group: aggregate-ledger
+      cancel-in-progress: false
     permissions:
       contents: write
       pages: write
@@ -83,5 +122,24 @@ jobs:
         with:
           path: site
 
+  deploy:
+    needs: aggregate
+    runs-on: ubuntu-latest
+    # The ONLY environment-bound job. If the environment parks it, the ledger
+    # above has already been refreshed and committed.
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    timeout-minutes: 15
+    # cancel-in-progress: TRUE is the deadlock breaker -- a run that can never
+    # be approved is superseded by the next one rather than holding the group.
+    concurrency:
+      group: aggregate-pages
+      cancel-in-progress: true
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
       - id: deployment
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
