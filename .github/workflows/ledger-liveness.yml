@@ -1,0 +1,116 @@
+name: ledger-liveness
+
+# Producer-side stall watchdog (honua-io/honua-evidence#17).
+#
+# The 2026-08-16 aggregator deadlock was invisible from inside this repo for
+# 42 hours: the `aggregate` workflow's runs were being CANCELLED (not failing),
+# so the Actions tab looked unremarkable, and the only visible symptom -- a
+# frozen data/capability-matrix.v1.json -- surfaced three repos away in
+# honua-release's gate-evidence as a wrong accusation against whichever
+# producer aged out first.
+#
+# This workflow makes that impossible to repeat quietly. It answers, on its
+# own schedule:
+#   1. is the committed ledger still being regenerated?  (`generatedAt` age)
+#   2. is an `aggregate` run parked right now?           (run status + age)
+# ...cancels runs parked on an approval that may never come, files/updates one
+# alert issue in THIS repo, and fails so the stall is red here first.
+#
+# Deliberately independent of everything it watches: its own concurrency group
+# (never `aggregate-ledger` or `aggregate-pages`), no `environment:`, and no
+# dependency on scripts/aggregate.py's network producers. The deadlock it
+# detects can therefore never be the thing that silences it.
+#
+# honua-release#84 checks the same `generatedAt` on the CONSUMER side. That is
+# the release verdict and stays there; this is the operational alarm, and it
+# trips at 30h so this repo speaks before that 36h gate does.
+
+on:
+  schedule:
+    - cron: "41 */3 * * *" # every 3 hours, off the aggregate cron's hour
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ledger-liveness
+  cancel-in-progress: false
+
+jobs:
+  watchdog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: write # cancel an aggregate run parked on an unapprovable deployment
+      issues: write # file/update the single alert issue
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          ref: trunk
+
+      - name: Collect aggregate run states
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh run list --repo "$GITHUB_REPOSITORY" --workflow aggregate.yml --limit 50 \
+            --json databaseId,status,conclusion,createdAt,event,url > runs.json
+          echo "Collected $(python3 -c 'import json;print(len(json.load(open("runs.json"))))') runs."
+
+      - name: Evaluate ledger liveness
+        id: check
+        continue-on-error: true # the verdict is acted on below, then re-raised
+        run: python3 scripts/check-ledger-liveness.py --runs runs.json
+
+      - name: Publish verdict to the job summary
+        run: |
+          cat >> "$GITHUB_STEP_SUMMARY" <<'__HONUA_SUMMARY_EOF__'
+          ${{ steps.check.outputs.report }}
+          __HONUA_SUMMARY_EOF__
+
+      # A run parked in `waiting`/`action_required` is waiting on an approval
+      # that may not be grantable at all (2026-08-16: `reviewers: []`).
+      # Cancelling costs nothing -- the next cron/dispatch re-aggregates from
+      # scratch -- while leaving it parked costs the ledger.
+      - name: Cancel parked aggregate runs
+        if: steps.check.outputs.cancel_run_ids != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for run_id in ${{ steps.check.outputs.cancel_run_ids }}; do
+            echo "Cancelling parked aggregate run $run_id"
+            gh run cancel "$run_id" --repo "$GITHUB_REPOSITORY" || \
+              echo "::warning::could not cancel run $run_id (already finished?)"
+          done
+
+      - name: Open or update the stall alert issue
+        if: steps.check.outputs.stalled == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TITLE: "aggregate: ledger liveness watchdog reports a stalled aggregator"
+        run: |
+          cat > alert.md <<'__HONUA_ALERT_EOF__'
+          ${{ steps.check.outputs.report }}
+          __HONUA_ALERT_EOF__
+          printf '\nDetected by [ledger-liveness run %s](%s/%s/actions/runs/%s).\n' \
+            "$GITHUB_RUN_ID" "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" >> alert.md
+
+          existing=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --limit 100 \
+            --json number,title \
+            --jq "[.[] | select(.title == \"$TITLE\")] | first | .number // empty")
+
+          if [ -n "$existing" ]; then
+            echo "Commenting on existing alert issue #$existing"
+            gh issue comment "$existing" --repo "$GITHUB_REPOSITORY" --body-file alert.md
+          else
+            echo "Opening a new alert issue"
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" \
+              --body-file alert.md --label slice/release-plumbing
+          fi
+
+      - name: Fail if the ledger is stalled
+        if: steps.check.outputs.stalled == 'true'
+        run: |
+          echo "::error::honua-evidence ledger is stalled -- see the job summary and the alert issue."
+          exit 1
