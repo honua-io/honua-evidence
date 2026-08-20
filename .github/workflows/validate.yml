@@ -38,6 +38,9 @@ jobs:
       - name: Unit tests (ingestion + freshness computation)
         run: python3 -m unittest discover -s tests -v
 
+      - name: Protocol certification aggregator contract
+        run: python3 scripts/aggregate-certification.py --help > /dev/null
+
       - name: Aggregate drift check
         env:
           HONUA_EVIDENCE_TOKEN: ${{ secrets.HONUA_EVIDENCE_TOKEN }}

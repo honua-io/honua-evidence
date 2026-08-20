@@ -93,15 +93,35 @@ jobs:
           HONUA_EVIDENCE_TOKEN: ${{ secrets.HONUA_EVIDENCE_TOKEN }}
         run: python3 scripts/aggregate.py
 
+      - name: Aggregate protocol certification observations
+        env:
+          REQUIREMENTS_URL: https://raw.githubusercontent.com/honua-io/honua-release/trunk/certification/protocol-certification-requirements.v1.json
+        run: |
+          set -euo pipefail
+          if ! find data/producers/protocol-certification -name '*.json' -print -quit | grep -q .; then
+            echo "::notice::Protocol certification contract is wired but awaiting its first producer fragment."
+            exit 0
+          fi
+          mkdir -p .aggregate-cache
+          curl --fail --silent --show-error --location "$REQUIREMENTS_URL" \
+            -o .aggregate-cache/protocol-certification-requirements.v1.json
+          python3 scripts/aggregate-certification.py \
+            --requirements .aggregate-cache/protocol-certification-requirements.v1.json
+
       - name: Commit refreshed aggregate if changed
         id: commit
         run: |
-          if git diff --quiet -- data/capability-matrix.v1.json; then
-            echo "No change to data/capability-matrix.v1.json."
+          if [ -z "$(git status --porcelain -- data/capability-matrix.v1.json data/protocol-certification.v1.json)" ]; then
+            echo "No change to evidence ledgers."
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
+            paths=(data/capability-matrix.v1.json)
+            if [ -e data/protocol-certification.v1.json ] || \
+               git ls-files --error-unmatch data/protocol-certification.v1.json >/dev/null 2>&1; then
+              paths+=(data/protocol-certification.v1.json)
+            fi
             git -c user.name="honua-evidence-bot" -c user.email="noreply@honua.io" \
-              add data/capability-matrix.v1.json
+              add -- "${paths[@]}"
             git -c user.name="honua-evidence-bot" -c user.email="noreply@honua.io" \
               commit -m "chore: refresh capability-matrix.v1.json"
             git push origin HEAD:trunk
@@ -109,7 +129,11 @@ jobs:
           fi
 
       - name: Build site
-        run: python3 scripts/build-site.py
+        run: |
+          python3 scripts/build-site.py
+          if [ -f data/protocol-certification.v1.json ]; then
+            cp data/protocol-certification.v1.json site/data/protocol-certification.v1.json
+          fi
 
       # Offline gate only (structure, internal links, a11y, receipt-walk
       # shape): a third-party outage must not block the daily deploy. The
