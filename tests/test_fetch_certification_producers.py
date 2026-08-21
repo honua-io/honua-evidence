@@ -3,6 +3,8 @@ from __future__ import annotations
 import importlib.util
 import io
 import json
+import os
+import sys
 import tempfile
 import unittest
 import urllib.request
@@ -171,6 +173,18 @@ def test_list_artifacts_paginates_until_the_last_page() -> None:
     assert len(calls) == 2
 
 
+def test_list_artifacts_stops_at_the_page_bound() -> None:
+    calls = []
+
+    def request(url, _token, _accept):
+        calls.append(url)
+        return json.dumps({"artifacts": [{"id": index} for index in range(100)]}).encode()
+
+    with mock.patch.object(MODULE, "request_bytes", side_effect=request):
+        assert len(MODULE.list_artifacts("honua-io/test", "token", max_pages=2)) == 200
+    assert len(calls) == 2
+
+
 def test_trusted_run_requires_successful_configured_workflow_and_identity() -> None:
     source = {
         "repository": "honua-io/test",
@@ -317,6 +331,10 @@ def test_registry_validation_rejects_unknown_fields_and_bad_limits() -> None:
         ({"artifact_name_regx": ".*"}, "unknown fields"),
         ({"max_artifacts": 0}, "max_artifacts"),
         ({"max_artifacts": 51}, "max_artifacts"),
+        ({"max_artifact_pages": 0}, "max_artifact_pages"),
+        ({"max_artifact_pages": 21}, "max_artifact_pages"),
+        ({"max_artifacts": 10, "max_candidates": 9}, "max_candidates"),
+        ({"max_candidates": 501}, "max_candidates"),
         ({"required": "yes"}, "required"),
     ]:
         with tempfile.TemporaryDirectory() as directory:
@@ -327,6 +345,33 @@ def test_registry_validation_rejects_unknown_fields_and_bad_limits() -> None:
             )
             with unittest.TestCase().assertRaisesRegex(ValueError, message):
                 MODULE.load_registry(path)
+
+
+def test_missing_token_fails_when_a_producer_is_required() -> None:
+    source = {
+        "producer": "honua-sdk-python",
+        "repository": "honua-io/honua-sdk-python",
+        "workflow_path": ".github/workflows/conformance.yml",
+        "artifact_prefix": "python-sdk-conformance-",
+        "fragment_globs": ["**/protocol-certification-fragment.json"],
+        "trusted_branches": ["trunk"],
+        "trusted_events": ["workflow_dispatch"],
+        "required": True,
+    }
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        registry = root / "registry.json"
+        registry.write_text(
+            json.dumps({"schema": MODULE.REGISTRY_SCHEMA, "sources": [source]}),
+            encoding="utf-8",
+        )
+        with (
+            mock.patch.object(sys, "argv", [
+                str(SCRIPT), "--registry", str(registry), "--output", str(root / "out")
+            ]),
+            mock.patch.dict(os.environ, {"HONUA_EVIDENCE_TOKEN": ""}),
+        ):
+            assert MODULE.main() == 1
 
 
 class FetchCertificationProducerTests(unittest.TestCase):
@@ -343,6 +388,7 @@ class FetchCertificationProducerTests(unittest.TestCase):
         test_artifact_redirect_does_not_forward_github_credentials
     )
     test_list_artifacts = staticmethod(test_list_artifacts_paginates_until_the_last_page)
+    test_list_artifacts_page_bound = staticmethod(test_list_artifacts_stops_at_the_page_bound)
     test_registry_validation_requires_typed_allowlists = staticmethod(
         test_registry_validation_requires_typed_allowlists
     )
@@ -352,6 +398,7 @@ class FetchCertificationProducerTests(unittest.TestCase):
     test_registry_validation_rejects_unknown_fields_and_bad_limits = staticmethod(
         test_registry_validation_rejects_unknown_fields_and_bad_limits
     )
+    test_missing_token_required = staticmethod(test_missing_token_fails_when_a_producer_is_required)
     test_trusted_run = staticmethod(test_trusted_run_requires_successful_configured_workflow_and_identity)
     test_fragment_producer = staticmethod(test_fragment_producer_must_match_registry)
     test_fragment_run_head = staticmethod(test_fragment_observations_must_match_trusted_run_head)

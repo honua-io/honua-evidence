@@ -88,10 +88,10 @@ def request_bytes(url: str, token: str, accept: str) -> bytes:
         return response.read()
 
 
-def list_artifacts(repository: str, token: str) -> list[dict[str, Any]]:
+def list_artifacts(repository: str, token: str, max_pages: int = 5) -> list[dict[str, Any]]:
     artifacts: list[dict[str, Any]] = []
     page = 1
-    while True:
+    while page <= max_pages:
         listing = json.loads(request_bytes(
             f"https://api.github.com/repos/{repository}/actions/artifacts?per_page=100&page={page}",
             token,
@@ -104,6 +104,7 @@ def list_artifacts(repository: str, token: str) -> list[dict[str, Any]]:
         if len(batch) < 100:
             return artifacts
         page += 1
+    return artifacts
 
 
 def trusted_run(run: dict[str, Any], artifact: dict[str, Any], source: dict[str, Any]) -> bool:
@@ -175,7 +176,8 @@ def load_registry(path: Path) -> dict[str, Any]:
         allowed_fields = {
             "producer", "repository", "workflow_path", "artifact_prefix",
             "artifact_name_regex", "fragment_globs", "trusted_branches",
-            "trusted_events", "max_artifacts", "required",
+            "trusted_events", "max_artifacts", "max_artifact_pages",
+            "max_candidates", "required",
         }
         unknown_fields = set(source) - allowed_fields
         if unknown_fields:
@@ -210,6 +212,24 @@ def load_registry(path: Path) -> dict[str, Any]:
             or not 1 <= max_artifacts <= 50
         ):
             raise ValueError(f"Producer {producer!r} max_artifacts must be an integer from 1 through 50.")
+        max_artifact_pages = source.get("max_artifact_pages", 5)
+        if (
+            isinstance(max_artifact_pages, bool)
+            or not isinstance(max_artifact_pages, int)
+            or not 1 <= max_artifact_pages <= 20
+        ):
+            raise ValueError(
+                f"Producer {producer!r} max_artifact_pages must be an integer from 1 through 20."
+            )
+        max_candidates = source.get("max_candidates", 100)
+        if (
+            isinstance(max_candidates, bool)
+            or not isinstance(max_candidates, int)
+            or not max_artifacts <= max_candidates <= 500
+        ):
+            raise ValueError(
+                f"Producer {producer!r} max_candidates must be an integer from max_artifacts through 500."
+            )
         if "required" in source and not isinstance(source["required"], bool):
             raise ValueError(f"Producer {producer!r} required must be a boolean.")
         for field in ("fragment_globs", "trusted_branches", "trusted_events"):
@@ -241,9 +261,13 @@ def fetch(registry_path: Path, output: Path, token: str) -> int:
     for source in registry["sources"]:
         repository = source["repository"]
         candidates = select_artifacts(
-            list_artifacts(repository, token),
+            list_artifacts(
+                repository,
+                token,
+                int(source.get("max_artifact_pages", 5)),
+            ),
             source["artifact_prefix"],
-            sys.maxsize,
+            int(source.get("max_candidates", 100)),
             source.get("artifact_name_regex"),
         )
         producer_fragment_count = 0
@@ -312,6 +336,12 @@ def main() -> int:
         parser.error("--output is required unless --validate-only is used")
     token = os.environ.get(args.token_env, "").strip()
     if not token:
+        if any(source.get("required", False) for source in registry["sources"]):
+            print(
+                f"::error::{args.token_env} is required for mandatory cross-repository certification producers.",
+                file=sys.stderr,
+            )
+            return 1
         print(f"::notice::{args.token_env} is unavailable; cross-repository certification fragments remain missing.")
         return 0
     return fetch(args.registry, args.output, token)
