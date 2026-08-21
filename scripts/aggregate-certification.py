@@ -34,16 +34,13 @@ CLOCK_SKEW_TOLERANCE = timedelta(minutes=5)
 OBSERVATION_RESULTS = frozenset({"pass", "fail", "skip"})
 SHA_RE = re.compile(r"^[0-9a-f]{40}$")
 DIGEST_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
-TRUSTED_EVIDENCE_HOSTS = frozenset({"github.com", "evidence.honua.io"})
-
-
-def _valid_evidence_uri(value: object) -> bool:
-    if not isinstance(value, str):
+def _valid_evidence_uri(value: object, evidence_digest: object) -> bool:
+    if not isinstance(value, str) or not isinstance(evidence_digest, str):
         return False
     parsed = urlparse(value)
     if (
         parsed.scheme != "https"
-        or parsed.hostname not in TRUSTED_EVIDENCE_HOSTS
+        or parsed.hostname != "evidence.honua.io"
         or parsed.username is not None
         or parsed.password is not None
         or parsed.params
@@ -51,9 +48,8 @@ def _valid_evidence_uri(value: object) -> bool:
         or parsed.fragment
     ):
         return False
-    if parsed.hostname == "github.com":
-        return re.fullmatch(r"/[^/]+/[^/]+/actions/runs/[0-9]+(?:/.*)?", parsed.path) is not None
-    return re.fullmatch(r"/(?:runs|data)/[^/]+(?:/.*)?", parsed.path) is not None
+    match = re.fullmatch(r"/data/sha256/([0-9a-f]{64})", parsed.path)
+    return match is not None and evidence_digest == f"sha256:{match.group(1)}"
 
 
 def _result_counts(rows: list[dict]) -> dict[str, int]:
@@ -211,6 +207,9 @@ def load_fragments(directory: Path) -> list[tuple[Path, dict]]:
         observations = document.get("observations")
         if not isinstance(observations, list):
             raise ValueError(f"{path}: observations must be an array")
+        operation_scope = document.get("operation_scope")
+        if isinstance(operation_scope, dict) and operation_scope.get("complete") is not True:
+            raise ValueError(f"{path}: operation_scope must be complete before observations can be aggregated")
         fragments.append((path, document))
     return fragments
 
@@ -325,11 +324,11 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
                 )
             if result == "pass":
                 evidence_uri = observation.get("evidence_uri")
-                if not _valid_evidence_uri(evidence_uri):
-                    raise ValueError(
-                        f"{path}: observations[{index}].evidence_uri must be an immutable trusted HTTPS receipt"
-                    )
                 evidence_digest = observation.get("evidence_digest")
+                if not _valid_evidence_uri(evidence_uri, evidence_digest):
+                    raise ValueError(
+                        f"{path}: observations[{index}].evidence_uri must be content-addressed by evidence_digest"
+                    )
                 if not isinstance(evidence_digest, str) or not DIGEST_RE.fullmatch(evidence_digest):
                     raise ValueError(
                         f"{path}: observations[{index}].evidence_digest must be a sha256 digest"
