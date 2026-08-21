@@ -82,6 +82,17 @@ def list_artifacts(repository: str, token: str) -> list[dict[str, Any]]:
 
 def trusted_run(run: dict[str, Any], artifact: dict[str, Any], source: dict[str, Any]) -> bool:
     repository = source["repository"]
+    trusted_events = source.get("trusted_events")
+    trusted_branches = source.get("trusted_branches")
+    if not (
+        isinstance(trusted_events, list)
+        and trusted_events
+        and all(isinstance(value, str) and value for value in trusted_events)
+        and isinstance(trusted_branches, list)
+        and trusted_branches
+        and all(isinstance(value, str) and value for value in trusted_branches)
+    ):
+        return False
     artifact_run = artifact.get("workflow_run")
     path = run.get("path")
     return (
@@ -134,11 +145,18 @@ def load_registry(path: Path) -> dict[str, Any]:
         producers.add(producer)
         if not isinstance(repository, str) or not repository.startswith("honua-io/") or repository.count("/") != 1:
             raise ValueError(f"Untrusted producer repository: {repository!r}")
-        for field in (
-            "workflow_path", "artifact_prefix", "fragment_globs", "trusted_branches", "trusted_events"
-        ):
-            if not source.get(field):
-                raise ValueError(f"Producer {producer!r} is missing {field}.")
+        for field in ("workflow_path", "artifact_prefix"):
+            value = source.get(field)
+            if not isinstance(value, str) or not value:
+                raise ValueError(f"Producer {producer!r} has invalid {field}.")
+        for field in ("fragment_globs", "trusted_branches", "trusted_events"):
+            value = source.get(field)
+            if not (
+                isinstance(value, list)
+                and value
+                and all(isinstance(item, str) and item for item in value)
+            ):
+                raise ValueError(f"Producer {producer!r} has invalid {field}.")
     return registry
 
 

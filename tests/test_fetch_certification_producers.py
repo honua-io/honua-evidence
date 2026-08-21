@@ -131,10 +131,36 @@ def test_registry_validation_rejects_duplicate_producers() -> None:
             raise AssertionError("duplicate registry producer was accepted")
 
 
+def test_registry_validation_requires_typed_allowlists() -> None:
+    source = {
+        "producer": "honua-server-cng",
+        "repository": "honua-io/honua-server",
+        "workflow_path": ".github/workflows/cng-conformance.yml",
+        "artifact_prefix": "cng-certification-",
+        "fragment_globs": ["**/protocol-certification-fragment.json"],
+        "trusted_branches": ["trunk"],
+        "trusted_events": ["schedule"],
+    }
+    for field in ("fragment_globs", "trusted_branches", "trusted_events"):
+        malformed = dict(source)
+        malformed[field] = "trunk"
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "registry.json"
+            path.write_text(
+                json.dumps({"schema": MODULE.REGISTRY_SCHEMA, "sources": [malformed]}),
+                encoding="utf-8",
+            )
+            with unittest.TestCase().assertRaisesRegex(ValueError, field):
+                MODULE.load_registry(path)
+
+
 class FetchCertificationProducerTests(unittest.TestCase):
     test_select_artifacts = staticmethod(test_select_artifacts_filters_expired_and_keeps_newest)
     test_extract_fragments = staticmethod(test_extract_fragments_accepts_only_normalized_envelopes)
     test_list_artifacts = staticmethod(test_list_artifacts_paginates_until_the_last_page)
+    test_registry_validation_requires_typed_allowlists = staticmethod(
+        test_registry_validation_requires_typed_allowlists
+    )
     test_trusted_run = staticmethod(test_trusted_run_requires_successful_configured_workflow_and_identity)
     test_fragment_producer = staticmethod(test_fragment_producer_must_match_registry)
     test_fragment_run_head = staticmethod(test_fragment_observations_must_match_trusted_run_head)
