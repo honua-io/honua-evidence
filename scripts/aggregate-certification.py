@@ -25,7 +25,8 @@ POLICY_FIELDS = (
     "fixture_revision",
 )
 OBSERVATION_FIELDS = (
-    "result", "skip_reason", "source_sha", "producer_source_sha", "image_digest", "fixture_revision", "evidence_uri",
+    "result", "skip_reason", "source_sha", "producer_source_sha", "image_digest", "fixture_revision",
+    "contract_revision", "auth_policy_revision", "evidence_uri",
     "started_at", "completed_at",
 )
 CLOCK_SKEW_TOLERANCE = timedelta(minutes=5)
@@ -257,6 +258,8 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
         for index, observation in enumerate(fragment["observations"]):
             if not isinstance(observation, dict):
                 raise ValueError(f"{path}: observations[{index}] must be an object")
+            if not matches_candidate:
+                continue
             missing = [field for field in (*IDENTITY_FIELDS, *OBSERVATION_FIELDS) if field not in observation]
             if missing:
                 raise ValueError(f"{path}: observations[{index}] missing {', '.join(missing)}")
@@ -281,6 +284,10 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
             expected_fixture = fixture_template.replace("{source_sha}", observation["source_sha"])
             if observation["fixture_revision"] != expected_fixture:
                 raise ValueError(f"{path}: observations[{index}].fixture_revision does not match requirement")
+            if observation["contract_revision"] != requirement_by_key[observation_key]["contract_revision"]:
+                raise ValueError(f"{path}: observations[{index}].contract_revision does not match requirement")
+            if observation["auth_policy_revision"] != requirement_by_key[observation_key]["auth_policy_revision"]:
+                raise ValueError(f"{path}: observations[{index}].auth_policy_revision does not match requirement")
             result = observation.get("result")
             if result not in OBSERVATION_RESULTS:
                 raise ValueError(
@@ -303,8 +310,6 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
                 raise ValueError(f"{path}: observations[{index}].completed_at is after fragment generation")
             if completed > now + CLOCK_SKEW_TOLERANCE:
                 raise ValueError(f"{path}: observations[{index}].completed_at is in the future")
-            if not matches_candidate:
-                continue
             composite = (producer, _identity(observation))
             by_producer_key.setdefault(composite, []).append((completed, path, observation))
 

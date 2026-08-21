@@ -10,7 +10,6 @@ Evidence producers push immutable fragments using this envelope:
   "generated_at": "2026-08-20T10:06:00Z",
   "candidate": {
     "source_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "producer_source_sha": "cccccccccccccccccccccccccccccccccccccccc",
     "image_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
     "cut_at": "2026-08-20T09:00:00Z"
   },
@@ -23,8 +22,11 @@ Evidence producers push immutable fragments using this envelope:
     "result": "pass",
     "skip_reason": null,
     "source_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "producer_source_sha": "cccccccccccccccccccccccccccccccccccccccc",
     "image_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
     "fixture_revision": "fixture-cog-v1",
+    "contract_revision": "cog-1.0",
+    "auth_policy_revision": "anonymous-v1",
     "evidence_uri": "https://github.com/honua-io/honua-server/actions/runs/1",
     "started_at": "2026-08-20T10:00:00Z",
     "completed_at": "2026-08-20T10:05:00Z"

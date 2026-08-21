@@ -48,6 +48,8 @@ def observation(req, result="pass", completed="2026-08-20T10:05:00Z"):
         "producer_source_sha": "c" * 40,
         "image_digest": DIGEST,
         "fixture_revision": "fixture-v1",
+        "contract_revision": req["contract_revision"],
+        "auth_policy_revision": req["auth_policy_revision"],
         "evidence_uri": "https://evidence.honua.io/run/1",
         "started_at": "2026-08-20T10:00:00Z",
         "completed_at": completed,
@@ -242,14 +244,29 @@ class CertificationAggregationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "fixture_revision does not match requirement"):
             module.build_ledger("rev-1", False, [req], [(Path("stale.json"), fragment("server", [stale]))], CANDIDATE)
 
+    def test_observation_must_match_requirement_revisions(self):
+        req = requirement()
+        for field in ("contract_revision", "auth_policy_revision"):
+            with self.subTest(field=field):
+                stale = observation(req)
+                stale[field] = "stale"
+                with self.assertRaisesRegex(ValueError, f"{field} does not match requirement"):
+                    module.build_ledger(
+                        "rev-1", False, [req],
+                        [(Path("stale.json"), fragment("server", [stale]))], CANDIDATE,
+                    )
+
     def test_explicit_candidate_is_validated(self):
         with self.assertRaisesRegex(ValueError, "full 40-character SHA"):
             module.choose_candidate([], ("abc", DIGEST, CANDIDATE["cut_at"]))
 
-    def test_unknown_observation_from_older_candidate_is_rejected(self):
+    def test_observation_from_older_candidate_is_ignored(self):
         req = requirement()
         unknown = requirement(client="GDAL")
         old = fragment("old", [observation(unknown)])
+        old["observations"][0]["fixture_revision"] = "historical-fixture"
+        del old["observations"][0]["contract_revision"]
+        del old["observations"][0]["auth_policy_revision"]
         old["candidate"] = {
             "source_sha": "c" * 40,
             "image_digest": "sha256:" + "d" * 64,
@@ -260,8 +277,8 @@ class CertificationAggregationTests(unittest.TestCase):
             (Path("current.json"), fragment("current", [])),
         ]
 
-        with self.assertRaisesRegex(ValueError, "do not resolve"):
-            module.build_ledger("rev-1", False, [req], fragments, CANDIDATE)
+        ledger = module.build_ledger("rev-1", False, [req], fragments, CANDIDATE)
+        self.assertEqual("skip", ledger["cells"][0]["result"])
 
     def test_fragment_loader_rejects_non_string_candidate_identity(self):
         document = fragment("server", [])
