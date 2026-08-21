@@ -145,11 +145,13 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
                  candidate: dict, now: datetime | None = None) -> dict:
     now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
     candidate_id = _candidate_identity(candidate)
-    by_producer_key: dict[tuple[str, tuple[object, ...]], tuple[datetime, Path, dict]] = {}
+    by_producer_key: dict[
+        tuple[str, tuple[object, ...]],
+        list[tuple[datetime, Path, dict]],
+    ] = {}
 
     for path, fragment in fragments:
-        if _candidate_identity(fragment["candidate"]) != candidate_id:
-            continue
+        matches_candidate = _candidate_identity(fragment["candidate"]) == candidate_id
         generated = _timestamp(fragment.get("generated_at"))
         if generated is None:
             raise ValueError(f"{path}: generated_at is invalid")
@@ -184,18 +186,25 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
                 raise ValueError(f"{path}: observations[{index}].completed_at is after fragment generation")
             if completed > now + CLOCK_SKEW_TOLERANCE:
                 raise ValueError(f"{path}: observations[{index}].completed_at is in the future")
+            if not matches_candidate:
+                continue
             composite = (producer, _identity(observation))
-            previous = by_producer_key.get(composite)
-            if previous is None or completed > previous[0]:
-                by_producer_key[composite] = (completed, path, observation)
-            elif completed == previous[0] and observation != previous[2]:
-                raise ValueError(
-                    f"conflicting observations tie for newest producer/cell {composite}: "
-                    f"{previous[1]} and {path}"
-                )
+            by_producer_key.setdefault(composite, []).append((completed, path, observation))
+
+    newest_by_producer_key: dict[tuple[str, tuple[object, ...]], tuple[datetime, Path, dict]] = {}
+    for composite, candidates in by_producer_key.items():
+        newest_completed = max(candidate[0] for candidate in candidates)
+        newest = [candidate for candidate in candidates if candidate[0] == newest_completed]
+        selected = newest[0]
+        if any(candidate[2] != selected[2] for candidate in newest[1:]):
+            paths = " and ".join(str(candidate[1]) for candidate in newest)
+            raise ValueError(
+                f"conflicting observations tie for newest producer/cell {composite}: {paths}"
+            )
+        newest_by_producer_key[composite] = selected
 
     observations_by_key: dict[tuple[object, ...], list[tuple[str, Path, dict]]] = {}
-    for (producer, key), (_, path, observation) in by_producer_key.items():
+    for (producer, key), (_, path, observation) in newest_by_producer_key.items():
         observations_by_key.setdefault(key, []).append((producer, path, observation))
 
     requirement_keys = {_identity(requirement) for requirement in requirements}
