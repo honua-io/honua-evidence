@@ -10,6 +10,7 @@ Evidence producers push immutable fragments using this envelope:
   "generated_at": "2026-08-20T10:06:00Z",
   "candidate": {
     "source_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "producer_source_sha": "cccccccccccccccccccccccccccccccccccccccc",
     "image_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
     "cut_at": "2026-08-20T09:00:00Z"
   },
@@ -33,7 +34,8 @@ Evidence producers push immutable fragments using this envelope:
 
 ## Join rules
 
-- Candidate source SHA, image digest, and cut timestamp form an exact identity.
+- Candidate source SHA, image digest, and cut timestamp form an exact server identity.
+- Every observation separately records the exact producer repository SHA that generated it.
 - A cell identity is surface, operation, canonical client, client version, and deployment target.
 - The newest observation from one producer wins for a cell.
 - Two producers claiming the same cell are ambiguous and fail aggregation.

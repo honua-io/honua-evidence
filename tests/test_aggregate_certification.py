@@ -45,6 +45,7 @@ def observation(req, result="pass", completed="2026-08-20T10:05:00Z"):
         "result": result,
         "skip_reason": None,
         "source_sha": SHA,
+        "producer_source_sha": "c" * 40,
         "image_digest": DIGEST,
         "fixture_revision": "fixture-v1",
         "evidence_uri": "https://evidence.honua.io/run/1",

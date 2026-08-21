@@ -25,7 +25,7 @@ POLICY_FIELDS = (
     "fixture_revision",
 )
 OBSERVATION_FIELDS = (
-    "result", "skip_reason", "source_sha", "image_digest", "fixture_revision", "evidence_uri",
+    "result", "skip_reason", "source_sha", "producer_source_sha", "image_digest", "fixture_revision", "evidence_uri",
     "started_at", "completed_at",
 )
 CLOCK_SKEW_TOLERANCE = timedelta(minutes=5)
@@ -246,6 +246,12 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
             missing = [field for field in (*IDENTITY_FIELDS, *OBSERVATION_FIELDS) if field not in observation]
             if missing:
                 raise ValueError(f"{path}: observations[{index}] missing {', '.join(missing)}")
+            if not isinstance(observation.get("source_sha"), str) or not SHA_RE.fullmatch(observation["source_sha"]):
+                raise ValueError(f"{path}: observations[{index}].source_sha must be a full 40-character SHA")
+            if not isinstance(observation.get("producer_source_sha"), str) or not SHA_RE.fullmatch(observation["producer_source_sha"]):
+                raise ValueError(f"{path}: observations[{index}].producer_source_sha must be a full 40-character SHA")
+            if not isinstance(observation.get("image_digest"), str) or not DIGEST_RE.fullmatch(observation["image_digest"]):
+                raise ValueError(f"{path}: observations[{index}].image_digest must be a sha256 digest")
             observation_key = _identity(observation)
             if observation_key not in requirement_keys:
                 raise ValueError(
@@ -313,6 +319,7 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
                 "result": "not-addressable",
                 "skip_reason": None,
                 "source_sha": None,
+                "producer_source_sha": None,
                 "image_digest": None,
                 "fixture_revision": None,
                 "evidence_uri": None,
@@ -327,6 +334,7 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
                 "result": "skip",
                 "skip_reason": "no producer evidence for required certification cell",
                 "source_sha": None,
+                "producer_source_sha": None,
                 "image_digest": None,
                 "fixture_revision": None,
                 "evidence_uri": None,
