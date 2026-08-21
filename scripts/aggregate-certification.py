@@ -527,9 +527,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--producers", default="data/producers/protocol-certification", type=Path)
     parser.add_argument("--output", default="data/protocol-certification.v1.json", type=Path)
     parser.add_argument("--summary", default="data/protocol-certification-summary.v1.json", type=Path)
-    parser.add_argument("--candidate-source-sha")
-    parser.add_argument("--candidate-image-digest")
-    parser.add_argument("--candidate-cut-at")
+    parser.add_argument("--candidate-source-sha", required=True)
+    parser.add_argument("--candidate-image-digest", required=True)
+    parser.add_argument("--candidate-cut-at", required=True)
     args = parser.parse_args(argv)
 
     revision, complete, requirements = load_requirements(args.requirements)
