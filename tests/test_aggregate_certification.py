@@ -90,6 +90,10 @@ class CertificationAggregationTests(unittest.TestCase):
         self.assertEqual(2, summary["scenario_facets"]["positive"]["required"])
         self.assertEqual(1, summary["supported_operation_coverage"]["passed"])
 
+    def test_summary_excludes_wholly_non_addressable_operation_groups(self):
+        ledger = module.build_ledger("rev-1", False, [requirement(addressable=False)], [], CANDIDATE)
+        self.assertEqual(0, module.build_summary(ledger)["supported_operation_coverage"]["required"])
+
     def test_observation_cannot_override_non_addressable_policy(self):
         req = requirement(addressable=False)
         fragments = [(Path("producer.json"), fragment("server", [observation(req, result="pass")]))]
@@ -224,6 +228,24 @@ class CertificationAggregationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "do not resolve"):
             module.build_ledger("rev-1", False, [req], fragments, CANDIDATE)
 
+    def test_observation_must_match_fragment_candidate(self):
+        req = requirement()
+        mismatched = observation(req)
+        mismatched["source_sha"] = "c" * 40
+        with self.assertRaisesRegex(ValueError, "does not match fragment candidate"):
+            module.build_ledger("rev-1", False, [req], [(Path("mismatch.json"), fragment("server", [mismatched]))], CANDIDATE)
+
+    def test_observation_must_match_requirement_fixture(self):
+        req = requirement()
+        stale = observation(req)
+        stale["fixture_revision"] = "stale"
+        with self.assertRaisesRegex(ValueError, "fixture_revision does not match requirement"):
+            module.build_ledger("rev-1", False, [req], [(Path("stale.json"), fragment("server", [stale]))], CANDIDATE)
+
+    def test_explicit_candidate_is_validated(self):
+        with self.assertRaisesRegex(ValueError, "full 40-character SHA"):
+            module.choose_candidate([], ("abc", DIGEST, CANDIDATE["cut_at"]))
+
     def test_unknown_observation_from_older_candidate_is_rejected(self):
         req = requirement()
         unknown = requirement(client="GDAL")
@@ -283,6 +305,19 @@ class CertificationAggregationTests(unittest.TestCase):
                 "requirements": [req, req],
             }), encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "duplicate requirement"):
+                module.load_requirements(path)
+
+    def test_requirements_loader_rejects_non_boolean_addressability(self):
+        req = {**requirement(), "addressable_by_client": "false"}
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "requirements.json"
+            path.write_text(json.dumps({
+                "schema": module.REQUIREMENTS_SCHEMA,
+                "revision": "rev-1",
+                "complete": False,
+                "requirements": [req],
+            }), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "must be a boolean"):
                 module.load_requirements(path)
 
 

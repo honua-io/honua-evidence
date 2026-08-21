@@ -69,13 +69,15 @@ def build_summary(ledger: dict) -> dict:
         if cell["maturity"] in {"supported", "deprecated"}:
             supported_groups[(cell["surface"], cell["operation"], cell["deployment_target"])].append(cell)
 
+    addressable_supported_groups = [
+        rows for rows in supported_groups.values()
+        if any(row["addressable_by_client"] for row in rows)
+    ]
     supported_passed = sum(
-        bool(rows)
-        and any(row["addressable_by_client"] for row in rows)
-        and all(row["result"] == "pass" for row in rows if row["addressable_by_client"])
-        for rows in supported_groups.values()
+        all(row["result"] == "pass" for row in rows if row["addressable_by_client"])
+        for rows in addressable_supported_groups
     )
-    supported_required = len(supported_groups)
+    supported_required = len(addressable_supported_groups)
 
     return {
         "schema": "honua.protocol-certification-summary/v1",
@@ -147,6 +149,8 @@ def load_requirements(path: Path) -> tuple[str, bool, list[dict]]:
         missing = [field for field in POLICY_FIELDS if field not in requirement]
         if missing:
             raise ValueError(f"{path}: requirements[{index}] missing {', '.join(missing)}")
+        if not isinstance(requirement["addressable_by_client"], bool):
+            raise ValueError(f"{path}: requirements[{index}].addressable_by_client must be a boolean")
         key = _identity(requirement)
         if key in seen:
             raise ValueError(f"{path}: duplicate requirement identity {key}")
@@ -191,6 +195,15 @@ def choose_candidate(fragments: list[tuple[Path, dict]], expected: tuple[str | N
     if any(expected) and not all(expected):
         raise ValueError("expected source SHA, image digest, and cut time must be supplied together")
     if all(expected):
+        if not isinstance(expected_sha, str) or not SHA_RE.fullmatch(expected_sha):
+            raise ValueError("explicit candidate source SHA must be a full 40-character SHA")
+        if not isinstance(expected_digest, str) or not DIGEST_RE.fullmatch(expected_digest):
+            raise ValueError("explicit candidate image digest must be a sha256 digest")
+        cut = _timestamp(expected_cut)
+        if cut is None:
+            raise ValueError("explicit candidate cut must be a timezone-aware ISO-8601 timestamp")
+        if cut > now + CLOCK_SKEW_TOLERANCE:
+            raise ValueError("explicit candidate cut is in the future")
         return {"source_sha": expected_sha, "image_digest": expected_digest, "cut_at": expected_cut}
     if not fragments:
         raise ValueError("no producer fragments exist and no exact candidate was supplied")
@@ -226,7 +239,8 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
                  candidate: dict, now: datetime | None = None) -> dict:
     now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
     candidate_id = _candidate_identity(candidate)
-    requirement_keys = {_identity(requirement) for requirement in requirements}
+    requirement_by_key = {_identity(requirement): requirement for requirement in requirements}
+    requirement_keys = set(requirement_by_key)
     by_producer_key: dict[
         tuple[str, tuple[object, ...]],
         list[tuple[datetime, Path, dict]],
@@ -258,6 +272,15 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
                     f"observations do not resolve to requirements: "
                     f"{(observation_key, producer, str(path))}"
                 )
+            fragment_candidate = fragment["candidate"]
+            if observation["source_sha"] != fragment_candidate["source_sha"]:
+                raise ValueError(f"{path}: observations[{index}].source_sha does not match fragment candidate")
+            if observation["image_digest"] != fragment_candidate["image_digest"]:
+                raise ValueError(f"{path}: observations[{index}].image_digest does not match fragment candidate")
+            fixture_template = requirement_by_key[observation_key]["fixture_revision"]
+            expected_fixture = fixture_template.replace("{source_sha}", observation["source_sha"])
+            if observation["fixture_revision"] != expected_fixture:
+                raise ValueError(f"{path}: observations[{index}].fixture_revision does not match requirement")
             result = observation.get("result")
             if result not in OBSERVATION_RESULTS:
                 raise ValueError(
