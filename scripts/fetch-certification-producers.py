@@ -172,6 +172,16 @@ def load_registry(path: Path) -> dict[str, Any]:
     for source in sources:
         if not isinstance(source, dict):
             raise ValueError("Protocol certification producer entries must be objects.")
+        allowed_fields = {
+            "producer", "repository", "workflow_path", "artifact_prefix",
+            "artifact_name_regex", "fragment_globs", "trusted_branches",
+            "trusted_events", "max_artifacts", "required",
+        }
+        unknown_fields = set(source) - allowed_fields
+        if unknown_fields:
+            raise ValueError(
+                f"Protocol certification producer has unknown fields: {sorted(unknown_fields)}"
+            )
         producer = source.get("producer")
         repository = source.get("repository")
         if not isinstance(producer, str) or not producer or producer in producers:
@@ -193,6 +203,15 @@ def load_registry(path: Path) -> dict[str, Any]:
                 raise ValueError(
                     f"Producer {producer!r} has invalid artifact_name_regex: {error}"
                 ) from error
+        max_artifacts = source.get("max_artifacts", 10)
+        if (
+            isinstance(max_artifacts, bool)
+            or not isinstance(max_artifacts, int)
+            or not 1 <= max_artifacts <= 50
+        ):
+            raise ValueError(f"Producer {producer!r} max_artifacts must be an integer from 1 through 50.")
+        if "required" in source and not isinstance(source["required"], bool):
+            raise ValueError(f"Producer {producer!r} required must be a boolean.")
         for field in ("fragment_globs", "trusted_branches", "trusted_events"):
             value = source.get(field)
             if not (
@@ -227,8 +246,12 @@ def fetch(registry_path: Path, output: Path, token: str) -> int:
             sys.maxsize,
             source.get("artifact_name_regex"),
         )
-        artifacts: list[tuple[dict[str, Any], dict[str, Any]]] = []
+        producer_fragment_count = 0
+        usable_artifact_count = 0
+        producer_dir = output / safe_name(source["producer"])
         for artifact in candidates:
+            if usable_artifact_count >= int(source.get("max_artifacts", 10)):
+                break
             workflow_run = artifact.get("workflow_run")
             if not isinstance(workflow_run, dict) or not isinstance(workflow_run.get("id"), int):
                 continue
@@ -237,16 +260,16 @@ def fetch(registry_path: Path, output: Path, token: str) -> int:
                 token,
                 "application/vnd.github+json",
             ))
-            if trusted_run(run, artifact, source):
-                artifacts.append((artifact, run))
-            if len(artifacts) >= int(source.get("max_artifacts", 10)):
-                break
-        producer_dir = output / safe_name(source["producer"])
-        for artifact, run in artifacts:
+            if not trusted_run(run, artifact, source):
+                continue
             archive = request_bytes(
                 artifact["archive_download_url"], token, "application/vnd.github+json"
             )
-            for member, payload in extract_fragments(archive, source["fragment_globs"]):
+            extracted = extract_fragments(archive, source["fragment_globs"])
+            if not extracted:
+                continue
+            usable_artifact_count += 1
+            for member, payload in extracted:
                 validate_fragment_producer(payload, source["producer"], run["head_sha"])
                 destination = (
                     producer_dir / str(artifact["id"]) /
@@ -262,6 +285,11 @@ def fetch(registry_path: Path, output: Path, token: str) -> int:
                     "created_at": artifact.get("created_at"), "member": member,
                     "destination": destination.as_posix(),
                 })
+                producer_fragment_count += 1
+        if source.get("required", False) and producer_fragment_count == 0:
+            raise ValueError(
+                f"Required certification producer {source['producer']!r} yielded no normalized fragments."
+            )
     (output / ".fetch-manifest.ndjson").write_text(
         "".join(json.dumps(row, sort_keys=True) + "\n" for row in manifest), encoding="utf-8"
     )
