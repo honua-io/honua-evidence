@@ -110,7 +110,15 @@ jobs:
               add -- data/capability-matrix.v1.json
             git -c user.name="honua-evidence-bot" -c user.email="noreply@honua.io" \
               commit -m "chore: refresh capability-matrix.v1.json"
-            git push origin HEAD:trunk
+            for attempt in 1 2 3; do
+              git fetch --quiet origin trunk
+              git rebase origin/trunk
+              if git push origin HEAD:trunk; then break; fi
+              if [ "$attempt" -eq 3 ]; then
+                echo "::error::Could not publish capability ledger after 3 concurrent-update retries."
+                exit 1
+              fi
+            done
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
@@ -164,12 +172,18 @@ jobs:
               commit -m "chore: refresh protocol-certification.v1.json"
             # The capability ledger is intentionally pushed earlier so a
             # protocol-producer failure cannot freeze general freshness. A
-            # repository_dispatch or operator run can advance trunk while
-            # producer artifacts are being fetched, so replay this protocol
-            # commit onto the latest trunk before the second push.
-            git fetch --quiet origin trunk
-            git rebase origin/trunk
-            git push origin HEAD:trunk
+            # repository_dispatch, PR merge, or operator run can advance
+            # trunk while producers are fetched, so replay and retry without
+            # ever force-pushing. Rebase conflicts remain fatal.
+            for attempt in 1 2 3; do
+              git fetch --quiet origin trunk
+              git rebase origin/trunk
+              if git push origin HEAD:trunk; then break; fi
+              if [ "$attempt" -eq 3 ]; then
+                echo "::error::Could not publish protocol ledger after 3 concurrent-update retries."
+                exit 1
+              fi
+            done
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
