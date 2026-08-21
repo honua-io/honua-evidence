@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import argparse
 import json
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 REQUIREMENTS_SCHEMA = "honua.protocol-certification-requirements/v1"
@@ -25,6 +25,7 @@ OBSERVATION_FIELDS = (
     "result", "skip_reason", "source_sha", "image_digest", "fixture_revision", "evidence_uri",
     "started_at", "completed_at",
 )
+CLOCK_SKEW_TOLERANCE = timedelta(minutes=5)
 
 
 def _timestamp(value: object) -> datetime | None:
@@ -137,6 +138,11 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
     for path, fragment in fragments:
         if _candidate_identity(fragment["candidate"]) != candidate_id:
             continue
+        generated = _timestamp(fragment.get("generated_at"))
+        if generated is None:
+            raise ValueError(f"{path}: generated_at is invalid")
+        if generated > now + CLOCK_SKEW_TOLERANCE:
+            raise ValueError(f"{path}: generated_at is in the future")
         producer = fragment["producer"]
         for index, observation in enumerate(fragment["observations"]):
             if not isinstance(observation, dict):
@@ -144,9 +150,18 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
             missing = [field for field in (*IDENTITY_FIELDS, *OBSERVATION_FIELDS) if field not in observation]
             if missing:
                 raise ValueError(f"{path}: observations[{index}] missing {', '.join(missing)}")
+            started = _timestamp(observation.get("started_at"))
             completed = _timestamp(observation.get("completed_at"))
+            if started is None:
+                raise ValueError(f"{path}: observations[{index}].started_at is invalid")
             if completed is None:
                 raise ValueError(f"{path}: observations[{index}].completed_at is invalid")
+            if completed < started:
+                raise ValueError(f"{path}: observations[{index}] completed before it started")
+            if completed > generated + CLOCK_SKEW_TOLERANCE:
+                raise ValueError(f"{path}: observations[{index}].completed_at is after fragment generation")
+            if completed > now + CLOCK_SKEW_TOLERANCE:
+                raise ValueError(f"{path}: observations[{index}].completed_at is in the future")
             composite = (producer, _identity(observation))
             previous = by_producer_key.get(composite)
             if previous is None or completed > previous[0]:

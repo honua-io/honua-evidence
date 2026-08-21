@@ -118,6 +118,35 @@ class CertificationAggregationTests(unittest.TestCase):
         ledger = module.build_ledger("rev-1", False, [req], fragments, CANDIDATE)
         self.assertEqual("pass", ledger["cells"][0]["result"])
 
+    def test_future_observation_is_rejected_before_latest_wins(self):
+        req = requirement()
+        poisoned = observation(req, result="pass", completed="2099-01-01T00:00:00Z")
+        poisoned["started_at"] = "2098-12-31T23:59:00Z"
+        doc = fragment("server", [poisoned], generated="2099-01-01T00:01:00Z")
+        with self.assertRaisesRegex(ValueError, "in the future"):
+            module.build_ledger(
+                "rev-1",
+                False,
+                [req],
+                [(Path("future.json"), doc)],
+                CANDIDATE,
+                now=datetime(2026, 8, 20, 10, 10, tzinfo=timezone.utc),
+            )
+
+    def test_observation_after_fragment_generation_is_rejected(self):
+        req = requirement()
+        late = observation(req, completed="2026-08-20T10:20:00Z")
+        doc = fragment("server", [late], generated="2026-08-20T10:06:00Z")
+        with self.assertRaisesRegex(ValueError, "after fragment generation"):
+            module.build_ledger(
+                "rev-1",
+                False,
+                [req],
+                [(Path("late.json"), doc)],
+                CANDIDATE,
+                now=datetime(2026, 8, 20, 10, 30, tzinfo=timezone.utc),
+            )
+
     def test_two_producers_for_same_cell_are_rejected(self):
         req = requirement()
         fragments = [
