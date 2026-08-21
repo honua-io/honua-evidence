@@ -51,7 +51,12 @@ def observation(req, result="pass", completed="2026-08-20T10:05:00Z"):
         "fixture_revision": "fixture-v1",
         "contract_revision": req["contract_revision"],
         "auth_policy_revision": req["auth_policy_revision"],
-        "evidence_uri": "https://evidence.honua.io/run/1",
+        "evidence_uri": "https://evidence.honua.io/runs/1",
+        "evidence_digest": "sha256:" + "e" * 64,
+        "facet_results": {
+            facet: {"result": "pass", "evidence_digest": "sha256:" + "e" * 64}
+            for facet in req["scenario_facets"]
+        },
         "started_at": "2026-08-20T10:00:00Z",
         "completed_at": completed,
         "budget_observations": None,
@@ -294,7 +299,28 @@ class CertificationAggregationTests(unittest.TestCase):
             with self.subTest(uri=uri):
                 invalid = observation(req)
                 invalid["evidence_uri"] = uri
-                with self.assertRaisesRegex(ValueError, "trusted HTTPS receipt"):
+                with self.assertRaisesRegex(ValueError, "immutable trusted HTTPS receipt"):
+                    module.build_ledger(
+                        "rev-1", False, [req],
+                        [(Path("invalid.json"), fragment("server", [invalid]))], CANDIDATE,
+                    )
+
+    def test_passing_observation_requires_digest_bound_results_for_every_facet(self):
+        req = requirement()
+        invalid_observations = []
+        missing = observation(req)
+        missing["facet_results"].pop("positive")
+        invalid_observations.append(missing)
+        mismatched = observation(req)
+        mismatched["facet_results"]["positive"]["evidence_digest"] = "sha256:" + "f" * 64
+        invalid_observations.append(mismatched)
+        failed = observation(req)
+        failed["facet_results"]["positive"]["result"] = "fail"
+        invalid_observations.append(failed)
+
+        for invalid in invalid_observations:
+            with self.subTest(invalid=invalid):
+                with self.assertRaisesRegex(ValueError, "facet_results"):
                     module.build_ledger(
                         "rev-1", False, [req],
                         [(Path("invalid.json"), fragment("server", [invalid]))], CANDIDATE,

@@ -27,7 +27,7 @@ POLICY_FIELDS = (
 )
 OBSERVATION_FIELDS = (
     "result", "skip_reason", "source_sha", "producer_source_sha", "image_digest", "fixture_revision",
-    "contract_revision", "auth_policy_revision", "evidence_uri",
+    "contract_revision", "auth_policy_revision", "evidence_uri", "evidence_digest", "facet_results",
     "started_at", "completed_at",
 )
 CLOCK_SKEW_TOLERANCE = timedelta(minutes=5)
@@ -35,6 +35,25 @@ OBSERVATION_RESULTS = frozenset({"pass", "fail", "skip"})
 SHA_RE = re.compile(r"^[0-9a-f]{40}$")
 DIGEST_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
 TRUSTED_EVIDENCE_HOSTS = frozenset({"github.com", "evidence.honua.io"})
+
+
+def _valid_evidence_uri(value: object) -> bool:
+    if not isinstance(value, str):
+        return False
+    parsed = urlparse(value)
+    if (
+        parsed.scheme != "https"
+        or parsed.hostname not in TRUSTED_EVIDENCE_HOSTS
+        or parsed.username is not None
+        or parsed.password is not None
+        or parsed.params
+        or parsed.query
+        or parsed.fragment
+    ):
+        return False
+    if parsed.hostname == "github.com":
+        return re.fullmatch(r"/[^/]+/[^/]+/actions/runs/[0-9]+(?:/.*)?", parsed.path) is not None
+    return re.fullmatch(r"/(?:runs|data)/[^/]+(?:/.*)?", parsed.path) is not None
 
 
 def _result_counts(rows: list[dict]) -> dict[str, int]:
@@ -306,17 +325,32 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
                 )
             if result == "pass":
                 evidence_uri = observation.get("evidence_uri")
-                parsed_uri = urlparse(evidence_uri) if isinstance(evidence_uri, str) else None
-                if (
-                    parsed_uri is None
-                    or parsed_uri.scheme != "https"
-                    or parsed_uri.hostname not in TRUSTED_EVIDENCE_HOSTS
-                    or parsed_uri.username is not None
-                    or parsed_uri.password is not None
-                ):
+                if not _valid_evidence_uri(evidence_uri):
                     raise ValueError(
-                        f"{path}: observations[{index}].evidence_uri must be a trusted HTTPS receipt"
+                        f"{path}: observations[{index}].evidence_uri must be an immutable trusted HTTPS receipt"
                     )
+                evidence_digest = observation.get("evidence_digest")
+                if not isinstance(evidence_digest, str) or not DIGEST_RE.fullmatch(evidence_digest):
+                    raise ValueError(
+                        f"{path}: observations[{index}].evidence_digest must be a sha256 digest"
+                    )
+                facets = requirement_by_key[observation_key]["scenario_facets"]
+                facet_results = observation.get("facet_results")
+                if not isinstance(facet_results, dict) or set(facet_results) != set(facets):
+                    raise ValueError(
+                        f"{path}: observations[{index}].facet_results must cover every governed facet"
+                    )
+                for facet, facet_result in facet_results.items():
+                    if (
+                        not isinstance(facet_result, dict)
+                        or set(facet_result) != {"result", "evidence_digest"}
+                        or facet_result["result"] != "pass"
+                        or facet_result["evidence_digest"] != evidence_digest
+                    ):
+                        raise ValueError(
+                            f"{path}: observations[{index}].facet_results[{facet!r}] "
+                            "must be a passing result bound to evidence_digest"
+                        )
             skip_reason = observation.get("skip_reason")
             if result == "skip" and (not isinstance(skip_reason, str) or not skip_reason.strip()):
                 raise ValueError(f"{path}: observations[{index}].skip_reason is required for a skipped result")
@@ -375,6 +409,8 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
                 "image_digest": None,
                 "fixture_revision": None,
                 "evidence_uri": None,
+                "evidence_digest": None,
+                "facet_results": None,
                 "started_at": None,
                 "completed_at": None,
                 "budget_observations": None,
@@ -392,6 +428,8 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
                 "image_digest": None,
                 "fixture_revision": None,
                 "evidence_uri": None,
+                "evidence_digest": None,
+                "facet_results": None,
                 "started_at": None,
                 "completed_at": None,
                 "budget_observations": None,
