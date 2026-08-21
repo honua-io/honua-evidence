@@ -10,6 +10,7 @@ on:
   pull_request:
     paths:
       - "scripts/**"
+      - "config/protocol-certification-producers.v1.json"
       - "data/**"
       - "tests/**"
       - ".github/workflows/aggregate.yml"
@@ -19,6 +20,7 @@ on:
     branches: [trunk]
     paths:
       - "scripts/**"
+      - "config/protocol-certification-producers.v1.json"
       - "data/**"
       - "tests/**"
       - ".github/workflows/aggregate.yml"
@@ -35,8 +37,30 @@ jobs:
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
+      - name: Validate trusted certification producer registry
+        run: >-
+          python3 scripts/fetch-certification-producers.py
+          --registry config/protocol-certification-producers.v1.json
+          --validate-only
+
       - name: Unit tests (ingestion + freshness computation)
         run: python3 -m unittest discover -s tests -v
+
+      - name: Validate committed protocol certification fragments
+        env:
+          REQUIREMENTS_URL: https://raw.githubusercontent.com/honua-io/honua-release/trunk/certification/protocol-certification-requirements.v1.json
+        run: |
+          set -euo pipefail
+          if ! find data/producers/protocol-certification -name '*.json' -print -quit | grep -q .; then
+            echo "::notice::No committed protocol certification fragments to validate."
+            exit 0
+          fi
+          mkdir -p .validate-cache
+          curl --fail --silent --show-error --location "$REQUIREMENTS_URL" \
+            -o .validate-cache/protocol-certification-requirements.v1.json
+          python3 scripts/aggregate-certification.py \
+            --requirements .validate-cache/protocol-certification-requirements.v1.json \
+            --output .validate-cache/protocol-certification.v1.json
 
       - name: Aggregate drift check
         env:

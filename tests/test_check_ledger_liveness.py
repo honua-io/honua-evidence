@@ -227,6 +227,7 @@ class WorkflowWiringTests(unittest.TestCase):
 
     def setUp(self):
         self.text = (REPO_ROOT / ".github" / "workflows" / "aggregate.yml").read_text(encoding="utf-8")
+        self.validate_text = (REPO_ROOT / ".github" / "workflows" / "validate.yml").read_text(encoding="utf-8")
 
     def test_aggregate_job_is_not_bound_to_an_environment(self):
         aggregate_job = self.text.split("  aggregate:", 1)[1].split("\n  deploy:", 1)[0]
@@ -243,6 +244,16 @@ class WorkflowWiringTests(unittest.TestCase):
 
     def test_both_jobs_carry_a_timeout(self):
         self.assertEqual(self.text.count("timeout-minutes:"), 2)
+
+    def test_capability_ledger_commits_before_certification_aggregation(self):
+        capability_commit = self.text.index("Commit refreshed capability ledger if changed")
+        certification = self.text.index("Aggregate protocol certification observations")
+        self.assertLess(capability_commit, certification)
+
+    def test_pr_gate_executes_aggregator_against_committed_fragments(self):
+        self.assertIn("Validate committed protocol certification fragments", self.validate_text)
+        self.assertIn("--requirements .validate-cache/protocol-certification-requirements.v1.json", self.validate_text)
+        self.assertIn("data/producers/protocol-certification", self.validate_text)
 
     def test_watchdog_does_not_share_a_group_with_what_it_watches(self):
         watchdog = (REPO_ROOT / ".github" / "workflows" / "ledger-liveness.yml").read_text(

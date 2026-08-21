@@ -93,23 +93,71 @@ jobs:
           HONUA_EVIDENCE_TOKEN: ${{ secrets.HONUA_EVIDENCE_TOKEN }}
         run: python3 scripts/aggregate.py
 
-      - name: Commit refreshed aggregate if changed
-        id: commit
+      - name: Commit refreshed capability ledger if changed
+        id: capability-commit
         run: |
           if git diff --quiet -- data/capability-matrix.v1.json; then
-            echo "No change to data/capability-matrix.v1.json."
+            echo "No change to capability ledger."
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             git -c user.name="honua-evidence-bot" -c user.email="noreply@honua.io" \
-              add data/capability-matrix.v1.json
+              add -- data/capability-matrix.v1.json
             git -c user.name="honua-evidence-bot" -c user.email="noreply@honua.io" \
               commit -m "chore: refresh capability-matrix.v1.json"
             git push origin HEAD:trunk
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Aggregate protocol certification observations
+        env:
+          REQUIREMENTS_URL: https://raw.githubusercontent.com/honua-io/honua-release/trunk/certification/protocol-certification-requirements.v1.json
+          HONUA_EVIDENCE_TOKEN: ${{ secrets.HONUA_EVIDENCE_TOKEN }}
+        run: |
+          set -euo pipefail
+          python3 scripts/fetch-certification-producers.py \
+            --registry config/protocol-certification-producers.v1.json \
+            --output data/producers/protocol-certification/fetched
+          if ! find data/producers/protocol-certification -name '*.json' -print -quit | grep -q .; then
+            echo "::notice::Protocol certification contract is wired but awaiting its first producer fragment."
+            exit 0
+          fi
+          mkdir -p .aggregate-cache
+          curl --fail --silent --show-error --location "$REQUIREMENTS_URL" \
+            -o .aggregate-cache/protocol-certification-requirements.v1.json
+          python3 scripts/aggregate-certification.py \
+            --requirements .aggregate-cache/protocol-certification-requirements.v1.json
+
+      - name: Commit refreshed protocol certification ledger if changed
+        id: certification-commit
+        run: |
+          if [ -z "$(git status --porcelain -- data/protocol-certification.v1.json data/protocol-certification-summary.v1.json data/sha256/)" ]; then
+            echo "No change to protocol certification ledger."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git -c user.name="honua-evidence-bot" -c user.email="noreply@honua.io" \
+              add -- data/protocol-certification.v1.json data/protocol-certification-summary.v1.json
+            if [ -d data/sha256 ]; then
+              git -c user.name="honua-evidence-bot" -c user.email="noreply@honua.io" add -- data/sha256/
+            fi
+            git -c user.name="honua-evidence-bot" -c user.email="noreply@honua.io" \
+              commit -m "chore: refresh protocol-certification.v1.json"
+            git push origin HEAD:trunk
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Build site
-        run: python3 scripts/build-site.py
+        run: |
+          python3 scripts/build-site.py
+          if [ -f data/protocol-certification.v1.json ]; then
+            cp data/protocol-certification.v1.json site/data/protocol-certification.v1.json
+          fi
+          if [ -f data/protocol-certification-summary.v1.json ]; then
+            cp data/protocol-certification-summary.v1.json site/data/protocol-certification-summary.v1.json
+          fi
+          if [ -d data/sha256 ]; then
+            mkdir -p site/data/sha256
+            cp -R data/sha256/. site/data/sha256/
+          fi
 
       # Offline gate only (structure, internal links, a11y, receipt-walk
       # shape): a third-party outage must not block the daily deploy. The
