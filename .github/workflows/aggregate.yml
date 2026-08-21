@@ -145,7 +145,8 @@ jobs:
             "https://raw.githubusercontent.com/honua-io/honua-release/$REQUIREMENTS_SHA/certification/protocol-certification-requirements.v1.json" \
             -o .aggregate-cache/protocol-certification-requirements.v1.json
           python3 scripts/aggregate-certification.py \
-            --requirements .aggregate-cache/protocol-certification-requirements.v1.json
+            --requirements .aggregate-cache/protocol-certification-requirements.v1.json \
+            --requirements-source-revision "$REQUIREMENTS_SHA"
 
       - name: Commit refreshed protocol certification ledger if changed
         id: certification-commit
