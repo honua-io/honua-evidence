@@ -42,10 +42,6 @@ def requirement(client="Rasterio", addressable=True):
 
 
 def observation(req, result="pass", completed="2026-08-20T10:05:00Z"):
-    receipt = {"format": "test-receipt/v1", "result": result}
-    receipt_digest = "sha256:" + hashlib.sha256(
-        json.dumps(receipt, sort_keys=True, separators=(",", ":")).encode("utf-8")
-    ).hexdigest()
     value = {field: req[field] for field in module.IDENTITY_FIELDS}
     value.update({
         "result": result,
@@ -56,17 +52,39 @@ def observation(req, result="pass", completed="2026-08-20T10:05:00Z"):
         "fixture_revision": "fixture-v1",
         "contract_revision": req["contract_revision"],
         "auth_policy_revision": req["auth_policy_revision"],
-        "evidence_uri": "https://evidence.honua.io/data/sha256/" + receipt_digest[7:],
-        "evidence_digest": receipt_digest,
-        "evidence_receipt": receipt,
-        "facet_results": {
-            facet: {"result": "pass", "evidence_digest": receipt_digest}
-            for facet in req["scenario_facets"]
-        },
+        "evidence_uri": None,
+        "evidence_digest": None,
+        "evidence_receipt": None,
+        "facet_results": None,
         "started_at": "2026-08-20T10:00:00Z",
         "completed_at": completed,
         "budget_observations": None,
     })
+    if result == "skip":
+        return value
+    facet_values = {facet: "pass" for facet in req["scenario_facets"]}
+    if result == "fail":
+        facet_values[req["scenario_facets"][0]] = "fail"
+    receipt = {
+        "schema": "honua.certification-evidence-receipt/v1",
+        "identity": {
+            field: (req["capability_key"] if field == "capability_key" else value[field])
+            for field in module.RECEIPT_ID_FIELDS
+        },
+        "result": result,
+        "facets": facet_values,
+        "payload_base64": "dGVzdA==",
+    }
+    receipt_digest = "sha256:" + hashlib.sha256(
+        json.dumps(receipt, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
+    value["evidence_receipt"] = receipt
+    value["evidence_digest"] = receipt_digest
+    value["evidence_uri"] = "https://evidence.honua.io/data/sha256/" + receipt_digest[7:]
+    value["facet_results"] = {
+        facet: {"result": facet_values[facet], "evidence_digest": receipt_digest}
+        for facet in req["scenario_facets"]
+    }
     return value
 
 
@@ -311,6 +329,18 @@ class CertificationAggregationTests(unittest.TestCase):
                         "rev-1", False, [req],
                         [(Path("invalid.json"), fragment("server", [invalid]))], CANDIDATE,
                     )
+
+    def test_skipped_observation_cannot_smuggle_receipt_path(self):
+        req = requirement()
+        invalid = observation(req)
+        invalid["result"] = "skip"
+        invalid["skip_reason"] = "not executed"
+        invalid["evidence_digest"] = "sha256:../../scripts/validate-site.py"
+        with self.assertRaisesRegex(ValueError, "must not contain evidence"):
+            module.build_ledger(
+                "rev-1", False, [req],
+                [(Path("invalid.json"), fragment("server", [invalid]))], CANDIDATE,
+            )
 
     def test_passing_observation_requires_digest_bound_results_for_every_facet(self):
         req = requirement()

@@ -8,6 +8,7 @@ explicit skips, never absent rows or fabricated passes.
 from __future__ import annotations
 
 import argparse
+import base64
 import hashlib
 import json
 import re
@@ -34,7 +35,7 @@ OBSERVATION_FIELDS = (
 CLOCK_SKEW_TOLERANCE = timedelta(minutes=5)
 OBSERVATION_RESULTS = frozenset({"pass", "fail", "skip"})
 SHA_RE = re.compile(r"^[0-9a-f]{40}$")
-DIGEST_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
+DIGEST_RE = re.compile(r"^sha256:([0-9a-f]{64})$")
 def _valid_evidence_uri(value: object, evidence_digest: object) -> bool:
     if not isinstance(value, str) or not isinstance(evidence_digest, str):
         return False
@@ -57,6 +58,49 @@ def _receipt_bytes(value: object) -> bytes | None:
     if not isinstance(value, dict):
         return None
     return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
+
+
+RECEIPT_ID_FIELDS = (
+    "capability_key", "surface", "operation", "canonical_client", "client_version",
+    "deployment_target", "source_sha", "producer_source_sha", "image_digest",
+    "fixture_revision", "contract_revision", "auth_policy_revision", "started_at", "completed_at",
+)
+
+
+def _valid_receipt(observation: dict, requirement: dict) -> bool:
+    receipt = observation.get("evidence_receipt")
+    facet_results = observation.get("facet_results")
+    if not isinstance(receipt, dict) or set(receipt) != {
+        "schema", "identity", "result", "facets", "payload_base64",
+    } or not isinstance(facet_results, dict):
+        return False
+    expected_identity = {
+        field: (
+            requirement["capability_key"] if field == "capability_key"
+            else observation[field]
+        )
+        for field in RECEIPT_ID_FIELDS
+    }
+    facets = receipt.get("facets")
+    if (
+        receipt.get("schema") != "honua.certification-evidence-receipt/v1"
+        or receipt.get("identity") != expected_identity
+        or receipt.get("result") != observation.get("result")
+        or not isinstance(facets, dict)
+        or set(facets) != set(requirement["scenario_facets"])
+        or any(
+            not isinstance(facet_results.get(facet), dict)
+            or facets[facet] != facet_results[facet].get("result")
+            for facet in facets
+        )
+        or not isinstance(receipt.get("payload_base64"), str)
+    ):
+        return False
+    try:
+        base64.b64decode(receipt["payload_base64"], validate=True)
+    except (ValueError, TypeError):
+        return False
+    return True
 
 
 def _result_counts(rows: list[dict]) -> dict[str, int]:
@@ -329,24 +373,24 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
                 raise ValueError(
                     f"{path}: observations[{index}].result must be one of {sorted(OBSERVATION_RESULTS)}, got {result!r}"
                 )
-            if result == "pass":
-                evidence_uri = observation.get("evidence_uri")
-                evidence_digest = observation.get("evidence_digest")
-                if not _valid_evidence_uri(evidence_uri, evidence_digest):
+            evidence_uri = observation.get("evidence_uri")
+            evidence_digest = observation.get("evidence_digest")
+            evidence_receipt = observation.get("evidence_receipt")
+            facet_results = observation.get("facet_results")
+            if result == "skip":
+                if any(value is not None for value in (
+                    evidence_uri, evidence_digest, evidence_receipt, facet_results,
+                )):
+                    raise ValueError(
+                        f"{path}: observations[{index}] skipped result must not contain evidence"
+                    )
+            else:
+                digest_match = DIGEST_RE.fullmatch(evidence_digest) if isinstance(evidence_digest, str) else None
+                if digest_match is None or not _valid_evidence_uri(evidence_uri, evidence_digest):
                     raise ValueError(
                         f"{path}: observations[{index}].evidence_uri must be content-addressed by evidence_digest"
                     )
-                receipt = _receipt_bytes(observation.get("evidence_receipt"))
-                if receipt is None or f"sha256:{hashlib.sha256(receipt).hexdigest()}" != evidence_digest:
-                    raise ValueError(
-                        f"{path}: observations[{index}].evidence_receipt bytes do not match evidence_digest"
-                    )
-                if not isinstance(evidence_digest, str) or not DIGEST_RE.fullmatch(evidence_digest):
-                    raise ValueError(
-                        f"{path}: observations[{index}].evidence_digest must be a sha256 digest"
-                    )
                 facets = requirement_by_key[observation_key]["scenario_facets"]
-                facet_results = observation.get("facet_results")
                 if not isinstance(facet_results, dict) or set(facet_results) != set(facets):
                     raise ValueError(
                         f"{path}: observations[{index}].facet_results must cover every governed facet"
@@ -355,13 +399,26 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
                     if (
                         not isinstance(facet_result, dict)
                         or set(facet_result) != {"result", "evidence_digest"}
-                        or facet_result["result"] != "pass"
+                        or facet_result["result"] not in {"pass", "fail"}
                         or facet_result["evidence_digest"] != evidence_digest
                     ):
                         raise ValueError(
                             f"{path}: observations[{index}].facet_results[{facet!r}] "
-                            "must be a passing result bound to evidence_digest"
+                            "must be bound to evidence_digest"
                         )
+                if result == "pass" and any(item["result"] != "pass" for item in facet_results.values()):
+                    raise ValueError(f"{path}: observations[{index}].facet_results must all pass")
+                if result == "fail" and all(item["result"] == "pass" for item in facet_results.values()):
+                    raise ValueError(f"{path}: observations[{index}].facet_results must include a failure")
+                receipt = _receipt_bytes(evidence_receipt)
+                if not _valid_receipt(observation, requirement_by_key[observation_key]):
+                    raise ValueError(
+                        f"{path}: observations[{index}].evidence_receipt is not semantically bound"
+                    )
+                if receipt is None or hashlib.sha256(receipt).hexdigest() != digest_match.group(1):
+                    raise ValueError(
+                        f"{path}: observations[{index}].evidence_receipt bytes do not match evidence_digest"
+                    )
             skip_reason = observation.get("skip_reason")
             if result == "skip" and (not isinstance(skip_reason, str) or not skip_reason.strip()):
                 raise ValueError(f"{path}: observations[{index}].skip_reason is required for a skipped result")
@@ -421,6 +478,7 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
                 "fixture_revision": None,
                 "evidence_uri": None,
                 "evidence_digest": None,
+                "evidence_receipt": None,
                 "facet_results": None,
                 "started_at": None,
                 "completed_at": None,
@@ -440,6 +498,7 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
                 "fixture_revision": None,
                 "evidence_uri": None,
                 "evidence_digest": None,
+                "evidence_receipt": None,
                 "facet_results": None,
                 "started_at": None,
                 "completed_at": None,
@@ -477,9 +536,10 @@ def main(argv: list[str] | None = None) -> int:
     for cell in ledger["cells"]:
         receipt = _receipt_bytes(cell.get("evidence_receipt"))
         digest = cell.get("evidence_digest")
-        if receipt is None or not isinstance(digest, str):
+        digest_match = DIGEST_RE.fullmatch(digest) if isinstance(digest, str) else None
+        if receipt is None or digest_match is None:
             continue
-        receipt_path = args.output.parent / "sha256" / digest[7:]
+        receipt_path = args.output.parent / "sha256" / digest_match.group(1)
         receipt_path.parent.mkdir(parents=True, exist_ok=True)
         receipt_path.write_bytes(receipt)
     args.output.parent.mkdir(parents=True, exist_ok=True)

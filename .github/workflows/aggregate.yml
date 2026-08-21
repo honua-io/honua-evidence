@@ -130,12 +130,12 @@ jobs:
       - name: Commit refreshed protocol certification ledger if changed
         id: certification-commit
         run: |
-          if [ -z "$(git status --porcelain -- data/protocol-certification.v1.json data/protocol-certification-summary.v1.json)" ]; then
+          if [ -z "$(git status --porcelain -- data/protocol-certification.v1.json data/protocol-certification-summary.v1.json data/sha256/)" ]; then
             echo "No change to protocol certification ledger."
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             git -c user.name="honua-evidence-bot" -c user.email="noreply@honua.io" \
-              add -- data/protocol-certification.v1.json data/protocol-certification-summary.v1.json
+              add -- data/protocol-certification.v1.json data/protocol-certification-summary.v1.json data/sha256/
             git -c user.name="honua-evidence-bot" -c user.email="noreply@honua.io" \
               commit -m "chore: refresh protocol-certification.v1.json"
             git push origin HEAD:trunk
@@ -150,6 +150,10 @@ jobs:
           fi
           if [ -f data/protocol-certification-summary.v1.json ]; then
             cp data/protocol-certification-summary.v1.json site/data/protocol-certification-summary.v1.json
+          fi
+          if [ -d data/sha256 ]; then
+            mkdir -p site/data/sha256
+            cp -R data/sha256/. site/data/sha256/
           fi
 
       # Offline gate only (structure, internal links, a11y, receipt-walk
