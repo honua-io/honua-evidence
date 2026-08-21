@@ -135,7 +135,10 @@ jobs:
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             git -c user.name="honua-evidence-bot" -c user.email="noreply@honua.io" \
-              add -- data/protocol-certification.v1.json data/protocol-certification-summary.v1.json data/sha256/
+              add -- data/protocol-certification.v1.json data/protocol-certification-summary.v1.json
+            if [ -d data/sha256 ]; then
+              git -c user.name="honua-evidence-bot" -c user.email="noreply@honua.io" add -- data/sha256/
+            fi
             git -c user.name="honua-evidence-bot" -c user.email="noreply@honua.io" \
               commit -m "chore: refresh protocol-certification.v1.json"
             git push origin HEAD:trunk
