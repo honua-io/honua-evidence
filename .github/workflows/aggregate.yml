@@ -162,6 +162,13 @@ jobs:
             fi
             git -c user.name="honua-evidence-bot" -c user.email="noreply@honua.io" \
               commit -m "chore: refresh protocol-certification.v1.json"
+            # The capability ledger is intentionally pushed earlier so a
+            # protocol-producer failure cannot freeze general freshness. A
+            # repository_dispatch or operator run can advance trunk while
+            # producer artifacts are being fetched, so replay this protocol
+            # commit onto the latest trunk before the second push.
+            git fetch --quiet origin trunk
+            git rebase origin/trunk
             git push origin HEAD:trunk
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
