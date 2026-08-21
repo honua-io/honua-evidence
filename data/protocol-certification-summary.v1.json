@@ -3,10 +3,10 @@
     "@honua/sdk-js": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 0,
+      "passed": 40,
       "required": 157,
       "required_addressable": 157,
-      "skipped": 157
+      "skipped": 117
     },
     "ArcGIS API for Python": {
       "failed": 0,
@@ -453,18 +453,18 @@
     "nightly": {
       "failed": 4,
       "not_addressable": 0,
-      "passed": 7,
+      "passed": 42,
       "required": 2080,
       "required_addressable": 2080,
-      "skipped": 2069
+      "skipped": 2034
     },
     "pr": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 11,
+      "passed": 16,
       "required": 24,
       "required_addressable": 24,
-      "skipped": 13
+      "skipped": 8
     },
     "release": {
       "failed": 0,
@@ -639,10 +639,10 @@
     "featureserver": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 0,
+      "passed": 4,
       "required": 13,
       "required_addressable": 13,
-      "skipped": 13
+      "skipped": 9
     },
     "flatgeobuf": {
       "failed": 0,
@@ -679,10 +679,10 @@
     "geometryserver": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 0,
+      "passed": 2,
       "required": 2,
       "required_addressable": 2,
-      "skipped": 2
+      "skipped": 0
     },
     "geoparquet": {
       "failed": 0,
@@ -831,10 +831,10 @@
     "mapserver": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 0,
+      "passed": 4,
       "required": 8,
       "required_addressable": 8,
-      "skipped": 8
+      "skipped": 4
     },
     "mcp": {
       "failed": 0,
@@ -863,10 +863,10 @@
     "odata": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 0,
+      "passed": 2,
       "required": 6,
       "required_addressable": 6,
-      "skipped": 6
+      "skipped": 4
     },
     "ogc": {
       "failed": 0,
@@ -967,42 +967,42 @@
     "ogc-features": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 0,
+      "passed": 4,
       "required": 8,
       "required_addressable": 8,
-      "skipped": 8
+      "skipped": 4
     },
     "ogc-maps": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 0,
+      "passed": 3,
       "required": 5,
       "required_addressable": 5,
-      "skipped": 5
+      "skipped": 2
     },
     "ogc-processes": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 0,
+      "passed": 3,
       "required": 4,
       "required_addressable": 4,
-      "skipped": 4
+      "skipped": 1
     },
     "ogc-records": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 0,
+      "passed": 5,
       "required": 5,
       "required_addressable": 5,
-      "skipped": 5
+      "skipped": 0
     },
     "ogc-tiles": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 0,
+      "passed": 5,
       "required": 6,
       "required_addressable": 6,
-      "skipped": 6
+      "skipped": 1
     },
     "ogcfeatures": {
       "failed": 0,
@@ -1087,10 +1087,10 @@
     "realtime": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 0,
+      "passed": 1,
       "required": 2,
       "required_addressable": 2,
-      "skipped": 2
+      "skipped": 1
     },
     "routing": {
       "failed": 0,
@@ -1999,10 +1999,10 @@
     "stac": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 0,
+      "passed": 4,
       "required": 5,
       "required_addressable": 5,
-      "skipped": 5
+      "skipped": 1
     },
     "stac-zarr": {
       "failed": 0,
@@ -2111,10 +2111,10 @@
     "wms": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 0,
+      "passed": 1,
       "required": 7,
       "required_addressable": 7,
-      "skipped": 7
+      "skipped": 6
     },
     "wms-1-3": {
       "failed": 0,
@@ -2127,10 +2127,10 @@
     "wmts": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 0,
+      "passed": 2,
       "required": 7,
       "required_addressable": 7,
-      "skipped": 7
+      "skipped": 5
     },
     "wmts-1-0": {
       "failed": 0,
@@ -2153,10 +2153,10 @@
     "local-docker": {
       "failed": 4,
       "not_addressable": 3,
-      "passed": 18,
+      "passed": 58,
       "required": 1597,
       "required_addressable": 1594,
-      "skipped": 1572
+      "skipped": 1532
     },
     "windows": {
       "failed": 0,
@@ -2176,13 +2176,13 @@
     }
   },
   "candidate": {
-    "cut_at": "2026-08-21T17:34:10Z",
+    "cut_at": "2026-08-21T15:13:36Z",
     "image_digest": "sha256:d7a45c871bf318b4882ec8e1c32004803e6d0210246be30120751f05dee1a14d",
     "source_sha": "e3ab87cebb7bf2d32c4e8cdb145f8d626b864d8e"
   },
   "canonical_client_operation_depth": {
     "@honua/sdk-js": {
-      "passed_operations": 0,
+      "passed_operations": 40,
       "required_operations": 157
     },
     "ArcGIS API for Python": {
@@ -2406,14 +2406,14 @@
       "required_operations": 1
     }
   },
-  "generated_at": "2026-08-21T19:20:25.725073Z",
+  "generated_at": "2026-08-21T20:05:05.746743Z",
   "overall": {
     "failed": 4,
     "not_addressable": 3,
-    "passed": 18,
+    "passed": 58,
     "required": 2107,
     "required_addressable": 2104,
-    "skipped": 2082
+    "skipped": 2042
   },
   "requirements_complete": true,
   "requirements_revision": "2026-08-21-complete.9",
@@ -2454,18 +2454,18 @@
     "media-schema": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 0,
+      "passed": 40,
       "required": 1774,
       "required_addressable": 1774,
-      "skipped": 1774
+      "skipped": 1734
     },
     "metadata": {
       "failed": 0,
       "not_addressable": 2,
-      "passed": 0,
+      "passed": 19,
       "required": 90,
       "required_addressable": 88,
-      "skipped": 88
+      "skipped": 69
     },
     "mutation": {
       "failed": 2,
@@ -2486,18 +2486,18 @@
     "pagination": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 0,
+      "passed": 6,
       "required": 116,
       "required_addressable": 116,
-      "skipped": 116
+      "skipped": 110
     },
     "positive": {
       "failed": 2,
       "not_addressable": 3,
-      "passed": 18,
+      "passed": 58,
       "required": 2016,
       "required_addressable": 2013,
-      "skipped": 1993
+      "skipped": 1953
     },
     "range-efficiency": {
       "failed": 0,
@@ -2518,8 +2518,8 @@
   },
   "schema": "honua.protocol-certification-summary/v1",
   "supported_operation_coverage": {
-    "passed": 18,
-    "percent": 1.15,
+    "passed": 58,
+    "percent": 3.69,
     "required": 1570
   }
 }
