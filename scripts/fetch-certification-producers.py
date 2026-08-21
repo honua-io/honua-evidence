@@ -9,6 +9,7 @@ import hashlib
 import io
 import json
 import os
+import re
 import shutil
 import sys
 import urllib.request
@@ -36,12 +37,19 @@ class CredentialStrippingRedirectHandler(urllib.request.HTTPRedirectHandler):
         return redirected
 
 
-def select_artifacts(artifacts: list[dict[str, Any]], prefix: str, limit: int) -> list[dict[str, Any]]:
+def select_artifacts(
+    artifacts: list[dict[str, Any]],
+    prefix: str,
+    limit: int,
+    name_regex: str | None = None,
+) -> list[dict[str, Any]]:
+    name_pattern = re.compile(name_regex) if name_regex is not None else None
     eligible = [
         artifact for artifact in artifacts
         if not artifact.get("expired", False)
         and isinstance(artifact.get("name"), str)
         and artifact["name"].startswith(prefix)
+        and (name_pattern is None or name_pattern.fullmatch(artifact["name"]))
         and isinstance(artifact.get("archive_download_url"), str)
     ]
     eligible.sort(key=lambda artifact: artifact.get("created_at", ""), reverse=True)
@@ -80,10 +88,10 @@ def request_bytes(url: str, token: str, accept: str) -> bytes:
         return response.read()
 
 
-def list_artifacts(repository: str, token: str) -> list[dict[str, Any]]:
+def list_artifacts(repository: str, token: str, max_pages: int = 5) -> list[dict[str, Any]]:
     artifacts: list[dict[str, Any]] = []
     page = 1
-    while True:
+    while page <= max_pages:
         listing = json.loads(request_bytes(
             f"https://api.github.com/repos/{repository}/actions/artifacts?per_page=100&page={page}",
             token,
@@ -96,6 +104,7 @@ def list_artifacts(repository: str, token: str) -> list[dict[str, Any]]:
         if len(batch) < 100:
             return artifacts
         page += 1
+    return artifacts
 
 
 def trusted_run(run: dict[str, Any], artifact: dict[str, Any], source: dict[str, Any]) -> bool:
@@ -164,6 +173,17 @@ def load_registry(path: Path) -> dict[str, Any]:
     for source in sources:
         if not isinstance(source, dict):
             raise ValueError("Protocol certification producer entries must be objects.")
+        allowed_fields = {
+            "producer", "repository", "workflow_path", "artifact_prefix",
+            "artifact_name_regex", "fragment_globs", "trusted_branches",
+            "trusted_events", "max_artifacts", "max_artifact_pages",
+            "max_candidates", "required",
+        }
+        unknown_fields = set(source) - allowed_fields
+        if unknown_fields:
+            raise ValueError(
+                f"Protocol certification producer has unknown fields: {sorted(unknown_fields)}"
+            )
         producer = source.get("producer")
         repository = source.get("repository")
         if not isinstance(producer, str) or not producer or producer in producers:
@@ -175,6 +195,43 @@ def load_registry(path: Path) -> dict[str, Any]:
             value = source.get(field)
             if not isinstance(value, str) or not value:
                 raise ValueError(f"Producer {producer!r} has invalid {field}.")
+        artifact_name_regex = source.get("artifact_name_regex")
+        if artifact_name_regex is not None:
+            if not isinstance(artifact_name_regex, str) or not artifact_name_regex:
+                raise ValueError(f"Producer {producer!r} has invalid artifact_name_regex.")
+            try:
+                re.compile(artifact_name_regex)
+            except re.error as error:
+                raise ValueError(
+                    f"Producer {producer!r} has invalid artifact_name_regex: {error}"
+                ) from error
+        max_artifacts = source.get("max_artifacts", 10)
+        if (
+            isinstance(max_artifacts, bool)
+            or not isinstance(max_artifacts, int)
+            or not 1 <= max_artifacts <= 50
+        ):
+            raise ValueError(f"Producer {producer!r} max_artifacts must be an integer from 1 through 50.")
+        max_artifact_pages = source.get("max_artifact_pages", 5)
+        if (
+            isinstance(max_artifact_pages, bool)
+            or not isinstance(max_artifact_pages, int)
+            or not 1 <= max_artifact_pages <= 20
+        ):
+            raise ValueError(
+                f"Producer {producer!r} max_artifact_pages must be an integer from 1 through 20."
+            )
+        max_candidates = source.get("max_candidates", 100)
+        if (
+            isinstance(max_candidates, bool)
+            or not isinstance(max_candidates, int)
+            or not max_artifacts <= max_candidates <= 500
+        ):
+            raise ValueError(
+                f"Producer {producer!r} max_candidates must be an integer from max_artifacts through 500."
+            )
+        if "required" in source and not isinstance(source["required"], bool):
+            raise ValueError(f"Producer {producer!r} required must be a boolean.")
         for field in ("fragment_globs", "trusted_branches", "trusted_events"):
             value = source.get(field)
             if not (
@@ -204,10 +261,21 @@ def fetch(registry_path: Path, output: Path, token: str) -> int:
     for source in registry["sources"]:
         repository = source["repository"]
         candidates = select_artifacts(
-            list_artifacts(repository, token), source["artifact_prefix"], sys.maxsize
+            list_artifacts(
+                repository,
+                token,
+                int(source.get("max_artifact_pages", 5)),
+            ),
+            source["artifact_prefix"],
+            int(source.get("max_candidates", 100)),
+            source.get("artifact_name_regex"),
         )
-        artifacts: list[tuple[dict[str, Any], dict[str, Any]]] = []
+        producer_fragment_count = 0
+        usable_artifact_count = 0
+        producer_dir = output / safe_name(source["producer"])
         for artifact in candidates:
+            if usable_artifact_count >= int(source.get("max_artifacts", 10)):
+                break
             workflow_run = artifact.get("workflow_run")
             if not isinstance(workflow_run, dict) or not isinstance(workflow_run.get("id"), int):
                 continue
@@ -216,16 +284,16 @@ def fetch(registry_path: Path, output: Path, token: str) -> int:
                 token,
                 "application/vnd.github+json",
             ))
-            if trusted_run(run, artifact, source):
-                artifacts.append((artifact, run))
-            if len(artifacts) >= int(source.get("max_artifacts", 10)):
-                break
-        producer_dir = output / safe_name(source["producer"])
-        for artifact, run in artifacts:
+            if not trusted_run(run, artifact, source):
+                continue
             archive = request_bytes(
                 artifact["archive_download_url"], token, "application/vnd.github+json"
             )
-            for member, payload in extract_fragments(archive, source["fragment_globs"]):
+            extracted = extract_fragments(archive, source["fragment_globs"])
+            if not extracted:
+                continue
+            usable_artifact_count += 1
+            for member, payload in extracted:
                 validate_fragment_producer(payload, source["producer"], run["head_sha"])
                 destination = (
                     producer_dir / str(artifact["id"]) /
@@ -241,6 +309,11 @@ def fetch(registry_path: Path, output: Path, token: str) -> int:
                     "created_at": artifact.get("created_at"), "member": member,
                     "destination": destination.as_posix(),
                 })
+                producer_fragment_count += 1
+        if source.get("required", False) and producer_fragment_count == 0:
+            raise ValueError(
+                f"Required certification producer {source['producer']!r} yielded no normalized fragments."
+            )
     (output / ".fetch-manifest.ndjson").write_text(
         "".join(json.dumps(row, sort_keys=True) + "\n" for row in manifest), encoding="utf-8"
     )
@@ -263,6 +336,12 @@ def main() -> int:
         parser.error("--output is required unless --validate-only is used")
     token = os.environ.get(args.token_env, "").strip()
     if not token:
+        if any(source.get("required", False) for source in registry["sources"]):
+            print(
+                f"::error::{args.token_env} is required for mandatory cross-repository certification producers.",
+                file=sys.stderr,
+            )
+            return 1
         print(f"::notice::{args.token_env} is unavailable; cross-repository certification fragments remain missing.")
         return 0
     return fetch(args.registry, args.output, token)

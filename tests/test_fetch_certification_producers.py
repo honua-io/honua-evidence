@@ -3,6 +3,8 @@ from __future__ import annotations
 import importlib.util
 import io
 import json
+import os
+import sys
 import tempfile
 import unittest
 import urllib.request
@@ -33,6 +35,86 @@ def test_select_artifacts_filters_expired_and_keeps_newest() -> None:
         {"name":"cert-3","expired":False,"created_at":"2026-01-02","archive_download_url":"d"},
     ]
     assert [row["name"] for row in MODULE.select_artifacts(artifacts, "cert-", 1)] == ["cert-3"]
+
+
+def test_select_artifacts_applies_full_name_regex() -> None:
+    artifacts = [
+        {"name":"python-sdk-conformance-server-7-1","expired":False,"created_at":"2026-01-03","archive_download_url":"a"},
+        {"name":"python-sdk-conformance-7-1","expired":False,"created_at":"2026-01-02","archive_download_url":"b"},
+    ]
+    selected = MODULE.select_artifacts(
+        artifacts,
+        "python-sdk-conformance-",
+        10,
+        r"^python-sdk-conformance-[0-9]+-[0-9]+$",
+    )
+    assert [row["name"] for row in selected] == ["python-sdk-conformance-7-1"]
+
+
+def test_fetch_counts_only_artifacts_with_fragments() -> None:
+    head_sha = "a" * 40
+    source = {
+        "producer": "honua-sdk-python",
+        "repository": "honua-io/honua-sdk-python",
+        "workflow_path": ".github/workflows/conformance.yml",
+        "artifact_prefix": "python-sdk-conformance-",
+        "artifact_name_regex": r"^python-sdk-conformance-[0-9]+-[0-9]+$",
+        "fragment_globs": ["**/protocol-certification-fragment.json"],
+        "trusted_branches": ["trunk"],
+        "trusted_events": ["workflow_dispatch"],
+        "max_artifacts": 1,
+        "required": True,
+    }
+    artifacts = [
+        {
+            "id": 8, "name": "python-sdk-conformance-8-1", "expired": False,
+            "created_at": "2026-08-20T10:03:00Z", "archive_download_url": "archive-8",
+            "workflow_run": {"id": 8, "head_sha": head_sha},
+        },
+        {
+            "id": 7, "name": "python-sdk-conformance-7-1", "expired": False,
+            "created_at": "2026-08-20T10:02:00Z", "archive_download_url": "archive-7",
+            "workflow_run": {"id": 7, "head_sha": head_sha},
+        },
+    ]
+
+    def request(url, _token, _accept):
+        if "/actions/runs/" in url:
+            run_id = int(url.rsplit("/", 1)[1])
+            return json.dumps({
+                "id": run_id, "status": "completed", "conclusion": "success",
+                "event": "workflow_dispatch", "head_branch": "trunk", "head_sha": head_sha,
+                "run_attempt": 1, "run_started_at": "2026-08-20T10:00:00Z",
+                "path": ".github/workflows/conformance.yml",
+                "head_repository": {"full_name": "honua-io/honua-sdk-python"},
+            }).encode()
+        if url == "archive-8":
+            return _archive({"server-log.json": {"schema": "diagnostic"}})
+        if url == "archive-7":
+            return _archive({
+                "protocol-certification-fragment.json": {
+                    "schema": MODULE.FRAGMENT_SCHEMA,
+                    "producer": "honua-sdk-python",
+                    "observations": [{"producer_source_sha": head_sha}],
+                }
+            })
+        raise AssertionError(f"unexpected request: {url}")
+
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        registry = root / "registry.json"
+        output = root / "out"
+        registry.write_text(
+            json.dumps({"schema": MODULE.REGISTRY_SCHEMA, "sources": [source]}),
+            encoding="utf-8",
+        )
+        with (
+            mock.patch.object(MODULE, "list_artifacts", return_value=artifacts),
+            mock.patch.object(MODULE, "request_bytes", side_effect=request),
+        ):
+            MODULE.fetch(registry, output, "token")
+        manifest = [json.loads(line) for line in (output / ".fetch-manifest.ndjson").read_text().splitlines()]
+        assert [(row["artifact_id"], row["producer"]) for row in manifest] == [(7, "honua-sdk-python")]
 
 
 def test_extract_fragments_accepts_only_normalized_envelopes() -> None:
@@ -88,6 +170,18 @@ def test_list_artifacts_paginates_until_the_last_page() -> None:
 
     with mock.patch.object(MODULE, "request_bytes", side_effect=request):
         assert len(MODULE.list_artifacts("honua-io/test", "token")) == 101
+    assert len(calls) == 2
+
+
+def test_list_artifacts_stops_at_the_page_bound() -> None:
+    calls = []
+
+    def request(url, _token, _accept):
+        calls.append(url)
+        return json.dumps({"artifacts": [{"id": index} for index in range(100)]}).encode()
+
+    with mock.patch.object(MODULE, "request_bytes", side_effect=request):
+        assert len(MODULE.list_artifacts("honua-io/test", "token", max_pages=2)) == 200
     assert len(calls) == 2
 
 
@@ -202,8 +296,90 @@ def test_registry_validation_requires_typed_allowlists() -> None:
                 MODULE.load_registry(path)
 
 
+def test_registry_validation_rejects_invalid_artifact_regex() -> None:
+    source = {
+        "producer": "honua-sdk-python",
+        "repository": "honua-io/honua-sdk-python",
+        "workflow_path": ".github/workflows/conformance.yml",
+        "artifact_prefix": "python-sdk-conformance-",
+        "artifact_name_regex": "[",
+        "fragment_globs": ["**/protocol-certification-fragment.json"],
+        "trusted_branches": ["trunk"],
+        "trusted_events": ["workflow_dispatch"],
+    }
+    with tempfile.TemporaryDirectory() as directory:
+        path = Path(directory) / "registry.json"
+        path.write_text(
+            json.dumps({"schema": MODULE.REGISTRY_SCHEMA, "sources": [source]}),
+            encoding="utf-8",
+        )
+        with unittest.TestCase().assertRaisesRegex(ValueError, "artifact_name_regex"):
+            MODULE.load_registry(path)
+
+
+def test_registry_validation_rejects_unknown_fields_and_bad_limits() -> None:
+    source = {
+        "producer": "honua-sdk-python",
+        "repository": "honua-io/honua-sdk-python",
+        "workflow_path": ".github/workflows/conformance.yml",
+        "artifact_prefix": "python-sdk-conformance-",
+        "fragment_globs": ["**/protocol-certification-fragment.json"],
+        "trusted_branches": ["trunk"],
+        "trusted_events": ["workflow_dispatch"],
+    }
+    for mutation, message in [
+        ({"artifact_name_regx": ".*"}, "unknown fields"),
+        ({"max_artifacts": 0}, "max_artifacts"),
+        ({"max_artifacts": 51}, "max_artifacts"),
+        ({"max_artifact_pages": 0}, "max_artifact_pages"),
+        ({"max_artifact_pages": 21}, "max_artifact_pages"),
+        ({"max_artifacts": 10, "max_candidates": 9}, "max_candidates"),
+        ({"max_candidates": 501}, "max_candidates"),
+        ({"required": "yes"}, "required"),
+    ]:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "registry.json"
+            path.write_text(
+                json.dumps({"schema": MODULE.REGISTRY_SCHEMA, "sources": [{**source, **mutation}]}),
+                encoding="utf-8",
+            )
+            with unittest.TestCase().assertRaisesRegex(ValueError, message):
+                MODULE.load_registry(path)
+
+
+def test_missing_token_fails_when_a_producer_is_required() -> None:
+    source = {
+        "producer": "honua-sdk-python",
+        "repository": "honua-io/honua-sdk-python",
+        "workflow_path": ".github/workflows/conformance.yml",
+        "artifact_prefix": "python-sdk-conformance-",
+        "fragment_globs": ["**/protocol-certification-fragment.json"],
+        "trusted_branches": ["trunk"],
+        "trusted_events": ["workflow_dispatch"],
+        "required": True,
+    }
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        registry = root / "registry.json"
+        registry.write_text(
+            json.dumps({"schema": MODULE.REGISTRY_SCHEMA, "sources": [source]}),
+            encoding="utf-8",
+        )
+        with (
+            mock.patch.object(sys, "argv", [
+                str(SCRIPT), "--registry", str(registry), "--output", str(root / "out")
+            ]),
+            mock.patch.dict(os.environ, {"HONUA_EVIDENCE_TOKEN": ""}),
+        ):
+            assert MODULE.main() == 1
+
+
 class FetchCertificationProducerTests(unittest.TestCase):
     test_select_artifacts = staticmethod(test_select_artifacts_filters_expired_and_keeps_newest)
+    test_select_artifacts_regex = staticmethod(test_select_artifacts_applies_full_name_regex)
+    test_fetch_counts_only_artifacts_with_fragments = staticmethod(
+        test_fetch_counts_only_artifacts_with_fragments
+    )
     test_extract_fragments = staticmethod(test_extract_fragments_accepts_only_normalized_envelopes)
     test_fragment_destination_names = staticmethod(
         test_fragment_destination_names_resist_normalization_collisions
@@ -212,9 +388,17 @@ class FetchCertificationProducerTests(unittest.TestCase):
         test_artifact_redirect_does_not_forward_github_credentials
     )
     test_list_artifacts = staticmethod(test_list_artifacts_paginates_until_the_last_page)
+    test_list_artifacts_page_bound = staticmethod(test_list_artifacts_stops_at_the_page_bound)
     test_registry_validation_requires_typed_allowlists = staticmethod(
         test_registry_validation_requires_typed_allowlists
     )
+    test_registry_validation_rejects_invalid_artifact_regex = staticmethod(
+        test_registry_validation_rejects_invalid_artifact_regex
+    )
+    test_registry_validation_rejects_unknown_fields_and_bad_limits = staticmethod(
+        test_registry_validation_rejects_unknown_fields_and_bad_limits
+    )
+    test_missing_token_required = staticmethod(test_missing_token_fails_when_a_producer_is_required)
     test_trusted_run = staticmethod(test_trusted_run_requires_successful_configured_workflow_and_identity)
     test_fragment_producer = staticmethod(test_fragment_producer_must_match_registry)
     test_fragment_run_head = staticmethod(test_fragment_observations_must_match_trusted_run_head)
