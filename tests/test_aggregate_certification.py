@@ -73,6 +73,42 @@ class CertificationAggregationTests(unittest.TestCase):
         ledger = module.build_ledger("rev-1", False, [requirement(addressable=False)], [], CANDIDATE)
         self.assertEqual("not-addressable", ledger["cells"][0]["result"])
 
+    def test_observation_cannot_override_non_addressable_policy(self):
+        req = requirement(addressable=False)
+        fragments = [(Path("producer.json"), fragment("server", [observation(req, result="pass")]))]
+        ledger = module.build_ledger("rev-1", False, [req], fragments, CANDIDATE)
+        cell = ledger["cells"][0]
+        self.assertEqual("not-addressable", cell["result"])
+        self.assertIsNone(cell["evidence_uri"])
+
+    def test_candidate_selection_uses_release_cut_not_fragment_arrival(self):
+        older_candidate = {
+            "source_sha": "c" * 40,
+            "image_digest": "sha256:" + "d" * 64,
+            "cut_at": "2026-08-19T09:00:00Z",
+        }
+        delayed_old = fragment("delayed", [], generated="2026-08-21T12:00:00Z")
+        delayed_old["candidate"] = older_candidate
+        current = fragment("current", [], generated="2026-08-20T10:06:00Z")
+        selected = module.choose_candidate(
+            [(Path("delayed.json"), delayed_old), (Path("current.json"), current)],
+            (None, None, None),
+        )
+        self.assertEqual(CANDIDATE, selected)
+
+    def test_same_cut_with_conflicting_candidate_identity_is_rejected(self):
+        conflicting = fragment("conflict", [])
+        conflicting["candidate"] = {
+            "source_sha": "c" * 40,
+            "image_digest": "sha256:" + "d" * 64,
+            "cut_at": CANDIDATE["cut_at"],
+        }
+        with self.assertRaisesRegex(ValueError, "ambiguous candidates"):
+            module.choose_candidate(
+                [(Path("a.json"), fragment("a", [])), (Path("b.json"), conflicting)],
+                (None, None, None),
+            )
+
     def test_latest_observation_from_same_producer_wins(self):
         req = requirement()
         fragments = [

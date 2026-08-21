@@ -109,8 +109,23 @@ def choose_candidate(fragments: list[tuple[Path, dict]], expected: tuple[str | N
         return {"source_sha": expected_sha, "image_digest": expected_digest, "cut_at": expected_cut}
     if not fragments:
         raise ValueError("no producer fragments exist and no exact candidate was supplied")
-    newest = max(fragments, key=lambda item: _timestamp(item[1]["generated_at"]) or datetime.min.replace(tzinfo=timezone.utc))
-    return dict(newest[1]["candidate"])
+    # Producer arrival/generation time is not release authority: a delayed
+    # fragment for an older candidate must never roll the ledger backward.
+    # Release cut time orders candidates; an exact CLI triple remains the
+    # authoritative option for release publication.
+    newest_cut = max(
+        _timestamp(document["candidate"]["cut_at"]) or datetime.min.replace(tzinfo=timezone.utc)
+        for _, document in fragments
+    )
+    newest = [
+        document["candidate"]
+        for _, document in fragments
+        if _timestamp(document["candidate"]["cut_at"]) == newest_cut
+    ]
+    identities = {_candidate_identity(candidate) for candidate in newest}
+    if len(identities) != 1:
+        raise ValueError(f"ambiguous candidates share newest cut_at {newest_cut.isoformat()}: {sorted(identities)}")
+    return dict(newest[0])
 
 
 def build_ledger(requirements_revision: str, requirements_complete: bool, requirements: list[dict], fragments: list[tuple[Path, dict]],
@@ -157,13 +172,13 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
             raise ValueError(f"ambiguous cross-producer evidence for {key}: {detail}")
 
         cell = {field: requirement[field] for field in POLICY_FIELDS}
-        if matches:
-            observation = matches[0][2]
-            cell.update({field: observation[field] for field in OBSERVATION_FIELDS})
-        elif requirement["addressable_by_client"]:
+        # Addressability is owned by the requirement catalogue. Producer
+        # observations cannot turn a non-addressable client operation into a
+        # pass (or any other executable result).
+        if not requirement["addressable_by_client"]:
             cell.update({
-                "result": "skip",
-                "skip_reason": "no producer evidence for required certification cell",
+                "result": "not-addressable",
+                "skip_reason": None,
                 "source_sha": None,
                 "image_digest": None,
                 "fixture_revision": None,
@@ -171,10 +186,13 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
                 "started_at": None,
                 "completed_at": None,
             })
+        elif matches:
+            observation = matches[0][2]
+            cell.update({field: observation[field] for field in OBSERVATION_FIELDS})
         else:
             cell.update({
-                "result": "not-addressable",
-                "skip_reason": None,
+                "result": "skip",
+                "skip_reason": "no producer evidence for required certification cell",
                 "source_sha": None,
                 "image_digest": None,
                 "fixture_revision": None,
