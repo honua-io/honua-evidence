@@ -10,6 +10,7 @@ on:
   pull_request:
     paths:
       - "scripts/**"
+      - "config/protocol-certification-producers.v1.json"
       - "data/**"
       - "tests/**"
       - ".github/workflows/aggregate.yml"
@@ -19,6 +20,7 @@ on:
     branches: [trunk]
     paths:
       - "scripts/**"
+      - "config/protocol-certification-producers.v1.json"
       - "data/**"
       - "tests/**"
       - ".github/workflows/aggregate.yml"
@@ -34,6 +36,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Validate trusted certification producer registry
+        run: >-
+          python3 scripts/fetch-certification-producers.py
+          --registry config/protocol-certification-producers.v1.json
+          --validate-only
 
       - name: Unit tests (ingestion + freshness computation)
         run: python3 -m unittest discover -s tests -v

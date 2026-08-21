@@ -98,11 +98,48 @@ def trusted_run(run: dict[str, Any], artifact: dict[str, Any], source: dict[str,
     )
 
 
-def validate_fragment_producer(payload: dict[str, Any], expected: str) -> None:
+def validate_fragment_producer(
+    payload: dict[str, Any], expected: str, producer_source_sha: str | None = None
+) -> None:
     if payload.get("producer") != expected:
         raise ValueError(
             f"Fragment producer {payload.get('producer')!r} does not match registry producer {expected!r}."
         )
+    if producer_source_sha is None:
+        return
+    observations = payload.get("observations")
+    if not isinstance(observations, list):
+        raise ValueError(f"Fragment from {expected!r} has no observations array.")
+    for index, observation in enumerate(observations):
+        if not isinstance(observation, dict) or observation.get("producer_source_sha") != producer_source_sha:
+            raise ValueError(
+                f"Fragment observation {index} producer_source_sha does not match trusted run head "
+                f"{producer_source_sha}."
+            )
+
+
+def load_registry(path: Path) -> dict[str, Any]:
+    registry = json.loads(path.read_text(encoding="utf-8"))
+    sources = registry.get("sources")
+    if registry.get("schema") != REGISTRY_SCHEMA or not isinstance(sources, list) or not sources:
+        raise ValueError("Invalid protocol certification producer registry.")
+    producers: set[str] = set()
+    for source in sources:
+        if not isinstance(source, dict):
+            raise ValueError("Protocol certification producer entries must be objects.")
+        producer = source.get("producer")
+        repository = source.get("repository")
+        if not isinstance(producer, str) or not producer or producer in producers:
+            raise ValueError(f"Invalid or duplicate registry producer: {producer!r}")
+        producers.add(producer)
+        if not isinstance(repository, str) or not repository.startswith("honua-io/") or repository.count("/") != 1:
+            raise ValueError(f"Untrusted producer repository: {repository!r}")
+        for field in (
+            "workflow_path", "artifact_prefix", "fragment_globs", "trusted_branches", "trusted_events"
+        ):
+            if not source.get(field):
+                raise ValueError(f"Producer {producer!r} is missing {field}.")
+    return registry
 
 
 def safe_name(value: str) -> str:
@@ -110,20 +147,13 @@ def safe_name(value: str) -> str:
 
 
 def fetch(registry_path: Path, output: Path, token: str) -> int:
-    registry = json.loads(registry_path.read_text(encoding="utf-8"))
-    if registry.get("schema") != REGISTRY_SCHEMA or not isinstance(registry.get("sources"), list):
-        raise ValueError("Invalid protocol certification producer registry.")
+    registry = load_registry(registry_path)
     if output.exists():
         shutil.rmtree(output)
     output.mkdir(parents=True)
     manifest: list[dict[str, Any]] = []
     for source in registry["sources"]:
         repository = source["repository"]
-        if not repository.startswith("honua-io/") or repository.count("/") != 1:
-            raise ValueError(f"Untrusted producer repository: {repository!r}")
-        for field in ("workflow_path", "trusted_branches", "trusted_events"):
-            if not source.get(field):
-                raise ValueError(f"Producer {source['producer']!r} is missing {field}.")
         candidates = select_artifacts(
             list_artifacts(repository, token), source["artifact_prefix"], sys.maxsize
         )
@@ -145,7 +175,7 @@ def fetch(registry_path: Path, output: Path, token: str) -> int:
         for artifact, run in artifacts:
             archive = request_bytes(artifact["archive_download_url"], token, "application/octet-stream")
             for member, payload in extract_fragments(archive, source["fragment_globs"]):
-                validate_fragment_producer(payload, source["producer"])
+                validate_fragment_producer(payload, source["producer"], run["head_sha"])
                 destination = producer_dir / str(artifact["id"]) / f"{safe_name(member)}.json"
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 destination.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -167,9 +197,16 @@ def fetch(registry_path: Path, output: Path, token: str) -> int:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--registry", type=Path, required=True)
-    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--output", type=Path)
+    parser.add_argument("--validate-only", action="store_true")
     parser.add_argument("--token-env", default="HONUA_EVIDENCE_TOKEN")
     args = parser.parse_args()
+    registry = load_registry(args.registry)
+    if args.validate_only:
+        print(f"Validated {len(registry['sources'])} protocol certification producer(s).")
+        return 0
+    if args.output is None:
+        parser.error("--output is required unless --validate-only is used")
     token = os.environ.get(args.token_env, "").strip()
     if not token:
         print(f"::notice::{args.token_env} is unavailable; cross-repository certification fragments remain missing.")
