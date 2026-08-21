@@ -109,6 +109,31 @@ class CertificationAggregationTests(unittest.TestCase):
                 (None, None, None),
             )
 
+    def test_future_candidate_cut_is_rejected_before_selection(self):
+        future = fragment("future", [], generated="2026-08-20T10:06:00Z")
+        future["candidate"] = {
+            "source_sha": "c" * 40,
+            "image_digest": "sha256:" + "d" * 64,
+            "cut_at": "2099-01-01T00:00:00Z",
+        }
+        with self.assertRaisesRegex(ValueError, "after fragment generation|in the future"):
+            module.choose_candidate(
+                [(Path("future.json"), future)],
+                (None, None, None),
+                now=datetime(2026, 8, 20, 10, 10, tzinfo=timezone.utc),
+            )
+
+    def test_conflicting_observations_tied_for_newest_are_rejected(self):
+        req = requirement()
+        tied_pass = observation(req, result="pass", completed="2026-08-20T10:05:00Z")
+        tied_fail = observation(req, result="fail", completed="2026-08-20T10:05:00Z")
+        fragments = [
+            (Path("a.json"), fragment("server", [tied_pass])),
+            (Path("b.json"), fragment("server", [tied_fail])),
+        ]
+        with self.assertRaisesRegex(ValueError, "tie for newest"):
+            module.build_ledger("rev-1", False, [req], fragments, CANDIDATE)
+
     def test_latest_observation_from_same_producer_wins(self):
         req = requirement()
         fragments = [

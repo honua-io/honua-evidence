@@ -102,14 +102,25 @@ def _candidate_identity(candidate: dict) -> tuple[object, ...]:
     return candidate.get("source_sha"), candidate.get("image_digest"), candidate.get("cut_at")
 
 
-def choose_candidate(fragments: list[tuple[Path, dict]], expected: tuple[str | None, str | None, str | None]) -> dict:
+def choose_candidate(fragments: list[tuple[Path, dict]], expected: tuple[str | None, str | None, str | None],
+                     now: datetime | None = None) -> dict:
     expected_sha, expected_digest, expected_cut = expected
+    now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
     if any(expected) and not all(expected):
         raise ValueError("expected source SHA, image digest, and cut time must be supplied together")
     if all(expected):
         return {"source_sha": expected_sha, "image_digest": expected_digest, "cut_at": expected_cut}
     if not fragments:
         raise ValueError("no producer fragments exist and no exact candidate was supplied")
+    for path, document in fragments:
+        cut = _timestamp(document["candidate"].get("cut_at"))
+        generated = _timestamp(document.get("generated_at"))
+        if cut is None or generated is None:
+            raise ValueError(f"{path}: candidate cut or fragment generation timestamp is invalid")
+        if cut > generated + CLOCK_SKEW_TOLERANCE:
+            raise ValueError(f"{path}: candidate.cut_at is after fragment generation")
+        if cut > now + CLOCK_SKEW_TOLERANCE:
+            raise ValueError(f"{path}: candidate.cut_at is in the future")
     # Producer arrival/generation time is not release authority: a delayed
     # fragment for an older candidate must never roll the ledger backward.
     # Release cut time orders candidates; an exact CLI triple remains the
@@ -166,6 +177,11 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
             previous = by_producer_key.get(composite)
             if previous is None or completed > previous[0]:
                 by_producer_key[composite] = (completed, path, observation)
+            elif completed == previous[0] and observation != previous[2]:
+                raise ValueError(
+                    f"conflicting observations tie for newest producer/cell {composite}: "
+                    f"{previous[1]} and {path}"
+                )
 
     observations_by_key: dict[tuple[object, ...], list[tuple[str, Path, dict]]] = {}
     for (producer, key), (_, path, observation) in by_producer_key.items():
