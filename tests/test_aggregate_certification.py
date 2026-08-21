@@ -77,6 +77,21 @@ class CertificationAggregationTests(unittest.TestCase):
         ledger = module.build_ledger("rev-1", False, [requirement(addressable=False)], [], CANDIDATE)
         self.assertEqual("not-addressable", ledger["cells"][0]["result"])
 
+    def test_requirements_reject_non_array_scenario_facets(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "requirements.json"
+            malformed = requirement()
+            malformed["scenario_facets"] = "positive"
+            path.write_text(json.dumps({
+                "schema": module.REQUIREMENTS_SCHEMA,
+                "revision": "rev-1",
+                "complete": True,
+                "requirements": [malformed],
+            }), encoding="utf-8")
+
+            with self.assertRaisesRegex(ValueError, "scenario_facets"):
+                module.load_requirements(path)
+
     def test_summary_publishes_dimensions_and_scenario_depth(self):
         rasterio = requirement()
         gdal = requirement(client="GDAL", addressable=False)

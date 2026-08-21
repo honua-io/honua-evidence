@@ -154,6 +154,14 @@ def load_requirements(path: Path) -> tuple[str, bool, list[dict]]:
             raise ValueError(f"{path}: requirements[{index}] missing {', '.join(missing)}")
         if not isinstance(requirement["addressable_by_client"], bool):
             raise ValueError(f"{path}: requirements[{index}].addressable_by_client must be a boolean")
+        facets = requirement["scenario_facets"]
+        if not (
+            isinstance(facets, list)
+            and all(isinstance(facet, str) and facet for facet in facets)
+        ):
+            raise ValueError(
+                f"{path}: requirements[{index}].scenario_facets must be an array of non-empty strings"
+            )
         key = _identity(requirement)
         if key in seen:
             raise ValueError(f"{path}: duplicate requirement identity {key}")

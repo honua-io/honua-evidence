@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import fnmatch
+import hashlib
 import io
 import json
 import os
@@ -12,6 +13,7 @@ import shutil
 import sys
 import urllib.request
 import zipfile
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -95,12 +97,20 @@ def trusted_run(run: dict[str, Any], artifact: dict[str, Any], source: dict[str,
         return False
     artifact_run = artifact.get("workflow_run")
     path = run.get("path")
+    try:
+        run_started_at = datetime.fromisoformat(run["run_started_at"].replace("Z", "+00:00"))
+        artifact_created_at = datetime.fromisoformat(artifact["created_at"].replace("Z", "+00:00"))
+    except (AttributeError, KeyError, TypeError, ValueError):
+        return False
     return (
         isinstance(artifact_run, dict)
         and artifact_run.get("id") == run.get("id")
         and artifact_run.get("head_sha") == run.get("head_sha")
         and run.get("status") == "completed"
         and run.get("conclusion") == "success"
+        and isinstance(run.get("run_attempt"), int)
+        and run["run_attempt"] > 0
+        and artifact_created_at >= run_started_at
         and run.get("event") in source["trusted_events"]
         and run.get("head_branch") in source["trusted_branches"]
         and isinstance(path, str)
@@ -164,6 +174,11 @@ def safe_name(value: str) -> str:
     return "".join(character if character.isalnum() or character in "._-" else "-" for character in value)
 
 
+def fragment_destination_name(member: str) -> str:
+    member_digest = hashlib.sha256(member.encode("utf-8")).hexdigest()[:16]
+    return f"{member_digest}-{safe_name(member)}.json"
+
+
 def fetch(registry_path: Path, output: Path, token: str) -> int:
     registry = load_registry(registry_path)
     if output.exists():
@@ -194,7 +209,10 @@ def fetch(registry_path: Path, output: Path, token: str) -> int:
             archive = request_bytes(artifact["archive_download_url"], token, "application/octet-stream")
             for member, payload in extract_fragments(archive, source["fragment_globs"]):
                 validate_fragment_producer(payload, source["producer"], run["head_sha"])
-                destination = producer_dir / str(artifact["id"]) / f"{safe_name(member)}.json"
+                destination = (
+                    producer_dir / str(artifact["id"]) /
+                    fragment_destination_name(member)
+                )
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 destination.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
                 manifest.append({

@@ -45,6 +45,12 @@ def test_extract_fragments_accepts_only_normalized_envelopes() -> None:
     )]
 
 
+def test_fragment_destination_names_resist_normalization_collisions() -> None:
+    first = MODULE.fragment_destination_name("a/b/protocol-certification-fragment.json")
+    second = MODULE.fragment_destination_name("a-b/protocol-certification-fragment.json")
+    assert first != second
+
+
 def test_list_artifacts_paginates_until_the_last_page() -> None:
     calls = []
 
@@ -72,13 +78,23 @@ def test_trusted_run_requires_successful_configured_workflow_and_identity() -> N
         "event": "schedule",
         "head_branch": "trunk",
         "head_sha": "a" * 40,
+        "run_attempt": 2,
+        "run_started_at": "2026-08-20T10:00:00Z",
         "path": ".github/workflows/certify.yml",
         "head_repository": {"full_name": "honua-io/test"},
     }
-    artifact = {"workflow_run": {"id": 7, "head_sha": "a" * 40}}
+    artifact = {
+        "created_at": "2026-08-20T10:01:00Z",
+        "workflow_run": {"id": 7, "head_sha": "a" * 40},
+    }
     assert MODULE.trusted_run(run, artifact, source)
     assert not MODULE.trusted_run({**run, "conclusion": "failure"}, artifact, source)
     assert not MODULE.trusted_run({**run, "head_branch": "feature"}, artifact, source)
+    assert not MODULE.trusted_run(
+        run,
+        {**artifact, "created_at": "2026-08-20T09:59:59Z"},
+        source,
+    )
 
 
 def test_fragment_producer_must_match_registry() -> None:
@@ -157,6 +173,9 @@ def test_registry_validation_requires_typed_allowlists() -> None:
 class FetchCertificationProducerTests(unittest.TestCase):
     test_select_artifacts = staticmethod(test_select_artifacts_filters_expired_and_keeps_newest)
     test_extract_fragments = staticmethod(test_extract_fragments_accepts_only_normalized_envelopes)
+    test_fragment_destination_names = staticmethod(
+        test_fragment_destination_names_resist_normalization_collisions
+    )
     test_list_artifacts = staticmethod(test_list_artifacts_paginates_until_the_last_page)
     test_registry_validation_requires_typed_allowlists = staticmethod(
         test_registry_validation_requires_typed_allowlists
