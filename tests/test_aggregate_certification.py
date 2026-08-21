@@ -20,8 +20,8 @@ DIGEST = "sha256:" + "b" * 64
 CANDIDATE = {"source_sha": SHA, "image_digest": DIGEST, "cut_at": "2026-08-20T09:00:00Z"}
 
 
-def requirement(client="Rasterio", addressable=True):
-    return {
+def requirement(client="Rasterio", addressable=True, test_ids=None):
+    value = {
         "capability_key": "serve.cog",
         "surface": "cog",
         "operation": "window-read",
@@ -41,10 +41,15 @@ def requirement(client="Rasterio", addressable=True):
         "auth_policy_revision": "anonymous-v1",
         "fixture_revision": "fixture-v1",
     }
+    if test_ids is not None:
+        value["test_ids"] = test_ids
+    return value
 
 
 def observation(req, result="pass", completed="2026-08-20T10:05:00Z"):
     value = {field: req[field] for field in module.IDENTITY_FIELDS}
+    if "test_ids" in req:
+        value["test_ids"] = req["test_ids"]
     value.update({
         "result": result,
         "skip_reason": None,
@@ -77,6 +82,8 @@ def observation(req, result="pass", completed="2026-08-20T10:05:00Z"):
         "facets": facet_values,
         "payload_base64": "dGVzdA==",
     }
+    if "test_ids" in req:
+        receipt["identity"]["test_ids"] = req["test_ids"]
     if req["licensed"]:
         receipt["identity"]["entitlement_policy_revision"] = req["entitlement_policy_revision"]
         receipt["entitlement"] = {
@@ -113,6 +120,31 @@ def fragment(producer, observations, generated="2026-08-20T10:06:00Z"):
 
 
 class CertificationAggregationTests(unittest.TestCase):
+    def test_governed_test_ids_are_receipt_bound_and_emitted(self):
+        req = requirement(test_ids=["HarnessTests.ExactOperation"])
+        exact = observation(req)
+        ledger = module.build_ledger(
+            "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+            [(Path("exact.json"), fragment("server-protocol-harness", [exact]))], CANDIDATE,
+        )
+        self.assertEqual(req["test_ids"], ledger["cells"][0]["test_ids"])
+        self.assertEqual(req["test_ids"], ledger["cells"][0]["evidence_receipt"]["identity"]["test_ids"])
+
+        for replacement in (None, ["HarnessTests.WrongOperation"]):
+            with self.subTest(test_ids=replacement):
+                invalid = observation(req)
+                if replacement is None:
+                    invalid.pop("test_ids")
+                    invalid["evidence_receipt"]["identity"].pop("test_ids")
+                else:
+                    invalid["test_ids"] = replacement
+                    invalid["evidence_receipt"]["identity"]["test_ids"] = replacement
+                with self.assertRaisesRegex(ValueError, "do not resolve"):
+                    module.build_ledger(
+                        "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+                        [(Path("invalid.json"), fragment("server-protocol-harness", [invalid]))], CANDIDATE,
+                    )
+
     def test_missing_observation_materializes_skip(self):
         ledger = module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [requirement()], [], CANDIDATE)
         self.assertEqual(REQUIREMENTS_SOURCE_SHA, ledger["requirements_source_revision"])
