@@ -47,8 +47,6 @@ jobs:
         run: python3 -m unittest discover -s tests -v
 
       - name: Validate committed protocol certification fragments
-        env:
-          REQUIREMENTS_URL: https://raw.githubusercontent.com/honua-io/honua-release/trunk/certification/protocol-certification-requirements.v1.json
         run: |
           set -euo pipefail
           if ! find data/producers/protocol-certification -name '*.json' -print -quit | grep -q .; then
@@ -56,10 +54,17 @@ jobs:
             exit 0
           fi
           mkdir -p .validate-cache
-          curl --fail --silent --show-error --location "$REQUIREMENTS_URL" \
+          REQUIREMENTS_SHA="$(git ls-remote https://github.com/honua-io/honua-release.git refs/heads/trunk | cut -f1)"
+          if [[ ! "$REQUIREMENTS_SHA" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "::error::Could not resolve an immutable honua-release requirements revision"
+            exit 1
+          fi
+          curl --fail --silent --show-error --location \
+            "https://raw.githubusercontent.com/honua-io/honua-release/$REQUIREMENTS_SHA/certification/protocol-certification-requirements.v1.json" \
             -o .validate-cache/protocol-certification-requirements.v1.json
           python3 scripts/aggregate-certification.py \
             --requirements .validate-cache/protocol-certification-requirements.v1.json \
+            --requirements-source-revision "$REQUIREMENTS_SHA" \
             --output .validate-cache/protocol-certification.v1.json
 
       - name: Aggregate drift check
