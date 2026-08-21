@@ -47,6 +47,10 @@ jobs:
         run: python3 -m unittest discover -s tests -v
 
       - name: Validate committed protocol certification fragments
+        env:
+          CANDIDATE_SOURCE_SHA: ${{ vars.PROTOCOL_CERTIFICATION_CANDIDATE_SOURCE_SHA }}
+          CANDIDATE_IMAGE_DIGEST: ${{ vars.PROTOCOL_CERTIFICATION_CANDIDATE_IMAGE_DIGEST }}
+          CANDIDATE_CUT_AT: ${{ vars.PROTOCOL_CERTIFICATION_CANDIDATE_CUT_AT }}
         run: |
           set -euo pipefail
           if ! find data/producers/protocol-certification -name '*.json' -print -quit | grep -q .; then
@@ -65,6 +69,9 @@ jobs:
           python3 scripts/aggregate-certification.py \
             --requirements .validate-cache/protocol-certification-requirements.v1.json \
             --requirements-source-revision "$REQUIREMENTS_SHA" \
+            --candidate-source-sha "$CANDIDATE_SOURCE_SHA" \
+            --candidate-image-digest "$CANDIDATE_IMAGE_DIGEST" \
+            --candidate-cut-at "$CANDIDATE_CUT_AT" \
             --output .validate-cache/protocol-certification.v1.json
 
       - name: Aggregate drift check

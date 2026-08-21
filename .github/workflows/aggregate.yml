@@ -66,6 +66,18 @@ on:
         required: false
         default: trunk
         type: string
+      candidate_source_sha:
+        description: "Exact honua-server candidate source SHA; defaults to the governed repository variable"
+        required: false
+        type: string
+      candidate_image_digest:
+        description: "Exact candidate image digest; defaults to the governed repository variable"
+        required: false
+        type: string
+      candidate_cut_at:
+        description: "Exact frozen candidate cut; defaults to the governed repository variable"
+        required: false
+        type: string
   repository_dispatch:
     types: [producer-updated]
 
@@ -125,6 +137,12 @@ jobs:
       - name: Aggregate protocol certification observations
         env:
           REQUIREMENTS_REVISION: ${{ inputs.requirements_revision || 'trunk' }}
+          INPUT_CANDIDATE_SOURCE_SHA: ${{ inputs.candidate_source_sha }}
+          INPUT_CANDIDATE_IMAGE_DIGEST: ${{ inputs.candidate_image_digest }}
+          INPUT_CANDIDATE_CUT_AT: ${{ inputs.candidate_cut_at }}
+          GOVERNED_CANDIDATE_SOURCE_SHA: ${{ vars.PROTOCOL_CERTIFICATION_CANDIDATE_SOURCE_SHA }}
+          GOVERNED_CANDIDATE_IMAGE_DIGEST: ${{ vars.PROTOCOL_CERTIFICATION_CANDIDATE_IMAGE_DIGEST }}
+          GOVERNED_CANDIDATE_CUT_AT: ${{ vars.PROTOCOL_CERTIFICATION_CANDIDATE_CUT_AT }}
           HONUA_EVIDENCE_TOKEN: ${{ secrets.HONUA_EVIDENCE_TOKEN }}
         run: |
           set -euo pipefail
@@ -149,12 +167,41 @@ jobs:
             exit 1
           fi
           echo "Using honua-release certification requirements at $REQUIREMENTS_SHA"
+          manual_candidate_fields=0
+          [[ -z "$INPUT_CANDIDATE_SOURCE_SHA" ]] || manual_candidate_fields=$((manual_candidate_fields + 1))
+          [[ -z "$INPUT_CANDIDATE_IMAGE_DIGEST" ]] || manual_candidate_fields=$((manual_candidate_fields + 1))
+          [[ -z "$INPUT_CANDIDATE_CUT_AT" ]] || manual_candidate_fields=$((manual_candidate_fields + 1))
+          if [[ "$manual_candidate_fields" -ne 0 && "$manual_candidate_fields" -ne 3 ]]; then
+            echo "::error::Manual candidate override requires source SHA, image digest, and cut together."
+            exit 1
+          fi
+          if [[ "$manual_candidate_fields" -eq 3 ]]; then
+            CANDIDATE_SOURCE_SHA="$INPUT_CANDIDATE_SOURCE_SHA"
+            CANDIDATE_IMAGE_DIGEST="$INPUT_CANDIDATE_IMAGE_DIGEST"
+            CANDIDATE_CUT_AT="$INPUT_CANDIDATE_CUT_AT"
+          else
+            CANDIDATE_SOURCE_SHA="$GOVERNED_CANDIDATE_SOURCE_SHA"
+            CANDIDATE_IMAGE_DIGEST="$GOVERNED_CANDIDATE_IMAGE_DIGEST"
+            CANDIDATE_CUT_AT="$GOVERNED_CANDIDATE_CUT_AT"
+          fi
+          if [[ ! "$CANDIDATE_SOURCE_SHA" =~ ^[0-9a-f]{40}$ ]] ||
+             [[ ! "$CANDIDATE_IMAGE_DIGEST" =~ ^sha256:[0-9a-f]{64}$ ]] ||
+             [[ ! "$CANDIDATE_CUT_AT" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$ ]]; then
+            echo "::error::A complete immutable governed candidate triple is required."
+            exit 1
+          fi
+          candidate_args=(
+            --candidate-source-sha "$CANDIDATE_SOURCE_SHA"
+            --candidate-image-digest "$CANDIDATE_IMAGE_DIGEST"
+            --candidate-cut-at "$CANDIDATE_CUT_AT"
+          )
           curl --fail --silent --show-error --location \
             "https://raw.githubusercontent.com/honua-io/honua-release/$REQUIREMENTS_SHA/certification/protocol-certification-requirements.v1.json" \
             -o .aggregate-cache/protocol-certification-requirements.v1.json
           python3 scripts/aggregate-certification.py \
             --requirements .aggregate-cache/protocol-certification-requirements.v1.json \
-            --requirements-source-revision "$REQUIREMENTS_SHA"
+            --requirements-source-revision "$REQUIREMENTS_SHA" \
+            "${candidate_args[@]}"
 
       - name: Commit refreshed protocol certification ledger if changed
         id: certification-commit
