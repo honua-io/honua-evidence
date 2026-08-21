@@ -26,6 +26,7 @@ OBSERVATION_FIELDS = (
     "started_at", "completed_at",
 )
 CLOCK_SKEW_TOLERANCE = timedelta(minutes=5)
+OBSERVATION_RESULTS = frozenset({"pass", "fail", "skip"})
 
 
 def _timestamp(value: object) -> datetime | None:
@@ -161,6 +162,16 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
             missing = [field for field in (*IDENTITY_FIELDS, *OBSERVATION_FIELDS) if field not in observation]
             if missing:
                 raise ValueError(f"{path}: observations[{index}] missing {', '.join(missing)}")
+            result = observation.get("result")
+            if result not in OBSERVATION_RESULTS:
+                raise ValueError(
+                    f"{path}: observations[{index}].result must be one of {sorted(OBSERVATION_RESULTS)}, got {result!r}"
+                )
+            skip_reason = observation.get("skip_reason")
+            if result == "skip" and (not isinstance(skip_reason, str) or not skip_reason.strip()):
+                raise ValueError(f"{path}: observations[{index}].skip_reason is required for a skipped result")
+            if result != "skip" and skip_reason is not None:
+                raise ValueError(f"{path}: observations[{index}].skip_reason must be null unless result is skip")
             started = _timestamp(observation.get("started_at"))
             completed = _timestamp(observation.get("completed_at"))
             if started is None:

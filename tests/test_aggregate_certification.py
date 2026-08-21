@@ -207,6 +207,28 @@ class CertificationAggregationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "do not resolve"):
             module.build_ledger("rev-1", False, [req], fragments, CANDIDATE)
 
+    def test_invalid_observation_result_is_rejected(self):
+        req = requirement()
+        for result in ("passed", "blocked", "not-addressable", None):
+            with self.subTest(result=result):
+                invalid = observation(req, result=result)
+                with self.assertRaisesRegex(ValueError, "result must be one of"):
+                    module.build_ledger(
+                        "rev-1", False, [req],
+                        [(Path("invalid.json"), fragment("server", [invalid]))], CANDIDATE,
+                    )
+
+    def test_skip_reason_is_required_only_for_skip(self):
+        req = requirement()
+        skipped = observation(req, result="skip")
+        with self.assertRaisesRegex(ValueError, "required for a skipped result"):
+            module.build_ledger("rev-1", False, [req], [(Path("skip.json"), fragment("server", [skipped]))], CANDIDATE)
+
+        passed = observation(req, result="pass")
+        passed["skip_reason"] = "not actually skipped"
+        with self.assertRaisesRegex(ValueError, "must be null"):
+            module.build_ledger("rev-1", False, [req], [(Path("pass.json"), fragment("server", [passed]))], CANDIDATE)
+
     def test_requirements_loader_rejects_duplicate_denominator(self):
         req = requirement()
         with tempfile.TemporaryDirectory() as tmp:
