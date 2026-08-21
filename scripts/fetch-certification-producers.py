@@ -9,6 +9,7 @@ import hashlib
 import io
 import json
 import os
+import re
 import shutil
 import sys
 import urllib.request
@@ -36,12 +37,19 @@ class CredentialStrippingRedirectHandler(urllib.request.HTTPRedirectHandler):
         return redirected
 
 
-def select_artifacts(artifacts: list[dict[str, Any]], prefix: str, limit: int) -> list[dict[str, Any]]:
+def select_artifacts(
+    artifacts: list[dict[str, Any]],
+    prefix: str,
+    limit: int,
+    name_regex: str | None = None,
+) -> list[dict[str, Any]]:
+    name_pattern = re.compile(name_regex) if name_regex is not None else None
     eligible = [
         artifact for artifact in artifacts
         if not artifact.get("expired", False)
         and isinstance(artifact.get("name"), str)
         and artifact["name"].startswith(prefix)
+        and (name_pattern is None or name_pattern.fullmatch(artifact["name"]))
         and isinstance(artifact.get("archive_download_url"), str)
     ]
     eligible.sort(key=lambda artifact: artifact.get("created_at", ""), reverse=True)
@@ -175,6 +183,16 @@ def load_registry(path: Path) -> dict[str, Any]:
             value = source.get(field)
             if not isinstance(value, str) or not value:
                 raise ValueError(f"Producer {producer!r} has invalid {field}.")
+        artifact_name_regex = source.get("artifact_name_regex")
+        if artifact_name_regex is not None:
+            if not isinstance(artifact_name_regex, str) or not artifact_name_regex:
+                raise ValueError(f"Producer {producer!r} has invalid artifact_name_regex.")
+            try:
+                re.compile(artifact_name_regex)
+            except re.error as error:
+                raise ValueError(
+                    f"Producer {producer!r} has invalid artifact_name_regex: {error}"
+                ) from error
         for field in ("fragment_globs", "trusted_branches", "trusted_events"):
             value = source.get(field)
             if not (
@@ -204,7 +222,10 @@ def fetch(registry_path: Path, output: Path, token: str) -> int:
     for source in registry["sources"]:
         repository = source["repository"]
         candidates = select_artifacts(
-            list_artifacts(repository, token), source["artifact_prefix"], sys.maxsize
+            list_artifacts(repository, token),
+            source["artifact_prefix"],
+            sys.maxsize,
+            source.get("artifact_name_regex"),
         )
         artifacts: list[tuple[dict[str, Any], dict[str, Any]]] = []
         for artifact in candidates:

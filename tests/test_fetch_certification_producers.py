@@ -35,6 +35,20 @@ def test_select_artifacts_filters_expired_and_keeps_newest() -> None:
     assert [row["name"] for row in MODULE.select_artifacts(artifacts, "cert-", 1)] == ["cert-3"]
 
 
+def test_select_artifacts_applies_full_name_regex() -> None:
+    artifacts = [
+        {"name":"python-sdk-conformance-server-7-1","expired":False,"created_at":"2026-01-03","archive_download_url":"a"},
+        {"name":"python-sdk-conformance-7-1","expired":False,"created_at":"2026-01-02","archive_download_url":"b"},
+    ]
+    selected = MODULE.select_artifacts(
+        artifacts,
+        "python-sdk-conformance-",
+        10,
+        r"^python-sdk-conformance-[0-9]+-[0-9]+$",
+    )
+    assert [row["name"] for row in selected] == ["python-sdk-conformance-7-1"]
+
+
 def test_extract_fragments_accepts_only_normalized_envelopes() -> None:
     archive = _archive({
         "nested/protocol-certification-fragment.json": {"schema":MODULE.FRAGMENT_SCHEMA,"producer":{"repository":"honua-io/test"}},
@@ -202,8 +216,30 @@ def test_registry_validation_requires_typed_allowlists() -> None:
                 MODULE.load_registry(path)
 
 
+def test_registry_validation_rejects_invalid_artifact_regex() -> None:
+    source = {
+        "producer": "honua-sdk-python",
+        "repository": "honua-io/honua-sdk-python",
+        "workflow_path": ".github/workflows/conformance.yml",
+        "artifact_prefix": "python-sdk-conformance-",
+        "artifact_name_regex": "[",
+        "fragment_globs": ["**/protocol-certification-fragment.json"],
+        "trusted_branches": ["trunk"],
+        "trusted_events": ["workflow_dispatch"],
+    }
+    with tempfile.TemporaryDirectory() as directory:
+        path = Path(directory) / "registry.json"
+        path.write_text(
+            json.dumps({"schema": MODULE.REGISTRY_SCHEMA, "sources": [source]}),
+            encoding="utf-8",
+        )
+        with unittest.TestCase().assertRaisesRegex(ValueError, "artifact_name_regex"):
+            MODULE.load_registry(path)
+
+
 class FetchCertificationProducerTests(unittest.TestCase):
     test_select_artifacts = staticmethod(test_select_artifacts_filters_expired_and_keeps_newest)
+    test_select_artifacts_regex = staticmethod(test_select_artifacts_applies_full_name_regex)
     test_extract_fragments = staticmethod(test_extract_fragments_accepts_only_normalized_envelopes)
     test_fragment_destination_names = staticmethod(
         test_fragment_destination_names_resist_normalization_collisions
@@ -214,6 +250,9 @@ class FetchCertificationProducerTests(unittest.TestCase):
     test_list_artifacts = staticmethod(test_list_artifacts_paginates_until_the_last_page)
     test_registry_validation_requires_typed_allowlists = staticmethod(
         test_registry_validation_requires_typed_allowlists
+    )
+    test_registry_validation_rejects_invalid_artifact_regex = staticmethod(
+        test_registry_validation_rejects_invalid_artifact_regex
     )
     test_trusted_run = staticmethod(test_trusted_run_requires_successful_configured_workflow_and_identity)
     test_fragment_producer = staticmethod(test_fragment_producer_must_match_registry)
