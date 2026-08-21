@@ -34,6 +34,10 @@ OBSERVATION_FIELDS = (
 )
 CLOCK_SKEW_TOLERANCE = timedelta(minutes=5)
 OBSERVATION_RESULTS = frozenset({"pass", "fail", "skip"})
+ENTITLEMENT_POLICIES = {
+    "honua-pro-feature-subscriptions-v1": ("licensed-release", "api-key-protected-v1"),
+    "esri-arcgis-pro-arcpy-v1": ("windows-licensed", "anonymous-and-protected-v1"),
+}
 SHA_RE = re.compile(r"^[0-9a-f]{40}$")
 DIGEST_RE = re.compile(r"^sha256:([0-9a-f]{64})$")
 def _valid_evidence_uri(value: object, evidence_digest: object) -> bool:
@@ -264,10 +268,17 @@ def load_requirements(path: Path) -> tuple[str, bool, list[dict]]:
             raise ValueError(
                 f"{path}: requirements[{index}] licensed and entitlement_policy_revision must agree"
             )
-        if licensed and entitlement_policy not in {
-            "honua-pro-feature-subscriptions-v1", "esri-arcgis-pro-arcpy-v1",
-        }:
+        if licensed and entitlement_policy not in ENTITLEMENT_POLICIES:
             raise ValueError(f"{path}: requirements[{index}] entitlement policy is not governed")
+        if licensed:
+            expected_target, expected_auth = ENTITLEMENT_POLICIES[entitlement_policy]
+            if (
+                requirement.get("deployment_target") != expected_target
+                or requirement.get("auth_policy_revision") != expected_auth
+            ):
+                raise ValueError(
+                    f"{path}: requirements[{index}] entitlement target/auth does not match policy"
+                )
         facets = requirement["scenario_facets"]
         if not (
             isinstance(facets, list)

@@ -152,6 +152,26 @@ class CertificationAggregationTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "must agree"):
                 module.load_requirements(path)
 
+    def test_requirements_reject_mislabeled_licensed_target(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "requirements.json"
+            malformed = requirement()
+            malformed.update({
+                "licensed": True,
+                "entitlement_policy_revision": "honua-pro-feature-subscriptions-v1",
+                "deployment_target": "local-docker",
+                "auth_policy_revision": "anonymous-public-v1",
+            })
+            path.write_text(json.dumps({
+                "schema": module.REQUIREMENTS_SCHEMA,
+                "revision": "rev-1",
+                "complete": True,
+                "requirements": [malformed],
+            }), encoding="utf-8")
+
+            with self.assertRaisesRegex(ValueError, "target/auth"):
+                module.load_requirements(path)
+
     def test_requirements_reject_non_array_scenario_facets(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "requirements.json"
