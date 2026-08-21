@@ -109,6 +109,25 @@ class CertificationAggregationTests(unittest.TestCase):
                 (None, None, None),
             )
 
+    def test_equivalent_cut_offsets_share_candidate_identity(self):
+        equivalent = fragment("equivalent", [])
+        equivalent["candidate"] = {
+            **CANDIDATE,
+            "cut_at": "2026-08-20T11:00:00+02:00",
+        }
+
+        selected = module.choose_candidate(
+            [(Path("utc.json"), fragment("utc", [])), (Path("offset.json"), equivalent)],
+            (None, None, None),
+        )
+
+        self.assertEqual(SHA, selected["source_sha"])
+        self.assertEqual(DIGEST, selected["image_digest"])
+        self.assertEqual(
+            module._timestamp(CANDIDATE["cut_at"]),
+            module._timestamp(selected["cut_at"]),
+        )
+
     def test_future_candidate_cut_is_rejected_before_selection(self):
         future = fragment("future", [], generated="2026-08-20T10:06:00Z")
         future["candidate"] = {

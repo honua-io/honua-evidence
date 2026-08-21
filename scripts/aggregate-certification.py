@@ -99,7 +99,7 @@ def load_fragments(directory: Path) -> list[tuple[Path, dict]]:
 
 
 def _candidate_identity(candidate: dict) -> tuple[object, ...]:
-    return candidate.get("source_sha"), candidate.get("image_digest"), candidate.get("cut_at")
+    return candidate.get("source_sha"), candidate.get("image_digest"), _timestamp(candidate.get("cut_at"))
 
 
 def choose_candidate(fragments: list[tuple[Path, dict]], expected: tuple[str | None, str | None, str | None],
