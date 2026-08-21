@@ -23,7 +23,7 @@ LEDGER_SCHEMA = "honua.protocol-certification/v1"
 IDENTITY_FIELDS = ("surface", "operation", "canonical_client", "client_version", "deployment_target")
 POLICY_FIELDS = (
     "capability_key", "surface", "operation", "maturity", "canonical_client", "client_lane",
-    "client_version", "deployment_target", "required_tier", "licensed", "addressable_by_client",
+    "client_version", "deployment_target", "required_tier", "licensed", "entitlement_policy_revision", "addressable_by_client",
     "addressability_reason", "scenario_facets", "contract_revision", "auth_policy_revision",
     "fixture_revision", "budget_expectations",
 )
@@ -34,6 +34,10 @@ OBSERVATION_FIELDS = (
 )
 CLOCK_SKEW_TOLERANCE = timedelta(minutes=5)
 OBSERVATION_RESULTS = frozenset({"pass", "fail", "skip"})
+ENTITLEMENT_POLICIES = {
+    "honua-pro-feature-subscriptions-v1": ("licensed-release", "api-key-protected-v1"),
+    "esri-arcgis-pro-arcpy-v1": ("windows-licensed", "anonymous-and-protected-v1"),
+}
 SHA_RE = re.compile(r"^[0-9a-f]{40}$")
 DIGEST_RE = re.compile(r"^sha256:([0-9a-f]{64})$")
 def _valid_evidence_uri(value: object, evidence_digest: object) -> bool:
@@ -67,12 +71,44 @@ RECEIPT_ID_FIELDS = (
 )
 
 
+def _valid_entitlement_assertion(observation: dict, requirement: dict, entitlement: object) -> bool:
+    if not requirement.get("licensed"):
+        return entitlement is None and requirement.get("entitlement_policy_revision") is None
+    if not isinstance(entitlement, dict) or set(entitlement) != {
+        "policy_revision", "capability_key", "deployment_target", "verification",
+        "status", "checked_at", "license_fingerprint",
+    }:
+        return False
+    checked_at = _timestamp(entitlement.get("checked_at"))
+    started_at = _timestamp(observation.get("started_at"))
+    completed_at = _timestamp(observation.get("completed_at"))
+    return (
+        isinstance(requirement.get("entitlement_policy_revision"), str)
+        and entitlement.get("policy_revision") == requirement["entitlement_policy_revision"]
+        and entitlement.get("capability_key") == requirement.get("capability_key")
+        and entitlement.get("deployment_target") == requirement.get("deployment_target")
+        and entitlement.get("verification") == "live-server-capability-probe-v1"
+        and entitlement.get("status") == "active"
+        and isinstance(entitlement.get("license_fingerprint"), str)
+        and DIGEST_RE.fullmatch(entitlement["license_fingerprint"]) is not None
+        and checked_at is not None
+        and started_at is not None
+        and completed_at is not None
+        and started_at <= checked_at <= completed_at
+    )
+
+
 def _valid_receipt(observation: dict, requirement: dict) -> bool:
     receipt = observation.get("evidence_receipt")
     facet_results = observation.get("facet_results")
-    if not isinstance(receipt, dict) or set(receipt) != {
-        "schema", "identity", "result", "facets", "payload_base64",
-    } or not isinstance(facet_results, dict):
+    receipt_fields = {"schema", "identity", "result", "facets", "payload_base64"}
+    if requirement.get("licensed"):
+        receipt_fields.add("entitlement")
+    if (
+        not isinstance(receipt, dict)
+        or set(receipt) != receipt_fields
+        or not isinstance(facet_results, dict)
+    ):
         return False
     expected_identity = {
         field: (
@@ -81,6 +117,8 @@ def _valid_receipt(observation: dict, requirement: dict) -> bool:
         )
         for field in RECEIPT_ID_FIELDS
     }
+    if requirement.get("licensed"):
+        expected_identity["entitlement_policy_revision"] = requirement.get("entitlement_policy_revision")
     facets = receipt.get("facets")
     if (
         receipt.get("schema") != "honua.certification-evidence-receipt/v1"
@@ -93,6 +131,7 @@ def _valid_receipt(observation: dict, requirement: dict) -> bool:
             or facets[facet] != facet_results[facet].get("result")
             for facet in facets
         )
+        or not _valid_entitlement_assertion(observation, requirement, receipt.get("entitlement"))
         or not isinstance(receipt.get("payload_base64"), str)
     ):
         return False
@@ -221,6 +260,25 @@ def load_requirements(path: Path) -> tuple[str, bool, list[dict]]:
             raise ValueError(f"{path}: requirements[{index}] missing {', '.join(missing)}")
         if not isinstance(requirement["addressable_by_client"], bool):
             raise ValueError(f"{path}: requirements[{index}].addressable_by_client must be a boolean")
+        licensed = requirement.get("licensed")
+        entitlement_policy = requirement.get("entitlement_policy_revision")
+        if not isinstance(licensed, bool):
+            raise ValueError(f"{path}: requirements[{index}].licensed must be a boolean")
+        if licensed != isinstance(entitlement_policy, str):
+            raise ValueError(
+                f"{path}: requirements[{index}] licensed and entitlement_policy_revision must agree"
+            )
+        if licensed and entitlement_policy not in ENTITLEMENT_POLICIES:
+            raise ValueError(f"{path}: requirements[{index}] entitlement policy is not governed")
+        if licensed:
+            expected_target, expected_auth = ENTITLEMENT_POLICIES[entitlement_policy]
+            if (
+                requirement.get("deployment_target") != expected_target
+                or requirement.get("auth_policy_revision") != expected_auth
+            ):
+                raise ValueError(
+                    f"{path}: requirements[{index}] entitlement target/auth does not match policy"
+                )
         facets = requirement["scenario_facets"]
         if not (
             isinstance(facets, list)

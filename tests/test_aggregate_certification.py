@@ -32,6 +32,7 @@ def requirement(client="Rasterio", addressable=True):
         "deployment_target": "local-docker",
         "required_tier": "nightly",
         "licensed": False,
+        "entitlement_policy_revision": None,
         "addressable_by_client": addressable,
         "addressability_reason": None if addressable else "client has no operation",
         "scenario_facets": ["positive", "range-efficiency"],
@@ -76,6 +77,17 @@ def observation(req, result="pass", completed="2026-08-20T10:05:00Z"):
         "facets": facet_values,
         "payload_base64": "dGVzdA==",
     }
+    if req["licensed"]:
+        receipt["identity"]["entitlement_policy_revision"] = req["entitlement_policy_revision"]
+        receipt["entitlement"] = {
+            "policy_revision": req["entitlement_policy_revision"],
+            "capability_key": req["capability_key"],
+            "deployment_target": req["deployment_target"],
+            "verification": "live-server-capability-probe-v1",
+            "status": "active",
+            "checked_at": "2026-08-20T10:02:00Z",
+            "license_fingerprint": "sha256:" + "e" * 64,
+        }
     receipt_digest = "sha256:" + hashlib.sha256(
         json.dumps(receipt, sort_keys=True, separators=(",", ":")).encode("utf-8")
     ).hexdigest()
@@ -110,6 +122,55 @@ class CertificationAggregationTests(unittest.TestCase):
     def test_non_addressable_requirement_materializes_truthful_result(self):
         ledger = module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [requirement(addressable=False)], [], CANDIDATE)
         self.assertEqual("not-addressable", ledger["cells"][0]["result"])
+
+    def test_licensed_receipt_requires_live_entitlement_binding(self):
+        req = requirement()
+        req.update({
+            "licensed": True,
+            "entitlement_policy_revision": "honua-pro-feature-subscriptions-v1",
+            "deployment_target": "licensed-release",
+            "auth_policy_revision": "api-key-protected-v1",
+        })
+        observed = observation(req)
+        self.assertTrue(module._valid_receipt(observed, req))
+
+        observed["evidence_receipt"]["entitlement"]["deployment_target"] = "local-docker"
+        self.assertFalse(module._valid_receipt(observed, req))
+
+    def test_requirements_reject_unlicensed_entitlement_claim(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "requirements.json"
+            malformed = requirement()
+            malformed["entitlement_policy_revision"] = "honua-pro-feature-subscriptions-v1"
+            path.write_text(json.dumps({
+                "schema": module.REQUIREMENTS_SCHEMA,
+                "revision": "rev-1",
+                "complete": True,
+                "requirements": [malformed],
+            }), encoding="utf-8")
+
+            with self.assertRaisesRegex(ValueError, "must agree"):
+                module.load_requirements(path)
+
+    def test_requirements_reject_mislabeled_licensed_target(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "requirements.json"
+            malformed = requirement()
+            malformed.update({
+                "licensed": True,
+                "entitlement_policy_revision": "honua-pro-feature-subscriptions-v1",
+                "deployment_target": "local-docker",
+                "auth_policy_revision": "anonymous-public-v1",
+            })
+            path.write_text(json.dumps({
+                "schema": module.REQUIREMENTS_SCHEMA,
+                "revision": "rev-1",
+                "complete": True,
+                "requirements": [malformed],
+            }), encoding="utf-8")
+
+            with self.assertRaisesRegex(ValueError, "target/auth"):
+                module.load_requirements(path)
 
     def test_requirements_reject_non_array_scenario_facets(self):
         with tempfile.TemporaryDirectory() as directory:
