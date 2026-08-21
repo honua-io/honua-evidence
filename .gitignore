@@ -2,5 +2,6 @@ dist/
 node_modules/
 site/
 .aggregate-cache/
+data/producers/protocol-certification/fetched/
 __pycache__/
 *.pyc

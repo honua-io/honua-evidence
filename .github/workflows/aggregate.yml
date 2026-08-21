@@ -111,8 +111,12 @@ jobs:
       - name: Aggregate protocol certification observations
         env:
           REQUIREMENTS_URL: https://raw.githubusercontent.com/honua-io/honua-release/trunk/certification/protocol-certification-requirements.v1.json
+          HONUA_EVIDENCE_TOKEN: ${{ secrets.HONUA_EVIDENCE_TOKEN }}
         run: |
           set -euo pipefail
+          python3 scripts/fetch-certification-producers.py \
+            --registry config/protocol-certification-producers.v1.json \
+            --output data/producers/protocol-certification/fetched
           if ! find data/producers/protocol-certification -name '*.json' -print -quit | grep -q .; then
             echo "::notice::Protocol certification contract is wired but awaiting its first producer fragment."
             exit 0
