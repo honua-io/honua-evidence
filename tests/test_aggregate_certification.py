@@ -33,6 +33,7 @@ def requirement(client="Rasterio", addressable=True):
         "addressable_by_client": addressable,
         "addressability_reason": None if addressable else "client has no operation",
         "scenario_facets": ["positive", "range-efficiency"],
+        "budget_expectations": None,
         "contract_revision": "cog-1.0",
         "auth_policy_revision": "anonymous-v1",
         "fixture_revision": "fixture-v1",
@@ -53,6 +54,7 @@ def observation(req, result="pass", completed="2026-08-20T10:05:00Z"):
         "evidence_uri": "https://evidence.honua.io/run/1",
         "started_at": "2026-08-20T10:00:00Z",
         "completed_at": completed,
+        "budget_observations": None,
     })
     return value
 

@@ -23,7 +23,7 @@ POLICY_FIELDS = (
     "capability_key", "surface", "operation", "maturity", "canonical_client", "client_lane",
     "client_version", "deployment_target", "required_tier", "licensed", "addressable_by_client",
     "addressability_reason", "scenario_facets", "contract_revision", "auth_policy_revision",
-    "fixture_revision",
+    "fixture_revision", "budget_expectations",
 )
 OBSERVATION_FIELDS = (
     "result", "skip_reason", "source_sha", "producer_source_sha", "image_digest", "fixture_revision",
@@ -377,10 +377,12 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
                 "evidence_uri": None,
                 "started_at": None,
                 "completed_at": None,
+                "budget_observations": None,
             })
         elif matches:
             observation = matches[0][2]
             cell.update({field: observation[field] for field in OBSERVATION_FIELDS})
+            cell["budget_observations"] = observation.get("budget_observations")
         else:
             cell.update({
                 "result": "skip",
@@ -392,6 +394,7 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
                 "evidence_uri": None,
                 "started_at": None,
                 "completed_at": None,
+                "budget_observations": None,
             })
         cells.append(cell)
 
