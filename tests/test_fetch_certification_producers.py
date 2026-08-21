@@ -5,6 +5,7 @@ import io
 import json
 import tempfile
 import unittest
+import urllib.request
 import zipfile
 from pathlib import Path
 from unittest import mock
@@ -49,6 +50,32 @@ def test_fragment_destination_names_resist_normalization_collisions() -> None:
     first = MODULE.fragment_destination_name("a/b/protocol-certification-fragment.json")
     second = MODULE.fragment_destination_name("a-b/protocol-certification-fragment.json")
     assert first != second
+
+
+def test_artifact_redirect_does_not_forward_github_credentials() -> None:
+    request = urllib.request.Request(
+        "https://api.github.com/repos/honua-io/test/actions/artifacts/1/zip",
+        headers={
+            "Accept": "application/vnd.github+json",
+            "Authorization": "Bearer secret",
+            "User-Agent": "honua-test",
+            "X-GitHub-Api-Version": "2022-11-28",
+        },
+    )
+    redirected = MODULE.CredentialStrippingRedirectHandler().redirect_request(
+        request,
+        None,
+        302,
+        "Found",
+        {},
+        "https://artifactcache.actions.githubusercontent.com/results/archive.zip?sig=value",
+    )
+
+    assert redirected is not None
+    assert not redirected.has_header("Authorization")
+    assert not redirected.has_header("X-GitHub-Api-Version")
+    assert not redirected.has_header("Accept")
+    assert redirected.get_header("User-agent") == "honua-test"
 
 
 def test_list_artifacts_paginates_until_the_last_page() -> None:
@@ -180,6 +207,9 @@ class FetchCertificationProducerTests(unittest.TestCase):
     test_extract_fragments = staticmethod(test_extract_fragments_accepts_only_normalized_envelopes)
     test_fragment_destination_names = staticmethod(
         test_fragment_destination_names_resist_normalization_collisions
+    )
+    test_artifact_redirect_credentials = staticmethod(
+        test_artifact_redirect_does_not_forward_github_credentials
     )
     test_list_artifacts = staticmethod(test_list_artifacts_paginates_until_the_last_page)
     test_registry_validation_requires_typed_allowlists = staticmethod(

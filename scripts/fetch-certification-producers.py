@@ -12,6 +12,7 @@ import os
 import shutil
 import sys
 import urllib.request
+from urllib.parse import urlparse
 import zipfile
 from datetime import datetime
 from pathlib import Path
@@ -19,6 +20,20 @@ from typing import Any
 
 FRAGMENT_SCHEMA = "honua.protocol-certification-fragment/v1"
 REGISTRY_SCHEMA = "honua.protocol-certification-producers/v1"
+
+
+class CredentialStrippingRedirectHandler(urllib.request.HTTPRedirectHandler):
+    """Follow artifact redirects without leaking GitHub API credentials to storage."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):  # noqa: ANN001
+        redirected = super().redirect_request(req, fp, code, msg, headers, newurl)
+        if (
+            redirected is not None
+            and urlparse(req.full_url).hostname != urlparse(newurl).hostname
+        ):
+            for header in ("Authorization", "X-GitHub-Api-Version", "Accept"):
+                redirected.remove_header(header)
+        return redirected
 
 
 def select_artifacts(artifacts: list[dict[str, Any]], prefix: str, limit: int) -> list[dict[str, Any]]:
@@ -60,7 +75,8 @@ def request_bytes(url: str, token: str, accept: str) -> bytes:
             "X-GitHub-Api-Version": "2022-11-28",
         },
     )
-    with urllib.request.urlopen(request, timeout=60) as response:  # noqa: S310
+    opener = urllib.request.build_opener(CredentialStrippingRedirectHandler())
+    with opener.open(request, timeout=60) as response:  # noqa: S310
         return response.read()
 
 
@@ -206,7 +222,9 @@ def fetch(registry_path: Path, output: Path, token: str) -> int:
                 break
         producer_dir = output / safe_name(source["producer"])
         for artifact, run in artifacts:
-            archive = request_bytes(artifact["archive_download_url"], token, "application/octet-stream")
+            archive = request_bytes(
+                artifact["archive_download_url"], token, "application/vnd.github+json"
+            )
             for member, payload in extract_fragments(archive, source["fragment_globs"]):
                 validate_fragment_producer(payload, source["producer"], run["head_sha"])
                 destination = (
