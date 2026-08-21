@@ -151,6 +151,7 @@ def build_summary(ledger: dict) -> dict:
     return {
         "schema": "honua.protocol-certification-summary/v1",
         "requirements_revision": ledger["requirements_revision"],
+        "requirements_source_revision": ledger["requirements_source_revision"],
         "requirements_complete": ledger["requirements_complete"],
         "generated_at": ledger["generated_at"],
         "candidate": ledger["candidate"],
@@ -316,8 +317,10 @@ def choose_candidate(fragments: list[tuple[Path, dict]], expected: tuple[str | N
     return dict(newest[0])
 
 
-def build_ledger(requirements_revision: str, requirements_complete: bool, requirements: list[dict], fragments: list[tuple[Path, dict]],
+def build_ledger(requirements_revision: str, requirements_source_revision: str, requirements_complete: bool, requirements: list[dict], fragments: list[tuple[Path, dict]],
                  candidate: dict, now: datetime | None = None) -> dict:
+    if not isinstance(requirements_source_revision, str) or not SHA_RE.fullmatch(requirements_source_revision):
+        raise ValueError("requirements_source_revision must be a full 40-character SHA")
     now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
     candidate_id = _candidate_identity(candidate)
     requirement_by_key = {_identity(requirement): requirement for requirement in requirements}
@@ -509,6 +512,7 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
     return {
         "schema": LEDGER_SCHEMA,
         "requirements_revision": requirements_revision,
+        "requirements_source_revision": requirements_source_revision,
         "requirements_complete": requirements_complete,
         "generated_at": now.isoformat().replace("+00:00", "Z"),
         "candidate": candidate,
@@ -519,6 +523,7 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--requirements", required=True, type=Path)
+    parser.add_argument("--requirements-source-revision", required=True)
     parser.add_argument("--producers", default="data/producers/protocol-certification", type=Path)
     parser.add_argument("--output", default="data/protocol-certification.v1.json", type=Path)
     parser.add_argument("--summary", default="data/protocol-certification-summary.v1.json", type=Path)
@@ -532,7 +537,7 @@ def main(argv: list[str] | None = None) -> int:
     candidate = choose_candidate(fragments, (
         args.candidate_source_sha, args.candidate_image_digest, args.candidate_cut_at,
     ))
-    ledger = build_ledger(revision, complete, requirements, fragments, candidate)
+    ledger = build_ledger(revision, args.requirements_source_revision, complete, requirements, fragments, candidate)
     for cell in ledger["cells"]:
         receipt = _receipt_bytes(cell.get("evidence_receipt"))
         digest = cell.get("evidence_digest")

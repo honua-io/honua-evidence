@@ -59,7 +59,13 @@ name: aggregate
 on:
   schedule:
     - cron: "23 6 * * *" # daily
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      requirements_revision:
+        description: "Full honua-release commit SHA containing the governed certification denominator, or trunk"
+        required: false
+        default: trunk
+        type: string
   repository_dispatch:
     types: [producer-updated]
 
@@ -110,7 +116,7 @@ jobs:
 
       - name: Aggregate protocol certification observations
         env:
-          REQUIREMENTS_URL: https://raw.githubusercontent.com/honua-io/honua-release/trunk/certification/protocol-certification-requirements.v1.json
+          REQUIREMENTS_REVISION: ${{ inputs.requirements_revision || 'trunk' }}
           HONUA_EVIDENCE_TOKEN: ${{ secrets.HONUA_EVIDENCE_TOKEN }}
         run: |
           set -euo pipefail
@@ -122,10 +128,25 @@ jobs:
             exit 0
           fi
           mkdir -p .aggregate-cache
-          curl --fail --silent --show-error --location "$REQUIREMENTS_URL" \
+          if [[ "$REQUIREMENTS_REVISION" == "trunk" ]]; then
+            REQUIREMENTS_SHA="$(git ls-remote https://github.com/honua-io/honua-release.git refs/heads/trunk | cut -f1)"
+          elif [[ "$REQUIREMENTS_REVISION" =~ ^[0-9a-f]{40}$ ]]; then
+            REQUIREMENTS_SHA="$REQUIREMENTS_REVISION"
+          else
+            echo "::error::requirements_revision must be 'trunk' or a full lowercase commit SHA"
+            exit 1
+          fi
+          if [[ ! "$REQUIREMENTS_SHA" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "::error::Could not resolve an immutable honua-release requirements revision"
+            exit 1
+          fi
+          echo "Using honua-release certification requirements at $REQUIREMENTS_SHA"
+          curl --fail --silent --show-error --location \
+            "https://raw.githubusercontent.com/honua-io/honua-release/$REQUIREMENTS_SHA/certification/protocol-certification-requirements.v1.json" \
             -o .aggregate-cache/protocol-certification-requirements.v1.json
           python3 scripts/aggregate-certification.py \
-            --requirements .aggregate-cache/protocol-certification-requirements.v1.json
+            --requirements .aggregate-cache/protocol-certification-requirements.v1.json \
+            --requirements-source-revision "$REQUIREMENTS_SHA"
 
       - name: Commit refreshed protocol certification ledger if changed
         id: certification-commit

@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import importlib.util
 import hashlib
@@ -15,6 +15,7 @@ assert SPEC and SPEC.loader
 SPEC.loader.exec_module(module)
 
 SHA = "a" * 40
+REQUIREMENTS_SOURCE_SHA = "d" * 40
 DIGEST = "sha256:" + "b" * 64
 CANDIDATE = {"source_sha": SHA, "image_digest": DIGEST, "cut_at": "2026-08-20T09:00:00Z"}
 
@@ -101,12 +102,13 @@ def fragment(producer, observations, generated="2026-08-20T10:06:00Z"):
 
 class CertificationAggregationTests(unittest.TestCase):
     def test_missing_observation_materializes_skip(self):
-        ledger = module.build_ledger("rev-1", False, [requirement()], [], CANDIDATE)
+        ledger = module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [requirement()], [], CANDIDATE)
+        self.assertEqual(REQUIREMENTS_SOURCE_SHA, ledger["requirements_source_revision"])
         self.assertEqual("skip", ledger["cells"][0]["result"])
         self.assertIn("no producer evidence", ledger["cells"][0]["skip_reason"])
 
     def test_non_addressable_requirement_materializes_truthful_result(self):
-        ledger = module.build_ledger("rev-1", False, [requirement(addressable=False)], [], CANDIDATE)
+        ledger = module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [requirement(addressable=False)], [], CANDIDATE)
         self.assertEqual("not-addressable", ledger["cells"][0]["result"])
 
     def test_requirements_reject_non_array_scenario_facets(self):
@@ -143,7 +145,7 @@ class CertificationAggregationTests(unittest.TestCase):
         rasterio = requirement()
         gdal = requirement(client="GDAL", addressable=False)
         fragments = [(Path("rasterio.json"), fragment("server", [observation(rasterio)]))]
-        ledger = module.build_ledger("rev-1", False, [rasterio, gdal], fragments, CANDIDATE)
+        ledger = module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [rasterio, gdal], fragments, CANDIDATE)
 
         summary = module.build_summary(ledger)
 
@@ -155,13 +157,13 @@ class CertificationAggregationTests(unittest.TestCase):
         self.assertEqual(1, summary["supported_operation_coverage"]["passed"])
 
     def test_summary_excludes_wholly_non_addressable_operation_groups(self):
-        ledger = module.build_ledger("rev-1", False, [requirement(addressable=False)], [], CANDIDATE)
+        ledger = module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [requirement(addressable=False)], [], CANDIDATE)
         self.assertEqual(0, module.build_summary(ledger)["supported_operation_coverage"]["required"])
 
     def test_observation_cannot_override_non_addressable_policy(self):
         req = requirement(addressable=False)
         fragments = [(Path("producer.json"), fragment("server", [observation(req, result="pass")]))]
-        ledger = module.build_ledger("rev-1", False, [req], fragments, CANDIDATE)
+        ledger = module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [req], fragments, CANDIDATE)
         cell = ledger["cells"][0]
         self.assertEqual("not-addressable", cell["result"])
         self.assertIsNone(cell["evidence_uri"])
@@ -236,7 +238,7 @@ class CertificationAggregationTests(unittest.TestCase):
             (Path("b.json"), fragment("server", [tied_fail])),
         ]
         with self.assertRaisesRegex(ValueError, "tie for newest"):
-            module.build_ledger("rev-1", False, [req], fragments, CANDIDATE)
+            module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [req], fragments, CANDIDATE)
 
     def test_latest_observation_from_same_producer_wins(self):
         req = requirement()
@@ -244,7 +246,7 @@ class CertificationAggregationTests(unittest.TestCase):
             (Path("old.json"), fragment("server", [observation(req, result="fail", completed="2026-08-20T10:01:00Z")])),
             (Path("new.json"), fragment("server", [observation(req, result="pass", completed="2026-08-20T10:05:00Z")])),
         ]
-        ledger = module.build_ledger("rev-1", False, [req], fragments, CANDIDATE)
+        ledger = module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [req], fragments, CANDIDATE)
         self.assertEqual("pass", ledger["cells"][0]["result"])
 
     def test_future_observation_is_rejected_before_latest_wins(self):
@@ -255,6 +257,7 @@ class CertificationAggregationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "in the future"):
             module.build_ledger(
                 "rev-1",
+                REQUIREMENTS_SOURCE_SHA,
                 False,
                 [req],
                 [(Path("future.json"), doc)],
@@ -269,6 +272,7 @@ class CertificationAggregationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "after fragment generation"):
             module.build_ledger(
                 "rev-1",
+                REQUIREMENTS_SOURCE_SHA,
                 False,
                 [req],
                 [(Path("late.json"), doc)],
@@ -283,28 +287,28 @@ class CertificationAggregationTests(unittest.TestCase):
             (Path("b.json"), fragment("sdk", [observation(req)])),
         ]
         with self.assertRaisesRegex(ValueError, "ambiguous cross-producer"):
-            module.build_ledger("rev-1", False, [req], fragments, CANDIDATE)
+            module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [req], fragments, CANDIDATE)
 
     def test_unknown_observation_is_rejected(self):
         req = requirement()
         unknown = requirement(client="GDAL")
         fragments = [(Path("a.json"), fragment("server", [observation(unknown)]))]
         with self.assertRaisesRegex(ValueError, "do not resolve"):
-            module.build_ledger("rev-1", False, [req], fragments, CANDIDATE)
+            module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [req], fragments, CANDIDATE)
 
     def test_observation_must_match_fragment_candidate(self):
         req = requirement()
         mismatched = observation(req)
         mismatched["source_sha"] = "c" * 40
         with self.assertRaisesRegex(ValueError, "does not match fragment candidate"):
-            module.build_ledger("rev-1", False, [req], [(Path("mismatch.json"), fragment("server", [mismatched]))], CANDIDATE)
+            module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [req], [(Path("mismatch.json"), fragment("server", [mismatched]))], CANDIDATE)
 
     def test_observation_must_match_requirement_fixture(self):
         req = requirement()
         stale = observation(req)
         stale["fixture_revision"] = "stale"
         with self.assertRaisesRegex(ValueError, "fixture_revision does not match requirement"):
-            module.build_ledger("rev-1", False, [req], [(Path("stale.json"), fragment("server", [stale]))], CANDIDATE)
+            module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [req], [(Path("stale.json"), fragment("server", [stale]))], CANDIDATE)
 
     def test_observation_must_match_requirement_revisions(self):
         req = requirement()
@@ -314,7 +318,7 @@ class CertificationAggregationTests(unittest.TestCase):
                 stale[field] = "stale"
                 with self.assertRaisesRegex(ValueError, f"{field} does not match requirement"):
                     module.build_ledger(
-                        "rev-1", False, [req],
+                        "rev-1", REQUIREMENTS_SOURCE_SHA, False, [req],
                         [(Path("stale.json"), fragment("server", [stale]))], CANDIDATE,
                     )
 
@@ -326,7 +330,7 @@ class CertificationAggregationTests(unittest.TestCase):
                 invalid["evidence_uri"] = uri
                 with self.assertRaisesRegex(ValueError, "content-addressed by evidence_digest"):
                     module.build_ledger(
-                        "rev-1", False, [req],
+                        "rev-1", REQUIREMENTS_SOURCE_SHA, False, [req],
                         [(Path("invalid.json"), fragment("server", [invalid]))], CANDIDATE,
                     )
 
@@ -338,7 +342,7 @@ class CertificationAggregationTests(unittest.TestCase):
         invalid["evidence_digest"] = "sha256:../../scripts/validate-site.py"
         with self.assertRaisesRegex(ValueError, "must not contain evidence"):
             module.build_ledger(
-                "rev-1", False, [req],
+                "rev-1", REQUIREMENTS_SOURCE_SHA, False, [req],
                 [(Path("invalid.json"), fragment("server", [invalid]))], CANDIDATE,
             )
 
@@ -359,7 +363,7 @@ class CertificationAggregationTests(unittest.TestCase):
             with self.subTest(invalid=invalid):
                 with self.assertRaisesRegex(ValueError, "facet_results"):
                     module.build_ledger(
-                        "rev-1", False, [req],
+                        "rev-1", REQUIREMENTS_SOURCE_SHA, False, [req],
                         [(Path("invalid.json"), fragment("server", [invalid]))], CANDIDATE,
                     )
 
@@ -384,7 +388,7 @@ class CertificationAggregationTests(unittest.TestCase):
             (Path("current.json"), fragment("current", [])),
         ]
 
-        ledger = module.build_ledger("rev-1", False, [req], fragments, CANDIDATE)
+        ledger = module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [req], fragments, CANDIDATE)
         self.assertEqual("skip", ledger["cells"][0]["result"])
 
     def test_fragment_loader_rejects_non_string_candidate_identity(self):
@@ -403,7 +407,7 @@ class CertificationAggregationTests(unittest.TestCase):
                 invalid = observation(req, result=result)
                 with self.assertRaisesRegex(ValueError, "result must be one of"):
                     module.build_ledger(
-                        "rev-1", False, [req],
+                        "rev-1", REQUIREMENTS_SOURCE_SHA, False, [req],
                         [(Path("invalid.json"), fragment("server", [invalid]))], CANDIDATE,
                     )
 
@@ -411,12 +415,12 @@ class CertificationAggregationTests(unittest.TestCase):
         req = requirement()
         skipped = observation(req, result="skip")
         with self.assertRaisesRegex(ValueError, "required for a skipped result"):
-            module.build_ledger("rev-1", False, [req], [(Path("skip.json"), fragment("server", [skipped]))], CANDIDATE)
+            module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [req], [(Path("skip.json"), fragment("server", [skipped]))], CANDIDATE)
 
         passed = observation(req, result="pass")
         passed["skip_reason"] = "not actually skipped"
         with self.assertRaisesRegex(ValueError, "must be null"):
-            module.build_ledger("rev-1", False, [req], [(Path("pass.json"), fragment("server", [passed]))], CANDIDATE)
+            module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [req], [(Path("pass.json"), fragment("server", [passed]))], CANDIDATE)
 
     def test_requirements_loader_rejects_duplicate_denominator(self):
         req = requirement()
@@ -447,3 +451,5 @@ class CertificationAggregationTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
