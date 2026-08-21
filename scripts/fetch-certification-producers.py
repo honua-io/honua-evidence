@@ -110,7 +110,7 @@ def trusted_run(run: dict[str, Any], artifact: dict[str, Any], source: dict[str,
         and run.get("conclusion") == "success"
         and isinstance(run.get("run_attempt"), int)
         and run["run_attempt"] > 0
-        and artifact_created_at >= run_started_at
+        and artifact_created_at > run_started_at
         and run.get("event") in source["trusted_events"]
         and run.get("head_branch") in source["trusted_branches"]
         and isinstance(path, str)

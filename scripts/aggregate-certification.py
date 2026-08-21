@@ -158,6 +158,7 @@ def load_requirements(path: Path) -> tuple[str, bool, list[dict]]:
         if not (
             isinstance(facets, list)
             and all(isinstance(facet, str) and facet for facet in facets)
+            and len(set(facets)) == len(facets)
         ):
             raise ValueError(
                 f"{path}: requirements[{index}].scenario_facets must be an array of non-empty strings"

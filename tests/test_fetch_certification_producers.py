@@ -95,6 +95,11 @@ def test_trusted_run_requires_successful_configured_workflow_and_identity() -> N
         {**artifact, "created_at": "2026-08-20T09:59:59Z"},
         source,
     )
+    assert not MODULE.trusted_run(
+        run,
+        {**artifact, "created_at": run["run_started_at"]},
+        source,
+    )
 
 
 def test_fragment_producer_must_match_registry() -> None:
