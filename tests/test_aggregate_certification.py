@@ -371,6 +371,16 @@ class CertificationAggregationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "full 40-character SHA"):
             module.choose_candidate([], ("abc", DIGEST, CANDIDATE["cut_at"]))
 
+    def test_cli_rejects_empty_required_candidate_values_before_loading_files(self):
+        with self.assertRaises(SystemExit):
+            module.main([
+                "--requirements", "missing.json",
+                "--requirements-source-revision", REQUIREMENTS_SOURCE_SHA,
+                "--candidate-source-sha", "",
+                "--candidate-image-digest", "",
+                "--candidate-cut-at", "",
+            ])
+
     def test_observation_from_older_candidate_is_ignored(self):
         req = requirement()
         unknown = requirement(client="GDAL")

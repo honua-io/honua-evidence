@@ -532,6 +532,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--candidate-cut-at", required=True)
     args = parser.parse_args(argv)
 
+    if not all((args.candidate_source_sha, args.candidate_image_digest, args.candidate_cut_at)):
+        parser.error("candidate source SHA, image digest, and cut must all be nonempty")
+
     revision, complete, requirements = load_requirements(args.requirements)
     fragments = load_fragments(args.producers)
     candidate = choose_candidate(fragments, (
