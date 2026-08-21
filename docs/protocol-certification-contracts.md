@@ -45,3 +45,8 @@ Evidence producers push immutable fragments using this envelope:
 The output is `data/protocol-certification.v1.json`, consumed by `honua-release`'s
 `gate-protocol-certification` workflow. Release evaluation binds it to the exact candidate and fails on every
 required skip, stale licensed run, mismatched digest, or pre-cut observation.
+
+The aggregator also publishes `data/protocol-certification-summary.v1.json`. It reports result counts by
+surface, canonical client, deployment target, and required tier; scenario-facet counts; supported-operation
+coverage; and per-client operation depth. These metrics are diagnostic only: percentages never override a
+failed, skipped, stale, mismatched, or otherwise invalid required cell in the release ledger.

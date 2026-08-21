@@ -74,6 +74,21 @@ class CertificationAggregationTests(unittest.TestCase):
         ledger = module.build_ledger("rev-1", False, [requirement(addressable=False)], [], CANDIDATE)
         self.assertEqual("not-addressable", ledger["cells"][0]["result"])
 
+    def test_summary_publishes_dimensions_and_scenario_depth(self):
+        rasterio = requirement()
+        gdal = requirement(client="GDAL", addressable=False)
+        fragments = [(Path("rasterio.json"), fragment("server", [observation(rasterio)]))]
+        ledger = module.build_ledger("rev-1", False, [rasterio, gdal], fragments, CANDIDATE)
+
+        summary = module.build_summary(ledger)
+
+        self.assertEqual(module._result_counts(ledger["cells"]), summary["overall"])
+        self.assertEqual(2, summary["by_surface"]["cog"]["required"])
+        self.assertEqual(1, summary["by_client"]["Rasterio"]["passed"])
+        self.assertEqual(1, summary["by_client"]["GDAL"]["not_addressable"])
+        self.assertEqual(2, summary["scenario_facets"]["positive"]["required"])
+        self.assertEqual(1, summary["supported_operation_coverage"]["passed"])
+
     def test_observation_cannot_override_non_addressable_policy(self):
         req = requirement(addressable=False)
         fragments = [(Path("producer.json"), fragment("server", [observation(req, result="pass")]))]

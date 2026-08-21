@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+from collections import defaultdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -31,6 +32,78 @@ CLOCK_SKEW_TOLERANCE = timedelta(minutes=5)
 OBSERVATION_RESULTS = frozenset({"pass", "fail", "skip"})
 SHA_RE = re.compile(r"^[0-9a-f]{40}$")
 DIGEST_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
+
+
+def _result_counts(rows: list[dict]) -> dict[str, int]:
+    return {
+        "required": len(rows),
+        "required_addressable": sum(bool(row.get("addressable_by_client")) for row in rows),
+        "passed": sum(row.get("result") == "pass" for row in rows),
+        "failed": sum(row.get("result") == "fail" for row in rows),
+        "skipped": sum(row.get("result") == "skip" for row in rows),
+        "not_addressable": sum(row.get("result") == "not-addressable" for row in rows),
+    }
+
+
+def _dimension_counts(cells: list[dict], field: str) -> dict[str, dict[str, int]]:
+    grouped: dict[str, list[dict]] = defaultdict(list)
+    for cell in cells:
+        grouped[str(cell[field])].append(cell)
+    return {key: _result_counts(grouped[key]) for key in sorted(grouped)}
+
+
+def build_summary(ledger: dict) -> dict:
+    cells = ledger["cells"]
+    facet_rows: dict[str, list[dict]] = defaultdict(list)
+    client_operations: dict[str, set[tuple[str, str]]] = defaultdict(set)
+    client_passed_operations: dict[str, set[tuple[str, str]]] = defaultdict(set)
+    supported_groups: dict[tuple[str, str, str], list[dict]] = defaultdict(list)
+
+    for cell in cells:
+        for facet in cell["scenario_facets"]:
+            facet_rows[facet].append(cell)
+        operation = (cell["surface"], cell["operation"])
+        client_operations[cell["canonical_client"]].add(operation)
+        if cell["result"] == "pass":
+            client_passed_operations[cell["canonical_client"]].add(operation)
+        if cell["maturity"] in {"supported", "deprecated"}:
+            supported_groups[(cell["surface"], cell["operation"], cell["deployment_target"])].append(cell)
+
+    supported_passed = sum(
+        bool(rows)
+        and any(row["addressable_by_client"] for row in rows)
+        and all(row["result"] == "pass" for row in rows if row["addressable_by_client"])
+        for rows in supported_groups.values()
+    )
+    supported_required = len(supported_groups)
+
+    return {
+        "schema": "honua.protocol-certification-summary/v1",
+        "requirements_revision": ledger["requirements_revision"],
+        "requirements_complete": ledger["requirements_complete"],
+        "generated_at": ledger["generated_at"],
+        "candidate": ledger["candidate"],
+        "overall": _result_counts(cells),
+        "by_surface": _dimension_counts(cells, "surface"),
+        "by_client": _dimension_counts(cells, "canonical_client"),
+        "by_target": _dimension_counts(cells, "deployment_target"),
+        "by_required_tier": _dimension_counts(cells, "required_tier"),
+        "scenario_facets": {
+            facet: _result_counts(facet_rows[facet]) for facet in sorted(facet_rows)
+        },
+        "supported_operation_coverage": {
+            "required": supported_required,
+            "passed": supported_passed,
+            "percent": round(100 * supported_passed / supported_required, 2) if supported_required else 0.0,
+        },
+        "canonical_client_operation_depth": {
+            client: {
+                "required_operations": len(client_operations[client]),
+                "passed_operations": len(client_passed_operations[client]),
+            }
+            for client in sorted(client_operations)
+        },
+    }
 
 
 def _timestamp(value: object) -> datetime | None:
@@ -277,6 +350,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--requirements", required=True, type=Path)
     parser.add_argument("--producers", default="data/producers/protocol-certification", type=Path)
     parser.add_argument("--output", default="data/protocol-certification.v1.json", type=Path)
+    parser.add_argument("--summary", default="data/protocol-certification-summary.v1.json", type=Path)
     parser.add_argument("--candidate-source-sha")
     parser.add_argument("--candidate-image-digest")
     parser.add_argument("--candidate-cut-at")
@@ -290,7 +364,11 @@ def main(argv: list[str] | None = None) -> int:
     ledger = build_ledger(revision, complete, requirements, fragments, candidate)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(ledger, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    summary = build_summary(ledger)
+    args.summary.parent.mkdir(parents=True, exist_ok=True)
+    args.summary.write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(f"wrote {args.output}: {len(ledger['cells'])} required cell(s), candidate {candidate['source_sha']}")
+    print(f"wrote {args.summary}: dimensional and scenario-depth coverage")
     return 0
 
 
