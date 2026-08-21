@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -20,6 +21,7 @@ POLICY_FIELDS = (
     "capability_key", "surface", "operation", "maturity", "canonical_client", "client_lane",
     "client_version", "deployment_target", "required_tier", "licensed", "addressable_by_client",
     "addressability_reason", "scenario_facets", "contract_revision", "auth_policy_revision",
+    "fixture_revision",
 )
 OBSERVATION_FIELDS = (
     "result", "skip_reason", "source_sha", "image_digest", "fixture_revision", "evidence_uri",
@@ -27,6 +29,8 @@ OBSERVATION_FIELDS = (
 )
 CLOCK_SKEW_TOLERANCE = timedelta(minutes=5)
 OBSERVATION_RESULTS = frozenset({"pass", "fail", "skip"})
+SHA_RE = re.compile(r"^[0-9a-f]{40}$")
+DIGEST_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
 
 
 def _timestamp(value: object) -> datetime | None:
@@ -88,8 +92,12 @@ def load_fragments(directory: Path) -> list[tuple[Path, dict]]:
         if _timestamp(document.get("generated_at")) is None:
             raise ValueError(f"{path}: generated_at must be a timezone-aware ISO-8601 timestamp")
         candidate = document.get("candidate")
-        if not isinstance(candidate, dict) or not all(candidate.get(field) for field in ("source_sha", "image_digest", "cut_at")):
+        if not isinstance(candidate, dict):
             raise ValueError(f"{path}: candidate must contain source_sha, image_digest, and cut_at")
+        if not isinstance(candidate.get("source_sha"), str) or not SHA_RE.fullmatch(candidate["source_sha"]):
+            raise ValueError(f"{path}: candidate.source_sha must be a 40-character lowercase hex SHA")
+        if not isinstance(candidate.get("image_digest"), str) or not DIGEST_RE.fullmatch(candidate["image_digest"]):
+            raise ValueError(f"{path}: candidate.image_digest must be a sha256 digest")
         if _timestamp(candidate.get("cut_at")) is None:
             raise ValueError(f"{path}: candidate.cut_at must be a timezone-aware ISO-8601 timestamp")
         observations = document.get("observations")
@@ -145,6 +153,7 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
                  candidate: dict, now: datetime | None = None) -> dict:
     now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
     candidate_id = _candidate_identity(candidate)
+    requirement_keys = {_identity(requirement) for requirement in requirements}
     by_producer_key: dict[
         tuple[str, tuple[object, ...]],
         list[tuple[datetime, Path, dict]],
@@ -164,6 +173,12 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
             missing = [field for field in (*IDENTITY_FIELDS, *OBSERVATION_FIELDS) if field not in observation]
             if missing:
                 raise ValueError(f"{path}: observations[{index}] missing {', '.join(missing)}")
+            observation_key = _identity(observation)
+            if observation_key not in requirement_keys:
+                raise ValueError(
+                    f"observations do not resolve to requirements: "
+                    f"{(observation_key, producer, str(path))}"
+                )
             result = observation.get("result")
             if result not in OBSERVATION_RESULTS:
                 raise ValueError(
@@ -206,12 +221,6 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
     observations_by_key: dict[tuple[object, ...], list[tuple[str, Path, dict]]] = {}
     for (producer, key), (_, path, observation) in newest_by_producer_key.items():
         observations_by_key.setdefault(key, []).append((producer, path, observation))
-
-    requirement_keys = {_identity(requirement) for requirement in requirements}
-    unknown = sorted((key, producer, str(path)) for key, rows in observations_by_key.items() if key not in requirement_keys
-                     for producer, path, _ in rows)
-    if unknown:
-        raise ValueError("observations do not resolve to requirements: " + "; ".join(map(str, unknown)))
 
     cells: list[dict] = []
     for requirement in requirements:

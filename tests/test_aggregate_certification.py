@@ -35,6 +35,7 @@ def requirement(client="Rasterio", addressable=True):
         "scenario_facets": ["positive", "range-efficiency"],
         "contract_revision": "cog-1.0",
         "auth_policy_revision": "anonymous-v1",
+        "fixture_revision": "fixture-v1",
     }
 
 
@@ -206,6 +207,32 @@ class CertificationAggregationTests(unittest.TestCase):
         fragments = [(Path("a.json"), fragment("server", [observation(unknown)]))]
         with self.assertRaisesRegex(ValueError, "do not resolve"):
             module.build_ledger("rev-1", False, [req], fragments, CANDIDATE)
+
+    def test_unknown_observation_from_older_candidate_is_rejected(self):
+        req = requirement()
+        unknown = requirement(client="GDAL")
+        old = fragment("old", [observation(unknown)])
+        old["candidate"] = {
+            "source_sha": "c" * 40,
+            "image_digest": "sha256:" + "d" * 64,
+            "cut_at": "2026-08-19T09:00:00Z",
+        }
+        fragments = [
+            (Path("old.json"), old),
+            (Path("current.json"), fragment("current", [])),
+        ]
+
+        with self.assertRaisesRegex(ValueError, "do not resolve"):
+            module.build_ledger("rev-1", False, [req], fragments, CANDIDATE)
+
+    def test_fragment_loader_rejects_non_string_candidate_identity(self):
+        document = fragment("server", [])
+        document["candidate"] = {**CANDIDATE, "source_sha": [SHA]}
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "fragment.json"
+            path.write_text(json.dumps(document), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "candidate.source_sha"):
+                module.load_fragments(Path(tmp))
 
     def test_invalid_observation_result_is_rejected(self):
         req = requirement()
