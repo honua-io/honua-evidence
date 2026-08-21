@@ -8,6 +8,7 @@ explicit skips, never absent rows or fabricated passes.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 from urllib.parse import urlparse
@@ -27,7 +28,7 @@ POLICY_FIELDS = (
 )
 OBSERVATION_FIELDS = (
     "result", "skip_reason", "source_sha", "producer_source_sha", "image_digest", "fixture_revision",
-    "contract_revision", "auth_policy_revision", "evidence_uri", "evidence_digest", "facet_results",
+    "contract_revision", "auth_policy_revision", "evidence_uri", "evidence_digest", "evidence_receipt", "facet_results",
     "started_at", "completed_at",
 )
 CLOCK_SKEW_TOLERANCE = timedelta(minutes=5)
@@ -50,6 +51,12 @@ def _valid_evidence_uri(value: object, evidence_digest: object) -> bool:
         return False
     match = re.fullmatch(r"/data/sha256/([0-9a-f]{64})", parsed.path)
     return match is not None and evidence_digest == f"sha256:{match.group(1)}"
+
+
+def _receipt_bytes(value: object) -> bytes | None:
+    if not isinstance(value, dict):
+        return None
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
 
 
 def _result_counts(rows: list[dict]) -> dict[str, int]:
@@ -208,7 +215,7 @@ def load_fragments(directory: Path) -> list[tuple[Path, dict]]:
         if not isinstance(observations, list):
             raise ValueError(f"{path}: observations must be an array")
         operation_scope = document.get("operation_scope")
-        if isinstance(operation_scope, dict) and operation_scope.get("complete") is not True:
+        if not isinstance(operation_scope, dict) or operation_scope.get("complete") is not True:
             raise ValueError(f"{path}: operation_scope must be complete before observations can be aggregated")
         fragments.append((path, document))
     return fragments
@@ -328,6 +335,11 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
                 if not _valid_evidence_uri(evidence_uri, evidence_digest):
                     raise ValueError(
                         f"{path}: observations[{index}].evidence_uri must be content-addressed by evidence_digest"
+                    )
+                receipt = _receipt_bytes(observation.get("evidence_receipt"))
+                if receipt is None or f"sha256:{hashlib.sha256(receipt).hexdigest()}" != evidence_digest:
+                    raise ValueError(
+                        f"{path}: observations[{index}].evidence_receipt bytes do not match evidence_digest"
                     )
                 if not isinstance(evidence_digest, str) or not DIGEST_RE.fullmatch(evidence_digest):
                     raise ValueError(
@@ -462,6 +474,14 @@ def main(argv: list[str] | None = None) -> int:
         args.candidate_source_sha, args.candidate_image_digest, args.candidate_cut_at,
     ))
     ledger = build_ledger(revision, complete, requirements, fragments, candidate)
+    for cell in ledger["cells"]:
+        receipt = _receipt_bytes(cell.get("evidence_receipt"))
+        digest = cell.get("evidence_digest")
+        if receipt is None or not isinstance(digest, str):
+            continue
+        receipt_path = args.output.parent / "sha256" / digest[7:]
+        receipt_path.parent.mkdir(parents=True, exist_ok=True)
+        receipt_path.write_bytes(receipt)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(ledger, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     summary = build_summary(ledger)

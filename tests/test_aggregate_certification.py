@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import hashlib
 import json
 import tempfile
 import unittest
@@ -41,6 +42,10 @@ def requirement(client="Rasterio", addressable=True):
 
 
 def observation(req, result="pass", completed="2026-08-20T10:05:00Z"):
+    receipt = {"format": "test-receipt/v1", "result": result}
+    receipt_digest = "sha256:" + hashlib.sha256(
+        json.dumps(receipt, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
     value = {field: req[field] for field in module.IDENTITY_FIELDS}
     value.update({
         "result": result,
@@ -51,10 +56,11 @@ def observation(req, result="pass", completed="2026-08-20T10:05:00Z"):
         "fixture_revision": "fixture-v1",
         "contract_revision": req["contract_revision"],
         "auth_policy_revision": req["auth_policy_revision"],
-        "evidence_uri": "https://evidence.honua.io/data/sha256/" + "e" * 64,
-        "evidence_digest": "sha256:" + "e" * 64,
+        "evidence_uri": "https://evidence.honua.io/data/sha256/" + receipt_digest[7:],
+        "evidence_digest": receipt_digest,
+        "evidence_receipt": receipt,
         "facet_results": {
-            facet: {"result": "pass", "evidence_digest": "sha256:" + "e" * 64}
+            facet: {"result": "pass", "evidence_digest": receipt_digest}
             for facet in req["scenario_facets"]
         },
         "started_at": "2026-08-20T10:00:00Z",
@@ -70,6 +76,7 @@ def fragment(producer, observations, generated="2026-08-20T10:06:00Z"):
         "producer": producer,
         "generated_at": generated,
         "candidate": CANDIDATE,
+        "operation_scope": {"complete": True},
         "observations": observations,
     }
 
