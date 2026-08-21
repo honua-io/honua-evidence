@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+from urllib.parse import urlparse
 from collections import defaultdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -33,6 +34,7 @@ CLOCK_SKEW_TOLERANCE = timedelta(minutes=5)
 OBSERVATION_RESULTS = frozenset({"pass", "fail", "skip"})
 SHA_RE = re.compile(r"^[0-9a-f]{40}$")
 DIGEST_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
+TRUSTED_EVIDENCE_HOSTS = frozenset({"github.com", "evidence.honua.io"})
 
 
 def _result_counts(rows: list[dict]) -> dict[str, int]:
@@ -293,6 +295,19 @@ def build_ledger(requirements_revision: str, requirements_complete: bool, requir
                 raise ValueError(
                     f"{path}: observations[{index}].result must be one of {sorted(OBSERVATION_RESULTS)}, got {result!r}"
                 )
+            if result == "pass":
+                evidence_uri = observation.get("evidence_uri")
+                parsed_uri = urlparse(evidence_uri) if isinstance(evidence_uri, str) else None
+                if (
+                    parsed_uri is None
+                    or parsed_uri.scheme != "https"
+                    or parsed_uri.hostname not in TRUSTED_EVIDENCE_HOSTS
+                    or parsed_uri.username is not None
+                    or parsed_uri.password is not None
+                ):
+                    raise ValueError(
+                        f"{path}: observations[{index}].evidence_uri must be a trusted HTTPS receipt"
+                    )
             skip_reason = observation.get("skip_reason")
             if result == "skip" and (not isinstance(skip_reason, str) or not skip_reason.strip()):
                 raise ValueError(f"{path}: observations[{index}].skip_reason is required for a skipped result")

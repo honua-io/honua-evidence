@@ -62,6 +62,49 @@ def request_bytes(url: str, token: str, accept: str) -> bytes:
         return response.read()
 
 
+def list_artifacts(repository: str, token: str) -> list[dict[str, Any]]:
+    artifacts: list[dict[str, Any]] = []
+    page = 1
+    while True:
+        listing = json.loads(request_bytes(
+            f"https://api.github.com/repos/{repository}/actions/artifacts?per_page=100&page={page}",
+            token,
+            "application/vnd.github+json",
+        ))
+        batch = listing.get("artifacts", [])
+        if not isinstance(batch, list):
+            raise ValueError(f"Invalid artifact listing for {repository}.")
+        artifacts.extend(batch)
+        if len(batch) < 100:
+            return artifacts
+        page += 1
+
+
+def trusted_run(run: dict[str, Any], artifact: dict[str, Any], source: dict[str, Any]) -> bool:
+    repository = source["repository"]
+    artifact_run = artifact.get("workflow_run")
+    path = run.get("path")
+    return (
+        isinstance(artifact_run, dict)
+        and artifact_run.get("id") == run.get("id")
+        and artifact_run.get("head_sha") == run.get("head_sha")
+        and run.get("status") == "completed"
+        and run.get("conclusion") == "success"
+        and run.get("event") in source["trusted_events"]
+        and run.get("head_branch") in source["trusted_branches"]
+        and isinstance(path, str)
+        and path.split("@", 1)[0] == source["workflow_path"]
+        and run.get("head_repository", {}).get("full_name") == repository
+    )
+
+
+def validate_fragment_producer(payload: dict[str, Any], expected: str) -> None:
+    if payload.get("producer") != expected:
+        raise ValueError(
+            f"Fragment producer {payload.get('producer')!r} does not match registry producer {expected!r}."
+        )
+
+
 def safe_name(value: str) -> str:
     return "".join(character if character.isalnum() or character in "._-" else "-" for character in value)
 
@@ -78,24 +121,39 @@ def fetch(registry_path: Path, output: Path, token: str) -> int:
         repository = source["repository"]
         if not repository.startswith("honua-io/") or repository.count("/") != 1:
             raise ValueError(f"Untrusted producer repository: {repository!r}")
-        listing = json.loads(request_bytes(
-            f"https://api.github.com/repos/{repository}/actions/artifacts?per_page=100",
-            token,
-            "application/vnd.github+json",
-        ))
-        artifacts = select_artifacts(
-            listing.get("artifacts", []), source["artifact_prefix"], int(source.get("max_artifacts", 10))
+        for field in ("workflow_path", "trusted_branches", "trusted_events"):
+            if not source.get(field):
+                raise ValueError(f"Producer {source['producer']!r} is missing {field}.")
+        candidates = select_artifacts(
+            list_artifacts(repository, token), source["artifact_prefix"], sys.maxsize
         )
+        artifacts: list[tuple[dict[str, Any], dict[str, Any]]] = []
+        for artifact in candidates:
+            workflow_run = artifact.get("workflow_run")
+            if not isinstance(workflow_run, dict) or not isinstance(workflow_run.get("id"), int):
+                continue
+            run = json.loads(request_bytes(
+                f"https://api.github.com/repos/{repository}/actions/runs/{workflow_run['id']}",
+                token,
+                "application/vnd.github+json",
+            ))
+            if trusted_run(run, artifact, source):
+                artifacts.append((artifact, run))
+            if len(artifacts) >= int(source.get("max_artifacts", 10)):
+                break
         producer_dir = output / safe_name(source["producer"])
-        for artifact in artifacts:
+        for artifact, run in artifacts:
             archive = request_bytes(artifact["archive_download_url"], token, "application/octet-stream")
             for member, payload in extract_fragments(archive, source["fragment_globs"]):
+                validate_fragment_producer(payload, source["producer"])
                 destination = producer_dir / str(artifact["id"]) / f"{safe_name(member)}.json"
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 destination.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
                 manifest.append({
                     "producer": source["producer"], "repository": repository,
                     "artifact_id": artifact["id"], "artifact_name": artifact["name"],
+                    "workflow_run_id": run["id"], "workflow_path": source["workflow_path"],
+                    "head_branch": run["head_branch"], "head_sha": run["head_sha"],
                     "created_at": artifact.get("created_at"), "member": member,
                     "destination": destination.as_posix(),
                 })

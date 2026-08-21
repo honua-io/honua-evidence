@@ -256,6 +256,18 @@ class CertificationAggregationTests(unittest.TestCase):
                         [(Path("stale.json"), fragment("server", [stale]))], CANDIDATE,
                     )
 
+    def test_passing_observation_requires_trusted_receipt_uri(self):
+        req = requirement()
+        for uri in (None, "", "file:///tmp/evidence.json", "https://attacker.invalid/evidence"):
+            with self.subTest(uri=uri):
+                invalid = observation(req)
+                invalid["evidence_uri"] = uri
+                with self.assertRaisesRegex(ValueError, "trusted HTTPS receipt"):
+                    module.build_ledger(
+                        "rev-1", False, [req],
+                        [(Path("invalid.json"), fragment("server", [invalid]))], CANDIDATE,
+                    )
+
     def test_explicit_candidate_is_validated(self):
         with self.assertRaisesRegex(ValueError, "full 40-character SHA"):
             module.choose_candidate([], ("abc", DIGEST, CANDIDATE["cut_at"]))

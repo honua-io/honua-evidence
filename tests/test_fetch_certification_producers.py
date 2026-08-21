@@ -40,3 +40,48 @@ def test_extract_fragments_accepts_only_normalized_envelopes() -> None:
         "nested/protocol-certification-fragment.json",
         {"schema":MODULE.FRAGMENT_SCHEMA,"producer":{"repository":"honua-io/test"}},
     )]
+
+
+def test_list_artifacts_paginates_until_the_last_page(monkeypatch) -> None:
+    calls = []
+
+    def request(url, _token, _accept):
+        calls.append(url)
+        rows = [{"id": index} for index in range(100)] if url.endswith("&page=1") else [{"id": 100}]
+        return json.dumps({"artifacts": rows}).encode()
+
+    monkeypatch.setattr(MODULE, "request_bytes", request)
+    assert len(MODULE.list_artifacts("honua-io/test", "token")) == 101
+    assert len(calls) == 2
+
+
+def test_trusted_run_requires_successful_configured_workflow_and_identity() -> None:
+    source = {
+        "repository": "honua-io/test",
+        "workflow_path": ".github/workflows/certify.yml",
+        "trusted_branches": ["trunk"],
+        "trusted_events": ["schedule"],
+    }
+    run = {
+        "id": 7,
+        "status": "completed",
+        "conclusion": "success",
+        "event": "schedule",
+        "head_branch": "trunk",
+        "head_sha": "a" * 40,
+        "path": ".github/workflows/certify.yml",
+        "head_repository": {"full_name": "honua-io/test"},
+    }
+    artifact = {"workflow_run": {"id": 7, "head_sha": "a" * 40}}
+    assert MODULE.trusted_run(run, artifact, source)
+    assert not MODULE.trusted_run({**run, "conclusion": "failure"}, artifact, source)
+    assert not MODULE.trusted_run({**run, "head_branch": "feature"}, artifact, source)
+
+
+def test_fragment_producer_must_match_registry() -> None:
+    try:
+        MODULE.validate_fragment_producer({"producer": "impersonator"}, "honua-server-cng")
+    except ValueError as error:
+        assert "does not match" in str(error)
+    else:
+        raise AssertionError("producer mismatch was accepted")
