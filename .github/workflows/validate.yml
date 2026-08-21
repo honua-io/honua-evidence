@@ -38,8 +38,21 @@ jobs:
       - name: Unit tests (ingestion + freshness computation)
         run: python3 -m unittest discover -s tests -v
 
-      - name: Protocol certification aggregator contract
-        run: python3 scripts/aggregate-certification.py --help > /dev/null
+      - name: Validate committed protocol certification fragments
+        env:
+          REQUIREMENTS_URL: https://raw.githubusercontent.com/honua-io/honua-release/trunk/certification/protocol-certification-requirements.v1.json
+        run: |
+          set -euo pipefail
+          if ! find data/producers/protocol-certification -name '*.json' -print -quit | grep -q .; then
+            echo "::notice::No committed protocol certification fragments to validate."
+            exit 0
+          fi
+          mkdir -p .validate-cache
+          curl --fail --silent --show-error --location "$REQUIREMENTS_URL" \
+            -o .validate-cache/protocol-certification-requirements.v1.json
+          python3 scripts/aggregate-certification.py \
+            --requirements .validate-cache/protocol-certification-requirements.v1.json \
+            --output .validate-cache/protocol-certification.v1.json
 
       - name: Aggregate drift check
         env:
