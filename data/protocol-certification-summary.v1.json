@@ -155,10 +155,10 @@
     "Honua SDK Python": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 0,
+      "passed": 10,
       "required": 84,
       "required_addressable": 84,
-      "skipped": 84
+      "skipped": 74
     },
     "Honua server public protocol integration harness": {
       "failed": 0,
@@ -453,18 +453,18 @@
     "nightly": {
       "failed": 4,
       "not_addressable": 0,
-      "passed": 45,
+      "passed": 50,
       "required": 2091,
       "required_addressable": 2091,
-      "skipped": 2042
+      "skipped": 2037
     },
     "pr": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 18,
+      "passed": 23,
       "required": 23,
       "required_addressable": 23,
-      "skipped": 5
+      "skipped": 0
     },
     "release": {
       "failed": 0,
@@ -647,18 +647,18 @@
     "geoservices-featureserver": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 0,
+      "passed": 6,
       "required": 6,
       "required_addressable": 6,
-      "skipped": 6
+      "skipped": 0
     },
     "geoservices-root": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 0,
+      "passed": 1,
       "required": 1,
       "required_addressable": 1,
-      "skipped": 1
+      "skipped": 0
     },
     "gp-server": {
       "failed": 0,
@@ -823,10 +823,10 @@
     "ogc-api-features": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 0,
+      "passed": 2,
       "required": 5,
       "required_addressable": 5,
-      "skipped": 5
+      "skipped": 3
     },
     "ogc-api-features-1-0": {
       "failed": 0,
@@ -847,10 +847,10 @@
     "ogc-api-processes": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 0,
+      "passed": 1,
       "required": 3,
       "required_addressable": 3,
-      "skipped": 3
+      "skipped": 2
     },
     "ogc-api-records": {
       "failed": 0,
@@ -2057,10 +2057,10 @@
     "local-docker": {
       "failed": 4,
       "not_addressable": 3,
-      "passed": 63,
+      "passed": 73,
       "required": 1575,
       "required_addressable": 1572,
-      "skipped": 1505
+      "skipped": 1495
     },
     "source-test-host": {
       "failed": 0,
@@ -2170,7 +2170,7 @@
       "required_operations": 8
     },
     "Honua SDK Python": {
-      "passed_operations": 0,
+      "passed_operations": 10,
       "required_operations": 84
     },
     "Honua server public protocol integration harness": {
@@ -2318,18 +2318,18 @@
       "required_operations": 1
     }
   },
-  "generated_at": "2026-08-22T23:24:36.439010Z",
+  "generated_at": "2026-08-22T23:52:27.277436Z",
   "overall": {
     "failed": 4,
     "not_addressable": 3,
-    "passed": 63,
+    "passed": 73,
     "required": 2119,
     "required_addressable": 2116,
-    "skipped": 2049
+    "skipped": 2039
   },
   "requirements_complete": true,
   "requirements_revision": "2026-08-21-complete.10",
-  "requirements_source_revision": "76b4aae643d2d02f30f04a8d386888addb7d7acd",
+  "requirements_source_revision": "b6bb8264df79ea291931f10c7745c13c403ffcf3",
   "scenario_facets": {
     "auth": {
       "failed": 0,
@@ -2342,10 +2342,10 @@
     "boundary": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 0,
+      "passed": 1,
       "required": 14,
       "required_addressable": 14,
-      "skipped": 14
+      "skipped": 13
     },
     "crs-axis": {
       "failed": 0,
@@ -2366,18 +2366,18 @@
     "media-schema": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 45,
+      "passed": 48,
       "required": 1804,
       "required_addressable": 1804,
-      "skipped": 1759
+      "skipped": 1756
     },
     "metadata": {
       "failed": 0,
       "not_addressable": 2,
-      "passed": 20,
+      "passed": 24,
       "required": 90,
       "required_addressable": 88,
-      "skipped": 68
+      "skipped": 64
     },
     "mutation": {
       "failed": 2,
@@ -2390,26 +2390,26 @@
     "negative": {
       "failed": 0,
       "not_addressable": 2,
-      "passed": 1,
+      "passed": 2,
       "required": 426,
       "required_addressable": 424,
-      "skipped": 423
+      "skipped": 422
     },
     "pagination": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 7,
+      "passed": 9,
       "required": 116,
       "required_addressable": 116,
-      "skipped": 109
+      "skipped": 107
     },
     "positive": {
       "failed": 2,
       "not_addressable": 3,
-      "passed": 63,
+      "passed": 72,
       "required": 2028,
       "required_addressable": 2025,
-      "skipped": 1960
+      "skipped": 1951
     },
     "range-efficiency": {
       "failed": 0,
@@ -2430,8 +2430,8 @@
   },
   "schema": "honua.protocol-certification-summary/v1",
   "supported_operation_coverage": {
-    "passed": 63,
-    "percent": 3.98,
+    "passed": 73,
+    "percent": 4.61,
     "required": 1582
   }
 }
