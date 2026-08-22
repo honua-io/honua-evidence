@@ -427,8 +427,6 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
                 raise ValueError(f"{path}: observations[{index}].source_sha must be a full 40-character SHA")
             if not isinstance(observation.get("producer_source_sha"), str) or not SHA_RE.fullmatch(observation["producer_source_sha"]):
                 raise ValueError(f"{path}: observations[{index}].producer_source_sha must be a full 40-character SHA")
-            if not isinstance(observation.get("image_digest"), str) or not DIGEST_RE.fullmatch(observation["image_digest"]):
-                raise ValueError(f"{path}: observations[{index}].image_digest must be a sha256 digest")
             requirement_test_ids = observation.get("test_ids")
             if "test_ids" in observation and not isinstance(requirement_test_ids, list):
                 raise ValueError(f"{path}: observations[{index}].test_ids must be an array")
@@ -438,18 +436,27 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
                     f"observations do not resolve to requirements: "
                     f"{(observation_key, producer, str(path))}"
                 )
+            requirement = requirement_by_key[observation_key]
+            source_test_host = requirement["deployment_target"] == "source-test-host"
+            if source_test_host:
+                if observation.get("image_digest") is not None:
+                    raise ValueError(
+                        f"{path}: observations[{index}].image_digest must be null for source-test-host evidence"
+                    )
+            elif not isinstance(observation.get("image_digest"), str) or not DIGEST_RE.fullmatch(observation["image_digest"]):
+                raise ValueError(f"{path}: observations[{index}].image_digest must be a sha256 digest")
             fragment_candidate = fragment["candidate"]
             if observation["source_sha"] != fragment_candidate["source_sha"]:
                 raise ValueError(f"{path}: observations[{index}].source_sha does not match fragment candidate")
-            if observation["image_digest"] != fragment_candidate["image_digest"]:
+            if not source_test_host and observation["image_digest"] != fragment_candidate["image_digest"]:
                 raise ValueError(f"{path}: observations[{index}].image_digest does not match fragment candidate")
-            fixture_template = requirement_by_key[observation_key]["fixture_revision"]
+            fixture_template = requirement["fixture_revision"]
             expected_fixture = fixture_template.replace("{source_sha}", observation["source_sha"])
             if observation["fixture_revision"] != expected_fixture:
                 raise ValueError(f"{path}: observations[{index}].fixture_revision does not match requirement")
-            if observation["contract_revision"] != requirement_by_key[observation_key]["contract_revision"]:
+            if observation["contract_revision"] != requirement["contract_revision"]:
                 raise ValueError(f"{path}: observations[{index}].contract_revision does not match requirement")
-            if observation["auth_policy_revision"] != requirement_by_key[observation_key]["auth_policy_revision"]:
+            if observation["auth_policy_revision"] != requirement["auth_policy_revision"]:
                 raise ValueError(f"{path}: observations[{index}].auth_policy_revision does not match requirement")
             result = observation.get("result")
             if result not in OBSERVATION_RESULTS:

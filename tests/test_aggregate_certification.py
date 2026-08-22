@@ -55,7 +55,7 @@ def observation(req, result="pass", completed="2026-08-20T10:05:00Z"):
         "skip_reason": None,
         "source_sha": SHA,
         "producer_source_sha": "c" * 40,
-        "image_digest": DIGEST,
+        "image_digest": None if req["deployment_target"] == "source-test-host" else DIGEST,
         "fixture_revision": "fixture-v1",
         "contract_revision": req["contract_revision"],
         "auth_policy_revision": req["auth_policy_revision"],
@@ -120,6 +120,39 @@ def fragment(producer, observations, generated="2026-08-20T10:06:00Z"):
 
 
 class CertificationAggregationTests(unittest.TestCase):
+    def test_source_test_host_evidence_does_not_claim_candidate_image_execution(self):
+        req = requirement(test_ids=["HarnessTests.ExactOperation"])
+        req["deployment_target"] = "source-test-host"
+        observed = observation(req)
+        ledger = module.build_ledger(
+            "rev-1", REQUIREMENTS_SOURCE_SHA, False, [req],
+            [(Path("source.json"), fragment("server-protocol-harness", [observed]))],
+            CANDIDATE,
+        )
+        self.assertEqual(DIGEST, ledger["candidate"]["image_digest"])
+        self.assertIsNone(ledger["cells"][0]["image_digest"])
+        self.assertIsNone(ledger["cells"][0]["evidence_receipt"]["identity"]["image_digest"])
+
+        falsely_bound = observation(req)
+        falsely_bound["image_digest"] = DIGEST
+        falsely_bound["evidence_receipt"]["identity"]["image_digest"] = DIGEST
+        with self.assertRaisesRegex(ValueError, "must be null for source-test-host"):
+            module.build_ledger(
+                "rev-1", REQUIREMENTS_SOURCE_SHA, False, [req],
+                [(Path("false.json"), fragment("server-protocol-harness", [falsely_bound]))],
+                CANDIDATE,
+            )
+
+        deployed = requirement()
+        missing = observation(deployed)
+        missing["image_digest"] = None
+        missing["evidence_receipt"]["identity"]["image_digest"] = None
+        with self.assertRaisesRegex(ValueError, "must be a sha256 digest"):
+            module.build_ledger(
+                "rev-1", REQUIREMENTS_SOURCE_SHA, False, [deployed],
+                [(Path("missing.json"), fragment("server", [missing]))], CANDIDATE,
+            )
+
     def test_governed_test_ids_are_receipt_bound_and_emitted(self):
         req = requirement(test_ids=["HarnessTests.ExactOperation"])
         exact = observation(req)
