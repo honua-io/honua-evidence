@@ -99,7 +99,11 @@ def _valid_entitlement_assertion(observation: dict, requirement: dict, entitleme
     )
 
 
-def _valid_receipt(observation: dict, requirement: dict) -> bool:
+def _valid_receipt(
+    observation: dict,
+    requirement: dict,
+    candidate_cut_at: str | None = None,
+) -> bool:
     receipt = observation.get("evidence_receipt")
     facet_results = observation.get("facet_results")
     receipt_fields = {"schema", "identity", "result", "facets", "payload_base64"}
@@ -118,6 +122,16 @@ def _valid_receipt(observation: dict, requirement: dict) -> bool:
         )
         for field in RECEIPT_ID_FIELDS
     }
+    requires_candidate_cut = str(observation.get("contract_revision", "")).startswith(
+        "sdk-python-certification@"
+    )
+    identity = receipt.get("identity")
+    if requires_candidate_cut or (
+        isinstance(identity, dict) and "candidate_cut_at" in identity
+    ):
+        if _timestamp(candidate_cut_at) is None:
+            return False
+        expected_identity["candidate_cut_at"] = candidate_cut_at
     if "test_ids" in requirement:
         expected_identity["test_ids"] = requirement["test_ids"]
     if requirement.get("licensed"):
@@ -501,7 +515,11 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
                 if result == "fail" and all(item["result"] == "pass" for item in facet_results.values()):
                     raise ValueError(f"{path}: observations[{index}].facet_results must include a failure")
                 receipt = _receipt_bytes(evidence_receipt)
-                if not _valid_receipt(observation, requirement_by_key[observation_key]):
+                if not _valid_receipt(
+                    observation,
+                    requirement_by_key[observation_key],
+                    fragment_candidate["cut_at"],
+                ):
                     raise ValueError(
                         f"{path}: observations[{index}].evidence_receipt is not semantically bound"
                     )
