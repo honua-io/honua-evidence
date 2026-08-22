@@ -27,6 +27,7 @@ POLICY_FIELDS = (
     "addressability_reason", "scenario_facets", "contract_revision", "auth_policy_revision",
     "fixture_revision", "budget_expectations",
 )
+OPTIONAL_POLICY_FIELDS = ("test_ids",)
 OBSERVATION_FIELDS = (
     "result", "skip_reason", "source_sha", "producer_source_sha", "image_digest", "fixture_revision",
     "contract_revision", "auth_policy_revision", "evidence_uri", "evidence_digest", "evidence_receipt", "facet_results",
@@ -117,6 +118,8 @@ def _valid_receipt(observation: dict, requirement: dict) -> bool:
         )
         for field in RECEIPT_ID_FIELDS
     }
+    if "test_ids" in requirement:
+        expected_identity["test_ids"] = requirement["test_ids"]
     if requirement.get("licensed"):
         expected_identity["entitlement_policy_revision"] = requirement.get("entitlement_policy_revision")
     facets = receipt.get("facets")
@@ -238,6 +241,11 @@ def _identity(value: dict) -> tuple[object, ...]:
     return tuple(value.get(field) for field in IDENTITY_FIELDS)
 
 
+def _governed_identity(value: dict) -> tuple[object, ...]:
+    test_ids = value.get("test_ids")
+    return (*_identity(value), tuple(test_ids) if isinstance(test_ids, list) else None)
+
+
 def load_requirements(path: Path) -> tuple[str, bool, list[dict]]:
     document = _read_json(path)
     if document.get("schema") != REQUIREMENTS_SCHEMA:
@@ -288,7 +296,18 @@ def load_requirements(path: Path) -> tuple[str, bool, list[dict]]:
             raise ValueError(
                 f"{path}: requirements[{index}].scenario_facets must be an array of non-empty strings"
             )
-        key = _identity(requirement)
+        if "test_ids" in requirement:
+            test_ids = requirement["test_ids"]
+            if not (
+                isinstance(test_ids, list)
+                and test_ids
+                and all(isinstance(test_id, str) and test_id for test_id in test_ids)
+                and len(set(test_ids)) == len(test_ids)
+            ):
+                raise ValueError(
+                    f"{path}: requirements[{index}].test_ids must be a non-empty unique string array"
+                )
+        key = _governed_identity(requirement)
         if key in seen:
             raise ValueError(f"{path}: duplicate requirement identity {key}")
         seen.add(key)
@@ -381,7 +400,7 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
         raise ValueError("requirements_source_revision must be a full 40-character SHA")
     now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
     candidate_id = _candidate_identity(candidate)
-    requirement_by_key = {_identity(requirement): requirement for requirement in requirements}
+    requirement_by_key = {_governed_identity(requirement): requirement for requirement in requirements}
     requirement_keys = set(requirement_by_key)
     by_producer_key: dict[
         tuple[str, tuple[object, ...]],
@@ -408,26 +427,36 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
                 raise ValueError(f"{path}: observations[{index}].source_sha must be a full 40-character SHA")
             if not isinstance(observation.get("producer_source_sha"), str) or not SHA_RE.fullmatch(observation["producer_source_sha"]):
                 raise ValueError(f"{path}: observations[{index}].producer_source_sha must be a full 40-character SHA")
-            if not isinstance(observation.get("image_digest"), str) or not DIGEST_RE.fullmatch(observation["image_digest"]):
-                raise ValueError(f"{path}: observations[{index}].image_digest must be a sha256 digest")
-            observation_key = _identity(observation)
+            requirement_test_ids = observation.get("test_ids")
+            if "test_ids" in observation and not isinstance(requirement_test_ids, list):
+                raise ValueError(f"{path}: observations[{index}].test_ids must be an array")
+            observation_key = _governed_identity(observation)
             if observation_key not in requirement_keys:
                 raise ValueError(
                     f"observations do not resolve to requirements: "
                     f"{(observation_key, producer, str(path))}"
                 )
+            requirement = requirement_by_key[observation_key]
+            source_test_host = requirement["deployment_target"] == "source-test-host"
+            if source_test_host:
+                if observation.get("image_digest") is not None:
+                    raise ValueError(
+                        f"{path}: observations[{index}].image_digest must be null for source-test-host evidence"
+                    )
+            elif not isinstance(observation.get("image_digest"), str) or not DIGEST_RE.fullmatch(observation["image_digest"]):
+                raise ValueError(f"{path}: observations[{index}].image_digest must be a sha256 digest")
             fragment_candidate = fragment["candidate"]
             if observation["source_sha"] != fragment_candidate["source_sha"]:
                 raise ValueError(f"{path}: observations[{index}].source_sha does not match fragment candidate")
-            if observation["image_digest"] != fragment_candidate["image_digest"]:
+            if not source_test_host and observation["image_digest"] != fragment_candidate["image_digest"]:
                 raise ValueError(f"{path}: observations[{index}].image_digest does not match fragment candidate")
-            fixture_template = requirement_by_key[observation_key]["fixture_revision"]
+            fixture_template = requirement["fixture_revision"]
             expected_fixture = fixture_template.replace("{source_sha}", observation["source_sha"])
             if observation["fixture_revision"] != expected_fixture:
                 raise ValueError(f"{path}: observations[{index}].fixture_revision does not match requirement")
-            if observation["contract_revision"] != requirement_by_key[observation_key]["contract_revision"]:
+            if observation["contract_revision"] != requirement["contract_revision"]:
                 raise ValueError(f"{path}: observations[{index}].contract_revision does not match requirement")
-            if observation["auth_policy_revision"] != requirement_by_key[observation_key]["auth_policy_revision"]:
+            if observation["auth_policy_revision"] != requirement["auth_policy_revision"]:
                 raise ValueError(f"{path}: observations[{index}].auth_policy_revision does not match requirement")
             result = observation.get("result")
             if result not in OBSERVATION_RESULTS:
@@ -497,7 +526,7 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
                 raise ValueError(f"{path}: observations[{index}].completed_at is after fragment generation")
             if completed > now + CLOCK_SKEW_TOLERANCE:
                 raise ValueError(f"{path}: observations[{index}].completed_at is in the future")
-            composite = (producer, _identity(observation))
+            composite = (producer, observation_key)
             by_producer_key.setdefault(composite, []).append((completed, path, observation))
 
     newest_by_producer_key: dict[tuple[str, tuple[object, ...]], tuple[datetime, Path, dict]] = {}
@@ -518,7 +547,7 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
 
     cells: list[dict] = []
     for requirement in requirements:
-        key = _identity(requirement)
+        key = _governed_identity(requirement)
         matches = observations_by_key.get(key, [])
         producers = {producer for producer, _, _ in matches}
         if len(producers) > 1:
@@ -526,6 +555,7 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
             raise ValueError(f"ambiguous cross-producer evidence for {key}: {detail}")
 
         cell = {field: requirement[field] for field in POLICY_FIELDS}
+        cell.update({field: requirement[field] for field in OPTIONAL_POLICY_FIELDS if field in requirement})
         # Addressability is owned by the requirement catalogue. Producer
         # observations cannot turn a non-addressable client operation into a
         # pass (or any other executable result).

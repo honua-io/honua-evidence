@@ -132,7 +132,7 @@ def trusted_run(run: dict[str, Any], artifact: dict[str, Any], source: dict[str,
         and artifact_run.get("id") == run.get("id")
         and artifact_run.get("head_sha") == run.get("head_sha")
         and run.get("status") == "completed"
-        and run.get("conclusion") == "success"
+        and run.get("conclusion") in source.get("accepted_conclusions", ["success"])
         and isinstance(run.get("run_attempt"), int)
         and run["run_attempt"] > 0
         and artifact_created_at > run_started_at
@@ -177,7 +177,7 @@ def load_registry(path: Path) -> dict[str, Any]:
             "producer", "repository", "workflow_path", "artifact_prefix",
             "artifact_name_regex", "fragment_globs", "trusted_branches",
             "trusted_events", "max_artifacts", "max_artifact_pages",
-            "max_candidates", "required",
+            "max_candidates", "required", "accepted_conclusions",
         }
         unknown_fields = set(source) - allowed_fields
         if unknown_fields:
@@ -232,6 +232,16 @@ def load_registry(path: Path) -> dict[str, Any]:
             )
         if "required" in source and not isinstance(source["required"], bool):
             raise ValueError(f"Producer {producer!r} required must be a boolean.")
+        accepted_conclusions = source.get("accepted_conclusions", ["success"])
+        if (
+            not isinstance(accepted_conclusions, list)
+            or not accepted_conclusions
+            or any(value not in {"success", "failure"} for value in accepted_conclusions)
+            or len(set(accepted_conclusions)) != len(accepted_conclusions)
+        ):
+            raise ValueError(
+                f"Producer {producer!r} accepted_conclusions must be a unique non-empty subset of success/failure."
+            )
         for field in ("fragment_globs", "trusted_branches", "trusted_events"):
             value = source.get(field)
             if not (
