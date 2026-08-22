@@ -210,6 +210,9 @@ def test_trusted_run_requires_successful_configured_workflow_and_identity() -> N
     }
     assert MODULE.trusted_run(run, artifact, source)
     assert not MODULE.trusted_run({**run, "conclusion": "failure"}, artifact, source)
+    source["accepted_conclusions"] = ["success", "failure"]
+    assert MODULE.trusted_run({**run, "conclusion": "failure"}, artifact, source)
+    assert not MODULE.trusted_run({**run, "conclusion": "cancelled"}, artifact, source)
     assert not MODULE.trusted_run({**run, "head_branch": "feature"}, artifact, source)
     assert not MODULE.trusted_run(
         run,
