@@ -185,36 +185,42 @@ class CertificationAggregationTests(unittest.TestCase):
                         [(Path("invalid.json"), fragment("server-protocol-harness", [invalid]))], CANDIDATE,
                     )
 
-    def test_python_receipt_is_bound_to_the_fragment_candidate_cut(self):
-        req = requirement(client="Honua SDK Python")
-        req["contract_revision"] = "sdk-python-certification@" + "c" * 40
+    def test_every_python_lane_receipt_is_bound_to_the_fragment_candidate_cut(self):
+        for lane, contract in (
+            ("sdk-python", "sdk-python-coverage@" + "c" * 40),
+            ("sdk-python-certification", "sdk-python-certification@" + "c" * 40),
+        ):
+            with self.subTest(lane=lane):
+                req = requirement(client="Honua SDK Python")
+                req["client_lane"] = lane
+                req["contract_revision"] = contract
 
-        unbound = observation(req)
-        with self.assertRaisesRegex(ValueError, "not semantically bound"):
-            module.build_ledger(
-                "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
-                [(Path("unbound.json"), fragment("honua-sdk-python", [unbound]))],
-                CANDIDATE,
-            )
+                unbound = observation(req)
+                with self.assertRaisesRegex(ValueError, "not semantically bound"):
+                    module.build_ledger(
+                        "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+                        [(Path("unbound.json"), fragment("honua-sdk-python", [unbound]))],
+                        CANDIDATE,
+                    )
 
-        bound = observation(req, candidate_cut_at=CANDIDATE["cut_at"])
-        ledger = module.build_ledger(
-            "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
-            [(Path("bound.json"), fragment("honua-sdk-python", [bound]))],
-            CANDIDATE,
-        )
-        self.assertEqual(
-            CANDIDATE["cut_at"],
-            ledger["cells"][0]["evidence_receipt"]["identity"]["candidate_cut_at"],
-        )
+                bound = observation(req, candidate_cut_at=CANDIDATE["cut_at"])
+                ledger = module.build_ledger(
+                    "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+                    [(Path("bound.json"), fragment("honua-sdk-python", [bound]))],
+                    CANDIDATE,
+                )
+                self.assertEqual(
+                    CANDIDATE["cut_at"],
+                    ledger["cells"][0]["evidence_receipt"]["identity"]["candidate_cut_at"],
+                )
 
-        wrong_cut = observation(req, candidate_cut_at="2026-08-20T09:00:01Z")
-        with self.assertRaisesRegex(ValueError, "not semantically bound"):
-            module.build_ledger(
-                "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
-                [(Path("wrong-cut.json"), fragment("honua-sdk-python", [wrong_cut]))],
-                CANDIDATE,
-            )
+                wrong_cut = observation(req, candidate_cut_at="2026-08-20T09:00:01Z")
+                with self.assertRaisesRegex(ValueError, "not semantically bound"):
+                    module.build_ledger(
+                        "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+                        [(Path("wrong-cut.json"), fragment("honua-sdk-python", [wrong_cut]))],
+                        CANDIDATE,
+                    )
 
     def test_missing_observation_materializes_skip(self):
         ledger = module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [requirement()], [], CANDIDATE)
@@ -625,4 +631,3 @@ class CertificationAggregationTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

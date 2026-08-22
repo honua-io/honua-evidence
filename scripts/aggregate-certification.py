@@ -122,9 +122,10 @@ def _valid_receipt(
         )
         for field in RECEIPT_ID_FIELDS
     }
-    requires_candidate_cut = str(observation.get("contract_revision", "")).startswith(
-        "sdk-python-certification@"
-    )
+    requires_candidate_cut = requirement.get("client_lane") in {
+        "sdk-python",
+        "sdk-python-certification",
+    }
     identity = receipt.get("identity")
     if requires_candidate_cut or (
         isinstance(identity, dict) and "candidate_cut_at" in identity
