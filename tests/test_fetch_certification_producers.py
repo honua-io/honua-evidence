@@ -13,6 +13,7 @@ from pathlib import Path
 from unittest import mock
 
 SCRIPT = Path(__file__).parents[1] / "scripts" / "fetch-certification-producers.py"
+REGISTRY = Path(__file__).parents[1] / "config" / "protocol-certification-producers.v1.json"
 SPEC = importlib.util.spec_from_file_location("fetch_certification_producers", SCRIPT)
 assert SPEC and SPEC.loader
 MODULE = importlib.util.module_from_spec(SPEC)
@@ -183,6 +184,19 @@ def test_list_artifacts_stops_at_the_page_bound() -> None:
     with mock.patch.object(MODULE, "request_bytes", side_effect=request):
         assert len(MODULE.list_artifacts("honua-io/test", "token", max_pages=2)) == 200
     assert len(calls) == 2
+
+
+def test_required_server_harness_search_window_survives_busy_repository() -> None:
+    registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
+    source = next(
+        row for row in registry["sources"] if row["producer"] == "server-protocol-harness"
+    )
+
+    # The artifacts endpoint is repository-wide. Honua Server can produce more
+    # than two pages of unrelated PR artifacts between daily harness runs, so a
+    # two-page window makes a healthy required producer disappear.
+    assert source["required"] is True
+    assert source["max_artifact_pages"] == 20
 
 
 def test_trusted_run_requires_successful_configured_workflow_and_identity() -> None:
@@ -392,6 +406,9 @@ class FetchCertificationProducerTests(unittest.TestCase):
     )
     test_list_artifacts = staticmethod(test_list_artifacts_paginates_until_the_last_page)
     test_list_artifacts_page_bound = staticmethod(test_list_artifacts_stops_at_the_page_bound)
+    test_required_server_search_window = staticmethod(
+        test_required_server_harness_search_window_survives_busy_repository
+    )
     test_registry_validation_requires_typed_allowlists = staticmethod(
         test_registry_validation_requires_typed_allowlists
     )
