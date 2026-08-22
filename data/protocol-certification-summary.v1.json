@@ -3,10 +3,10 @@
     "@honua/sdk-js": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 40,
+      "passed": 45,
       "required": 157,
       "required_addressable": 157,
-      "skipped": 117
+      "skipped": 112
     },
     "ArcGIS API for Python": {
       "failed": 0,
@@ -159,6 +159,14 @@
       "required": 84,
       "required_addressable": 84,
       "skipped": 84
+    },
+    "Honua server public protocol integration harness": {
+      "failed": 0,
+      "not_addressable": 0,
+      "passed": 0,
+      "required": 32,
+      "required_addressable": 32,
+      "skipped": 32
     },
     "IfcOpenShell": {
       "failed": 0,
@@ -344,14 +352,6 @@
       "required_addressable": 1,
       "skipped": 1
     },
-    "UNASSIGNED PROTOCOL HARNESS": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 20,
-      "required_addressable": 20,
-      "skipped": 20
-    },
     "curl": {
       "failed": 0,
       "not_addressable": 0,
@@ -453,26 +453,26 @@
     "nightly": {
       "failed": 4,
       "not_addressable": 0,
-      "passed": 42,
-      "required": 2080,
-      "required_addressable": 2080,
-      "skipped": 2034
+      "passed": 45,
+      "required": 2091,
+      "required_addressable": 2091,
+      "skipped": 2042
     },
     "pr": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 16,
-      "required": 24,
-      "required_addressable": 24,
-      "skipped": 8
+      "passed": 18,
+      "required": 23,
+      "required_addressable": 23,
+      "skipped": 5
     },
     "release": {
       "failed": 0,
       "not_addressable": 3,
       "passed": 0,
-      "required": 3,
-      "required_addressable": 0,
-      "skipped": 0
+      "required": 5,
+      "required_addressable": 2,
+      "skipped": 2
     }
   },
   "by_surface": {
@@ -508,93 +508,13 @@
       "required_addressable": 1,
       "skipped": 1
     },
-    "ai-grounding": {
+    "analysis-content": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
-    },
-    "alerts-evaluation": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
-    },
-    "analytics-buffer-aggregate": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
-    },
-    "analytics-clustering": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
-    },
-    "analytics-content": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
-    },
-    "analytics-density": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
-    },
-    "analytics-line-of-sight": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
-    },
-    "analytics-slice": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
-    },
-    "analytics-spatial-join": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
-    },
-    "analytics-sun-shadow": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
-    },
-    "analytics-viewshed": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
+      "required": 6,
+      "required_addressable": 6,
+      "skipped": 6
     },
     "catalogs": {
       "failed": 0,
@@ -620,6 +540,14 @@
       "required_addressable": 34,
       "skipped": 34
     },
+    "control-plane-admin": {
+      "failed": 0,
+      "not_addressable": 0,
+      "passed": 0,
+      "required": 3,
+      "required_addressable": 3,
+      "skipped": 3
+    },
     "copc": {
       "failed": 0,
       "not_addressable": 1,
@@ -628,13 +556,21 @@
       "required_addressable": 0,
       "skipped": 0
     },
+    "elevation-query-profile": {
+      "failed": 0,
+      "not_addressable": 0,
+      "passed": 0,
+      "required": 4,
+      "required_addressable": 4,
+      "skipped": 4
+    },
     "feature-server": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 252,
-      "required_addressable": 252,
-      "skipped": 252
+      "required": 259,
+      "required_addressable": 259,
+      "skipped": 259
     },
     "featureserver": {
       "failed": 0,
@@ -751,10 +687,10 @@
     "grpc-web": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 0,
+      "passed": 4,
       "required": 4,
       "required_addressable": 4,
-      "skipped": 4
+      "skipped": 0
     },
     "hdf5-netcdf": {
       "failed": 0,
@@ -799,18 +735,10 @@
     "imageserver": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 0,
+      "passed": 2,
       "required": 2,
       "required_addressable": 2,
-      "skipped": 2
-    },
-    "import-file": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
+      "skipped": 0
     },
     "kerchunk": {
       "failed": 0,
@@ -888,9 +816,9 @@
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 2,
-      "required_addressable": 2,
-      "skipped": 2
+      "required": 8,
+      "required_addressable": 8,
+      "skipped": 8
     },
     "ogc-api-features": {
       "failed": 0,
@@ -1044,7 +972,7 @@
       "required_addressable": 48,
       "skipped": 48
     },
-    "printing-pdf-output": {
+    "printing-tools": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
@@ -1087,10 +1015,10 @@
     "realtime": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 1,
+      "passed": 0,
       "required": 2,
       "required_addressable": 2,
-      "skipped": 1
+      "skipped": 2
     },
     "routing": {
       "failed": 0,
@@ -1964,29 +1892,13 @@
       "required_addressable": 2,
       "skipped": 2
     },
-    "serve-geoservices-vectortileserver": {
+    "sensorthings-1.1": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
-    },
-    "serve-ogc-api-edr": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
-    },
-    "serve-sensorthings": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
+      "required": 2,
+      "required_addressable": 2,
+      "skipped": 2
     },
     "spec": {
       "failed": 0,
@@ -1995,6 +1907,14 @@
       "required": 5,
       "required_addressable": 5,
       "skipped": 5
+    },
+    "spec-grounding": {
+      "failed": 0,
+      "not_addressable": 0,
+      "passed": 0,
+      "required": 1,
+      "required_addressable": 1,
+      "skipped": 1
     },
     "stac": {
       "failed": 0,
@@ -2020,37 +1940,13 @@
       "required_addressable": 17,
       "skipped": 17
     },
-    "styling-auto-suggest": {
+    "vector-tile-server": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
-    },
-    "temporal-extent-discovery": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
-    },
-    "temporal-filtering": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
-    },
-    "temporal-histogram": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
+      "required": 2,
+      "required_addressable": 2,
+      "skipped": 2
     },
     "version-management-server": {
       "failed": 0,
@@ -2150,13 +2046,29 @@
     }
   },
   "by_target": {
+    "licensed-release": {
+      "failed": 0,
+      "not_addressable": 0,
+      "passed": 0,
+      "required": 2,
+      "required_addressable": 2,
+      "skipped": 2
+    },
     "local-docker": {
       "failed": 4,
       "not_addressable": 3,
-      "passed": 58,
-      "required": 1597,
-      "required_addressable": 1594,
-      "skipped": 1532
+      "passed": 63,
+      "required": 1575,
+      "required_addressable": 1572,
+      "skipped": 1505
+    },
+    "source-test-host": {
+      "failed": 0,
+      "not_addressable": 0,
+      "passed": 0,
+      "required": 32,
+      "required_addressable": 32,
+      "skipped": 32
     },
     "windows": {
       "failed": 0,
@@ -2182,7 +2094,7 @@
   },
   "canonical_client_operation_depth": {
     "@honua/sdk-js": {
-      "passed_operations": 40,
+      "passed_operations": 45,
       "required_operations": 157
     },
     "ArcGIS API for Python": {
@@ -2260,6 +2172,10 @@
     "Honua SDK Python": {
       "passed_operations": 0,
       "required_operations": 84
+    },
+    "Honua server public protocol integration harness": {
+      "passed_operations": 0,
+      "required_operations": 32
     },
     "IfcOpenShell": {
       "passed_operations": 0,
@@ -2353,10 +2269,6 @@
       "passed_operations": 0,
       "required_operations": 1
     },
-    "UNASSIGNED PROTOCOL HARNESS": {
-      "passed_operations": 0,
-      "required_operations": 20
-    },
     "curl": {
       "passed_operations": 0,
       "required_operations": 1
@@ -2406,26 +2318,26 @@
       "required_operations": 1
     }
   },
-  "generated_at": "2026-08-21T20:05:05.746743Z",
+  "generated_at": "2026-08-22T03:01:26.319336Z",
   "overall": {
     "failed": 4,
     "not_addressable": 3,
-    "passed": 58,
-    "required": 2107,
-    "required_addressable": 2104,
-    "skipped": 2042
+    "passed": 63,
+    "required": 2119,
+    "required_addressable": 2116,
+    "skipped": 2049
   },
   "requirements_complete": true,
-  "requirements_revision": "2026-08-21-complete.9",
-  "requirements_source_revision": "a853d7897b9b2a155250f56a141b1fd6a6ebdbfe",
+  "requirements_revision": "2026-08-21-complete.10",
+  "requirements_source_revision": "76b4aae643d2d02f30f04a8d386888addb7d7acd",
   "scenario_facets": {
     "auth": {
       "failed": 0,
       "not_addressable": 1,
-      "passed": 0,
+      "passed": 1,
       "required": 1112,
       "required_addressable": 1111,
-      "skipped": 1111
+      "skipped": 1110
     },
     "boundary": {
       "failed": 0,
@@ -2454,18 +2366,18 @@
     "media-schema": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 40,
-      "required": 1774,
-      "required_addressable": 1774,
-      "skipped": 1734
+      "passed": 45,
+      "required": 1804,
+      "required_addressable": 1804,
+      "skipped": 1759
     },
     "metadata": {
       "failed": 0,
       "not_addressable": 2,
-      "passed": 19,
+      "passed": 20,
       "required": 90,
       "required_addressable": 88,
-      "skipped": 69
+      "skipped": 68
     },
     "mutation": {
       "failed": 2,
@@ -2478,26 +2390,26 @@
     "negative": {
       "failed": 0,
       "not_addressable": 2,
-      "passed": 0,
+      "passed": 1,
       "required": 426,
       "required_addressable": 424,
-      "skipped": 424
+      "skipped": 423
     },
     "pagination": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 6,
+      "passed": 7,
       "required": 116,
       "required_addressable": 116,
-      "skipped": 110
+      "skipped": 109
     },
     "positive": {
       "failed": 2,
       "not_addressable": 3,
-      "passed": 58,
-      "required": 2016,
-      "required_addressable": 2013,
-      "skipped": 1953
+      "passed": 63,
+      "required": 2028,
+      "required_addressable": 2025,
+      "skipped": 1960
     },
     "range-efficiency": {
       "failed": 0,
@@ -2518,8 +2430,8 @@
   },
   "schema": "honua.protocol-certification-summary/v1",
   "supported_operation_coverage": {
-    "passed": 58,
-    "percent": 3.69,
-    "required": 1570
+    "passed": 63,
+    "percent": 3.98,
+    "required": 1582
   }
 }
