@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-08-23T07:07:30Z",
+  "generatedAt": "2026-08-23T09:42:26Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -28,52 +28,52 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-08-23T07:07:19Z",
+      "fetchedAt": "2026-08-23T09:42:12Z",
       "sourceVersion": "834fec8f31f4@2026-08-18T03:19:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-23T07:07:19Z",
+      "observedAt": "2026-08-23T09:42:12Z",
       "ageDays": 0,
       "sourceAgeDays": 5,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-08-23T07:07:19Z",
-      "sourceVersion": "5db8c733acc3@2026-08-23T00:05:22Z",
+      "fetchedAt": "2026-08-23T09:42:13Z",
+      "sourceVersion": "f6ad28f9e8ff@2026-08-23T06:30:42Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-23T07:07:19Z",
+      "observedAt": "2026-08-23T09:42:13Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-08-23T07:07:20Z",
+      "fetchedAt": "2026-08-23T09:42:13Z",
       "sourceVersion": "653fd86be0eb@2026-08-13T22:07:19Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-23T07:07:20Z",
+      "observedAt": "2026-08-23T09:42:13Z",
       "ageDays": 0,
       "sourceAgeDays": 9,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-08-23T07:07:20Z",
+      "fetchedAt": "2026-08-23T09:42:14Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-23T07:07:20Z",
+      "observedAt": "2026-08-23T09:42:14Z",
       "ageDays": 0,
       "sourceAgeDays": 36,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-08-23T07:07:20Z",
+      "fetchedAt": "2026-08-23T09:42:14Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-23T07:07:20Z",
+      "observedAt": "2026-08-23T09:42:14Z",
       "ageDays": 0,
       "sourceAgeDays": 36,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-08-23T07:07:21Z",
+      "fetchedAt": "2026-08-23T09:42:15Z",
       "sourceVersion": "250f40ae65a2@2026-08-18T05:47:36Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-08-18T05:47:36Z",
@@ -82,16 +82,16 @@
       "status": "stale"
     },
     "open-issues": {
-      "fetchedAt": "2026-08-23T07:07:30Z",
+      "fetchedAt": "2026-08-23T09:42:26Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-23T07:07:30Z",
+      "observedAt": "2026-08-23T09:42:26Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-08-23T07:07:22Z",
+      "fetchedAt": "2026-08-23T09:42:16Z",
       "sourceVersion": "7ffc1d134ab1@2026-08-12T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-08-12T00:00:00Z",
@@ -100,7 +100,7 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-08-23T07:07:22Z",
+      "fetchedAt": "2026-08-23T09:42:16Z",
       "sourceVersion": "281da0a77738@2026-08-23T07:04:19Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-08-23T07:04:19Z",
@@ -129,7 +129,7 @@
       "category": "ControlPlane",
       "edition": "Community",
       "entryCount": 368,
-      "provingTestCount": 1029,
+      "provingTestCount": 1031,
       "maturity": {
         "implemented": 368
       },
@@ -7334,7 +7334,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
           {
             "number": 2442,
@@ -7355,6 +7355,11 @@
             "number": 3433,
             "title": "test(scene): version access-envelope credential transport contract",
             "url": "https://github.com/honua-io/honua-server/issues/3433"
+          },
+          {
+            "number": 3437,
+            "title": "feat(scene): project canonical resolution into gRPC TileService transport",
+            "url": "https://github.com/honua-io/honua-server/issues/3437"
           }
         ],
         "categoryLevel": true,
@@ -7379,6 +7384,11 @@
             "number": 3433,
             "title": "test(scene): version access-envelope credential transport contract",
             "url": "https://github.com/honua-io/honua-server/issues/3433"
+          },
+          {
+            "number": 3437,
+            "title": "feat(scene): project canonical resolution into gRPC TileService transport",
+            "url": "https://github.com/honua-io/honua-server/issues/3437"
           }
         ],
         "label": "cap/scene"
@@ -7424,7 +7434,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
           {
             "number": 2442,
@@ -7445,6 +7455,11 @@
             "number": 3433,
             "title": "test(scene): version access-envelope credential transport contract",
             "url": "https://github.com/honua-io/honua-server/issues/3433"
+          },
+          {
+            "number": 3437,
+            "title": "feat(scene): project canonical resolution into gRPC TileService transport",
+            "url": "https://github.com/honua-io/honua-server/issues/3437"
           }
         ],
         "categoryLevel": true,
@@ -7469,6 +7484,11 @@
             "number": 3433,
             "title": "test(scene): version access-envelope credential transport contract",
             "url": "https://github.com/honua-io/honua-server/issues/3433"
+          },
+          {
+            "number": 3437,
+            "title": "feat(scene): project canonical resolution into gRPC TileService transport",
+            "url": "https://github.com/honua-io/honua-server/issues/3437"
           }
         ],
         "label": "cap/scene"
@@ -7505,7 +7525,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
           {
             "number": 2442,
@@ -7526,6 +7546,11 @@
             "number": 3433,
             "title": "test(scene): version access-envelope credential transport contract",
             "url": "https://github.com/honua-io/honua-server/issues/3433"
+          },
+          {
+            "number": 3437,
+            "title": "feat(scene): project canonical resolution into gRPC TileService transport",
+            "url": "https://github.com/honua-io/honua-server/issues/3437"
           }
         ],
         "categoryLevel": true,
@@ -7550,6 +7575,11 @@
             "number": 3433,
             "title": "test(scene): version access-envelope credential transport contract",
             "url": "https://github.com/honua-io/honua-server/issues/3433"
+          },
+          {
+            "number": 3437,
+            "title": "feat(scene): project canonical resolution into gRPC TileService transport",
+            "url": "https://github.com/honua-io/honua-server/issues/3437"
           }
         ],
         "label": "cap/scene"
