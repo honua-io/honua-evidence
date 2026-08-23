@@ -584,7 +584,11 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
                 "skip_reason": None,
                 "source_sha": None,
                 "producer_source_sha": None,
-                "image_digest": None,
+                "image_digest": (
+                    None
+                    if requirement["deployment_target"] == "source-test-host"
+                    else candidate["image_digest"]
+                ),
                 "fixture_revision": None,
                 "evidence_uri": None,
                 "evidence_digest": None,
@@ -604,7 +608,11 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
                 "skip_reason": "no producer evidence for required certification cell",
                 "source_sha": None,
                 "producer_source_sha": None,
-                "image_digest": None,
+                "image_digest": (
+                    None
+                    if requirement["deployment_target"] == "source-test-host"
+                    else candidate["image_digest"]
+                ),
                 "fixture_revision": None,
                 "evidence_uri": None,
                 "evidence_digest": None,

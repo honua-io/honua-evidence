@@ -226,11 +226,23 @@ class CertificationAggregationTests(unittest.TestCase):
         ledger = module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [requirement()], [], CANDIDATE)
         self.assertEqual(REQUIREMENTS_SOURCE_SHA, ledger["requirements_source_revision"])
         self.assertEqual("skip", ledger["cells"][0]["result"])
+        self.assertEqual(DIGEST, ledger["cells"][0]["image_digest"])
         self.assertIn("no producer evidence", ledger["cells"][0]["skip_reason"])
 
     def test_non_addressable_requirement_materializes_truthful_result(self):
         ledger = module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [requirement(addressable=False)], [], CANDIDATE)
         self.assertEqual("not-addressable", ledger["cells"][0]["result"])
+        self.assertEqual(DIGEST, ledger["cells"][0]["image_digest"])
+
+    def test_source_host_gaps_never_claim_candidate_image_provenance(self):
+        for addressable in (True, False):
+            with self.subTest(addressable=addressable):
+                req = requirement(addressable=addressable)
+                req["deployment_target"] = "source-test-host"
+                ledger = module.build_ledger(
+                    "rev-1", REQUIREMENTS_SOURCE_SHA, False, [req], [], CANDIDATE,
+                )
+                self.assertIsNone(ledger["cells"][0]["image_digest"])
 
     def test_licensed_receipt_requires_live_entitlement_binding(self):
         req = requirement()
