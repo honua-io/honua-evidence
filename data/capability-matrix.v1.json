@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-08-23T01:27:02Z",
+  "generatedAt": "2026-08-23T02:02:19Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -28,52 +28,52 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-08-23T01:26:54Z",
+      "fetchedAt": "2026-08-23T02:02:08Z",
       "sourceVersion": "834fec8f31f4@2026-08-18T03:19:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-23T01:26:54Z",
+      "observedAt": "2026-08-23T02:02:08Z",
       "ageDays": 0,
       "sourceAgeDays": 4,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-08-23T01:26:54Z",
+      "fetchedAt": "2026-08-23T02:02:08Z",
       "sourceVersion": "5db8c733acc3@2026-08-23T00:05:22Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-23T01:26:54Z",
+      "observedAt": "2026-08-23T02:02:08Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-08-23T01:26:54Z",
+      "fetchedAt": "2026-08-23T02:02:08Z",
       "sourceVersion": "653fd86be0eb@2026-08-13T22:07:19Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-23T01:26:54Z",
+      "observedAt": "2026-08-23T02:02:08Z",
       "ageDays": 0,
       "sourceAgeDays": 9,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-08-23T01:26:55Z",
+      "fetchedAt": "2026-08-23T02:02:09Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-23T01:26:55Z",
+      "observedAt": "2026-08-23T02:02:09Z",
       "ageDays": 0,
       "sourceAgeDays": 36,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-08-23T01:26:55Z",
+      "fetchedAt": "2026-08-23T02:02:09Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-23T01:26:55Z",
+      "observedAt": "2026-08-23T02:02:09Z",
       "ageDays": 0,
       "sourceAgeDays": 36,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-08-23T01:26:55Z",
+      "fetchedAt": "2026-08-23T02:02:10Z",
       "sourceVersion": "250f40ae65a2@2026-08-18T05:47:36Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-08-18T05:47:36Z",
@@ -82,16 +82,16 @@
       "status": "stale"
     },
     "open-issues": {
-      "fetchedAt": "2026-08-23T01:27:02Z",
+      "fetchedAt": "2026-08-23T02:02:19Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-23T01:27:02Z",
+      "observedAt": "2026-08-23T02:02:19Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-08-23T01:26:56Z",
+      "fetchedAt": "2026-08-23T02:02:11Z",
       "sourceVersion": "7ffc1d134ab1@2026-08-12T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-08-12T00:00:00Z",
@@ -100,10 +100,10 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-08-23T01:26:56Z",
-      "sourceVersion": "281da0a77738@2026-08-22T18:51:25Z",
+      "fetchedAt": "2026-08-23T02:02:11Z",
+      "sourceVersion": "281da0a77738@2026-08-23T02:01:53Z",
       "freshnessBasis": "observation",
-      "observedAt": "2026-08-22T18:51:25Z",
+      "observedAt": "2026-08-23T02:01:53Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
@@ -178,12 +178,17 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 1,
+        "count": 2,
         "refs": [
           {
             "number": 346,
             "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
             "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 3411,
+            "title": "feat(control-plane): WS1b \u2014 canonical operation instance/evidence envelope and durable approval bridge",
+            "url": "https://github.com/honua-io/honua-server/issues/3411"
           }
         ],
         "categoryLevel": true,
@@ -193,6 +198,11 @@
             "number": 346,
             "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
             "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 3411,
+            "title": "feat(control-plane): WS1b \u2014 canonical operation instance/evidence envelope and durable approval bridge",
+            "url": "https://github.com/honua-io/honua-server/issues/3411"
           }
         ],
         "label": "cap/control-plane"
@@ -245,11 +255,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 3412,
+            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
+            "url": "https://github.com/honua-io/honua-server/issues/3412"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 3412,
+            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
+            "url": "https://github.com/honua-io/honua-server/issues/3412"
+          }
+        ],
         "label": "cap/ai"
       }
     },
@@ -300,11 +322,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 3412,
+            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
+            "url": "https://github.com/honua-io/honua-server/issues/3412"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 3412,
+            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
+            "url": "https://github.com/honua-io/honua-server/issues/3412"
+          }
+        ],
         "label": "cap/ai"
       }
     },
@@ -339,11 +373,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 3412,
+            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
+            "url": "https://github.com/honua-io/honua-server/issues/3412"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 3412,
+            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
+            "url": "https://github.com/honua-io/honua-server/issues/3412"
+          }
+        ],
         "label": "cap/ai"
       }
     },
@@ -387,11 +433,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 3412,
+            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
+            "url": "https://github.com/honua-io/honua-server/issues/3412"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 3412,
+            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
+            "url": "https://github.com/honua-io/honua-server/issues/3412"
+          }
+        ],
         "label": "cap/ai"
       }
     },
@@ -431,11 +489,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 3412,
+            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
+            "url": "https://github.com/honua-io/honua-server/issues/3412"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 3412,
+            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
+            "url": "https://github.com/honua-io/honua-server/issues/3412"
+          }
+        ],
         "label": "cap/ai"
       }
     },
@@ -474,11 +544,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 3412,
+            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
+            "url": "https://github.com/honua-io/honua-server/issues/3412"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 3412,
+            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
+            "url": "https://github.com/honua-io/honua-server/issues/3412"
+          }
+        ],
         "label": "cap/ai"
       }
     },
@@ -699,11 +781,6 @@
         "count": 3,
         "refs": [
           {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
             "number": 2437,
             "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
             "url": "https://github.com/honua-io/honua-server/issues/2437"
@@ -712,17 +789,17 @@
             "number": 2453,
             "title": "Epic (2026.2): warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3 provider, H3/density pushdown, query-tiles contract, sdk-js consumers",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
           }
         ],
         "categoryLevel": true,
         "keyRefs": [],
         "categoryRefs": [
           {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
             "number": 2437,
             "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
             "url": "https://github.com/honua-io/honua-server/issues/2437"
@@ -731,6 +808,11 @@
             "number": 2453,
             "title": "Epic (2026.2): warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3 provider, H3/density pushdown, query-tiles contract, sdk-js consumers",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
           }
         ],
         "label": "cap/analytics"
@@ -770,11 +852,6 @@
         "count": 3,
         "refs": [
           {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
             "number": 2437,
             "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
             "url": "https://github.com/honua-io/honua-server/issues/2437"
@@ -783,17 +860,17 @@
             "number": 2453,
             "title": "Epic (2026.2): warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3 provider, H3/density pushdown, query-tiles contract, sdk-js consumers",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
           }
         ],
         "categoryLevel": true,
         "keyRefs": [],
         "categoryRefs": [
           {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
             "number": 2437,
             "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
             "url": "https://github.com/honua-io/honua-server/issues/2437"
@@ -802,6 +879,11 @@
             "number": 2453,
             "title": "Epic (2026.2): warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3 provider, H3/density pushdown, query-tiles contract, sdk-js consumers",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
           }
         ],
         "label": "cap/analytics"
@@ -841,11 +923,6 @@
         "count": 3,
         "refs": [
           {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
             "number": 2437,
             "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
             "url": "https://github.com/honua-io/honua-server/issues/2437"
@@ -854,17 +931,17 @@
             "number": 2453,
             "title": "Epic (2026.2): warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3 provider, H3/density pushdown, query-tiles contract, sdk-js consumers",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
           }
         ],
         "categoryLevel": true,
         "keyRefs": [],
         "categoryRefs": [
           {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
             "number": 2437,
             "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
             "url": "https://github.com/honua-io/honua-server/issues/2437"
@@ -873,6 +950,11 @@
             "number": 2453,
             "title": "Epic (2026.2): warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3 provider, H3/density pushdown, query-tiles contract, sdk-js consumers",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
           }
         ],
         "label": "cap/analytics"
@@ -912,11 +994,6 @@
         "count": 3,
         "refs": [
           {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
             "number": 2437,
             "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
             "url": "https://github.com/honua-io/honua-server/issues/2437"
@@ -925,17 +1002,17 @@
             "number": 2453,
             "title": "Epic (2026.2): warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3 provider, H3/density pushdown, query-tiles contract, sdk-js consumers",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
           }
         ],
         "categoryLevel": true,
         "keyRefs": [],
         "categoryRefs": [
           {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
             "number": 2437,
             "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
             "url": "https://github.com/honua-io/honua-server/issues/2437"
@@ -944,6 +1021,11 @@
             "number": 2453,
             "title": "Epic (2026.2): warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3 provider, H3/density pushdown, query-tiles contract, sdk-js consumers",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
           }
         ],
         "label": "cap/analytics"
@@ -983,11 +1065,6 @@
         "count": 3,
         "refs": [
           {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
             "number": 2437,
             "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
             "url": "https://github.com/honua-io/honua-server/issues/2437"
@@ -996,17 +1073,17 @@
             "number": 2453,
             "title": "Epic (2026.2): warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3 provider, H3/density pushdown, query-tiles contract, sdk-js consumers",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
           }
         ],
         "categoryLevel": true,
         "keyRefs": [],
         "categoryRefs": [
           {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
             "number": 2437,
             "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
             "url": "https://github.com/honua-io/honua-server/issues/2437"
@@ -1015,6 +1092,11 @@
             "number": 2453,
             "title": "Epic (2026.2): warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3 provider, H3/density pushdown, query-tiles contract, sdk-js consumers",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
           }
         ],
         "label": "cap/analytics"
@@ -1060,11 +1142,6 @@
         "count": 3,
         "refs": [
           {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
             "number": 2437,
             "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
             "url": "https://github.com/honua-io/honua-server/issues/2437"
@@ -1073,17 +1150,17 @@
             "number": 2453,
             "title": "Epic (2026.2): warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3 provider, H3/density pushdown, query-tiles contract, sdk-js consumers",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
           }
         ],
         "categoryLevel": true,
         "keyRefs": [],
         "categoryRefs": [
           {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
             "number": 2437,
             "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
             "url": "https://github.com/honua-io/honua-server/issues/2437"
@@ -1092,6 +1169,11 @@
             "number": 2453,
             "title": "Epic (2026.2): warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3 provider, H3/density pushdown, query-tiles contract, sdk-js consumers",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
           }
         ],
         "label": "cap/analytics"
@@ -1131,11 +1213,6 @@
         "count": 3,
         "refs": [
           {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
             "number": 2437,
             "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
             "url": "https://github.com/honua-io/honua-server/issues/2437"
@@ -1144,17 +1221,17 @@
             "number": 2453,
             "title": "Epic (2026.2): warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3 provider, H3/density pushdown, query-tiles contract, sdk-js consumers",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
           }
         ],
         "categoryLevel": true,
         "keyRefs": [],
         "categoryRefs": [
           {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
             "number": 2437,
             "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
             "url": "https://github.com/honua-io/honua-server/issues/2437"
@@ -1163,6 +1240,11 @@
             "number": 2453,
             "title": "Epic (2026.2): warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3 provider, H3/density pushdown, query-tiles contract, sdk-js consumers",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
           }
         ],
         "label": "cap/analytics"
@@ -1202,11 +1284,6 @@
         "count": 3,
         "refs": [
           {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
             "number": 2437,
             "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
             "url": "https://github.com/honua-io/honua-server/issues/2437"
@@ -1215,17 +1292,17 @@
             "number": 2453,
             "title": "Epic (2026.2): warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3 provider, H3/density pushdown, query-tiles contract, sdk-js consumers",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
           }
         ],
         "categoryLevel": true,
         "keyRefs": [],
         "categoryRefs": [
           {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
             "number": 2437,
             "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
             "url": "https://github.com/honua-io/honua-server/issues/2437"
@@ -1234,6 +1311,11 @@
             "number": 2453,
             "title": "Epic (2026.2): warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3 provider, H3/density pushdown, query-tiles contract, sdk-js consumers",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
           }
         ],
         "label": "cap/analytics"
@@ -1273,11 +1355,6 @@
         "count": 3,
         "refs": [
           {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
             "number": 2437,
             "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
             "url": "https://github.com/honua-io/honua-server/issues/2437"
@@ -1286,17 +1363,17 @@
             "number": 2453,
             "title": "Epic (2026.2): warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3 provider, H3/density pushdown, query-tiles contract, sdk-js consumers",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
           }
         ],
         "categoryLevel": true,
         "keyRefs": [],
         "categoryRefs": [
           {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
             "number": 2437,
             "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
             "url": "https://github.com/honua-io/honua-server/issues/2437"
@@ -1305,6 +1382,11 @@
             "number": 2453,
             "title": "Epic (2026.2): warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3 provider, H3/density pushdown, query-tiles contract, sdk-js consumers",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
           }
         ],
         "label": "cap/analytics"
@@ -1344,11 +1426,6 @@
         "count": 3,
         "refs": [
           {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
             "number": 2437,
             "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
             "url": "https://github.com/honua-io/honua-server/issues/2437"
@@ -1357,17 +1434,17 @@
             "number": 2453,
             "title": "Epic (2026.2): warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3 provider, H3/density pushdown, query-tiles contract, sdk-js consumers",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
           }
         ],
         "categoryLevel": true,
         "keyRefs": [],
         "categoryRefs": [
           {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
-          {
             "number": 2437,
             "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
             "url": "https://github.com/honua-io/honua-server/issues/2437"
@@ -1376,6 +1453,11 @@
             "number": 2453,
             "title": "Epic (2026.2): warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3 provider, H3/density pushdown, query-tiles contract, sdk-js consumers",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
           }
         ],
         "label": "cap/analytics"
@@ -2291,6 +2373,14 @@
           "status": "red",
           "lastGreenAt": "",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32591968662"
+        },
+        {
+          "manifestId": "demo-canary-2026-08-23T02:01:53Z",
+          "probeName": "capability-manifest",
+          "targetEnvironment": "demo.honua.io",
+          "status": "red",
+          "lastGreenAt": "",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32611799958"
         }
       ],
       "sdks": {
@@ -2328,12 +2418,22 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 1,
+        "count": 3,
         "refs": [
           {
             "number": 2451,
             "title": "CSW (Catalog Service for the Web) endpoint",
             "url": "https://github.com/honua-io/honua-server/issues/2451"
+          },
+          {
+            "number": 3408,
+            "title": "refactor(capabilities): separate definition, effective availability, release maturity, and certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3408"
+          },
+          {
+            "number": 3413,
+            "title": "feat(warehouse): credential-free effective source capability and availability contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3413"
           }
         ],
         "categoryLevel": true,
@@ -2343,6 +2443,16 @@
             "number": 2451,
             "title": "CSW (Catalog Service for the Web) endpoint",
             "url": "https://github.com/honua-io/honua-server/issues/2451"
+          },
+          {
+            "number": 3408,
+            "title": "refactor(capabilities): separate definition, effective availability, release maturity, and certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3408"
+          },
+          {
+            "number": 3413,
+            "title": "feat(warehouse): credential-free effective source capability and availability contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3413"
           }
         ],
         "label": "cap/discovery"
@@ -3331,6 +3441,14 @@
           "status": "green",
           "lastGreenAt": "2026-08-22T18:51:25Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32591968662"
+        },
+        {
+          "manifestId": "demo-canary-2026-08-23T02:01:53Z",
+          "probeName": "geocoding-latency",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-08-23T02:01:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32611799958"
         }
       ],
       "sdks": {
@@ -4154,13 +4272,8 @@
         }
       ],
       "openIssues": {
-        "count": 8,
+        "count": 7,
         "refs": [
-          {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
           {
             "number": 1716,
             "title": "test: live Amazon Redshift integration coverage in nightly CI",
@@ -4200,11 +4313,6 @@
         "categoryLevel": true,
         "keyRefs": [],
         "categoryRefs": [
-          {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
           {
             "number": 1716,
             "title": "test: live Amazon Redshift integration coverage in nightly CI",
@@ -4280,13 +4388,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 8,
+        "count": 7,
         "refs": [
-          {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
           {
             "number": 1716,
             "title": "test: live Amazon Redshift integration coverage in nightly CI",
@@ -4326,11 +4429,6 @@
         "categoryLevel": true,
         "keyRefs": [],
         "categoryRefs": [
-          {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
           {
             "number": 1716,
             "title": "test: live Amazon Redshift integration coverage in nightly CI",
@@ -4406,13 +4504,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 8,
+        "count": 7,
         "refs": [
-          {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
           {
             "number": 1716,
             "title": "test: live Amazon Redshift integration coverage in nightly CI",
@@ -4452,11 +4545,6 @@
         "categoryLevel": true,
         "keyRefs": [],
         "categoryRefs": [
-          {
-            "number": 953,
-            "title": "Implementation placeholder: AWS/Azure managed analytics connector",
-            "url": "https://github.com/honua-io/honua-server/issues/953"
-          },
           {
             "number": 1716,
             "title": "test: live Amazon Redshift integration coverage in nightly CI",
@@ -4889,6 +4977,14 @@
           "status": "green",
           "lastGreenAt": "2026-08-22T18:51:25Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32591968662"
+        },
+        {
+          "manifestId": "demo-canary-2026-08-23T02:01:53Z",
+          "probeName": "health-live-ready",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-08-23T02:01:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32611799958"
         }
       ],
       "sdks": {
@@ -5681,6 +5777,22 @@
           "status": "green",
           "lastGreenAt": "2026-08-22T18:51:25Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32591968662"
+        },
+        {
+          "manifestId": "demo-canary-2026-08-23T02:01:53Z",
+          "probeName": "metrics-gated",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-08-23T02:01:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32611799958"
+        },
+        {
+          "manifestId": "demo-canary-2026-08-23T02:01:53Z",
+          "probeName": "admin-metrics-health",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-08-23T02:01:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32611799958"
         }
       ],
       "sdks": {
@@ -6111,7 +6223,13 @@
             "url": "https://github.com/honua-io/honua-server/issues/3101"
           }
         ],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 3404,
+            "title": "refactor(gp): centralize terminal wait and cancellation outcomes for protocol adapters",
+            "url": "https://github.com/honua-io/honua-server/issues/3404"
+          }
+        ],
         "label": "cap/process"
       }
     },
@@ -6155,11 +6273,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 3404,
+            "title": "refactor(gp): centralize terminal wait and cancellation outcomes for protocol adapters",
+            "url": "https://github.com/honua-io/honua-server/issues/3404"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 3404,
+            "title": "refactor(gp): centralize terminal wait and cancellation outcomes for protocol adapters",
+            "url": "https://github.com/honua-io/honua-server/issues/3404"
+          }
+        ],
         "label": "cap/process"
       }
     },
@@ -6376,7 +6506,7 @@
           },
           {
             "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
+            "title": "raster(Zarr): atomic hierarchy publication, GP offload, and deployment conformance",
             "url": "https://github.com/honua-io/honua-server/issues/3103"
           },
           {
@@ -6386,12 +6516,12 @@
           },
           {
             "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
+            "title": "raster(Zarr): atomic hierarchy publication, GP offload, and deployment conformance",
             "url": "https://github.com/honua-io/honua-server/issues/3103"
           },
           {
             "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
+            "title": "raster(Zarr): atomic hierarchy publication, GP offload, and deployment conformance",
             "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
@@ -6404,7 +6534,7 @@
           },
           {
             "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
+            "title": "raster(Zarr): atomic hierarchy publication, GP offload, and deployment conformance",
             "url": "https://github.com/honua-io/honua-server/issues/3103"
           },
           {
@@ -6414,12 +6544,12 @@
           },
           {
             "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
+            "title": "raster(Zarr): atomic hierarchy publication, GP offload, and deployment conformance",
             "url": "https://github.com/honua-io/honua-server/issues/3103"
           },
           {
             "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
+            "title": "raster(Zarr): atomic hierarchy publication, GP offload, and deployment conformance",
             "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
@@ -6674,12 +6804,22 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 1,
+        "count": 3,
         "refs": [
           {
             "number": 2442,
             "title": "feat(scene): COPC-native range serving + LAS/LAZ/COPC source registration (point cloud, T5)",
             "url": "https://github.com/honua-io/honua-server/issues/2442"
+          },
+          {
+            "number": 3409,
+            "title": "refactor(scene): separate serving format from semantic content kind in the scene catalog",
+            "url": "https://github.com/honua-io/honua-server/issues/3409"
+          },
+          {
+            "number": 3410,
+            "title": "test(scene): publish and drift-gate the canonical public scene discovery contract pack",
+            "url": "https://github.com/honua-io/honua-server/issues/3410"
           }
         ],
         "categoryLevel": true,
@@ -6689,6 +6829,16 @@
             "number": 2442,
             "title": "feat(scene): COPC-native range serving + LAS/LAZ/COPC source registration (point cloud, T5)",
             "url": "https://github.com/honua-io/honua-server/issues/2442"
+          },
+          {
+            "number": 3409,
+            "title": "refactor(scene): separate serving format from semantic content kind in the scene catalog",
+            "url": "https://github.com/honua-io/honua-server/issues/3409"
+          },
+          {
+            "number": 3410,
+            "title": "test(scene): publish and drift-gate the canonical public scene discovery contract pack",
+            "url": "https://github.com/honua-io/honua-server/issues/3410"
           }
         ],
         "label": "cap/scene"
@@ -6734,12 +6884,22 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 1,
+        "count": 3,
         "refs": [
           {
             "number": 2442,
             "title": "feat(scene): COPC-native range serving + LAS/LAZ/COPC source registration (point cloud, T5)",
             "url": "https://github.com/honua-io/honua-server/issues/2442"
+          },
+          {
+            "number": 3409,
+            "title": "refactor(scene): separate serving format from semantic content kind in the scene catalog",
+            "url": "https://github.com/honua-io/honua-server/issues/3409"
+          },
+          {
+            "number": 3410,
+            "title": "test(scene): publish and drift-gate the canonical public scene discovery contract pack",
+            "url": "https://github.com/honua-io/honua-server/issues/3410"
           }
         ],
         "categoryLevel": true,
@@ -6749,6 +6909,16 @@
             "number": 2442,
             "title": "feat(scene): COPC-native range serving + LAS/LAZ/COPC source registration (point cloud, T5)",
             "url": "https://github.com/honua-io/honua-server/issues/2442"
+          },
+          {
+            "number": 3409,
+            "title": "refactor(scene): separate serving format from semantic content kind in the scene catalog",
+            "url": "https://github.com/honua-io/honua-server/issues/3409"
+          },
+          {
+            "number": 3410,
+            "title": "test(scene): publish and drift-gate the canonical public scene discovery contract pack",
+            "url": "https://github.com/honua-io/honua-server/issues/3410"
           }
         ],
         "label": "cap/scene"
@@ -6785,12 +6955,22 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 1,
+        "count": 3,
         "refs": [
           {
             "number": 2442,
             "title": "feat(scene): COPC-native range serving + LAS/LAZ/COPC source registration (point cloud, T5)",
             "url": "https://github.com/honua-io/honua-server/issues/2442"
+          },
+          {
+            "number": 3409,
+            "title": "refactor(scene): separate serving format from semantic content kind in the scene catalog",
+            "url": "https://github.com/honua-io/honua-server/issues/3409"
+          },
+          {
+            "number": 3410,
+            "title": "test(scene): publish and drift-gate the canonical public scene discovery contract pack",
+            "url": "https://github.com/honua-io/honua-server/issues/3410"
           }
         ],
         "categoryLevel": true,
@@ -6800,6 +6980,16 @@
             "number": 2442,
             "title": "feat(scene): COPC-native range serving + LAS/LAZ/COPC source registration (point cloud, T5)",
             "url": "https://github.com/honua-io/honua-server/issues/2442"
+          },
+          {
+            "number": 3409,
+            "title": "refactor(scene): separate serving format from semantic content kind in the scene catalog",
+            "url": "https://github.com/honua-io/honua-server/issues/3409"
+          },
+          {
+            "number": 3410,
+            "title": "test(scene): publish and drift-gate the canonical public scene discovery contract pack",
+            "url": "https://github.com/honua-io/honua-server/issues/3410"
           }
         ],
         "label": "cap/scene"
@@ -7399,6 +7589,14 @@
           "status": "green",
           "lastGreenAt": "2026-08-22T18:51:25Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32591968662"
+        },
+        {
+          "manifestId": "demo-canary-2026-08-23T02:01:53Z",
+          "probeName": "render-query-smoke",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-08-23T02:01:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32611799958"
         }
       ],
       "sdks": {
@@ -8190,6 +8388,14 @@
           "status": "green",
           "lastGreenAt": "2026-08-22T18:51:25Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32591968662"
+        },
+        {
+          "manifestId": "demo-canary-2026-08-23T02:01:53Z",
+          "probeName": "render-query-smoke",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-08-23T02:01:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32611799958"
         }
       ],
       "sdks": {
@@ -8899,6 +9105,14 @@
           "status": "green",
           "lastGreenAt": "2026-08-22T18:51:25Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32591968662"
+        },
+        {
+          "manifestId": "demo-canary-2026-08-23T02:01:53Z",
+          "probeName": "odata-service-document",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-08-23T02:01:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32611799958"
         }
       ],
       "sdks": {
@@ -9032,7 +9246,7 @@
           },
           {
             "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
+            "title": "raster(Zarr): atomic hierarchy publication, GP offload, and deployment conformance",
             "url": "https://github.com/honua-io/honua-server/issues/3103"
           },
           {
@@ -9042,12 +9256,12 @@
           },
           {
             "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
+            "title": "raster(Zarr): atomic hierarchy publication, GP offload, and deployment conformance",
             "url": "https://github.com/honua-io/honua-server/issues/3103"
           },
           {
             "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
+            "title": "raster(Zarr): atomic hierarchy publication, GP offload, and deployment conformance",
             "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
@@ -9060,7 +9274,7 @@
           },
           {
             "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
+            "title": "raster(Zarr): atomic hierarchy publication, GP offload, and deployment conformance",
             "url": "https://github.com/honua-io/honua-server/issues/3103"
           },
           {
@@ -9070,12 +9284,12 @@
           },
           {
             "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
+            "title": "raster(Zarr): atomic hierarchy publication, GP offload, and deployment conformance",
             "url": "https://github.com/honua-io/honua-server/issues/3103"
           },
           {
             "number": 3103,
-            "title": "raster(Zarr): integrate multidimensional reads with common budgets and GP offload",
+            "title": "raster(Zarr): atomic hierarchy publication, GP offload, and deployment conformance",
             "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
@@ -9487,6 +9701,14 @@
           "status": "green",
           "lastGreenAt": "2026-08-22T18:51:25Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32591968662"
+        },
+        {
+          "manifestId": "demo-canary-2026-08-23T02:01:53Z",
+          "probeName": "edr-collections",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-08-23T02:01:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32611799958"
         }
       ],
       "sdks": {
@@ -9974,6 +10196,14 @@
           "status": "green",
           "lastGreenAt": "2026-08-22T18:51:25Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32591968662"
+        },
+        {
+          "manifestId": "demo-canary-2026-08-23T02:01:53Z",
+          "probeName": "ogc-features-collections",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-08-23T02:01:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32611799958"
         }
       ],
       "sdks": {
@@ -10781,6 +11011,14 @@
           "status": "green",
           "lastGreenAt": "2026-08-22T18:51:25Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32591968662"
+        },
+        {
+          "manifestId": "demo-canary-2026-08-23T02:01:53Z",
+          "probeName": "stac-collections",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-08-23T02:01:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32611799958"
         }
       ],
       "sdks": {
@@ -11267,6 +11505,14 @@
           "status": "green",
           "lastGreenAt": "2026-08-22T18:51:25Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32591968662"
+        },
+        {
+          "manifestId": "demo-canary-2026-08-23T02:01:53Z",
+          "probeName": "tiles-tilejson",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-08-23T02:01:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32611799958"
         }
       ],
       "sdks": {
@@ -11729,6 +11975,14 @@
           "status": "green",
           "lastGreenAt": "2026-08-22T18:51:25Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32591968662"
+        },
+        {
+          "manifestId": "demo-canary-2026-08-23T02:01:53Z",
+          "probeName": "ogc-wcs-capabilities",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-08-23T02:01:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32611799958"
         }
       ],
       "sdks": {
@@ -12353,6 +12607,14 @@
           "status": "green",
           "lastGreenAt": "2026-08-22T18:51:25Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32591968662"
+        },
+        {
+          "manifestId": "demo-canary-2026-08-23T02:01:53Z",
+          "probeName": "ogc-wms-capabilities",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-08-23T02:01:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32611799958"
         }
       ],
       "sdks": {
@@ -12861,6 +13123,14 @@
           "status": "green",
           "lastGreenAt": "2026-08-22T18:51:25Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32591968662"
+        },
+        {
+          "manifestId": "demo-canary-2026-08-23T02:01:53Z",
+          "probeName": "ogc-wmts-capabilities",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-08-23T02:01:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32611799958"
         }
       ],
       "sdks": {
