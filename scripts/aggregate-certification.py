@@ -125,6 +125,7 @@ def _valid_receipt(
     requires_candidate_cut = requirement.get("client_lane") in {
         "sdk-python",
         "sdk-python-certification",
+        "sdk-python-ogc",
     }
     identity = receipt.get("identity")
     if requires_candidate_cut or (

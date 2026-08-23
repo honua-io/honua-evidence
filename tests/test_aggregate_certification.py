@@ -189,6 +189,7 @@ class CertificationAggregationTests(unittest.TestCase):
         for lane, contract in (
             ("sdk-python", "sdk-python-coverage@" + "c" * 40),
             ("sdk-python-certification", "sdk-python-certification@" + "c" * 40),
+            ("sdk-python-ogc", "ogc-api-features-1.0"),
         ):
             with self.subTest(lane=lane):
                 req = requirement(client="Honua SDK Python")
