@@ -303,13 +303,16 @@ def _valid_receipt(
         or not isinstance(receipt.get("payload_base64"), str)
     ):
         return False
+    is_format_receipt = str(requirement.get("capability_key", "")).startswith("format.")
     try:
-        if len(receipt["payload_base64"]) > ((MAX_FORMAT_RECEIPT_PAYLOAD_BYTES + 2) // 3) * 4:
+        if is_format_receipt and len(receipt["payload_base64"]) > (
+            (MAX_FORMAT_RECEIPT_PAYLOAD_BYTES + 2) // 3
+        ) * 4:
             return False
         payload_bytes = base64.b64decode(receipt["payload_base64"], validate=True)
     except (ValueError, TypeError):
         return False
-    if str(requirement.get("capability_key", "")).startswith("format."):
+    if is_format_receipt:
         if len(payload_bytes) > MAX_FORMAT_RECEIPT_PAYLOAD_BYTES:
             return False
         try:

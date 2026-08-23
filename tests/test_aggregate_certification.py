@@ -406,6 +406,15 @@ class CertificationAggregationTests(unittest.TestCase):
                 ).decode("ascii")
                 self.assertFalse(module._valid_receipt(candidate, req))
 
+    def test_non_format_receipt_payload_is_not_subject_to_the_format_budget(self):
+        req = requirement()
+        observed = observation(req)
+        observed["evidence_receipt"]["payload_base64"] = base64.b64encode(
+            b"x" * (module.MAX_FORMAT_RECEIPT_PAYLOAD_BYTES + 1)
+        ).decode("ascii")
+
+        self.assertTrue(module._valid_receipt(observed, req))
+
     def test_missing_observation_materializes_skip(self):
         ledger = module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [requirement()], [], CANDIDATE)
         self.assertEqual(REQUIREMENTS_SOURCE_SHA, ledger["requirements_source_revision"])
