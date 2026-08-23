@@ -1,5 +1,6 @@
 ﻿from __future__ import annotations
 
+import base64
 import importlib.util
 import hashlib
 import json
@@ -185,46 +186,132 @@ class CertificationAggregationTests(unittest.TestCase):
                         [(Path("invalid.json"), fragment("server-protocol-harness", [invalid]))], CANDIDATE,
                     )
 
-    def test_python_receipt_is_bound_to_the_fragment_candidate_cut(self):
-        req = requirement(client="Honua SDK Python")
-        req["contract_revision"] = "sdk-python-certification@" + "c" * 40
+    def test_every_python_lane_receipt_is_bound_to_the_fragment_candidate_cut(self):
+        for lane, contract in (
+            ("sdk-python", "sdk-python-coverage@" + "c" * 40),
+            ("sdk-python-certification", "sdk-python-certification@" + "c" * 40),
+            ("sdk-python-ogc", "ogc-api-features-1.0"),
+        ):
+            with self.subTest(lane=lane):
+                req = requirement(client="Honua SDK Python")
+                req["client_lane"] = lane
+                req["contract_revision"] = contract
 
-        unbound = observation(req)
-        with self.assertRaisesRegex(ValueError, "not semantically bound"):
-            module.build_ledger(
-                "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
-                [(Path("unbound.json"), fragment("honua-sdk-python", [unbound]))],
-                CANDIDATE,
-            )
+                unbound = observation(req)
+                with self.assertRaisesRegex(ValueError, "not semantically bound"):
+                    module.build_ledger(
+                        "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+                        [(Path("unbound.json"), fragment("honua-sdk-python", [unbound]))],
+                        CANDIDATE,
+                    )
+                bound = observation(req, candidate_cut_at=CANDIDATE["cut_at"])
+                ledger = module.build_ledger(
+                    "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+                    [(Path("bound.json"), fragment("honua-sdk-python", [bound]))],
+                    CANDIDATE,
+                )
+                self.assertEqual(
+                    CANDIDATE["cut_at"],
+                    ledger["cells"][0]["evidence_receipt"]["identity"]["candidate_cut_at"],
+                )
 
-        bound = observation(req, candidate_cut_at=CANDIDATE["cut_at"])
-        ledger = module.build_ledger(
-            "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
-            [(Path("bound.json"), fragment("honua-sdk-python", [bound]))],
-            CANDIDATE,
-        )
-        self.assertEqual(
-            CANDIDATE["cut_at"],
-            ledger["cells"][0]["evidence_receipt"]["identity"]["candidate_cut_at"],
-        )
+                wrong_cut = observation(req, candidate_cut_at="2026-08-20T09:00:01Z")
+                with self.assertRaisesRegex(ValueError, "not semantically bound"):
+                    module.build_ledger(
+                        "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+                        [(Path("wrong-cut.json"), fragment("honua-sdk-python", [wrong_cut]))],
+                        CANDIDATE,
+                    )
 
-        wrong_cut = observation(req, candidate_cut_at="2026-08-20T09:00:01Z")
-        with self.assertRaisesRegex(ValueError, "not semantically bound"):
-            module.build_ledger(
-                "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
-                [(Path("wrong-cut.json"), fragment("honua-sdk-python", [wrong_cut]))],
-                CANDIDATE,
-            )
+    def test_format_budget_observations_are_bound_inside_the_receipt_payload(self):
+        req = requirement()
+        req["capability_key"] = "format.cog"
+        req["budget_expectations"] = {
+            "required_metadata": ["crs"],
+            "expected_metadata": {"crs": "EPSG:4326"},
+        }
+        observed = observation(req)
+        observed["budget_observations"] = {
+            "requests": 3,
+            "transferred_bytes": 1024,
+            "full_object_downloads": 0,
+            "range_requests": 2,
+            "cache_hits": 1,
+            "coordinate_error": 0.0,
+            "geometry_error": 0.0,
+            "metadata_assertions": ["crs"],
+            "metadata_values": {"crs": "EPSG:4326"},
+        }
+        self.assertFalse(module._valid_receipt(observed, req))
+
+        payload = {
+            "schema": "honua.format-budget-observations/v1",
+            "budget_observations": observed["budget_observations"],
+        }
+        observed["evidence_receipt"]["payload_base64"] = base64.b64encode(
+            json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        ).decode("ascii")
+        self.assertTrue(module._valid_receipt(observed, req))
+
+        observed["budget_observations"]["requests"] = 2
+        self.assertFalse(module._valid_receipt(observed, req))
+
+        null_observation = observation(req)
+        null_payload = {
+            "schema": "honua.format-budget-observations/v1",
+            "budget_observations": None,
+        }
+        null_observation["evidence_receipt"]["payload_base64"] = base64.b64encode(
+            json.dumps(null_payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        ).decode("ascii")
+        self.assertFalse(module._valid_receipt(null_observation, req))
+
+        for field, invalid in (
+            ("requests", True),
+            ("coordinate_error", float("nan")),
+            ("coordinate_error", 10**400),
+            ("metadata_assertions", ["crs", "crs"]),
+            ("metadata_assertions", []),
+            ("metadata_values", None),
+            ("metadata_values", {}),
+            ("metadata_values", {"crs": "EPSG:3857"}),
+        ):
+            with self.subTest(field=field):
+                malformed = observation(req)
+                malformed["budget_observations"] = dict(payload["budget_observations"])
+                malformed["budget_observations"][field] = invalid
+                malformed_payload = {
+                    "schema": "honua.format-budget-observations/v1",
+                    "budget_observations": malformed["budget_observations"],
+                }
+                malformed["evidence_receipt"]["payload_base64"] = base64.b64encode(
+                    json.dumps(malformed_payload, sort_keys=True, separators=(",", ":")).encode(
+                        "utf-8"
+                    )
+                ).decode("ascii")
+                self.assertFalse(module._valid_receipt(malformed, req))
 
     def test_missing_observation_materializes_skip(self):
         ledger = module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [requirement()], [], CANDIDATE)
         self.assertEqual(REQUIREMENTS_SOURCE_SHA, ledger["requirements_source_revision"])
         self.assertEqual("skip", ledger["cells"][0]["result"])
+        self.assertEqual(DIGEST, ledger["cells"][0]["image_digest"])
         self.assertIn("no producer evidence", ledger["cells"][0]["skip_reason"])
 
     def test_non_addressable_requirement_materializes_truthful_result(self):
         ledger = module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [requirement(addressable=False)], [], CANDIDATE)
         self.assertEqual("not-addressable", ledger["cells"][0]["result"])
+        self.assertEqual(DIGEST, ledger["cells"][0]["image_digest"])
+
+    def test_source_host_gaps_never_claim_candidate_image_provenance(self):
+        for addressable in (True, False):
+            with self.subTest(addressable=addressable):
+                req = requirement(addressable=addressable)
+                req["deployment_target"] = "source-test-host"
+                ledger = module.build_ledger(
+                    "rev-1", REQUIREMENTS_SOURCE_SHA, False, [req], [], CANDIDATE,
+                )
+                self.assertIsNone(ledger["cells"][0]["image_digest"])
 
     def test_licensed_receipt_requires_live_entitlement_binding(self):
         req = requirement()
@@ -625,4 +712,3 @@ class CertificationAggregationTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

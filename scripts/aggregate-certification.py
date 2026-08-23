@@ -11,6 +11,7 @@ import argparse
 import base64
 import hashlib
 import json
+import math
 import re
 from urllib.parse import urlparse
 from collections import defaultdict
@@ -71,6 +72,87 @@ RECEIPT_ID_FIELDS = (
     "fixture_revision", "contract_revision", "auth_policy_revision", "started_at", "completed_at",
 )
 
+FORMAT_BUDGET_OBSERVATION_FIELDS = frozenset(
+    {
+        "requests",
+        "transferred_bytes",
+        "full_object_downloads",
+        "range_requests",
+        "cache_hits",
+        "coordinate_error",
+        "geometry_error",
+        "metadata_assertions",
+        "metadata_values",
+    }
+)
+
+
+def _typed_equal(actual: object, expected: object) -> bool:
+    if type(actual) is not type(expected):
+        return False
+    if isinstance(expected, dict):
+        return actual.keys() == expected.keys() and all(
+            _typed_equal(actual[key], expected_value)
+            for key, expected_value in expected.items()
+        )
+    if isinstance(expected, list):
+        return len(actual) == len(expected) and all(
+            _typed_equal(actual_value, expected_value)
+            for actual_value, expected_value in zip(actual, expected, strict=True)
+        )
+    return actual == expected
+
+
+def _valid_format_budget_observations(value: object, expectations: object) -> bool:
+    if not isinstance(value, dict) or set(value) != FORMAT_BUDGET_OBSERVATION_FIELDS:
+        return False
+    for field in (
+        "requests",
+        "transferred_bytes",
+        "full_object_downloads",
+        "range_requests",
+        "cache_hits",
+    ):
+        observed = value[field]
+        if not isinstance(observed, int) or isinstance(observed, bool) or observed < 0:
+            return False
+    for field in ("coordinate_error", "geometry_error"):
+        observed = value[field]
+        if not isinstance(observed, (int, float)) or isinstance(observed, bool) or observed < 0:
+            return False
+        try:
+            finite = math.isfinite(observed)
+        except OverflowError:
+            finite = False
+        if not finite:
+            return False
+    assertions = value["metadata_assertions"]
+    if (
+        not isinstance(assertions, list)
+        or any(not isinstance(item, str) or not item for item in assertions)
+        or len(assertions) != len(set(assertions))
+    ):
+        return False
+    metadata_values = value["metadata_values"]
+    if not isinstance(metadata_values, dict) or not isinstance(expectations, dict):
+        return False
+    required_metadata = expectations.get("required_metadata")
+    expected_metadata = expectations.get("expected_metadata")
+    if (
+        not isinstance(required_metadata, list)
+        or not required_metadata
+        or any(not isinstance(item, str) or not item for item in required_metadata)
+        or len(required_metadata) != len(set(required_metadata))
+        or not isinstance(expected_metadata, dict)
+        or set(required_metadata) != set(expected_metadata)
+        or not set(required_metadata).issubset(assertions)
+    ):
+        return False
+    return all(
+        key in metadata_values and _typed_equal(metadata_values[key], expected_value)
+        for key, expected_value in expected_metadata.items()
+    )
+
 
 def _valid_entitlement_assertion(observation: dict, requirement: dict, entitlement: object) -> bool:
     if not requirement.get("licensed"):
@@ -122,9 +204,11 @@ def _valid_receipt(
         )
         for field in RECEIPT_ID_FIELDS
     }
-    requires_candidate_cut = str(observation.get("contract_revision", "")).startswith(
-        "sdk-python-certification@"
-    )
+    requires_candidate_cut = requirement.get("client_lane") in {
+        "sdk-python",
+        "sdk-python-certification",
+        "sdk-python-ogc",
+    }
     identity = receipt.get("identity")
     if requires_candidate_cut or (
         isinstance(identity, dict) and "candidate_cut_at" in identity
@@ -153,9 +237,43 @@ def _valid_receipt(
     ):
         return False
     try:
-        base64.b64decode(receipt["payload_base64"], validate=True)
+        payload_bytes = base64.b64decode(receipt["payload_base64"], validate=True)
     except (ValueError, TypeError):
         return False
+    if str(requirement.get("capability_key", "")).startswith("format."):
+        try:
+            payload = json.loads(payload_bytes)
+        except (json.JSONDecodeError, UnicodeDecodeError):
+            return False
+        if not isinstance(payload, dict):
+            return False
+        payload_observations = payload.get("budget_observations")
+        observation_budget = observation.get("budget_observations")
+        budget_expectations = requirement.get("budget_expectations")
+        if (
+            not _valid_format_budget_observations(payload_observations, budget_expectations)
+            or not _valid_format_budget_observations(observation_budget, budget_expectations)
+        ):
+            return False
+        try:
+            observations_match = json.dumps(
+                payload_observations,
+                sort_keys=True,
+                separators=(",", ":"),
+                allow_nan=False,
+            ) == json.dumps(
+                observation_budget,
+                sort_keys=True,
+                separators=(",", ":"),
+                allow_nan=False,
+            )
+        except (TypeError, ValueError):
+            return False
+        if (
+            payload.get("schema") != "honua.format-budget-observations/v1"
+            or not observations_match
+        ):
+            return False
     return True
 
 
@@ -583,7 +701,11 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
                 "skip_reason": None,
                 "source_sha": None,
                 "producer_source_sha": None,
-                "image_digest": None,
+                "image_digest": (
+                    None
+                    if requirement["deployment_target"] == "source-test-host"
+                    else candidate["image_digest"]
+                ),
                 "fixture_revision": None,
                 "evidence_uri": None,
                 "evidence_digest": None,
@@ -603,7 +725,11 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
                 "skip_reason": "no producer evidence for required certification cell",
                 "source_sha": None,
                 "producer_source_sha": None,
-                "image_digest": None,
+                "image_digest": (
+                    None
+                    if requirement["deployment_target"] == "source-test-host"
+                    else candidate["image_digest"]
+                ),
                 "fixture_revision": None,
                 "evidence_uri": None,
                 "evidence_digest": None,
