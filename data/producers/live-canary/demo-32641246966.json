@@ -1,0 +1,141 @@
+{
+  "schema": "honua-evidence.live-canary-envelope/v1",
+  "manifestId": "demo-canary-2026-08-23T13:04:49Z",
+  "targetEnvironment": "demo.honua.io",
+  "targetUrl": "https://demo.honua.io",
+  "runAt": "2026-08-23T13:04:49Z",
+  "overallStatus": "red",
+  "sourceRepo": "honua-io/honua-release",
+  "sourceRef": "281da0a777386b21a4ed4e00c37cbc61adec2711",
+  "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/32641246966",
+  "candidateServerSha": "f897700159e2791c9468c6ca85bb4e2a3a8d8433",
+  "probes": [
+    {
+      "probeName": "capability-manifest",
+      "capabilityKeys": [
+        "discovery.capability-manifest"
+      ],
+      "status": "red",
+      "lastGreenAt": "",
+      "detail": "expected-GA ids not available=true when authenticated: ['sync.offline']"
+    },
+    {
+      "probeName": "health-live-ready",
+      "capabilityKeys": [
+        "ops.health"
+      ],
+      "status": "green",
+      "lastGreenAt": "2026-08-23T13:04:49Z",
+      "detail": "/healthz/live + /healthz/ready -> 200"
+    },
+    {
+      "probeName": "metrics-gated",
+      "capabilityKeys": [
+        "ops.observability"
+      ],
+      "status": "green",
+      "lastGreenAt": "2026-08-23T13:04:49Z",
+      "detail": "/metrics: 401 without a key, 200 + honua_lambda_* with one"
+    },
+    {
+      "probeName": "admin-metrics-health",
+      "capabilityKeys": [
+        "ops.observability"
+      ],
+      "status": "green",
+      "lastGreenAt": "2026-08-23T13:04:49Z",
+      "detail": "/api/v1/metrics/health -> 200"
+    },
+    {
+      "probeName": "render-query-smoke",
+      "capabilityKeys": [
+        "serve.geoservices-mapserver",
+        "serve.geoservices-featureserver"
+      ],
+      "status": "green",
+      "lastGreenAt": "2026-08-23T13:04:49Z",
+      "detail": "maui-roads/3: MapServer export 200 PNG + FeatureServer count query ok"
+    },
+    {
+      "probeName": "stac-collections",
+      "capabilityKeys": [
+        "serve.stac"
+      ],
+      "status": "green",
+      "lastGreenAt": "2026-08-23T13:04:49Z",
+      "detail": "2 STAC collection(s)"
+    },
+    {
+      "probeName": "ogc-wms-capabilities",
+      "capabilityKeys": [
+        "serve.wms"
+      ],
+      "status": "green",
+      "lastGreenAt": "2026-08-23T13:04:49Z",
+      "detail": "maui-roads/wms GetCapabilities -> 200"
+    },
+    {
+      "probeName": "ogc-wmts-capabilities",
+      "capabilityKeys": [
+        "serve.wmts"
+      ],
+      "status": "green",
+      "lastGreenAt": "2026-08-23T13:04:49Z",
+      "detail": "maui-roads/wmts GetCapabilities -> 200"
+    },
+    {
+      "probeName": "ogc-wcs-capabilities",
+      "capabilityKeys": [
+        "serve.wcs"
+      ],
+      "status": "green",
+      "lastGreenAt": "2026-08-23T13:04:49Z",
+      "detail": "maui-roads/wcs GetCapabilities -> 200"
+    },
+    {
+      "probeName": "edr-collections",
+      "capabilityKeys": [
+        "serve.ogc-api-edr"
+      ],
+      "status": "green",
+      "lastGreenAt": "2026-08-23T13:04:49Z",
+      "detail": "GET /edr/collections -> 200 + JSON"
+    },
+    {
+      "probeName": "odata-service-document",
+      "capabilityKeys": [
+        "serve.odata"
+      ],
+      "status": "green",
+      "lastGreenAt": "2026-08-23T13:04:49Z",
+      "detail": "GET /odata -> 200 + service document"
+    },
+    {
+      "probeName": "ogc-features-collections",
+      "capabilityKeys": [
+        "serve.ogc-api-features"
+      ],
+      "status": "green",
+      "lastGreenAt": "2026-08-23T13:04:49Z",
+      "detail": "11 OGC API Features collection(s)"
+    },
+    {
+      "probeName": "tiles-tilejson",
+      "capabilityKeys": [
+        "serve.vector-tiles"
+      ],
+      "status": "green",
+      "lastGreenAt": "2026-08-23T13:04:49Z",
+      "detail": "layer 3: tile.json -> 200"
+    },
+    {
+      "probeName": "geocoding-latency",
+      "capabilityKeys": [
+        "geocoding.forward"
+      ],
+      "status": "green",
+      "lastGreenAt": "2026-08-23T13:04:49Z",
+      "detail": "geocoding responded in 140ms (budget 3000ms)"
+    }
+  ]
+}
