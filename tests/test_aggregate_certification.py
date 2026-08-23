@@ -1,5 +1,6 @@
 ﻿from __future__ import annotations
 
+import base64
 import importlib.util
 import hashlib
 import json
@@ -203,7 +204,6 @@ class CertificationAggregationTests(unittest.TestCase):
                         [(Path("unbound.json"), fragment("honua-sdk-python", [unbound]))],
                         CANDIDATE,
                     )
-
                 bound = observation(req, candidate_cut_at=CANDIDATE["cut_at"])
                 ledger = module.build_ledger(
                     "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
@@ -222,6 +222,25 @@ class CertificationAggregationTests(unittest.TestCase):
                         [(Path("wrong-cut.json"), fragment("honua-sdk-python", [wrong_cut]))],
                         CANDIDATE,
                     )
+
+    def test_format_budget_observations_are_bound_inside_the_receipt_payload(self):
+        req = requirement()
+        req["capability_key"] = "format.cog"
+        observed = observation(req)
+        observed["budget_observations"] = {"requests": 3, "cache_hits": 1}
+        self.assertFalse(module._valid_receipt(observed, req))
+
+        payload = {
+            "schema": "honua.format-budget-observations/v1",
+            "budget_observations": observed["budget_observations"],
+        }
+        observed["evidence_receipt"]["payload_base64"] = base64.b64encode(
+            json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        ).decode("ascii")
+        self.assertTrue(module._valid_receipt(observed, req))
+
+        observed["budget_observations"]["requests"] = 2
+        self.assertFalse(module._valid_receipt(observed, req))
 
     def test_missing_observation_materializes_skip(self):
         ledger = module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [requirement()], [], CANDIDATE)

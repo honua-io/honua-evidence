@@ -155,9 +155,36 @@ def _valid_receipt(
     ):
         return False
     try:
-        base64.b64decode(receipt["payload_base64"], validate=True)
+        payload_bytes = base64.b64decode(receipt["payload_base64"], validate=True)
     except (ValueError, TypeError):
         return False
+    if str(requirement.get("capability_key", "")).startswith("format."):
+        try:
+            payload = json.loads(payload_bytes)
+        except (json.JSONDecodeError, UnicodeDecodeError):
+            return False
+        if not isinstance(payload, dict):
+            return False
+        try:
+            observations_match = json.dumps(
+                payload.get("budget_observations"),
+                sort_keys=True,
+                separators=(",", ":"),
+                allow_nan=False,
+            ) == json.dumps(
+                observation.get("budget_observations"),
+                sort_keys=True,
+                separators=(",", ":"),
+                allow_nan=False,
+            )
+        except (TypeError, ValueError):
+            return False
+        if (
+            payload.get("schema") != "honua.format-budget-observations/v1"
+            or "budget_observations" not in payload
+            or not observations_match
+        ):
+            return False
     return True
 
 
