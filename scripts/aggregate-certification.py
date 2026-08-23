@@ -317,7 +317,11 @@ def _valid_receipt(
             return False
         try:
             payload = json.loads(payload_bytes, object_pairs_hook=_unique_json_object)
-        except (json.JSONDecodeError, UnicodeDecodeError, RecursionError, _DuplicateJsonKey):
+        # json.loads also raises a plain ValueError when an integer token exceeds
+        # Python's configured digit limit. Treat every parser ValueError (including
+        # JSONDecodeError and _DuplicateJsonKey) as an invalid receipt, not an
+        # aggregation-wide failure.
+        except (ValueError, UnicodeDecodeError, RecursionError):
             return False
         if not isinstance(payload, dict) or set(payload) != {"schema", "budget_observations"}:
             return False

@@ -392,10 +392,16 @@ class CertificationAggregationTests(unittest.TestCase):
             + b"]" * 2000
             + b"}"
         )
+        oversized_integer = (
+            b'{"schema":"honua.format-budget-observations/v1","budget_observations":{"requests":'
+            + b"9" * 5000
+            + b"}}"
+        )
         oversized = b"x" * (module.MAX_FORMAT_RECEIPT_PAYLOAD_BYTES + 1)
         for name, payload_bytes in (
             ("duplicate", duplicate),
             ("deeply-nested", deeply_nested),
+            ("oversized-integer", oversized_integer),
             ("oversized", oversized),
         ):
             with self.subTest(payload=name):
