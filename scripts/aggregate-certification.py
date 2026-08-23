@@ -11,6 +11,7 @@ import argparse
 import base64
 import hashlib
 import json
+import math
 import re
 from urllib.parse import urlparse
 from collections import defaultdict
@@ -70,6 +71,52 @@ RECEIPT_ID_FIELDS = (
     "deployment_target", "source_sha", "producer_source_sha", "image_digest",
     "fixture_revision", "contract_revision", "auth_policy_revision", "started_at", "completed_at",
 )
+
+FORMAT_BUDGET_OBSERVATION_FIELDS = frozenset(
+    {
+        "requests",
+        "transferred_bytes",
+        "full_object_downloads",
+        "range_requests",
+        "cache_hits",
+        "coordinate_error",
+        "geometry_error",
+        "metadata_assertions",
+        "metadata_values",
+    }
+)
+
+
+def _valid_format_budget_observations(value: object) -> bool:
+    if not isinstance(value, dict) or set(value) != FORMAT_BUDGET_OBSERVATION_FIELDS:
+        return False
+    for field in (
+        "requests",
+        "transferred_bytes",
+        "full_object_downloads",
+        "range_requests",
+        "cache_hits",
+    ):
+        observed = value[field]
+        if not isinstance(observed, int) or isinstance(observed, bool) or observed < 0:
+            return False
+    for field in ("coordinate_error", "geometry_error"):
+        observed = value[field]
+        if (
+            not isinstance(observed, (int, float))
+            or isinstance(observed, bool)
+            or not math.isfinite(observed)
+            or observed < 0
+        ):
+            return False
+    assertions = value["metadata_assertions"]
+    if (
+        not isinstance(assertions, list)
+        or any(not isinstance(item, str) or not item for item in assertions)
+        or len(assertions) != len(set(assertions))
+    ):
+        return False
+    return isinstance(value["metadata_values"], dict)
 
 
 def _valid_entitlement_assertion(observation: dict, requirement: dict, entitlement: object) -> bool:
@@ -165,14 +212,21 @@ def _valid_receipt(
             return False
         if not isinstance(payload, dict):
             return False
+        payload_observations = payload.get("budget_observations")
+        observation_budget = observation.get("budget_observations")
+        if (
+            not _valid_format_budget_observations(payload_observations)
+            or not _valid_format_budget_observations(observation_budget)
+        ):
+            return False
         try:
             observations_match = json.dumps(
-                payload.get("budget_observations"),
+                payload_observations,
                 sort_keys=True,
                 separators=(",", ":"),
                 allow_nan=False,
             ) == json.dumps(
-                observation.get("budget_observations"),
+                observation_budget,
                 sort_keys=True,
                 separators=(",", ":"),
                 allow_nan=False,
@@ -181,7 +235,6 @@ def _valid_receipt(
             return False
         if (
             payload.get("schema") != "honua.format-budget-observations/v1"
-            or "budget_observations" not in payload
             or not observations_match
         ):
             return False

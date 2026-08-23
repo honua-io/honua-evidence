@@ -227,7 +227,17 @@ class CertificationAggregationTests(unittest.TestCase):
         req = requirement()
         req["capability_key"] = "format.cog"
         observed = observation(req)
-        observed["budget_observations"] = {"requests": 3, "cache_hits": 1}
+        observed["budget_observations"] = {
+            "requests": 3,
+            "transferred_bytes": 1024,
+            "full_object_downloads": 0,
+            "range_requests": 2,
+            "cache_hits": 1,
+            "coordinate_error": 0.0,
+            "geometry_error": 0.0,
+            "metadata_assertions": ["crs"],
+            "metadata_values": {"crs": "EPSG:4326"},
+        }
         self.assertFalse(module._valid_receipt(observed, req))
 
         payload = {
@@ -241,6 +251,37 @@ class CertificationAggregationTests(unittest.TestCase):
 
         observed["budget_observations"]["requests"] = 2
         self.assertFalse(module._valid_receipt(observed, req))
+
+        null_observation = observation(req)
+        null_payload = {
+            "schema": "honua.format-budget-observations/v1",
+            "budget_observations": None,
+        }
+        null_observation["evidence_receipt"]["payload_base64"] = base64.b64encode(
+            json.dumps(null_payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        ).decode("ascii")
+        self.assertFalse(module._valid_receipt(null_observation, req))
+
+        for field, invalid in (
+            ("requests", True),
+            ("coordinate_error", float("nan")),
+            ("metadata_assertions", ["crs", "crs"]),
+            ("metadata_values", None),
+        ):
+            with self.subTest(field=field):
+                malformed = observation(req)
+                malformed["budget_observations"] = dict(payload["budget_observations"])
+                malformed["budget_observations"][field] = invalid
+                malformed_payload = {
+                    "schema": "honua.format-budget-observations/v1",
+                    "budget_observations": malformed["budget_observations"],
+                }
+                malformed["evidence_receipt"]["payload_base64"] = base64.b64encode(
+                    json.dumps(malformed_payload, sort_keys=True, separators=(",", ":")).encode(
+                        "utf-8"
+                    )
+                ).decode("ascii")
+                self.assertFalse(module._valid_receipt(malformed, req))
 
     def test_missing_observation_materializes_skip(self):
         ledger = module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [requirement()], [], CANDIDATE)
