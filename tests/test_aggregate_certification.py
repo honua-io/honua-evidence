@@ -226,6 +226,10 @@ class CertificationAggregationTests(unittest.TestCase):
     def test_format_budget_observations_are_bound_inside_the_receipt_payload(self):
         req = requirement()
         req["capability_key"] = "format.cog"
+        req["budget_expectations"] = {
+            "required_metadata": ["crs"],
+            "expected_metadata": {"crs": "EPSG:4326"},
+        }
         observed = observation(req)
         observed["budget_observations"] = {
             "requests": 3,
@@ -265,8 +269,12 @@ class CertificationAggregationTests(unittest.TestCase):
         for field, invalid in (
             ("requests", True),
             ("coordinate_error", float("nan")),
+            ("coordinate_error", 10**400),
             ("metadata_assertions", ["crs", "crs"]),
+            ("metadata_assertions", []),
             ("metadata_values", None),
+            ("metadata_values", {}),
+            ("metadata_values", {"crs": "EPSG:3857"}),
         ):
             with self.subTest(field=field):
                 malformed = observation(req)

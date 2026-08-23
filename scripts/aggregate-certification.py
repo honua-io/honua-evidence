@@ -87,7 +87,23 @@ FORMAT_BUDGET_OBSERVATION_FIELDS = frozenset(
 )
 
 
-def _valid_format_budget_observations(value: object) -> bool:
+def _typed_equal(actual: object, expected: object) -> bool:
+    if type(actual) is not type(expected):
+        return False
+    if isinstance(expected, dict):
+        return actual.keys() == expected.keys() and all(
+            _typed_equal(actual[key], expected_value)
+            for key, expected_value in expected.items()
+        )
+    if isinstance(expected, list):
+        return len(actual) == len(expected) and all(
+            _typed_equal(actual_value, expected_value)
+            for actual_value, expected_value in zip(actual, expected, strict=True)
+        )
+    return actual == expected
+
+
+def _valid_format_budget_observations(value: object, expectations: object) -> bool:
     if not isinstance(value, dict) or set(value) != FORMAT_BUDGET_OBSERVATION_FIELDS:
         return False
     for field in (
@@ -102,12 +118,13 @@ def _valid_format_budget_observations(value: object) -> bool:
             return False
     for field in ("coordinate_error", "geometry_error"):
         observed = value[field]
-        if (
-            not isinstance(observed, (int, float))
-            or isinstance(observed, bool)
-            or not math.isfinite(observed)
-            or observed < 0
-        ):
+        if not isinstance(observed, (int, float)) or isinstance(observed, bool) or observed < 0:
+            return False
+        try:
+            finite = math.isfinite(observed)
+        except OverflowError:
+            finite = False
+        if not finite:
             return False
     assertions = value["metadata_assertions"]
     if (
@@ -116,7 +133,25 @@ def _valid_format_budget_observations(value: object) -> bool:
         or len(assertions) != len(set(assertions))
     ):
         return False
-    return isinstance(value["metadata_values"], dict)
+    metadata_values = value["metadata_values"]
+    if not isinstance(metadata_values, dict) or not isinstance(expectations, dict):
+        return False
+    required_metadata = expectations.get("required_metadata")
+    expected_metadata = expectations.get("expected_metadata")
+    if (
+        not isinstance(required_metadata, list)
+        or not required_metadata
+        or any(not isinstance(item, str) or not item for item in required_metadata)
+        or len(required_metadata) != len(set(required_metadata))
+        or not isinstance(expected_metadata, dict)
+        or set(required_metadata) != set(expected_metadata)
+        or not set(required_metadata).issubset(assertions)
+    ):
+        return False
+    return all(
+        key in metadata_values and _typed_equal(metadata_values[key], expected_value)
+        for key, expected_value in expected_metadata.items()
+    )
 
 
 def _valid_entitlement_assertion(observation: dict, requirement: dict, entitlement: object) -> bool:
@@ -214,9 +249,10 @@ def _valid_receipt(
             return False
         payload_observations = payload.get("budget_observations")
         observation_budget = observation.get("budget_observations")
+        budget_expectations = requirement.get("budget_expectations")
         if (
-            not _valid_format_budget_observations(payload_observations)
-            or not _valid_format_budget_observations(observation_budget)
+            not _valid_format_budget_observations(payload_observations, budget_expectations)
+            or not _valid_format_budget_observations(observation_budget, budget_expectations)
         ):
             return False
         try:
