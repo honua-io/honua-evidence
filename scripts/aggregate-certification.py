@@ -85,6 +85,33 @@ FORMAT_BUDGET_OBSERVATION_FIELDS = frozenset(
         "metadata_values",
     }
 )
+FORMAT_BUDGET_EXPECTATION_FIELDS = frozenset(
+    {
+        "max_requests",
+        "max_transferred_bytes",
+        "max_full_object_downloads",
+        "min_range_requests",
+        "min_cache_hits",
+        "max_coordinate_error",
+        "max_geometry_error",
+        "required_metadata",
+        "expected_metadata",
+    }
+)
+MAX_FORMAT_RECEIPT_PAYLOAD_BYTES = 64 * 1024
+
+
+class _DuplicateJsonKey(ValueError):
+    pass
+
+
+def _unique_json_object(pairs: list[tuple[str, object]]) -> dict[str, object]:
+    value: dict[str, object] = {}
+    for key, item in pairs:
+        if key in value:
+            raise _DuplicateJsonKey(key)
+        value[key] = item
+    return value
 
 
 def _typed_equal(actual: object, expected: object) -> bool:
@@ -103,8 +130,24 @@ def _typed_equal(actual: object, expected: object) -> bool:
     return actual == expected
 
 
-def _valid_format_budget_observations(value: object, expectations: object) -> bool:
+def _finite_nonnegative_number(value: object) -> bool:
+    if not isinstance(value, (int, float)) or isinstance(value, bool) or value < 0:
+        return False
+    try:
+        return math.isfinite(value)
+    except OverflowError:
+        return False
+
+
+def _valid_format_budget_observations(
+    value: object,
+    expectations: object,
+    *,
+    require_pass: bool,
+) -> bool:
     if not isinstance(value, dict) or set(value) != FORMAT_BUDGET_OBSERVATION_FIELDS:
+        return False
+    if not isinstance(expectations, dict) or set(expectations) != FORMAT_BUDGET_EXPECTATION_FIELDS:
         return False
     for field in (
         "requests",
@@ -117,14 +160,7 @@ def _valid_format_budget_observations(value: object, expectations: object) -> bo
         if not isinstance(observed, int) or isinstance(observed, bool) or observed < 0:
             return False
     for field in ("coordinate_error", "geometry_error"):
-        observed = value[field]
-        if not isinstance(observed, (int, float)) or isinstance(observed, bool) or observed < 0:
-            return False
-        try:
-            finite = math.isfinite(observed)
-        except OverflowError:
-            finite = False
-        if not finite:
+        if not _finite_nonnegative_number(value[field]):
             return False
     assertions = value["metadata_assertions"]
     if (
@@ -134,7 +170,7 @@ def _valid_format_budget_observations(value: object, expectations: object) -> bo
     ):
         return False
     metadata_values = value["metadata_values"]
-    if not isinstance(metadata_values, dict) or not isinstance(expectations, dict):
+    if not isinstance(metadata_values, dict) or not set(assertions).issubset(metadata_values):
         return False
     required_metadata = expectations.get("required_metadata")
     expected_metadata = expectations.get("expected_metadata")
@@ -145,8 +181,39 @@ def _valid_format_budget_observations(value: object, expectations: object) -> bo
         or len(required_metadata) != len(set(required_metadata))
         or not isinstance(expected_metadata, dict)
         or set(required_metadata) != set(expected_metadata)
-        or not set(required_metadata).issubset(assertions)
     ):
+        return False
+    count_upper_bounds = {
+        "requests": "max_requests",
+        "transferred_bytes": "max_transferred_bytes",
+        "full_object_downloads": "max_full_object_downloads",
+    }
+    count_lower_bounds = {
+        "range_requests": "min_range_requests",
+        "cache_hits": "min_cache_hits",
+    }
+    error_upper_bounds = {
+        "coordinate_error": "max_coordinate_error",
+        "geometry_error": "max_geometry_error",
+    }
+    for expectation in (*count_upper_bounds.values(), *count_lower_bounds.values()):
+        limit = expectations.get(expectation)
+        if not isinstance(limit, int) or isinstance(limit, bool) or limit < 0:
+            return False
+    if any(
+        not _finite_nonnegative_number(expectations.get(expectation))
+        for expectation in error_upper_bounds.values()
+    ):
+        return False
+    if not require_pass:
+        return True
+    if any(value[observed] > expectations[expected] for observed, expected in count_upper_bounds.items()):
+        return False
+    if any(value[observed] < expectations[expected] for observed, expected in count_lower_bounds.items()):
+        return False
+    if any(value[observed] > expectations[expected] for observed, expected in error_upper_bounds.items()):
+        return False
+    if not set(required_metadata).issubset(assertions):
         return False
     return all(
         key in metadata_values and _typed_equal(metadata_values[key], expected_value)
@@ -237,22 +304,31 @@ def _valid_receipt(
     ):
         return False
     try:
+        if len(receipt["payload_base64"]) > ((MAX_FORMAT_RECEIPT_PAYLOAD_BYTES + 2) // 3) * 4:
+            return False
         payload_bytes = base64.b64decode(receipt["payload_base64"], validate=True)
     except (ValueError, TypeError):
         return False
     if str(requirement.get("capability_key", "")).startswith("format."):
-        try:
-            payload = json.loads(payload_bytes)
-        except (json.JSONDecodeError, UnicodeDecodeError):
+        if len(payload_bytes) > MAX_FORMAT_RECEIPT_PAYLOAD_BYTES:
             return False
-        if not isinstance(payload, dict):
+        try:
+            payload = json.loads(payload_bytes, object_pairs_hook=_unique_json_object)
+        except (json.JSONDecodeError, UnicodeDecodeError, RecursionError, _DuplicateJsonKey):
+            return False
+        if not isinstance(payload, dict) or set(payload) != {"schema", "budget_observations"}:
             return False
         payload_observations = payload.get("budget_observations")
         observation_budget = observation.get("budget_observations")
         budget_expectations = requirement.get("budget_expectations")
+        require_pass = observation.get("result") == "pass"
         if (
-            not _valid_format_budget_observations(payload_observations, budget_expectations)
-            or not _valid_format_budget_observations(observation_budget, budget_expectations)
+            not _valid_format_budget_observations(
+                payload_observations, budget_expectations, require_pass=require_pass
+            )
+            or not _valid_format_budget_observations(
+                observation_budget, budget_expectations, require_pass=require_pass
+            )
         ):
             return False
         try:
