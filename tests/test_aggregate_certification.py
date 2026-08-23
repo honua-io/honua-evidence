@@ -116,6 +116,25 @@ def observation(
     return value
 
 
+def bind_format_payload(value):
+    payload = {
+        "schema": "honua.format-budget-observations/v1",
+        "budget_observations": value["budget_observations"],
+    }
+    receipt = value["evidence_receipt"]
+    receipt["payload_base64"] = base64.b64encode(
+        json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).decode("ascii")
+    digest = "sha256:" + hashlib.sha256(
+        json.dumps(receipt, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
+    value["evidence_digest"] = digest
+    value["evidence_uri"] = "https://evidence.honua.io/data/sha256/" + digest[7:]
+    for facet_result in value["facet_results"].values():
+        facet_result["evidence_digest"] = digest
+    return value
+
+
 def fragment(producer, observations, generated="2026-08-20T10:06:00Z"):
     return {
         "schema": module.FRAGMENT_SCHEMA,
@@ -227,6 +246,13 @@ class CertificationAggregationTests(unittest.TestCase):
         req = requirement()
         req["capability_key"] = "format.cog"
         req["budget_expectations"] = {
+            "max_requests": 4,
+            "max_transferred_bytes": 2048,
+            "max_full_object_downloads": 0,
+            "min_range_requests": 1,
+            "min_cache_hits": 1,
+            "max_coordinate_error": 0.001,
+            "max_geometry_error": 0.001,
             "required_metadata": ["crs"],
             "expected_metadata": {"crs": "EPSG:4326"},
         }
@@ -290,6 +316,110 @@ class CertificationAggregationTests(unittest.TestCase):
                     )
                 ).decode("ascii")
                 self.assertFalse(module._valid_receipt(malformed, req))
+
+        for field, invalid in (
+            ("requests", 5),
+            ("transferred_bytes", 2049),
+            ("full_object_downloads", 1),
+            ("range_requests", 0),
+            ("cache_hits", 0),
+            ("coordinate_error", 0.01),
+            ("geometry_error", 0.01),
+        ):
+            with self.subTest(governed_limit=field):
+                over_budget = observation(req)
+                over_budget["budget_observations"] = dict(payload["budget_observations"])
+                over_budget["budget_observations"][field] = invalid
+                bind_format_payload(over_budget)
+                self.assertFalse(module._valid_receipt(over_budget, req))
+
+        failed = observation(req, result="fail")
+        failed["budget_observations"] = {
+            **payload["budget_observations"],
+            "requests": 999,
+            "range_requests": 0,
+            "coordinate_error": 99.0,
+            "metadata_assertions": ["crs"],
+            "metadata_values": {"crs": "EPSG:3857"},
+        }
+        bind_format_payload(failed)
+        ledger = module.build_ledger(
+            "rev-1",
+            REQUIREMENTS_SOURCE_SHA,
+            True,
+            [req],
+            [(Path("format-failure.json"), fragment("format-producer", [failed]))],
+            CANDIDATE,
+        )
+        self.assertEqual("fail", ledger["cells"][0]["result"])
+        self.assertEqual("EPSG:3857", ledger["cells"][0]["budget_observations"]["metadata_values"]["crs"])
+
+    def test_format_budget_payload_rejects_ambiguous_or_pathological_json(self):
+        req = requirement()
+        req["capability_key"] = "format.cog"
+        req["budget_expectations"] = {
+            "max_requests": 4,
+            "max_transferred_bytes": 2048,
+            "max_full_object_downloads": 0,
+            "min_range_requests": 1,
+            "min_cache_hits": 1,
+            "max_coordinate_error": 0.001,
+            "max_geometry_error": 0.001,
+            "required_metadata": ["crs"],
+            "expected_metadata": {"crs": "EPSG:4326"},
+        }
+        observed = observation(req)
+        observed["budget_observations"] = {
+            "requests": 3,
+            "transferred_bytes": 1024,
+            "full_object_downloads": 0,
+            "range_requests": 2,
+            "cache_hits": 1,
+            "coordinate_error": 0.0,
+            "geometry_error": 0.0,
+            "metadata_assertions": ["crs"],
+            "metadata_values": {"crs": "EPSG:4326"},
+        }
+
+        duplicate = (
+            b'{"schema":"honua.format-budget-observations/v1",'
+            b'"budget_observations":{"metadata_values":{"crs":"EPSG:3857","crs":"EPSG:4326"}}}'
+        )
+        deeply_nested = (
+            b'{"schema":"honua.format-budget-observations/v1","budget_observations":'
+            + b"[" * 2000
+            + b"0"
+            + b"]" * 2000
+            + b"}"
+        )
+        oversized_integer = (
+            b'{"schema":"honua.format-budget-observations/v1","budget_observations":{"requests":'
+            + b"9" * 5000
+            + b"}}"
+        )
+        oversized = b"x" * (module.MAX_FORMAT_RECEIPT_PAYLOAD_BYTES + 1)
+        for name, payload_bytes in (
+            ("duplicate", duplicate),
+            ("deeply-nested", deeply_nested),
+            ("oversized-integer", oversized_integer),
+            ("oversized", oversized),
+        ):
+            with self.subTest(payload=name):
+                candidate = observation(req)
+                candidate["budget_observations"] = observed["budget_observations"]
+                candidate["evidence_receipt"]["payload_base64"] = base64.b64encode(
+                    payload_bytes
+                ).decode("ascii")
+                self.assertFalse(module._valid_receipt(candidate, req))
+
+    def test_non_format_receipt_payload_is_not_subject_to_the_format_budget(self):
+        req = requirement()
+        observed = observation(req)
+        observed["evidence_receipt"]["payload_base64"] = base64.b64encode(
+            b"x" * (module.MAX_FORMAT_RECEIPT_PAYLOAD_BYTES + 1)
+        ).decode("ascii")
+
+        self.assertTrue(module._valid_receipt(observed, req))
 
     def test_missing_observation_materializes_skip(self):
         ledger = module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [requirement()], [], CANDIDATE)
