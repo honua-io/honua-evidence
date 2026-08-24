@@ -52,19 +52,189 @@ def test_select_artifacts_applies_full_name_regex() -> None:
     assert [row["name"] for row in selected] == ["python-sdk-conformance-7-1"]
 
 
+PINNED_SHA = "3a80040bff4060d5a816488ea65fd3fe928dd964"
+NEWER_SHA = "bfe12dd91819cb770657911be66928b0800b55c3"
+CANDIDATE = {
+    "source_sha": "e3ab87cebb7bf2d32c4e8cdb145f8d626b864d8e",
+    "image_digest": "sha256:d7a45c871bf318b4882ec8e1c32004803e6d0210246be30120751f05dee1a14d",
+    "cut_at": "2026-08-21T15:13:36Z",
+}
+
+
+def _requirements(path: Path, pins: dict[str, str]) -> Path:
+    path.write_text(
+        json.dumps({
+            "schema": MODULE.REQUIREMENTS_SCHEMA,
+            "source_revisions": {name: {"commit": sha} for name, sha in pins.items()},
+        }),
+        encoding="utf-8",
+    )
+    return path
+
+
+def _sdk_js_source(**overrides) -> dict:
+    source = {
+        "producer": "honua-sdk-js",
+        "repository": "honua-io/honua-sdk-js",
+        "workflow_path": ".github/workflows/integration.yml",
+        "artifact_prefix": "integration-meta",
+        "fragment_globs": ["**/protocol-certification-fragment.json"],
+        "trusted_branches": ["trunk"],
+        "trusted_events": ["push", "schedule"],
+        "source_revision_key": "sdk-js",
+        "max_artifacts": 10,
+        "required": True,
+    }
+    source.update(overrides)
+    return source
+
+
+def _run(run_id: int, head_sha: str) -> dict:
+    return {
+        "id": run_id, "status": "completed", "conclusion": "success",
+        "event": "schedule", "head_branch": "trunk", "head_sha": head_sha,
+        "run_attempt": 1, "run_started_at": "2026-08-22T07:30:00Z",
+        "path": ".github/workflows/integration.yml",
+        "head_repository": {"full_name": "honua-io/honua-sdk-js"},
+    }
+
+
+def _artifact(artifact_id: int, run_id: int, head_sha: str) -> dict:
+    return {
+        "id": artifact_id, "name": "integration-meta", "expired": False,
+        "created_at": "2026-08-22T07:36:32Z",
+        "archive_download_url": f"archive-{artifact_id}",
+        "workflow_run": {"id": run_id, "head_sha": head_sha},
+    }
+
+
+def _fragment(head_sha: str) -> dict:
+    return {
+        "schema": MODULE.FRAGMENT_SCHEMA,
+        "producer": "honua-sdk-js",
+        "candidate": CANDIDATE,
+        "observations": [{
+            "producer_source_sha": head_sha,
+            "contract_revision": f"sdk-js-certification@{head_sha}",
+        }],
+    }
+
+
+def _fetch(source: dict, runs_by_sha: dict[str, list[int]], artifacts: dict[int, list[dict]]):
+    """Drive fetch() against a fake GitHub, honouring the head_sha run filter."""
+    def request(url, _token, _accept):
+        if "/actions/runs?head_sha=" in url:
+            sha = url.split("head_sha=")[1].split("&")[0]
+            return json.dumps({
+                "workflow_runs": [_run(rid, sha) for rid in runs_by_sha.get(sha, [])]
+            }).encode()
+        if url.endswith("/artifacts?per_page=100") and "/actions/runs/" in url:
+            run_id = int(url.split("/actions/runs/")[1].split("/")[0])
+            return json.dumps({"artifacts": artifacts.get(run_id, [])}).encode()
+        if url.startswith("archive-"):
+            return _archive({"protocol-certification-fragment.json": _fragment(
+                NEWER_SHA if url == "archive-99" else PINNED_SHA
+            )})
+        raise AssertionError(f"unexpected request: {url}")
+
+    directory = tempfile.TemporaryDirectory()
+    root = Path(directory.name)
+    registry = root / "registry.json"
+    registry.write_text(
+        json.dumps({"schema": MODULE.REGISTRY_SCHEMA, "sources": [source]}), encoding="utf-8"
+    )
+    output = root / "out"
+    with mock.patch.object(MODULE, "request_bytes", side_effect=request):
+        MODULE.fetch(registry, output, "token", {"sdk-js": PINNED_SHA})
+    manifest = [
+        json.loads(line)
+        for line in (output / ".fetch-manifest.ndjson").read_text().splitlines()
+    ]
+    gaps = [
+        json.loads(line)
+        for line in (output / ".fetch-gaps.ndjson").read_text().splitlines()
+    ]
+    directory.cleanup()
+    return manifest, gaps
+
+
+def test_fetch_selects_the_run_at_the_pinned_revision() -> None:
+    # Fixture mirrors the real sdk-js evidence: run 32560044494 / artifact
+    # 9472525605, whose observations carry sdk-js-certification@3a80040b... and
+    # the exact frozen candidate triple.
+    manifest, gaps = _fetch(
+        _sdk_js_source(),
+        {PINNED_SHA: [32560044494], NEWER_SHA: [99999999999]},
+        {32560044494: [_artifact(9472525605, 32560044494, PINNED_SHA)]},
+    )
+    assert gaps == []
+    assert [(row["artifact_id"], row["head_sha"]) for row in manifest] == [
+        (9472525605, PINNED_SHA)
+    ]
+    assert manifest[0]["pinned_source_sha"] == PINNED_SHA
+    assert manifest[0]["source_revision_key"] == "sdk-js"
+
+
+def test_fetch_never_falls_back_to_a_newer_run_when_the_pin_has_none() -> None:
+    # THE point of the change: a newer, greener run must not be substituted for
+    # missing evidence at the pin. Required producers fail closed...
+    try:
+        _fetch(
+            _sdk_js_source(),
+            {PINNED_SHA: [], NEWER_SHA: [99]},
+            {99: [_artifact(99, 99, NEWER_SHA)]},
+        )
+    except ValueError as error:
+        assert "no normalized fragments at pinned" in str(error)
+        assert PINNED_SHA in str(error)
+    else:
+        raise AssertionError("required producer with no pinned evidence must fail closed")
+
+    # ...and optional producers record an honest gap rather than newer evidence.
+    manifest, gaps = _fetch(
+        _sdk_js_source(required=False),
+        {PINNED_SHA: [], NEWER_SHA: [99]},
+        {99: [_artifact(99, 99, NEWER_SHA)]},
+    )
+    assert manifest == []
+    assert len(gaps) == 1
+    assert gaps[0]["pinned_source_sha"] == PINNED_SHA
+    assert gaps[0]["producer"] == "honua-sdk-js"
+
+
+def test_fetch_ignores_artifacts_whose_run_head_is_not_the_pin() -> None:
+    # Defence in depth: even if the runs endpoint were to return an off-pin run,
+    # its artifacts must not be harvested.
+    manifest, gaps = _fetch(
+        _sdk_js_source(required=False),
+        {PINNED_SHA: [77]},
+        {77: [_artifact(99, 77, NEWER_SHA)]},
+    )
+    assert manifest == []
+    assert len(gaps) == 1
+
+
 def test_fetch_counts_only_artifacts_with_fragments() -> None:
     head_sha = "a" * 40
     source = {
         "producer": "honua-sdk-python",
         "repository": "honua-io/honua-sdk-python",
         "workflow_path": ".github/workflows/conformance.yml",
-        "artifact_prefix": "python-sdk-conformance-",
         "artifact_name_regex": r"^python-sdk-conformance-[0-9]+-[0-9]+$",
+        "artifact_prefix": "python-sdk-conformance-",
         "fragment_globs": ["**/protocol-certification-fragment.json"],
         "trusted_branches": ["trunk"],
         "trusted_events": ["workflow_dispatch"],
+        "source_revision_key": "sdk-python",
         "max_artifacts": 1,
         "required": True,
+    }
+    run = {
+        "id": 8, "status": "completed", "conclusion": "success",
+        "event": "workflow_dispatch", "head_branch": "trunk", "head_sha": head_sha,
+        "run_attempt": 1, "run_started_at": "2026-08-20T10:00:00Z",
+        "path": ".github/workflows/conformance.yml",
+        "head_repository": {"full_name": "honua-io/honua-sdk-python"},
     }
     artifacts = [
         {
@@ -75,20 +245,15 @@ def test_fetch_counts_only_artifacts_with_fragments() -> None:
         {
             "id": 7, "name": "python-sdk-conformance-7-1", "expired": False,
             "created_at": "2026-08-20T10:02:00Z", "archive_download_url": "archive-7",
-            "workflow_run": {"id": 7, "head_sha": head_sha},
+            "workflow_run": {"id": 8, "head_sha": head_sha},
         },
     ]
 
     def request(url, _token, _accept):
-        if "/actions/runs/" in url:
-            run_id = int(url.rsplit("/", 1)[1])
-            return json.dumps({
-                "id": run_id, "status": "completed", "conclusion": "success",
-                "event": "workflow_dispatch", "head_branch": "trunk", "head_sha": head_sha,
-                "run_attempt": 1, "run_started_at": "2026-08-20T10:00:00Z",
-                "path": ".github/workflows/conformance.yml",
-                "head_repository": {"full_name": "honua-io/honua-sdk-python"},
-            }).encode()
+        if "/actions/runs?head_sha=" in url:
+            return json.dumps({"workflow_runs": [run]}).encode()
+        if url.endswith("/artifacts?per_page=100"):
+            return json.dumps({"artifacts": artifacts}).encode()
         if url == "archive-8":
             return _archive({"server-log.json": {"schema": "diagnostic"}})
         if url == "archive-7":
@@ -109,13 +274,35 @@ def test_fetch_counts_only_artifacts_with_fragments() -> None:
             json.dumps({"schema": MODULE.REGISTRY_SCHEMA, "sources": [source]}),
             encoding="utf-8",
         )
-        with (
-            mock.patch.object(MODULE, "list_artifacts", return_value=artifacts),
-            mock.patch.object(MODULE, "request_bytes", side_effect=request),
-        ):
-            MODULE.fetch(registry, output, "token")
+        with mock.patch.object(MODULE, "request_bytes", side_effect=request):
+            MODULE.fetch(registry, output, "token", {"sdk-python": head_sha})
         manifest = [json.loads(line) for line in (output / ".fetch-manifest.ndjson").read_text().splitlines()]
         assert [(row["artifact_id"], row["producer"]) for row in manifest] == [(7, "honua-sdk-python")]
+
+
+def test_pins_must_come_from_a_governed_denominator() -> None:
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        good = _requirements(root / "req.json", {"sdk-js": PINNED_SHA})
+        assert MODULE.load_pinned_revisions(good) == {"sdk-js": PINNED_SHA}
+
+        for payload, message in [
+            ({"source_revisions": {"sdk-js": {"commit": PINNED_SHA}}}, "governed"),
+            ({"schema": MODULE.REQUIREMENTS_SCHEMA}, "source_revisions"),
+            (
+                {"schema": MODULE.REQUIREMENTS_SCHEMA,
+                 "source_revisions": {"sdk-js": {"commit": "trunk"}}},
+                "40-character",
+            ),
+        ]:
+            path = root / "bad.json"
+            path.write_text(json.dumps(payload), encoding="utf-8")
+            try:
+                MODULE.load_pinned_revisions(path)
+            except ValueError as error:
+                assert message in str(error)
+            else:
+                raise AssertionError(f"expected rejection containing {message!r}")
 
 
 def test_extract_fragments_accepts_only_normalized_envelopes() -> None:
@@ -161,42 +348,25 @@ def test_artifact_redirect_does_not_forward_github_credentials() -> None:
     assert redirected.get_header("User-agent") == "honua-test"
 
 
-def test_list_artifacts_paginates_until_the_last_page() -> None:
-    calls = []
-
-    def request(url, _token, _accept):
-        calls.append(url)
-        rows = [{"id": index} for index in range(100)] if url.endswith("&page=1") else [{"id": 100}]
-        return json.dumps({"artifacts": rows}).encode()
-
-    with mock.patch.object(MODULE, "request_bytes", side_effect=request):
-        assert len(MODULE.list_artifacts("honua-io/test", "token")) == 101
-    assert len(calls) == 2
-
-
-def test_list_artifacts_stops_at_the_page_bound() -> None:
-    calls = []
-
-    def request(url, _token, _accept):
-        calls.append(url)
-        return json.dumps({"artifacts": [{"id": index} for index in range(100)]}).encode()
-
-    with mock.patch.object(MODULE, "request_bytes", side_effect=request):
-        assert len(MODULE.list_artifacts("honua-io/test", "token", max_pages=2)) == 200
-    assert len(calls) == 2
-
-
-def test_required_server_harness_search_window_survives_busy_repository() -> None:
+def test_every_registered_producer_declares_a_denominator_pin() -> None:
     registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
-    source = next(
-        row for row in registry["sources"] if row["producer"] == "server-protocol-harness"
-    )
 
-    # The artifacts endpoint is repository-wide. Honua Server can produce more
-    # than two pages of unrelated PR artifacts between daily harness runs, so a
-    # two-page window makes a healthy required producer disappear.
-    assert source["required"] is True
-    assert source["max_artifact_pages"] == 20
+    # A producer without a pin would silently harvest whatever ran most
+    # recently -- the defect this registry field exists to make impossible.
+    for source in registry["sources"]:
+        assert source["source_revision_key"], source["producer"]
+        assert "max_artifact_pages" not in source, source["producer"]
+
+    assert {
+        source["producer"]: source["source_revision_key"]
+        for source in registry["sources"]
+    } == {
+        "honua-server-cng": "server",
+        "honua-sdk-js": "sdk-js",
+        "honua-sdk-python": "sdk-python",
+        "honua-sdk-dotnet": "sdk-dotnet",
+        "server-protocol-harness": "server-certification",
+    }
 
 
 def test_trusted_run_requires_successful_configured_workflow_and_identity() -> None:
@@ -275,6 +445,7 @@ def test_registry_validation_rejects_duplicate_producers() -> None:
         "fragment_globs": ["**/protocol-certification-fragment.json"],
         "trusted_branches": ["trunk"],
         "trusted_events": ["schedule"],
+        "source_revision_key": "server",
     }
     with tempfile.TemporaryDirectory() as directory:
         path = Path(directory) / "registry.json"
@@ -343,13 +514,14 @@ def test_registry_validation_rejects_unknown_fields_and_bad_limits() -> None:
         "fragment_globs": ["**/protocol-certification-fragment.json"],
         "trusted_branches": ["trunk"],
         "trusted_events": ["workflow_dispatch"],
+        "source_revision_key": "sdk-python",
     }
     for mutation, message in [
         ({"artifact_name_regx": ".*"}, "unknown fields"),
         ({"max_artifacts": 0}, "max_artifacts"),
         ({"max_artifacts": 51}, "max_artifacts"),
-        ({"max_artifact_pages": 0}, "max_artifact_pages"),
-        ({"max_artifact_pages": 21}, "max_artifact_pages"),
+        ({"max_artifact_pages": 5}, "unknown fields"),
+        ({"source_revision_key": ""}, "source_revision_key"),
         ({"max_artifacts": 10, "max_candidates": 9}, "max_candidates"),
         ({"max_candidates": 501}, "max_candidates"),
         ({"required": "yes"}, "required"),
@@ -373,6 +545,7 @@ def test_missing_token_fails_when_a_producer_is_required() -> None:
         "fragment_globs": ["**/protocol-certification-fragment.json"],
         "trusted_branches": ["trunk"],
         "trusted_events": ["workflow_dispatch"],
+        "source_revision_key": "sdk-python",
         "required": True,
     }
     with tempfile.TemporaryDirectory() as directory:
@@ -382,9 +555,12 @@ def test_missing_token_fails_when_a_producer_is_required() -> None:
             json.dumps({"schema": MODULE.REGISTRY_SCHEMA, "sources": [source]}),
             encoding="utf-8",
         )
+        requirements = _requirements(root / "req.json", {"sdk-python": "a" * 40})
         with (
             mock.patch.object(sys, "argv", [
-                str(SCRIPT), "--registry", str(registry), "--output", str(root / "out")
+                str(SCRIPT), "--registry", str(registry),
+                "--requirements", str(requirements),
+                "--output", str(root / "out"),
             ]),
             mock.patch.dict(os.environ, {"HONUA_EVIDENCE_TOKEN": ""}),
         ):
@@ -397,6 +573,14 @@ class FetchCertificationProducerTests(unittest.TestCase):
     test_fetch_counts_only_artifacts_with_fragments = staticmethod(
         test_fetch_counts_only_artifacts_with_fragments
     )
+    test_fetch_selects_pinned_run = staticmethod(test_fetch_selects_the_run_at_the_pinned_revision)
+    test_fetch_no_fallback = staticmethod(
+        test_fetch_never_falls_back_to_a_newer_run_when_the_pin_has_none
+    )
+    test_fetch_ignores_off_pin_artifacts = staticmethod(
+        test_fetch_ignores_artifacts_whose_run_head_is_not_the_pin
+    )
+    test_pins_from_denominator = staticmethod(test_pins_must_come_from_a_governed_denominator)
     test_extract_fragments = staticmethod(test_extract_fragments_accepts_only_normalized_envelopes)
     test_fragment_destination_names = staticmethod(
         test_fragment_destination_names_resist_normalization_collisions
@@ -404,11 +588,7 @@ class FetchCertificationProducerTests(unittest.TestCase):
     test_artifact_redirect_credentials = staticmethod(
         test_artifact_redirect_does_not_forward_github_credentials
     )
-    test_list_artifacts = staticmethod(test_list_artifacts_paginates_until_the_last_page)
-    test_list_artifacts_page_bound = staticmethod(test_list_artifacts_stops_at_the_page_bound)
-    test_required_server_search_window = staticmethod(
-        test_required_server_harness_search_window_survives_busy_repository
-    )
+    test_producer_pins = staticmethod(test_every_registered_producer_declares_a_denominator_pin)
     test_registry_validation_requires_typed_allowlists = staticmethod(
         test_registry_validation_requires_typed_allowlists
     )
