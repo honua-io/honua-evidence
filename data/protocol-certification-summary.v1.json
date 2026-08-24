@@ -2318,7 +2318,7 @@
       "required_operations": 1
     }
   },
-  "generated_at": "2026-08-22T23:52:27.277436Z",
+  "generated_at": "2026-08-24T05:39:45.336583Z",
   "overall": {
     "failed": 4,
     "not_addressable": 3,
@@ -2329,7 +2329,7 @@
   },
   "requirements_complete": true,
   "requirements_revision": "2026-08-21-complete.10",
-  "requirements_source_revision": "b6bb8264df79ea291931f10c7745c13c403ffcf3",
+  "requirements_source_revision": "47ec70604bb0db43b03f32dac1b114f1154bc2ca",
   "scenario_facets": {
     "auth": {
       "failed": 0,
