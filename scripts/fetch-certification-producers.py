@@ -21,6 +21,8 @@ from typing import Any
 
 FRAGMENT_SCHEMA = "honua.protocol-certification-fragment/v1"
 REGISTRY_SCHEMA = "honua.protocol-certification-producers/v1"
+REQUIREMENTS_SCHEMA = "honua.protocol-certification-requirements/v1"
+SHA_RE = re.compile(r"^[0-9a-f]{40}$")
 
 
 class CredentialStrippingRedirectHandler(urllib.request.HTTPRedirectHandler):
@@ -88,25 +90,6 @@ def request_bytes(url: str, token: str, accept: str) -> bytes:
         return response.read()
 
 
-def list_artifacts(repository: str, token: str, max_pages: int = 5) -> list[dict[str, Any]]:
-    artifacts: list[dict[str, Any]] = []
-    page = 1
-    while page <= max_pages:
-        listing = json.loads(request_bytes(
-            f"https://api.github.com/repos/{repository}/actions/artifacts?per_page=100&page={page}",
-            token,
-            "application/vnd.github+json",
-        ))
-        batch = listing.get("artifacts", [])
-        if not isinstance(batch, list):
-            raise ValueError(f"Invalid artifact listing for {repository}.")
-        artifacts.extend(batch)
-        if len(batch) < 100:
-            return artifacts
-        page += 1
-    return artifacts
-
-
 def trusted_run(run: dict[str, Any], artifact: dict[str, Any], source: dict[str, Any]) -> bool:
     repository = source["repository"]
     trusted_events = source.get("trusted_events")
@@ -164,6 +147,74 @@ def validate_fragment_producer(
             )
 
 
+def load_pinned_revisions(path: Path) -> dict[str, str]:
+    """Derive producer pins from the governed denominator.
+
+    The pins are NEVER hand-maintained here: the release repository owns
+    `source_revisions`, and this function only reads them. A second copy in
+    this repository could drift out of the freeze and silently certify the
+    wrong producer build.
+    """
+    requirements = json.loads(path.read_text(encoding="utf-8"))
+    if requirements.get("schema") != REQUIREMENTS_SCHEMA:
+        raise ValueError(f"{path}: not a governed protocol certification requirements catalog.")
+    revisions = requirements.get("source_revisions")
+    if not isinstance(revisions, dict) or not revisions:
+        raise ValueError(f"{path}: requirements catalog has no source_revisions map.")
+    pins: dict[str, str] = {}
+    for name, entry in revisions.items():
+        commit = entry.get("commit") if isinstance(entry, dict) else None
+        if not isinstance(commit, str) or not SHA_RE.fullmatch(commit):
+            raise ValueError(f"{path}: source_revisions[{name!r}] has no full 40-character commit SHA.")
+        pins[name] = commit
+    return pins
+
+
+def list_runs_at_revision(
+    repository: str, workflow_path: str, head_sha: str, token: str
+) -> list[dict[str, Any]]:
+    """Return completed runs of one workflow at exactly `head_sha`.
+
+    Addressing runs by revision is what makes the harvest replayable. Paging the
+    repository-wide artifact listing cannot reach a pinned revision in a busy
+    repository (honua-server buries it well past the 20-page ceiling), and any
+    depth limit there degrades into "newest wins" -- the exact defect this
+    replaces.
+    """
+    if not SHA_RE.fullmatch(head_sha):
+        raise ValueError(f"Refusing to harvest {repository} at non-immutable revision {head_sha!r}.")
+    listing = json.loads(request_bytes(
+        f"https://api.github.com/repos/{repository}/actions/runs"
+        f"?head_sha={head_sha}&per_page=100",
+        token,
+        "application/vnd.github+json",
+    ))
+    runs = listing.get("workflow_runs")
+    if not isinstance(runs, list):
+        raise ValueError(f"Invalid workflow run listing for {repository} at {head_sha}.")
+    matched = [
+        run for run in runs
+        if isinstance(run, dict)
+        and isinstance(run.get("path"), str)
+        and run["path"].split("@", 1)[0] == workflow_path
+        and run.get("head_sha") == head_sha
+    ]
+    matched.sort(key=lambda run: str(run.get("run_started_at", "")), reverse=True)
+    return matched
+
+
+def list_run_artifacts(repository: str, run_id: int, token: str) -> list[dict[str, Any]]:
+    listing = json.loads(request_bytes(
+        f"https://api.github.com/repos/{repository}/actions/runs/{run_id}/artifacts?per_page=100",
+        token,
+        "application/vnd.github+json",
+    ))
+    artifacts = listing.get("artifacts")
+    if not isinstance(artifacts, list):
+        raise ValueError(f"Invalid artifact listing for {repository} run {run_id}.")
+    return artifacts
+
+
 def load_registry(path: Path) -> dict[str, Any]:
     registry = json.loads(path.read_text(encoding="utf-8"))
     sources = registry.get("sources")
@@ -176,8 +227,9 @@ def load_registry(path: Path) -> dict[str, Any]:
         allowed_fields = {
             "producer", "repository", "workflow_path", "artifact_prefix",
             "artifact_name_regex", "fragment_globs", "trusted_branches",
-            "trusted_events", "max_artifacts", "max_artifact_pages",
+            "trusted_events", "max_artifacts",
             "max_candidates", "required", "accepted_conclusions",
+            "source_revision_key",
         }
         unknown_fields = set(source) - allowed_fields
         if unknown_fields:
@@ -212,15 +264,6 @@ def load_registry(path: Path) -> dict[str, Any]:
             or not 1 <= max_artifacts <= 50
         ):
             raise ValueError(f"Producer {producer!r} max_artifacts must be an integer from 1 through 50.")
-        max_artifact_pages = source.get("max_artifact_pages", 5)
-        if (
-            isinstance(max_artifact_pages, bool)
-            or not isinstance(max_artifact_pages, int)
-            or not 1 <= max_artifact_pages <= 20
-        ):
-            raise ValueError(
-                f"Producer {producer!r} max_artifact_pages must be an integer from 1 through 20."
-            )
         max_candidates = source.get("max_candidates", 100)
         if (
             isinstance(max_candidates, bool)
@@ -250,6 +293,12 @@ def load_registry(path: Path) -> dict[str, Any]:
                 and all(isinstance(item, str) and item for item in value)
             ):
                 raise ValueError(f"Producer {producer!r} has invalid {field}.")
+        source_revision_key = source.get("source_revision_key")
+        if not isinstance(source_revision_key, str) or not source_revision_key:
+            raise ValueError(
+                f"Producer {producer!r} must declare source_revision_key so its harvest is "
+                f"pinned to the governed denominator."
+            )
     return registry
 
 
@@ -262,78 +311,110 @@ def fragment_destination_name(member: str) -> str:
     return f"{member_digest}-{safe_name(member)}.json"
 
 
-def fetch(registry_path: Path, output: Path, token: str) -> int:
+def fetch(registry_path: Path, output: Path, token: str, pins: dict[str, str]) -> int:
     registry = load_registry(registry_path)
     if output.exists():
         shutil.rmtree(output)
     output.mkdir(parents=True)
     manifest: list[dict[str, Any]] = []
+    gaps: list[dict[str, Any]] = []
     for source in registry["sources"]:
         repository = source["repository"]
-        candidates = select_artifacts(
-            list_artifacts(
-                repository,
-                token,
-                int(source.get("max_artifact_pages", 5)),
-            ),
-            source["artifact_prefix"],
-            int(source.get("max_candidates", 100)),
-            source.get("artifact_name_regex"),
-        )
+        revision_key = source["source_revision_key"]
+        if revision_key not in pins:
+            raise ValueError(
+                f"Producer {source['producer']!r} pins source_revision_key {revision_key!r}, "
+                f"which the governed denominator does not define."
+            )
+        pinned_sha = pins[revision_key]
         producer_fragment_count = 0
         usable_artifact_count = 0
         producer_dir = output / safe_name(source["producer"])
-        for artifact in candidates:
+        for run in list_runs_at_revision(
+            repository, source["workflow_path"], pinned_sha, token
+        ):
             if usable_artifact_count >= int(source.get("max_artifacts", 10)):
                 break
-            workflow_run = artifact.get("workflow_run")
-            if not isinstance(workflow_run, dict) or not isinstance(workflow_run.get("id"), int):
-                continue
-            run = json.loads(request_bytes(
-                f"https://api.github.com/repos/{repository}/actions/runs/{workflow_run['id']}",
-                token,
-                "application/vnd.github+json",
-            ))
-            if not trusted_run(run, artifact, source):
-                continue
-            archive = request_bytes(
-                artifact["archive_download_url"], token, "application/vnd.github+json"
+            candidates = select_artifacts(
+                list_run_artifacts(repository, run["id"], token),
+                source["artifact_prefix"],
+                int(source.get("max_candidates", 100)),
+                source.get("artifact_name_regex"),
             )
-            extracted = extract_fragments(archive, source["fragment_globs"])
-            if not extracted:
-                continue
-            usable_artifact_count += 1
-            for member, payload in extracted:
-                validate_fragment_producer(payload, source["producer"], run["head_sha"])
-                destination = (
-                    producer_dir / str(artifact["id"]) /
-                    fragment_destination_name(member)
+            for artifact in candidates:
+                if usable_artifact_count >= int(source.get("max_artifacts", 10)):
+                    break
+                if not trusted_run(run, artifact, source):
+                    continue
+                # Defence in depth: trusted_run already ties the artifact to this
+                # run, and the run was addressed by revision -- never accept a
+                # fragment whose provenance is not the pin.
+                if run.get("head_sha") != pinned_sha:
+                    continue
+                archive = request_bytes(
+                    artifact["archive_download_url"], token, "application/vnd.github+json"
                 )
-                destination.parent.mkdir(parents=True, exist_ok=True)
-                destination.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-                manifest.append({
-                    "producer": source["producer"], "repository": repository,
-                    "artifact_id": artifact["id"], "artifact_name": artifact["name"],
-                    "workflow_run_id": run["id"], "workflow_path": source["workflow_path"],
-                    "head_branch": run["head_branch"], "head_sha": run["head_sha"],
-                    "created_at": artifact.get("created_at"), "member": member,
-                    "destination": destination.as_posix(),
-                })
-                producer_fragment_count += 1
-        if source.get("required", False) and producer_fragment_count == 0:
-            raise ValueError(
-                f"Required certification producer {source['producer']!r} yielded no normalized fragments."
+                extracted = extract_fragments(archive, source["fragment_globs"])
+                if not extracted:
+                    continue
+                usable_artifact_count += 1
+                for member, payload in extracted:
+                    validate_fragment_producer(payload, source["producer"], run["head_sha"])
+                    destination = (
+                        producer_dir / str(artifact["id"]) /
+                        fragment_destination_name(member)
+                    )
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    destination.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+                    manifest.append({
+                        "producer": source["producer"], "repository": repository,
+                        "artifact_id": artifact["id"], "artifact_name": artifact["name"],
+                        "workflow_run_id": run["id"], "workflow_path": source["workflow_path"],
+                        "head_branch": run["head_branch"], "head_sha": run["head_sha"],
+                        "source_revision_key": revision_key, "pinned_source_sha": pinned_sha,
+                        "created_at": artifact.get("created_at"), "member": member,
+                        "destination": destination.as_posix(),
+                    })
+                    producer_fragment_count += 1
+        if producer_fragment_count == 0:
+            # Fail closed. A producer with no evidence AT THE PIN is a gap, and a
+            # gap is reported as a gap. Falling back to a newer run would certify
+            # a build the denominator never froze.
+            if source.get("required", False):
+                raise ValueError(
+                    f"Required certification producer {source['producer']!r} has no normalized "
+                    f"fragments at pinned {revision_key} revision {pinned_sha}."
+                )
+            gaps.append({
+                "producer": source["producer"], "repository": repository,
+                "workflow_path": source["workflow_path"],
+                "source_revision_key": revision_key, "pinned_source_sha": pinned_sha,
+                "reason": "no trusted producer run with normalized fragments at the pinned revision",
+            })
+            print(
+                f"::warning::Certification producer {source['producer']!r} has no evidence at pinned "
+                f"{revision_key} revision {pinned_sha}; recording a gap."
             )
     (output / ".fetch-manifest.ndjson").write_text(
         "".join(json.dumps(row, sort_keys=True) + "\n" for row in manifest), encoding="utf-8"
     )
-    print(f"Fetched {len(manifest)} normalized certification fragment(s) from {len(registry['sources'])} source(s).")
+    (output / ".fetch-gaps.ndjson").write_text(
+        "".join(json.dumps(row, sort_keys=True) + "\n" for row in gaps), encoding="utf-8"
+    )
+    print(
+        f"Fetched {len(manifest)} normalized certification fragment(s) from "
+        f"{len(registry['sources'])} pinned source(s); {len(gaps)} source(s) recorded as gaps."
+    )
     return 0
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--registry", type=Path, required=True)
+    parser.add_argument(
+        "--requirements", type=Path,
+        help="governed protocol certification requirements catalog that owns source_revisions",
+    )
     parser.add_argument("--output", type=Path)
     parser.add_argument("--validate-only", action="store_true")
     parser.add_argument("--token-env", default="HONUA_EVIDENCE_TOKEN")
@@ -344,6 +425,9 @@ def main() -> int:
         return 0
     if args.output is None:
         parser.error("--output is required unless --validate-only is used")
+    if args.requirements is None:
+        parser.error("--requirements is required unless --validate-only is used")
+    pins = load_pinned_revisions(args.requirements)
     token = os.environ.get(args.token_env, "").strip()
     if not token:
         if any(source.get("required", False) for source in registry["sources"]):
@@ -354,7 +438,7 @@ def main() -> int:
             return 1
         print(f"::notice::{args.token_env} is unavailable; cross-repository certification fragments remain missing.")
         return 0
-    return fetch(args.registry, args.output, token)
+    return fetch(args.registry, args.output, token, pins)
 
 
 if __name__ == "__main__":

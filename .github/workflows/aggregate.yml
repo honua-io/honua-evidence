@@ -146,13 +146,6 @@ jobs:
           HONUA_EVIDENCE_TOKEN: ${{ secrets.HONUA_EVIDENCE_TOKEN }}
         run: |
           set -euo pipefail
-          python3 scripts/fetch-certification-producers.py \
-            --registry config/protocol-certification-producers.v1.json \
-            --output data/producers/protocol-certification/fetched
-          if ! find data/producers/protocol-certification -name '*.json' -print -quit | grep -q .; then
-            echo "::notice::Protocol certification contract is wired but awaiting its first producer fragment."
-            exit 0
-          fi
           mkdir -p .aggregate-cache
           if [[ "$REQUIREMENTS_REVISION" == "trunk" ]]; then
             REQUIREMENTS_SHA="$(git ls-remote https://github.com/honua-io/honua-release.git refs/heads/trunk | cut -f1)"
@@ -167,6 +160,19 @@ jobs:
             exit 1
           fi
           echo "Using honua-release certification requirements at $REQUIREMENTS_SHA"
+          curl --fail --silent --show-error --location \
+            "https://raw.githubusercontent.com/honua-io/honua-release/$REQUIREMENTS_SHA/certification/protocol-certification-requirements.v1.json" \
+            -o .aggregate-cache/protocol-certification-requirements.v1.json
+          # The denominator owns the producer pins, so it must be in hand before
+          # the harvest: fragments are selected BY revision, never by recency.
+          python3 scripts/fetch-certification-producers.py \
+            --registry config/protocol-certification-producers.v1.json \
+            --requirements .aggregate-cache/protocol-certification-requirements.v1.json \
+            --output data/producers/protocol-certification/fetched
+          if ! find data/producers/protocol-certification -name '*.json' -print -quit | grep -q .; then
+            echo "::notice::Protocol certification contract is wired but awaiting its first producer fragment."
+            exit 0
+          fi
           manual_candidate_fields=0
           [[ -z "$INPUT_CANDIDATE_SOURCE_SHA" ]] || manual_candidate_fields=$((manual_candidate_fields + 1))
           [[ -z "$INPUT_CANDIDATE_IMAGE_DIGEST" ]] || manual_candidate_fields=$((manual_candidate_fields + 1))
@@ -195,9 +201,6 @@ jobs:
             --candidate-image-digest "$CANDIDATE_IMAGE_DIGEST"
             --candidate-cut-at "$CANDIDATE_CUT_AT"
           )
-          curl --fail --silent --show-error --location \
-            "https://raw.githubusercontent.com/honua-io/honua-release/$REQUIREMENTS_SHA/certification/protocol-certification-requirements.v1.json" \
-            -o .aggregate-cache/protocol-certification-requirements.v1.json
           python3 scripts/aggregate-certification.py \
             --requirements .aggregate-cache/protocol-certification-requirements.v1.json \
             --requirements-source-revision "$REQUIREMENTS_SHA" \
