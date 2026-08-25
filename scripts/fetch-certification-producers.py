@@ -23,6 +23,12 @@ FRAGMENT_SCHEMA = "honua.protocol-certification-fragment/v1"
 REGISTRY_SCHEMA = "honua.protocol-certification-producers/v1"
 REQUIREMENTS_SCHEMA = "honua.protocol-certification-requirements/v1"
 SHA_RE = re.compile(r"^[0-9a-f]{40}$")
+RESERVED_CLIENT_LANE_PREFIX = "canonical-client-unassigned-"
+REQUIRED_OBSERVATION_FIELDS = (
+    "contract_revision", "auth_policy_revision", "fixture_revision",
+    "producer_source_sha", "surface", "operation", "canonical_client",
+    "client_version", "deployment_target",
+)
 
 
 class CredentialStrippingRedirectHandler(urllib.request.HTTPRedirectHandler):
@@ -128,7 +134,8 @@ def trusted_run(run: dict[str, Any], artifact: dict[str, Any], source: dict[str,
 
 
 def validate_fragment_producer(
-    payload: dict[str, Any], expected: str, producer_source_sha: str | None = None
+    payload: dict[str, Any], expected: str, producer_source_sha: str | None = None,
+    repository: str | None = None,
 ) -> None:
     if payload.get("producer") != expected:
         raise ValueError(
@@ -140,10 +147,42 @@ def validate_fragment_producer(
     if not isinstance(observations, list):
         raise ValueError(f"Fragment from {expected!r} has no observations array.")
     for index, observation in enumerate(observations):
-        if not isinstance(observation, dict) or observation.get("producer_source_sha") != producer_source_sha:
+        if not isinstance(observation, dict):
+            raise ValueError(f"Fragment observation {index} from {expected!r} is not an object.")
+        if observation.get("producer_source_sha") != producer_source_sha:
             raise ValueError(
                 f"Fragment observation {index} producer_source_sha does not match trusted run head "
                 f"{producer_source_sha}."
+            )
+        missing = [field for field in REQUIRED_OBSERVATION_FIELDS if not observation.get(field)]
+        if missing:
+            raise ValueError(
+                f"Fragment observation {index} from {expected!r} is missing governed fields: {missing}."
+            )
+        for field in ("canonical_client", "client_lane"):
+            value = observation.get(field)
+            if isinstance(value, str) and value.startswith(RESERVED_CLIENT_LANE_PREFIX):
+                raise ValueError(
+                    f"Fragment observation {index} attempts to satisfy reserved lane {value!r}."
+                )
+        uri = observation["evidence_uri"]
+        parsed = urlparse(uri) if isinstance(uri, str) else None
+        trusted_github_path = (
+            repository is not None
+            and parsed is not None
+            and parsed.scheme == "https"
+            and parsed.hostname == "github.com"
+            and parsed.path.startswith(f"/{repository}/actions/runs/")
+        )
+        trusted_ledger_path = (
+            parsed is not None
+            and parsed.scheme == "https"
+            and parsed.hostname == "evidence.honua.io"
+            and parsed.path.startswith("/data/sha256/")
+        )
+        if uri is not None and not (trusted_github_path or trusted_ledger_path):
+            raise ValueError(
+                f"Fragment observation {index} has untrusted evidence_uri {uri!r}."
             )
 
 
@@ -183,15 +222,22 @@ def list_runs_at_revision(
     """
     if not SHA_RE.fullmatch(head_sha):
         raise ValueError(f"Refusing to harvest {repository} at non-immutable revision {head_sha!r}.")
-    listing = json.loads(request_bytes(
-        f"https://api.github.com/repos/{repository}/actions/runs"
-        f"?head_sha={head_sha}&per_page=100",
-        token,
-        "application/vnd.github+json",
-    ))
-    runs = listing.get("workflow_runs")
-    if not isinstance(runs, list):
-        raise ValueError(f"Invalid workflow run listing for {repository} at {head_sha}.")
+    runs: list[dict[str, Any]] = []
+    for page in range(1, 101):
+        listing = json.loads(request_bytes(
+            f"https://api.github.com/repos/{repository}/actions/runs"
+            f"?head_sha={head_sha}&per_page=100&page={page}",
+            token,
+            "application/vnd.github+json",
+        ))
+        batch = listing.get("workflow_runs")
+        if not isinstance(batch, list):
+            raise ValueError(f"Invalid workflow run listing for {repository} at {head_sha}.")
+        runs.extend(run for run in batch if isinstance(run, dict))
+        if len(batch) < 100:
+            break
+    else:
+        raise ValueError(f"Workflow run pagination exceeded safety limit for {repository} at {head_sha}.")
     matched = [
         run for run in runs
         if isinstance(run, dict)
@@ -204,14 +250,22 @@ def list_runs_at_revision(
 
 
 def list_run_artifacts(repository: str, run_id: int, token: str) -> list[dict[str, Any]]:
-    listing = json.loads(request_bytes(
-        f"https://api.github.com/repos/{repository}/actions/runs/{run_id}/artifacts?per_page=100",
-        token,
-        "application/vnd.github+json",
-    ))
-    artifacts = listing.get("artifacts")
-    if not isinstance(artifacts, list):
-        raise ValueError(f"Invalid artifact listing for {repository} run {run_id}.")
+    artifacts: list[dict[str, Any]] = []
+    for page in range(1, 101):
+        listing = json.loads(request_bytes(
+            f"https://api.github.com/repos/{repository}/actions/runs/{run_id}/artifacts"
+            f"?per_page=100&page={page}",
+            token,
+            "application/vnd.github+json",
+        ))
+        batch = listing.get("artifacts")
+        if not isinstance(batch, list):
+            raise ValueError(f"Invalid artifact listing for {repository} run {run_id}.")
+        artifacts.extend(artifact for artifact in batch if isinstance(artifact, dict))
+        if len(batch) < 100:
+            break
+    else:
+        raise ValueError(f"Artifact pagination exceeded safety limit for {repository} run {run_id}.")
     return artifacts
 
 
@@ -230,6 +284,7 @@ def load_registry(path: Path) -> dict[str, Any]:
             "trusted_events", "max_artifacts",
             "max_candidates", "required", "accepted_conclusions",
             "source_revision_key",
+            "implementation_issue",
         }
         unknown_fields = set(source) - allowed_fields
         if unknown_fields:
@@ -241,6 +296,8 @@ def load_registry(path: Path) -> dict[str, Any]:
         if not isinstance(producer, str) or not producer or producer in producers:
             raise ValueError(f"Invalid or duplicate registry producer: {producer!r}")
         producers.add(producer)
+        if producer.startswith(RESERVED_CLIENT_LANE_PREFIX):
+            raise ValueError(f"Reserved unassigned lane cannot be a producer: {producer!r}")
         if not isinstance(repository, str) or not repository.startswith("honua-io/") or repository.count("/") != 1:
             raise ValueError(f"Untrusted producer repository: {repository!r}")
         for field in ("workflow_path", "artifact_prefix"):
@@ -299,6 +356,13 @@ def load_registry(path: Path) -> dict[str, Any]:
                 f"Producer {producer!r} must declare source_revision_key so its harvest is "
                 f"pinned to the governed denominator."
             )
+        implementation_issue = source.get("implementation_issue")
+        if implementation_issue is not None and not (
+            isinstance(implementation_issue, str)
+            and implementation_issue.startswith("https://github.com/honua-io/")
+            and "/issues/" in implementation_issue
+        ):
+            raise ValueError(f"Producer {producer!r} must link its implementation_issue.")
     return registry
 
 
@@ -359,7 +423,9 @@ def fetch(registry_path: Path, output: Path, token: str, pins: dict[str, str]) -
                     continue
                 usable_artifact_count += 1
                 for member, payload in extracted:
-                    validate_fragment_producer(payload, source["producer"], run["head_sha"])
+                    validate_fragment_producer(
+                        payload, source["producer"], run["head_sha"], repository
+                    )
                     destination = (
                         producer_dir / str(artifact["id"]) /
                         fragment_destination_name(member)

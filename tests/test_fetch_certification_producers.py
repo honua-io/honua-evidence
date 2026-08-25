@@ -14,6 +14,7 @@ from unittest import mock
 
 SCRIPT = Path(__file__).parents[1] / "scripts" / "fetch-certification-producers.py"
 REGISTRY = Path(__file__).parents[1] / "config" / "protocol-certification-producers.v1.json"
+FIXTURES = Path(__file__).parent / "fixtures" / "protocol-certification-producers"
 SPEC = importlib.util.spec_from_file_location("fetch_certification_producers", SCRIPT)
 assert SPEC and SPEC.loader
 MODULE = importlib.util.module_from_spec(SPEC)
@@ -116,6 +117,14 @@ def _fragment(head_sha: str) -> dict:
         "observations": [{
             "producer_source_sha": head_sha,
             "contract_revision": f"sdk-js-certification@{head_sha}",
+            "auth_policy_revision": "auth-v1",
+            "fixture_revision": "fixture-v1",
+            "surface": "ogc-features",
+            "operation": "collections",
+            "canonical_client": "honua-sdk-js",
+            "client_version": "1.0.0",
+            "deployment_target": "synthetic",
+            "evidence_uri": "https://evidence.honua.io/data/sha256/" + "a" * 64,
         }],
     }
 
@@ -128,7 +137,7 @@ def _fetch(source: dict, runs_by_sha: dict[str, list[int]], artifacts: dict[int,
             return json.dumps({
                 "workflow_runs": [_run(rid, sha) for rid in runs_by_sha.get(sha, [])]
             }).encode()
-        if url.endswith("/artifacts?per_page=100") and "/actions/runs/" in url:
+        if "/artifacts?per_page=100" in url and "/actions/runs/" in url:
             run_id = int(url.split("/actions/runs/")[1].split("/")[0])
             return json.dumps({"artifacts": artifacts.get(run_id, [])}).encode()
         if url.startswith("archive-"):
@@ -252,7 +261,7 @@ def test_fetch_counts_only_artifacts_with_fragments() -> None:
     def request(url, _token, _accept):
         if "/actions/runs?head_sha=" in url:
             return json.dumps({"workflow_runs": [run]}).encode()
-        if url.endswith("/artifacts?per_page=100"):
+        if "/artifacts?per_page=100" in url:
             return json.dumps({"artifacts": artifacts}).encode()
         if url == "archive-8":
             return _archive({"server-log.json": {"schema": "diagnostic"}})
@@ -261,7 +270,18 @@ def test_fetch_counts_only_artifacts_with_fragments() -> None:
                 "protocol-certification-fragment.json": {
                     "schema": MODULE.FRAGMENT_SCHEMA,
                     "producer": "honua-sdk-python",
-                    "observations": [{"producer_source_sha": head_sha}],
+                    "observations": [{
+                        "producer_source_sha": head_sha,
+                        "contract_revision": "python-v1",
+                        "auth_policy_revision": "auth-v1",
+                        "fixture_revision": "fixture-v1",
+                        "surface": "ogc-features",
+                        "operation": "collections",
+                        "canonical_client": "honua-sdk-python",
+                        "client_version": "1.0.0",
+                        "deployment_target": "synthetic",
+                        "evidence_uri": "https://github.com/honua-io/honua-sdk-python/actions/runs/8",
+                    }],
                 }
             })
         raise AssertionError(f"unexpected request: {url}")
@@ -357,6 +377,11 @@ def test_every_registered_producer_declares_a_denominator_pin() -> None:
         assert source["source_revision_key"], source["producer"]
         assert "max_artifact_pages" not in source, source["producer"]
 
+    assert all(source.get("implementation_issue") for source in registry["sources"])
+    assert not any(
+        source["producer"].startswith(MODULE.RESERVED_CLIENT_LANE_PREFIX)
+        for source in registry["sources"]
+    )
     assert {
         source["producer"]: source["source_revision_key"]
         for source in registry["sources"]
@@ -366,7 +391,56 @@ def test_every_registered_producer_declares_a_denominator_pin() -> None:
         "honua-sdk-python": "sdk-python",
         "honua-sdk-dotnet": "sdk-dotnet",
         "server-protocol-harness": "server-certification",
+        "honua-server-cite": "server-certification",
+        "honua-esri-compat": "esri-compat",
+        "geospatial-grpc": "geospatial-grpc",
+        "geospatial-mcp": "geospatial-mcp",
     }
+
+
+def test_synthetic_ledger_fragment_and_negative_fixtures_fail_closed() -> None:
+    trusted = json.loads((FIXTURES / "trusted-fragment.json").read_text())
+    MODULE.validate_fragment_producer(
+        trusted, "geospatial-grpc", "a" * 40, "honua-io/geospatial-grpc"
+    )
+    for filename, message in [
+        ("rejected-unassigned-lane.json", "reserved lane"),
+        ("rejected-evidence-uri.json", "untrusted evidence_uri"),
+    ]:
+        payload = json.loads((FIXTURES / filename).read_text())
+        with unittest.TestCase().assertRaisesRegex(ValueError, message):
+            MODULE.validate_fragment_producer(
+                payload, "geospatial-grpc", "a" * 40, "honua-io/geospatial-grpc"
+            )
+
+
+def test_registry_rejects_reserved_unassigned_producer() -> None:
+    source = _sdk_js_source(
+        producer="canonical-client-unassigned-ogc",
+        implementation_issue="https://github.com/honua-io/honua-sdk-js/issues/39",
+    )
+    with tempfile.TemporaryDirectory() as directory:
+        path = Path(directory) / "registry.json"
+        path.write_text(json.dumps({"schema": MODULE.REGISTRY_SCHEMA, "sources": [source]}))
+        with unittest.TestCase().assertRaisesRegex(ValueError, "Reserved unassigned"):
+            MODULE.load_registry(path)
+
+
+def test_github_listings_follow_every_page() -> None:
+    run = _run(1, PINNED_SHA)
+    artifact = _artifact(1, 1, PINNED_SHA)
+
+    def request(url, _token, _accept):
+        page = int(url.rsplit("page=", 1)[1])
+        if "/artifacts?" in url:
+            return json.dumps({"artifacts": [artifact] * (100 if page == 1 else 1)}).encode()
+        return json.dumps({"workflow_runs": [run] * (100 if page == 1 else 1)}).encode()
+
+    with mock.patch.object(MODULE, "request_bytes", side_effect=request):
+        assert len(MODULE.list_runs_at_revision(
+            "honua-io/honua-sdk-js", ".github/workflows/integration.yml", PINNED_SHA, "token"
+        )) == 101
+        assert len(MODULE.list_run_artifacts("honua-io/honua-sdk-js", 1, "token")) == 101
 
 
 def test_trusted_run_requires_successful_configured_workflow_and_identity() -> None:
@@ -433,6 +507,13 @@ def test_fragment_observations_must_match_trusted_run_head() -> None:
         raise AssertionError("producer SHA mismatch was accepted")
 
     fragment["observations"][0]["producer_source_sha"] = head_sha
+    fragment["observations"][0].update({
+        "contract_revision": "cng-v1", "auth_policy_revision": "auth-v1",
+        "fixture_revision": "fixture-v1", "surface": "cog", "operation": "read",
+        "canonical_client": "gdal", "client_version": "3.11",
+        "deployment_target": "synthetic",
+        "evidence_uri": "https://evidence.honua.io/data/sha256/" + "a" * 64,
+    })
     MODULE.validate_fragment_producer(fragment, "honua-server-cng", head_sha)
 
 
@@ -589,6 +670,11 @@ class FetchCertificationProducerTests(unittest.TestCase):
         test_artifact_redirect_does_not_forward_github_credentials
     )
     test_producer_pins = staticmethod(test_every_registered_producer_declares_a_denominator_pin)
+    test_synthetic_ledger = staticmethod(
+        test_synthetic_ledger_fragment_and_negative_fixtures_fail_closed
+    )
+    test_reserved_producer = staticmethod(test_registry_rejects_reserved_unassigned_producer)
+    test_pagination = staticmethod(test_github_listings_follow_every_page)
     test_registry_validation_requires_typed_allowlists = staticmethod(
         test_registry_validation_requires_typed_allowlists
     )

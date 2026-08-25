@@ -1,0 +1,16 @@
+{
+  "schema": "honua.protocol-certification-fragment/v1",
+  "producer": "geospatial-grpc",
+  "observations": [{
+    "producer_source_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "contract_revision": "grpc-contract-v1",
+    "auth_policy_revision": "auth-v1",
+    "fixture_revision": "synthetic-ledger-v1",
+    "surface": "grpc",
+    "operation": "FeatureService.Query",
+    "canonical_client": "grpc-dotnet-generated",
+    "client_version": "1.0.0",
+    "deployment_target": "synthetic-ledger",
+    "evidence_uri": "https://attacker.example/artifact.json"
+  }]
+}
