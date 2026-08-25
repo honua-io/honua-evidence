@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-08-25T13:14:33Z",
+  "generatedAt": "2026-08-25T16:19:53Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -28,52 +28,52 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-08-25T13:14:24Z",
+      "fetchedAt": "2026-08-25T16:19:36Z",
       "sourceVersion": "834fec8f31f4@2026-08-18T03:19:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-25T13:14:24Z",
+      "observedAt": "2026-08-25T16:19:36Z",
       "ageDays": 0,
       "sourceAgeDays": 7,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-08-25T13:14:24Z",
-      "sourceVersion": "47e355b66064@2026-08-23T23:36:43Z",
+      "fetchedAt": "2026-08-25T16:19:37Z",
+      "sourceVersion": "c19bc9439cb4@2026-08-25T05:53:49Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-25T13:14:24Z",
+      "observedAt": "2026-08-25T16:19:37Z",
       "ageDays": 0,
-      "sourceAgeDays": 1,
+      "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-08-25T13:14:24Z",
+      "fetchedAt": "2026-08-25T16:19:38Z",
       "sourceVersion": "7dfb6695fe4e@2026-08-24T06:07:09Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-25T13:14:24Z",
+      "observedAt": "2026-08-25T16:19:38Z",
       "ageDays": 0,
       "sourceAgeDays": 1,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-08-25T13:14:24Z",
+      "fetchedAt": "2026-08-25T16:19:38Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-25T13:14:24Z",
+      "observedAt": "2026-08-25T16:19:38Z",
       "ageDays": 0,
       "sourceAgeDays": 38,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-08-25T13:14:24Z",
+      "fetchedAt": "2026-08-25T16:19:39Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-25T13:14:24Z",
+      "observedAt": "2026-08-25T16:19:39Z",
       "ageDays": 0,
       "sourceAgeDays": 38,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-08-25T13:14:25Z",
+      "fetchedAt": "2026-08-25T16:19:41Z",
       "sourceVersion": "250f40ae65a2@2026-08-18T05:47:36Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-08-18T05:47:36Z",
@@ -82,16 +82,16 @@
       "status": "stale"
     },
     "open-issues": {
-      "fetchedAt": "2026-08-25T13:14:33Z",
+      "fetchedAt": "2026-08-25T16:19:53Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-25T13:14:33Z",
+      "observedAt": "2026-08-25T16:19:53Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-08-25T13:14:25Z",
+      "fetchedAt": "2026-08-25T16:19:41Z",
       "sourceVersion": "7ffc1d134ab1@2026-08-12T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-08-12T00:00:00Z",
@@ -100,7 +100,7 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-08-25T13:14:25Z",
+      "fetchedAt": "2026-08-25T16:19:41Z",
       "sourceVersion": "281da0a77738@2026-08-25T13:14:05Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-08-25T13:14:05Z",
@@ -129,7 +129,7 @@
       "category": "ControlPlane",
       "edition": "Community",
       "entryCount": 368,
-      "provingTestCount": 1040,
+      "provingTestCount": 1041,
       "maturity": {
         "implemented": 368
       },
@@ -295,17 +295,12 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 3411,
             "title": "feat(control-plane): WS1b \u2014 canonical operation instance/evidence envelope and durable approval bridge",
             "url": "https://github.com/honua-io/honua-server/issues/3411"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3424,
@@ -340,11 +335,6 @@
             "number": 3411,
             "title": "feat(control-plane): WS1b \u2014 canonical operation instance/evidence envelope and durable approval bridge",
             "url": "https://github.com/honua-io/honua-server/issues/3411"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3424,
@@ -422,17 +412,12 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 3411,
             "title": "feat(control-plane): WS1b \u2014 canonical operation instance/evidence envelope and durable approval bridge",
             "url": "https://github.com/honua-io/honua-server/issues/3411"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3424,
@@ -467,11 +452,6 @@
             "number": 3411,
             "title": "feat(control-plane): WS1b \u2014 canonical operation instance/evidence envelope and durable approval bridge",
             "url": "https://github.com/honua-io/honua-server/issues/3411"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3424,
@@ -533,17 +513,12 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 3411,
             "title": "feat(control-plane): WS1b \u2014 canonical operation instance/evidence envelope and durable approval bridge",
             "url": "https://github.com/honua-io/honua-server/issues/3411"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3424,
@@ -578,11 +553,6 @@
             "number": 3411,
             "title": "feat(control-plane): WS1b \u2014 canonical operation instance/evidence envelope and durable approval bridge",
             "url": "https://github.com/honua-io/honua-server/issues/3411"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3424,
@@ -653,17 +623,12 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 3411,
             "title": "feat(control-plane): WS1b \u2014 canonical operation instance/evidence envelope and durable approval bridge",
             "url": "https://github.com/honua-io/honua-server/issues/3411"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3424,
@@ -698,11 +663,6 @@
             "number": 3411,
             "title": "feat(control-plane): WS1b \u2014 canonical operation instance/evidence envelope and durable approval bridge",
             "url": "https://github.com/honua-io/honua-server/issues/3411"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3424,
@@ -769,17 +729,12 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 3411,
             "title": "feat(control-plane): WS1b \u2014 canonical operation instance/evidence envelope and durable approval bridge",
             "url": "https://github.com/honua-io/honua-server/issues/3411"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3424,
@@ -814,11 +769,6 @@
             "number": 3411,
             "title": "feat(control-plane): WS1b \u2014 canonical operation instance/evidence envelope and durable approval bridge",
             "url": "https://github.com/honua-io/honua-server/issues/3411"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3424,
@@ -884,17 +834,12 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 3411,
             "title": "feat(control-plane): WS1b \u2014 canonical operation instance/evidence envelope and durable approval bridge",
             "url": "https://github.com/honua-io/honua-server/issues/3411"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3424,
@@ -929,11 +874,6 @@
             "number": 3411,
             "title": "feat(control-plane): WS1b \u2014 canonical operation instance/evidence envelope and durable approval bridge",
             "url": "https://github.com/honua-io/honua-server/issues/3411"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3424,
@@ -4572,7 +4512,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 8,
+        "count": 7,
         "refs": [
           {
             "number": 346,
@@ -4588,11 +4528,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3430,
@@ -4632,11 +4567,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3430,
@@ -4693,7 +4623,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 8,
+        "count": 7,
         "refs": [
           {
             "number": 346,
@@ -4709,11 +4639,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3430,
@@ -4753,11 +4678,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3430,
@@ -4829,7 +4749,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 8,
+        "count": 7,
         "refs": [
           {
             "number": 346,
@@ -4845,11 +4765,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3430,
@@ -4889,11 +4804,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3430,
@@ -4959,7 +4869,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 8,
+        "count": 7,
         "refs": [
           {
             "number": 346,
@@ -4975,11 +4885,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3430,
@@ -5019,11 +4924,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3430,
@@ -5101,7 +5001,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 8,
+        "count": 7,
         "refs": [
           {
             "number": 346,
@@ -5117,11 +5017,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3430,
@@ -5161,11 +5056,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3430,
@@ -5234,7 +5124,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 8,
+        "count": 7,
         "refs": [
           {
             "number": 346,
@@ -5250,11 +5140,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3430,
@@ -5294,11 +5179,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3430,
@@ -5355,7 +5235,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 8,
+        "count": 7,
         "refs": [
           {
             "number": 346,
@@ -5371,11 +5251,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3430,
@@ -5415,11 +5290,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3430,
@@ -5476,7 +5346,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 8,
+        "count": 7,
         "refs": [
           {
             "number": 346,
@@ -5492,11 +5362,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3430,
@@ -5536,11 +5401,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3412,
-            "title": "fix(studio): enforce lifecycle ownership authorization on every honua_studio MCP tool",
-            "url": "https://github.com/honua-io/honua-server/issues/3412"
           },
           {
             "number": 3430,
