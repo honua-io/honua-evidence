@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "aggregate-certification.py"
+FIXTURES = Path(__file__).resolve().parent / "fixtures" / "protocol-certification"
 SPEC = importlib.util.spec_from_file_location("aggregate_certification", SCRIPT)
 module = importlib.util.module_from_spec(SPEC)
 assert SPEC and SPEC.loader
@@ -456,6 +457,61 @@ class CertificationAggregationTests(unittest.TestCase):
 
         observed["evidence_receipt"]["entitlement"]["deployment_target"] = "local-docker"
         self.assertFalse(module._valid_receipt(observed, req))
+
+    def test_canonical_licensed_receipt_fixture_and_every_entitlement_binding(self):
+        req = requirement()
+        req.update({
+            "licensed": True,
+            "entitlement_policy_revision": "honua-pro-feature-subscriptions-v1",
+            "deployment_target": "licensed-release",
+            "auth_policy_revision": "api-key-protected-v1",
+        })
+        observed = observation(req)
+        fixture = json.loads(
+            (FIXTURES / "licensed-entitlement-receipt.v1.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(fixture, observed["evidence_receipt"])
+        self.assertEqual(module.ENTITLEMENT_RECEIPT_FIELDS, set(fixture["entitlement"]))
+        self.assertTrue(module._valid_receipt(observed, req))
+
+        invalid_values = {
+            "policy_revision": "unknown-policy-v1",
+            "capability_key": "serve.wrong",
+            "deployment_target": "local-docker",
+            "verification": "synthetic-client-check-v1",
+            "status": "expired",
+            "checked_at": "2026-08-20T09:59:59Z",
+            "license_fingerprint": "raw-license-key",
+        }
+        for field, invalid_value in invalid_values.items():
+            with self.subTest(field=field):
+                malformed = observation(req)
+                malformed["evidence_receipt"]["entitlement"][field] = invalid_value
+                self.assertFalse(module._valid_receipt(malformed, req))
+
+        for mutation in ("missing", "additional"):
+            with self.subTest(mutation=mutation):
+                malformed = observation(req)
+                if mutation == "missing":
+                    malformed["evidence_receipt"]["entitlement"].pop("checked_at")
+                else:
+                    malformed["evidence_receipt"]["entitlement"]["raw_license"] = "secret"
+                self.assertFalse(module._valid_receipt(malformed, req))
+
+    def test_canonical_unlicensed_v1_receipt_remains_unchanged(self):
+        req = requirement()
+        observed = observation(req)
+        fixture = json.loads(
+            (FIXTURES / "unlicensed-receipt.v1.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(fixture, observed["evidence_receipt"])
+        self.assertNotIn("entitlement", fixture)
+        self.assertNotIn("entitlement_policy_revision", fixture["identity"])
+        self.assertTrue(module._valid_receipt(observed, req))
+
+        smuggled = observation(req)
+        smuggled["evidence_receipt"]["entitlement"] = fixture
+        self.assertFalse(module._valid_receipt(smuggled, req))
 
     def test_requirements_reject_unlicensed_entitlement_claim(self):
         with tempfile.TemporaryDirectory() as directory:

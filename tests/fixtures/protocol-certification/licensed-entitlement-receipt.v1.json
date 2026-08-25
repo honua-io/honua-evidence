@@ -1,0 +1,35 @@
+{
+  "schema": "honua.certification-evidence-receipt/v1",
+  "identity": {
+    "capability_key": "serve.cog",
+    "surface": "cog",
+    "operation": "window-read",
+    "canonical_client": "Rasterio",
+    "client_version": "1.0",
+    "deployment_target": "licensed-release",
+    "source_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "producer_source_sha": "cccccccccccccccccccccccccccccccccccccccc",
+    "image_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "fixture_revision": "fixture-v1",
+    "contract_revision": "cog-1.0",
+    "auth_policy_revision": "api-key-protected-v1",
+    "started_at": "2026-08-20T10:00:00Z",
+    "completed_at": "2026-08-20T10:05:00Z",
+    "entitlement_policy_revision": "honua-pro-feature-subscriptions-v1"
+  },
+  "result": "pass",
+  "facets": {
+    "positive": "pass",
+    "range-efficiency": "pass"
+  },
+  "payload_base64": "dGVzdA==",
+  "entitlement": {
+    "policy_revision": "honua-pro-feature-subscriptions-v1",
+    "capability_key": "serve.cog",
+    "deployment_target": "licensed-release",
+    "verification": "live-server-capability-probe-v1",
+    "status": "active",
+    "checked_at": "2026-08-20T10:02:00Z",
+    "license_fingerprint": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+  }
+}
