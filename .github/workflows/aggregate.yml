@@ -160,9 +160,22 @@ jobs:
             exit 1
           fi
           echo "Using honua-release certification requirements at $REQUIREMENTS_SHA"
-          curl --fail --silent --show-error --location \
+          REQUIREMENTS_HTTP_STATUS="$(curl --silent --show-error --location \
             "https://raw.githubusercontent.com/honua-io/honua-release/$REQUIREMENTS_SHA/certification/protocol-certification-requirements.v1.json" \
-            -o .aggregate-cache/protocol-certification-requirements.v1.json
+            --output .aggregate-cache/protocol-certification-requirements.v1.json \
+            --write-out '%{http_code}')" || {
+              echo "::error::Could not fetch protocol certification requirements."
+              exit 1
+            }
+          if [[ "$REQUIREMENTS_REVISION" == "trunk" && "$REQUIREMENTS_HTTP_STATUS" == "404" ]]; then
+            rm -f .aggregate-cache/protocol-certification-requirements.v1.json
+            echo "::notice::Protocol certification contract is wired but awaiting its requirements catalog on honua-release trunk."
+            exit 0
+          fi
+          if [[ "$REQUIREMENTS_HTTP_STATUS" != "200" ]]; then
+            echo "::error::Protocol certification requirements fetch returned HTTP $REQUIREMENTS_HTTP_STATUS."
+            exit 1
+          fi
           # The denominator owns the producer pins, so it must be in hand before
           # the harvest: fragments are selected BY revision, never by recency.
           python3 scripts/fetch-certification-producers.py \

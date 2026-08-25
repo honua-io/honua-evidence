@@ -250,6 +250,12 @@ class WorkflowWiringTests(unittest.TestCase):
         certification = self.text.index("Aggregate protocol certification observations")
         self.assertLess(capability_commit, certification)
 
+    def test_missing_trunk_certification_requirements_do_not_block_deploy(self):
+        self.assertIn('"$REQUIREMENTS_REVISION" == "trunk"', self.text)
+        self.assertIn('"$REQUIREMENTS_HTTP_STATUS" == "404"', self.text)
+        self.assertIn("awaiting its requirements catalog on honua-release trunk", self.text)
+        self.assertIn('"$REQUIREMENTS_HTTP_STATUS" != "200"', self.text)
+
     def test_pr_gate_executes_aggregator_against_committed_fragments(self):
         self.assertIn("Validate committed protocol certification fragments", self.validate_text)
         self.assertIn("--requirements .validate-cache/protocol-certification-requirements.v1.json", self.validate_text)
