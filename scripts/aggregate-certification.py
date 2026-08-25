@@ -71,6 +71,17 @@ RECEIPT_ID_FIELDS = (
     "deployment_target", "source_sha", "producer_source_sha", "image_digest",
     "fixture_revision", "contract_revision", "auth_policy_revision", "started_at", "completed_at",
 )
+ENTITLEMENT_RECEIPT_FIELDS = frozenset(
+    {
+        "policy_revision",
+        "capability_key",
+        "deployment_target",
+        "verification",
+        "status",
+        "checked_at",
+        "license_fingerprint",
+    }
+)
 
 FORMAT_BUDGET_OBSERVATION_FIELDS = frozenset(
     {
@@ -224,10 +235,7 @@ def _valid_format_budget_observations(
 def _valid_entitlement_assertion(observation: dict, requirement: dict, entitlement: object) -> bool:
     if not requirement.get("licensed"):
         return entitlement is None and requirement.get("entitlement_policy_revision") is None
-    if not isinstance(entitlement, dict) or set(entitlement) != {
-        "policy_revision", "capability_key", "deployment_target", "verification",
-        "status", "checked_at", "license_fingerprint",
-    }:
+    if not isinstance(entitlement, dict) or set(entitlement) != ENTITLEMENT_RECEIPT_FIELDS:
         return False
     checked_at = _timestamp(entitlement.get("checked_at"))
     started_at = _timestamp(observation.get("started_at"))
