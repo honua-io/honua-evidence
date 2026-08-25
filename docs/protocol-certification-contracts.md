@@ -1,5 +1,26 @@
 # Protocol certification evidence contracts
 
+## Governed producer registry
+
+`config/protocol-certification-producers.v1.json` is the static trust boundary
+for cross-repository evidence. Each entry binds one producer identity to an
+exact Honua repository, workflow path, trunk branch, event allowlist, artifact
+name, denominator revision key, and implementation issue. Pending producer
+workflows are intentionally optional: until their linked issue lands at the
+registered path and emits a normalized fragment at the pinned revision, the
+fetch records a gap and cannot manufacture a pass.
+
+The registry covers CNG, CITE, Esri compatibility, generated gRPC, MCP, the
+three official SDKs, and the shared server protocol harness. It uses
+honua-release#159's `source_revisions` keys without stacking on that unmerged
+PR. Evidence PRs #39 and #40 are independent of this registry change.
+
+`canonical-client-unassigned-*` identities are applicability blockers, not
+executable producer lanes. Registry loading and fragment verification reject
+those identities. Verification also rejects repository, workflow, branch,
+event, SHA, conclusion, artifact-name, and evidence-URI substitution before
+bytes enter aggregation.
+
 The authoritative denominator is `honua.protocol-certification-requirements/v1` in `honua-release`.
 Evidence producers push immutable fragments using this envelope:
 
