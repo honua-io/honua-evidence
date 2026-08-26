@@ -674,9 +674,15 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
             if observation["performed_by"] != observation["client_id"]:
                 raise ValueError(f"{path}: observations[{index}] was not performed by client_id")
             request_url = observation.get("request_url")
-            parsed_request = urlparse(request_url) if isinstance(request_url, str) else None
-            if parsed_request is None or parsed_request.scheme not in {"http", "https"} or not parsed_request.netloc:
-                raise ValueError(f"{path}: observations[{index}].request_url must be absolute HTTP(S)")
+            # A skipped observation performed no request, so it may truthfully
+            # carry request_url null; every executed observation must name the
+            # absolute endpoint it exercised.
+            if observation.get("result") == "skip" and request_url is None:
+                pass
+            else:
+                parsed_request = urlparse(request_url) if isinstance(request_url, str) else None
+                if parsed_request is None or parsed_request.scheme not in {"http", "https"} or not parsed_request.netloc:
+                    raise ValueError(f"{path}: observations[{index}].request_url must be absolute HTTP(S)")
             exercised = observation.get("exercised_capabilities")
             if not isinstance(exercised, list) or any(not isinstance(item, str) or not item for item in exercised):
                 raise ValueError(f"{path}: observations[{index}].exercised_capabilities must be a string array")

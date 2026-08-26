@@ -191,6 +191,27 @@ class CertificationAggregationTests(unittest.TestCase):
         self.assertEqual(SHA, ledger["cells"][0]["source_sha"])
         self.assertEqual(DIGEST, ledger["cells"][0]["image_digest"])
 
+    def test_skip_observation_may_carry_null_request_url_but_executed_may_not(self):
+        req = requirement()
+        skipped = observation(req, result="skip")
+        skipped["request_url"] = None
+        skipped["skip_reason"] = "facade family not exercised by any live request"
+        ledger = module.build_ledger(
+            "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+            [(Path("skip.json"), fragment("honua-server-cng", [skipped]))], CANDIDATE,
+            now=datetime(2026, 8, 20, 10, 10, tzinfo=timezone.utc),
+        )
+        self.assertEqual("skip", ledger["cells"][0]["result"])
+
+        executed = observation(req)
+        executed["request_url"] = None
+        with self.assertRaisesRegex(ValueError, "request_url must be absolute"):
+            module.build_ledger(
+                "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+                [(Path("bad.json"), fragment("honua-server-cng", [executed]))], CANDIDATE,
+                now=datetime(2026, 8, 20, 10, 10, tzinfo=timezone.utc),
+            )
+
     def test_source_test_host_evidence_does_not_claim_candidate_image_execution(self):
         req = requirement(test_ids=["HarnessTests.ExactOperation"])
         req["deployment_target"] = "source-test-host"
