@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import fnmatch
 import hashlib
 import io
@@ -23,6 +24,7 @@ FRAGMENT_SCHEMA = "honua.protocol-certification-fragment/v1"
 REGISTRY_SCHEMA = "honua.protocol-certification-producers/v1"
 REQUIREMENTS_SCHEMA = "honua.protocol-certification-requirements/v1"
 SHA_RE = re.compile(r"^[0-9a-f]{40}$")
+DIGEST_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
 RESERVED_CLIENT_LANE_PREFIX = "canonical-client-unassigned-"
 REQUIRED_OBSERVATION_FIELDS = (
     "contract_revision", "auth_policy_revision", "fixture_revision",
@@ -79,6 +81,138 @@ def extract_fragments(archive: bytes, patterns: list[str]) -> list[tuple[str, di
             if isinstance(payload, dict) and payload.get("schema") == FRAGMENT_SCHEMA:
                 fragments.append((normalized, payload))
     return fragments
+
+
+def extract_json_documents(archive: bytes, patterns: list[str]) -> list[tuple[str, dict[str, Any]]]:
+    """Extract matching JSON objects; unlike fragments these may be raw receipts."""
+    documents: list[tuple[str, dict[str, Any]]] = []
+    with zipfile.ZipFile(io.BytesIO(archive)) as bundle:
+        for member in bundle.namelist():
+            normalized = member.replace("\\", "/")
+            if not any(
+                fnmatch.fnmatch(normalized, pattern) or fnmatch.fnmatch(f"x/{normalized}", pattern)
+                for pattern in patterns
+            ):
+                continue
+            try:
+                payload = json.loads(bundle.read(member))
+            except (json.JSONDecodeError, UnicodeDecodeError) as error:
+                raise ValueError(f"Malformed JSON receipt {normalized!r}.") from error
+            if not isinstance(payload, dict):
+                raise ValueError(f"Raw receipt {normalized!r} must be a JSON object.")
+            documents.append((normalized, payload))
+    return documents
+
+
+def _receipt_digest(receipt: dict[str, Any]) -> str:
+    encoded = json.dumps(receipt, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()
+    return "sha256:" + hashlib.sha256(encoded).hexdigest()
+
+
+def normalize_client_interop(
+    raw: dict[str, Any], requirements: list[dict[str, Any]], candidate: dict[str, str],
+    producer_sha: str,
+) -> dict[str, Any]:
+    """Convert one server client-interop ``.cert.json`` into governed observations."""
+    required = (
+        "schema_version", "run_id", "run_date", "server_commit", "producer_source_sha", "image_digest",
+        "fixture_revision", "server_config_revision", "auth_policy_revision",
+        "client_lane", "client_version", "protocol", "protocol_version", "environment", "results",
+    )
+    missing = [field for field in required if field not in raw]
+    if missing:
+        raise ValueError(f"Malformed client interop receipt missing fields: {missing}.")
+    if raw["schema_version"] != "1.0" or not isinstance(raw["results"], list):
+        raise ValueError("Malformed client interop receipt schema/results.")
+    if raw["server_commit"] != candidate["source_sha"]:
+        raise ValueError("Client interop receipt server_commit does not match the candidate SHA.")
+    if raw["producer_source_sha"] != producer_sha:
+        raise ValueError("Client interop receipt producer_source_sha does not match the trusted run SHA.")
+    if raw["image_digest"] != candidate["image_digest"] or not DIGEST_RE.fullmatch(raw["image_digest"]):
+        raise ValueError("Client interop receipt image_digest does not match the exact candidate.")
+    if not isinstance(raw["run_date"], str) or not raw["run_date"]:
+        raise ValueError("Client interop receipt run_date must be present.")
+
+    observations: list[dict[str, Any]] = []
+    rows = [*raw["results"], *raw.get("extensions", [])]
+    for index, result in enumerate(rows):
+        if not isinstance(result, dict):
+            raise ValueError(f"Client interop result {index} must be an object.")
+        test_id, status = result.get("test_case_id"), result.get("status")
+        if not isinstance(test_id, str) or status not in {"pass", "fail", "skip", "not_applicable"}:
+            raise ValueError(f"Malformed client interop result {index}.")
+        if status == "not_applicable":
+            continue
+        matches = [
+            requirement for requirement in requirements
+            if requirement.get("client_lane") == raw["client_lane"]
+            and requirement.get("client_version") == raw["client_version"]
+            and requirement.get("surface") == raw["protocol"]
+            and test_id in requirement.get("test_ids", [])
+        ]
+        if len(matches) != 1:
+            raise ValueError(
+                f"Client interop result {test_id!r} resolves to {len(matches)} governed requirements."
+            )
+        requirement = matches[0]
+        expected_fixture = requirement["fixture_revision"].replace("{source_sha}", candidate["source_sha"])
+        for raw_field, expected in (
+            ("fixture_revision", expected_fixture),
+            ("server_config_revision", requirement["contract_revision"]),
+            ("auth_policy_revision", requirement["auth_policy_revision"]),
+        ):
+            if raw[raw_field] != expected:
+                raise ValueError(f"Client interop receipt {raw_field} does not match its governed requirement.")
+        normalized_result = "skip" if status == "skip" else status
+        identity = {
+            "capability_key": requirement["capability_key"],
+            "surface": requirement["surface"], "operation": requirement["operation"],
+            "canonical_client": requirement["canonical_client"],
+            "client_version": requirement["client_version"],
+            "deployment_target": requirement["deployment_target"],
+            "source_sha": candidate["source_sha"], "producer_source_sha": producer_sha,
+            "image_digest": candidate["image_digest"], "fixture_revision": expected_fixture,
+            "contract_revision": requirement["contract_revision"],
+            "auth_policy_revision": requirement["auth_policy_revision"],
+            "started_at": raw["run_date"], "completed_at": raw["run_date"],
+            "candidate_cut_at": candidate["cut_at"], "test_ids": requirement["test_ids"],
+        }
+        observation = {
+            key: identity[key] for key in (
+                "surface", "operation", "canonical_client", "client_version", "deployment_target",
+                "source_sha", "producer_source_sha", "image_digest", "fixture_revision",
+                "contract_revision", "auth_policy_revision", "started_at", "completed_at", "test_ids",
+            )
+        }
+        observation.update({
+            "result": normalized_result,
+            "skip_reason": ((result.get("notes") or "client interop lane skipped")
+                            if normalized_result == "skip" else None),
+            "evidence_uri": None, "evidence_digest": None, "evidence_receipt": None,
+            "facet_results": None,
+        })
+        if normalized_result != "skip":
+            facets = {facet: normalized_result for facet in requirement["scenario_facets"]}
+            receipt = {
+                "schema": "honua.certification-evidence-receipt/v1", "identity": identity,
+                "result": normalized_result, "facets": facets,
+                "payload_base64": base64.b64encode(json.dumps(result, sort_keys=True).encode()).decode(),
+            }
+            digest = _receipt_digest(receipt)
+            observation.update({
+                "evidence_receipt": receipt, "evidence_digest": digest,
+                "evidence_uri": f"https://evidence.honua.io/data/sha256/{digest[7:]}",
+                "facet_results": {
+                    facet: {"result": value, "evidence_digest": digest}
+                    for facet, value in facets.items()
+                },
+            })
+        observations.append(observation)
+    return {
+        "schema": FRAGMENT_SCHEMA, "producer": "honua-server-client-interop",
+        "generated_at": raw["run_date"], "candidate": candidate,
+        "operation_scope": {"complete": True}, "observations": observations,
+    }
 
 
 def request_bytes(url: str, token: str, accept: str) -> bytes:
@@ -285,6 +419,7 @@ def load_registry(path: Path) -> dict[str, Any]:
             "max_candidates", "required", "accepted_conclusions",
             "source_revision_key",
             "implementation_issue",
+            "normalizer", "related_issues",
         }
         unknown_fields = set(source) - allowed_fields
         if unknown_fields:
@@ -363,6 +498,14 @@ def load_registry(path: Path) -> dict[str, Any]:
             and "/issues/" in implementation_issue
         ):
             raise ValueError(f"Producer {producer!r} must link its implementation_issue.")
+        if source.get("normalizer") not in {None, "client-interop-cert-v1"}:
+            raise ValueError(f"Producer {producer!r} has an unsupported normalizer.")
+        related_issues = source.get("related_issues", [])
+        if not isinstance(related_issues, list) or any(
+            not isinstance(value, str) or not value.startswith("https://github.com/honua-io/")
+            for value in related_issues
+        ):
+            raise ValueError(f"Producer {producer!r} has invalid related_issues.")
     return registry
 
 
@@ -375,7 +518,9 @@ def fragment_destination_name(member: str) -> str:
     return f"{member_digest}-{safe_name(member)}.json"
 
 
-def fetch(registry_path: Path, output: Path, token: str, pins: dict[str, str]) -> int:
+def fetch(registry_path: Path, output: Path, token: str, pins: dict[str, str],
+          requirements: list[dict[str, Any]] | None = None,
+          candidate: dict[str, str] | None = None) -> int:
     registry = load_registry(registry_path)
     if output.exists():
         shutil.rmtree(output)
@@ -418,7 +563,21 @@ def fetch(registry_path: Path, output: Path, token: str, pins: dict[str, str]) -
                 archive = request_bytes(
                     artifact["archive_download_url"], token, "application/vnd.github+json"
                 )
-                extracted = extract_fragments(archive, source["fragment_globs"])
+                if source.get("normalizer") == "client-interop-cert-v1":
+                    if requirements is None or candidate is None:
+                        raise ValueError(
+                            "Client interop normalization requires requirements and exact candidate."
+                        )
+                    extracted = [
+                        (member, normalize_client_interop(
+                            payload, requirements, candidate, run["head_sha"]
+                        ))
+                        for member, payload in extract_json_documents(
+                            archive, source["fragment_globs"]
+                        )
+                    ]
+                else:
+                    extracted = extract_fragments(archive, source["fragment_globs"])
                 if not extracted:
                     continue
                 usable_artifact_count += 1
@@ -483,6 +642,9 @@ def main() -> int:
     )
     parser.add_argument("--output", type=Path)
     parser.add_argument("--validate-only", action="store_true")
+    parser.add_argument("--candidate-source-sha")
+    parser.add_argument("--candidate-image-digest")
+    parser.add_argument("--candidate-cut-at")
     parser.add_argument("--token-env", default="HONUA_EVIDENCE_TOKEN")
     args = parser.parse_args()
     registry = load_registry(args.registry)
@@ -504,7 +666,23 @@ def main() -> int:
             return 1
         print(f"::notice::{args.token_env} is unavailable; cross-repository certification fragments remain missing.")
         return 0
-    return fetch(args.registry, args.output, token, pins)
+    requirements_document = json.loads(args.requirements.read_text(encoding="utf-8"))
+    requirements = requirements_document.get("requirements")
+    if not isinstance(requirements, list):
+        raise ValueError(f"{args.requirements}: requirements must be an array.")
+    candidate_values = (
+        args.candidate_source_sha, args.candidate_image_digest, args.candidate_cut_at,
+    )
+    if any(candidate_values) and not all(candidate_values):
+        parser.error("candidate source SHA, image digest, and cut must be supplied together")
+    candidate = None
+    if all(candidate_values):
+        candidate = {
+            "source_sha": args.candidate_source_sha,
+            "image_digest": args.candidate_image_digest,
+            "cut_at": args.candidate_cut_at,
+        }
+    return fetch(args.registry, args.output, token, pins, requirements, candidate)
 
 
 if __name__ == "__main__":
