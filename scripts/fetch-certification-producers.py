@@ -26,10 +26,14 @@ REQUIREMENTS_SCHEMA = "honua.protocol-certification-requirements/v1"
 SHA_RE = re.compile(r"^[0-9a-f]{40}$")
 DIGEST_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
 RESERVED_CLIENT_LANE_PREFIX = "canonical-client-unassigned-"
+MULTI_CLIENT_LANES = {"js"}
+GENERIC_HTTP_CLIENTS = {"httpx"}
 REQUIRED_OBSERVATION_FIELDS = (
     "contract_revision", "auth_policy_revision", "fixture_revision",
     "producer_source_sha", "surface", "operation", "canonical_client",
     "client_version", "deployment_target",
+    "client_id", "runner_lane", "protocol_version", "protocol_profile", "performed_by",
+    "request_url", "exercised_capabilities",
 )
 
 
@@ -117,13 +121,21 @@ def normalize_client_interop(
     required = (
         "schema_version", "run_id", "run_date", "server_commit", "producer_source_sha", "image_digest",
         "fixture_revision", "server_config_revision", "auth_policy_revision",
-        "client_lane", "client_version", "protocol", "protocol_version", "environment", "results",
+        "client_id", "runner_lane", "client_version", "protocol", "protocol_version",
+        "protocol_profile", "environment", "results",
     )
     missing = [field for field in required if field not in raw]
     if missing:
         raise ValueError(f"Malformed client interop receipt missing fields: {missing}.")
     if raw["schema_version"] != "1.0" or not isinstance(raw["results"], list):
         raise ValueError("Malformed client interop receipt schema/results.")
+    for field in ("client_id", "runner_lane", "protocol_version", "protocol_profile"):
+        if not isinstance(raw[field], str) or not raw[field].strip():
+            raise ValueError(f"Client interop receipt {field} must be a non-empty string.")
+    if raw["runner_lane"] in MULTI_CLIENT_LANES and raw["client_id"] == raw["runner_lane"]:
+        raise ValueError("Client interop receipt client_id collides with a multi-client runner_lane.")
+    if not SHA_RE.fullmatch(raw["server_commit"]):
+        raise ValueError("Client interop receipt server_commit is not an exact resolvable revision.")
     if raw["server_commit"] != candidate["source_sha"]:
         raise ValueError("Client interop receipt server_commit does not match the candidate SHA.")
     if raw["producer_source_sha"] != producer_sha:
@@ -145,7 +157,7 @@ def normalize_client_interop(
             continue
         matches = [
             requirement for requirement in requirements
-            if requirement.get("client_lane") == raw["client_lane"]
+            if requirement.get("client_lane") == raw["runner_lane"]
             and requirement.get("client_version") == raw["client_version"]
             and requirement.get("surface") == raw["protocol"]
             and test_id in requirement.get("test_ids", [])
@@ -155,6 +167,34 @@ def normalize_client_interop(
                 f"Client interop result {test_id!r} resolves to {len(matches)} governed requirements."
             )
         requirement = matches[0]
+        if raw["client_id"] != requirement["canonical_client"]:
+            raise ValueError("Client interop receipt client_id does not match its governed client.")
+        performed_by = result.get("performed_by")
+        request_url = result.get("request_url")
+        exercised = result.get("exercised_capabilities")
+        if not isinstance(performed_by, str) or not performed_by:
+            raise ValueError(f"Client interop result {test_id!r} is missing performed_by provenance.")
+        if performed_by in GENERIC_HTTP_CLIENTS and performed_by != raw["client_id"]:
+            raise ValueError(
+                f"Client interop result {test_id!r} was performed by generic HTTP probe {performed_by!r}, "
+                f"not application client {raw['client_id']!r}."
+            )
+        if performed_by != raw["client_id"]:
+            raise ValueError(f"Client interop result {test_id!r} was not performed by client_id.")
+        parsed_request = urlparse(request_url) if isinstance(request_url, str) else None
+        if parsed_request is None or parsed_request.scheme not in {"http", "https"} or not parsed_request.netloc:
+            raise ValueError(f"Client interop result {test_id!r} has no absolute request_url.")
+        if not (
+            isinstance(exercised, list) and exercised
+            and all(isinstance(value, str) and value for value in exercised)
+            and len(exercised) == len(set(exercised))
+        ):
+            raise ValueError(f"Client interop result {test_id!r} has invalid exercised_capabilities.")
+        claimed = set(requirement["scenario_facets"])
+        if status == "pass" and not claimed.issubset(exercised):
+            raise ValueError(f"Client interop result {test_id!r} claims capabilities it did not exercise.")
+        if status == "pass" and "tls" in claimed and parsed_request.scheme != "https":
+            raise ValueError(f"Client interop result {test_id!r} claims TLS over a plain HTTP request.")
         expected_fixture = requirement["fixture_revision"].replace("{source_sha}", candidate["source_sha"])
         for raw_field, expected in (
             ("fixture_revision", expected_fixture),
@@ -185,6 +225,10 @@ def normalize_client_interop(
             )
         }
         observation.update({
+            "client_id": raw["client_id"], "runner_lane": raw["runner_lane"],
+            "protocol_version": raw["protocol_version"], "protocol_profile": raw["protocol_profile"],
+            "performed_by": performed_by, "request_url": request_url,
+            "exercised_capabilities": exercised,
             "result": normalized_result,
             "skip_reason": ((result.get("notes") or "client interop lane skipped")
                             if normalized_result == "skip" else None),

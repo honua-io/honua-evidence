@@ -33,6 +33,8 @@ OBSERVATION_FIELDS = (
     "result", "skip_reason", "source_sha", "producer_source_sha", "image_digest", "fixture_revision",
     "contract_revision", "auth_policy_revision", "evidence_uri", "evidence_digest", "evidence_receipt", "facet_results",
     "started_at", "completed_at",
+    "client_id", "runner_lane", "protocol_version", "protocol_profile", "performed_by",
+    "request_url", "exercised_capabilities",
 )
 CLOCK_SKEW_TOLERANCE = timedelta(minutes=5)
 OBSERVATION_RESULTS = frozenset({"pass", "fail", "skip"})
@@ -660,6 +662,28 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
                     f"{(observation_key, producer, str(path))}"
                 )
             requirement = requirement_by_key[observation_key]
+            for field in ("client_id", "runner_lane", "protocol_version", "protocol_profile", "performed_by"):
+                if not isinstance(observation.get(field), str) or not observation[field].strip():
+                    raise ValueError(f"{path}: observations[{index}].{field} must be a non-empty string")
+            if observation["client_id"] != requirement["canonical_client"]:
+                raise ValueError(f"{path}: observations[{index}].client_id does not match requirement")
+            if observation["runner_lane"] != requirement["client_lane"]:
+                raise ValueError(f"{path}: observations[{index}].runner_lane does not match requirement")
+            if observation["runner_lane"] == "js" and observation["client_id"] == observation["runner_lane"]:
+                raise ValueError(f"{path}: observations[{index}].client_id collides with runner_lane")
+            if observation["performed_by"] != observation["client_id"]:
+                raise ValueError(f"{path}: observations[{index}] was not performed by client_id")
+            request_url = observation.get("request_url")
+            parsed_request = urlparse(request_url) if isinstance(request_url, str) else None
+            if parsed_request is None or parsed_request.scheme not in {"http", "https"} or not parsed_request.netloc:
+                raise ValueError(f"{path}: observations[{index}].request_url must be absolute HTTP(S)")
+            exercised = observation.get("exercised_capabilities")
+            if not isinstance(exercised, list) or any(not isinstance(item, str) or not item for item in exercised):
+                raise ValueError(f"{path}: observations[{index}].exercised_capabilities must be a string array")
+            if observation.get("result") == "pass" and not set(requirement["scenario_facets"]).issubset(exercised):
+                raise ValueError(f"{path}: observations[{index}] claims capabilities it did not exercise")
+            if observation.get("result") == "pass" and "tls" in requirement["scenario_facets"] and parsed_request.scheme != "https":
+                raise ValueError(f"{path}: observations[{index}] claims TLS over plain HTTP")
             source_test_host = requirement["deployment_target"] == "source-test-host"
             if source_test_host:
                 if observation.get("image_digest") is not None:
