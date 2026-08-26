@@ -391,6 +391,7 @@ def test_every_registered_producer_declares_a_denominator_pin() -> None:
         "honua-sdk-python": "sdk-python",
         "honua-sdk-dotnet": "sdk-dotnet",
         "server-protocol-harness": "server-certification",
+        "honua-server-client-interop": "server-certification",
         "honua-server-cite": "server-certification",
         "honua-esri-compat": "esri-compat",
         "geospatial-grpc": "geospatial-grpc",
@@ -482,6 +483,96 @@ def test_trusted_run_requires_successful_configured_workflow_and_identity() -> N
         {**artifact, "created_at": run["run_started_at"]},
         source,
     )
+
+
+def _interop_requirement() -> dict:
+    return {
+        "capability_key": "serve.ogc-api-features", "surface": "ogc-features",
+        "operation": "collections", "maturity": "supported", "canonical_client": "GeoPandas",
+        "client_lane": "py-geopandas", "client_version": "1.0.1", "deployment_target": "local-docker",
+        "required_tier": "nightly", "licensed": False, "entitlement_policy_revision": None,
+        "addressable_by_client": True, "addressability_reason": None,
+        "scenario_facets": ["positive"], "contract_revision": "config-v1",
+        "auth_policy_revision": "auth-v1", "fixture_revision": "fixture-v1",
+        "budget_expectations": None, "test_ids": ["CERT-DISC-01"],
+    }
+
+
+def _interop_raw(**overrides) -> dict:
+    raw = {
+        "schema_version": "1.0", "run_id": "42", "run_date": "2026-08-22T10:00:00Z",
+        "server_commit": PINNED_SHA, "producer_source_sha": PINNED_SHA,
+        "image_digest": CANDIDATE["image_digest"],
+        "fixture_revision": "fixture-v1", "server_config_revision": "config-v1",
+        "auth_policy_revision": "auth-v1", "client_lane": "py-geopandas",
+        "client_version": "1.0.1", "protocol": "ogc-features", "protocol_version": "1.0",
+        "environment": "local-docker", "results": [{
+            "test_case_id": "CERT-DISC-01", "status": "pass", "duration_ms": 10,
+            "notes": "GeoPandas discovered the governed collection.",
+        }],
+    }
+    raw.update(overrides)
+    return raw
+
+
+def test_client_interop_receipt_normalizes_to_exact_candidate_fragment() -> None:
+    candidate = {**CANDIDATE, "source_sha": PINNED_SHA}
+    fragment = MODULE.normalize_client_interop(
+        _interop_raw(), [_interop_requirement()], candidate, PINNED_SHA
+    )
+    assert fragment["producer"] == "honua-server-client-interop"
+    assert fragment["candidate"] == candidate
+    observation = fragment["observations"][0]
+    assert observation["result"] == "pass"
+    assert observation["source_sha"] == PINNED_SHA
+    assert observation["image_digest"] == candidate["image_digest"]
+    assert observation["fixture_revision"] == "fixture-v1"
+    assert observation["contract_revision"] == "config-v1"
+    assert observation["auth_policy_revision"] == "auth-v1"
+    assert observation["evidence_receipt"]["identity"]["candidate_cut_at"] == candidate["cut_at"]
+
+
+def test_client_interop_normalizer_fails_closed() -> None:
+    candidate = {**CANDIDATE, "source_sha": PINNED_SHA}
+    for raw, message in [
+        (_interop_raw(server_commit=NEWER_SHA), "candidate SHA"),
+        (_interop_raw(producer_source_sha=NEWER_SHA), "trusted run SHA"),
+        (_interop_raw(results=[{"test_case_id": "unknown", "status": "pass"}]), "0 governed"),
+        ({"schema_version": "1.0"}, "missing fields"),
+    ]:
+        with unittest.TestCase().assertRaisesRegex(ValueError, message):
+            MODULE.normalize_client_interop(raw, [_interop_requirement()], candidate, PINNED_SHA)
+
+
+def test_client_interop_run_rejects_non_trunk_wrong_event_and_conclusion() -> None:
+    registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
+    source = next(
+        item for item in registry["sources"]
+        if item["producer"] == "honua-server-client-interop"
+    )
+    run = {
+        "id": 42, "status": "completed", "conclusion": "success", "event": "schedule",
+        "head_branch": "trunk", "head_sha": PINNED_SHA, "run_attempt": 1,
+        "run_started_at": "2026-08-22T09:00:00Z", "path": source["workflow_path"],
+        "head_repository": {"full_name": source["repository"]},
+    }
+    artifact = {
+        "created_at": "2026-08-22T10:00:00Z",
+        "workflow_run": {"id": 42, "head_sha": PINNED_SHA},
+    }
+    assert MODULE.trusted_run(run, artifact, source)
+    assert not MODULE.trusted_run({**run, "head_branch": "feature"}, artifact, source)
+    assert not MODULE.trusted_run({**run, "event": "pull_request"}, artifact, source)
+    assert not MODULE.trusted_run({**run, "conclusion": "failure"}, artifact, source)
+
+
+def test_client_interop_unregistered_producer_is_rejected() -> None:
+    candidate = {**CANDIDATE, "source_sha": PINNED_SHA}
+    fragment = MODULE.normalize_client_interop(
+        _interop_raw(), [_interop_requirement()], candidate, PINNED_SHA
+    )
+    with unittest.TestCase().assertRaisesRegex(ValueError, "does not match registry producer"):
+        MODULE.validate_fragment_producer(fragment, "unregistered-client-interop")
 
 
 def test_fragment_producer_must_match_registry() -> None:
@@ -686,6 +777,14 @@ class FetchCertificationProducerTests(unittest.TestCase):
     )
     test_missing_token_required = staticmethod(test_missing_token_fails_when_a_producer_is_required)
     test_trusted_run = staticmethod(test_trusted_run_requires_successful_configured_workflow_and_identity)
+    test_interop_normalizes = staticmethod(
+        test_client_interop_receipt_normalizes_to_exact_candidate_fragment
+    )
+    test_interop_fail_closed = staticmethod(test_client_interop_normalizer_fails_closed)
+    test_interop_run_fail_closed = staticmethod(
+        test_client_interop_run_rejects_non_trunk_wrong_event_and_conclusion
+    )
+    test_interop_unregistered = staticmethod(test_client_interop_unregistered_producer_is_rejected)
     test_fragment_producer = staticmethod(test_fragment_producer_must_match_registry)
     test_fragment_run_head = staticmethod(test_fragment_observations_must_match_trusted_run_head)
     test_registry = staticmethod(test_registry_validation_rejects_duplicate_producers)

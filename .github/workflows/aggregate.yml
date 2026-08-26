@@ -178,9 +178,35 @@ jobs:
           fi
           # The denominator owns the producer pins, so it must be in hand before
           # the harvest: fragments are selected BY revision, never by recency.
+          manual_candidate_fields=0
+          [[ -z "$INPUT_CANDIDATE_SOURCE_SHA" ]] || manual_candidate_fields=$((manual_candidate_fields + 1))
+          [[ -z "$INPUT_CANDIDATE_IMAGE_DIGEST" ]] || manual_candidate_fields=$((manual_candidate_fields + 1))
+          [[ -z "$INPUT_CANDIDATE_CUT_AT" ]] || manual_candidate_fields=$((manual_candidate_fields + 1))
+          if [[ "$manual_candidate_fields" -ne 0 && "$manual_candidate_fields" -ne 3 ]]; then
+            echo "::error::Manual candidate override requires source SHA, image digest, and cut together."
+            exit 1
+          fi
+          if [[ "$manual_candidate_fields" -eq 3 ]]; then
+            CANDIDATE_SOURCE_SHA="$INPUT_CANDIDATE_SOURCE_SHA"
+            CANDIDATE_IMAGE_DIGEST="$INPUT_CANDIDATE_IMAGE_DIGEST"
+            CANDIDATE_CUT_AT="$INPUT_CANDIDATE_CUT_AT"
+          else
+            CANDIDATE_SOURCE_SHA="$GOVERNED_CANDIDATE_SOURCE_SHA"
+            CANDIDATE_IMAGE_DIGEST="$GOVERNED_CANDIDATE_IMAGE_DIGEST"
+            CANDIDATE_CUT_AT="$GOVERNED_CANDIDATE_CUT_AT"
+          fi
+          if [[ ! "$CANDIDATE_SOURCE_SHA" =~ ^[0-9a-f]{40}$ ]] ||
+             [[ ! "$CANDIDATE_IMAGE_DIGEST" =~ ^sha256:[0-9a-f]{64}$ ]] ||
+             [[ ! "$CANDIDATE_CUT_AT" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$ ]]; then
+            echo "::error::A complete immutable governed candidate triple is required."
+            exit 1
+          fi
           python3 scripts/fetch-certification-producers.py \
             --registry config/protocol-certification-producers.v1.json \
             --requirements .aggregate-cache/protocol-certification-requirements.v1.json \
+            --candidate-source-sha "$CANDIDATE_SOURCE_SHA" \
+            --candidate-image-digest "$CANDIDATE_IMAGE_DIGEST" \
+            --candidate-cut-at "$CANDIDATE_CUT_AT" \
             --output data/producers/protocol-certification/fetched
           if ! find data/producers/protocol-certification -name '*.json' -print -quit | grep -q .; then
             echo "::notice::Protocol certification contract is wired but awaiting its first producer fragment."

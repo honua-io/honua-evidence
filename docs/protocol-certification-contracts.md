@@ -11,7 +11,11 @@ registered path and emits a normalized fragment at the pinned revision, the
 fetch records a gap and cannot manufacture a pass.
 
 The registry covers CNG, CITE, Esri compatibility, generated gRPC, MCP, the
-three official SDKs, and the shared server protocol harness. It uses
+three official SDKs, the shared server protocol harness, and honua-server's
+real-client interop matrix. The interop entry is linked to
+[server#3481](https://github.com/honua-io/honua-server/issues/3481) and the
+[server#3528](https://github.com/honua-io/honua-server/issues/3528) nightly
+artifact-staging defect. It uses
 honua-release#159's `source_revisions` keys without stacking on that unmerged
 PR. Evidence PRs #39 and #40 are independent of this registry change.
 
@@ -20,6 +24,16 @@ executable producer lanes. Registry loading and fragment verification reject
 those identities. Verification also rejects repository, workflow, branch,
 event, SHA, conclusion, artifact-name, and evidence-URI substitution before
 bytes enter aggregation.
+
+The `client-interop-cert-v1` normalizer converts immutable raw `.cert.json`
+receipts from GeoPandas, OWSLib, DuckDB Spatial, R sf/ows4R, pystac-client,
+QGIS, GDAL, MapLibre, and Cesium lanes. It joins each raw test-case ID to one
+and only one denominator row and takes capability, operation, client identity,
+scenario facets, fixture, config/contract, and auth policy from that governed
+row. The raw receipt must independently bind the trusted run SHA, candidate
+image digest, and all three revision values. Missing, ambiguous, off-SHA, or
+malformed receipts fail closed. Artifact and workflow-run enumeration remains
+fully paginated; no mutable client registry is consulted during evaluation.
 
 The authoritative denominator is `honua.protocol-certification-requirements/v1` in `honua-release`.
 Evidence producers push immutable fragments using this envelope:

@@ -148,6 +148,39 @@ def fragment(producer, observations, generated="2026-08-20T10:06:00Z"):
 
 
 class CertificationAggregationTests(unittest.TestCase):
+    def test_real_client_raw_receipt_normalizes_end_to_end_into_candidate_ledger(self):
+        fetch_script = SCRIPT.parent / "fetch-certification-producers.py"
+        fetch_spec = importlib.util.spec_from_file_location("fetch_for_interop_test", fetch_script)
+        assert fetch_spec and fetch_spec.loader
+        fetch_module = importlib.util.module_from_spec(fetch_spec)
+        fetch_spec.loader.exec_module(fetch_module)
+        req = requirement(client="GeoPandas", test_ids=["CERT-DISC-01"])
+        req.update({
+            "surface": "ogc-features", "operation": "collections",
+            "client_lane": "py-geopandas", "client_version": "1.0.1",
+            "contract_revision": "config-v1", "auth_policy_revision": "auth-v1",
+        })
+        raw = {
+            "schema_version": "1.0", "run_id": "42", "run_date": "2026-08-20T10:05:00Z",
+            "server_commit": SHA, "producer_source_sha": SHA, "image_digest": DIGEST,
+            "fixture_revision": "fixture-v1", "server_config_revision": "config-v1",
+            "auth_policy_revision": "auth-v1", "client_lane": "py-geopandas",
+            "client_version": "1.0.1", "protocol": "ogc-features", "protocol_version": "1.0",
+            "environment": "local-docker", "results": [{
+                "test_case_id": "CERT-DISC-01", "status": "pass", "duration_ms": 5,
+                "notes": "GeoPandas discovered collections",
+            }],
+        }
+        normalized = fetch_module.normalize_client_interop(raw, [req], CANDIDATE, SHA)
+        ledger = module.build_ledger(
+            "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+            [(Path("real-client.cert.json"), normalized)], CANDIDATE,
+            now=datetime(2026, 8, 20, 10, 10, tzinfo=timezone.utc),
+        )
+        self.assertEqual("pass", ledger["cells"][0]["result"])
+        self.assertEqual(SHA, ledger["cells"][0]["source_sha"])
+        self.assertEqual(DIGEST, ledger["cells"][0]["image_digest"])
+
     def test_source_test_host_evidence_does_not_claim_candidate_image_execution(self):
         req = requirement(test_ids=["HarnessTests.ExactOperation"])
         req["deployment_target"] = "source-test-host"
