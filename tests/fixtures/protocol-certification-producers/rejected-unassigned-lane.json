@@ -11,6 +11,13 @@
     "canonical_client": "canonical-client-unassigned-grpc",
     "client_version": "unknown",
     "deployment_target": "synthetic-ledger",
+    "client_id": "grpc-dotnet-generated",
+    "runner_lane": "grpc-dotnet",
+    "protocol_version": "1.0",
+    "protocol_profile": "core",
+    "performed_by": "grpc-dotnet-generated",
+    "request_url": "https://candidate.test/grpc",
+    "exercised_capabilities": ["positive"],
     "evidence_uri": "https://github.com/honua-io/geospatial-grpc/actions/runs/100"
   }]
 }

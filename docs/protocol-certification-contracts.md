@@ -35,6 +35,16 @@ image digest, and all three revision values. Missing, ambiguous, off-SHA, or
 malformed receipts fail closed. Artifact and workflow-run enumeration remains
 fully paginated; no mutable client registry is consulted during evaluation.
 
+Ingested observations also carry truthful execution context: `client_id` is
+the independently gateable application identity, `runner_lane` is the CI lane,
+and `protocol_version` plus `protocol_profile` name the exercised wire contract.
+Each result records `performed_by`, an absolute `request_url`, and the governed
+`exercised_capabilities`. Generic HTTP probes cannot stand in for an application
+client, and a passing claim must be no stronger than those capabilities (for
+example, a TLS pass requires an HTTPS request). Candidate source revisions must
+be exact lowercase 40-character commits. Any violation rejects the complete
+immutable observation at ingest; it is never converted to a skip or rewritten.
+
 The authoritative denominator is `honua.protocol-certification-requirements/v1` in `honua-release`.
 Evidence producers push immutable fragments using this envelope:
 

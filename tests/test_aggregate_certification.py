@@ -72,6 +72,13 @@ def observation(
         "facet_results": None,
         "started_at": "2026-08-20T10:00:00Z",
         "completed_at": completed,
+        "client_id": req["canonical_client"],
+        "runner_lane": req["client_lane"],
+        "protocol_version": "1.0",
+        "protocol_profile": "core",
+        "performed_by": req["canonical_client"],
+        "request_url": "https://candidate.example.test/operation",
+        "exercised_capabilities": list(req["scenario_facets"]),
         "budget_observations": None,
     })
     if result == "skip":
@@ -164,11 +171,14 @@ class CertificationAggregationTests(unittest.TestCase):
             "schema_version": "1.0", "run_id": "42", "run_date": "2026-08-20T10:05:00Z",
             "server_commit": SHA, "producer_source_sha": SHA, "image_digest": DIGEST,
             "fixture_revision": "fixture-v1", "server_config_revision": "config-v1",
-            "auth_policy_revision": "auth-v1", "client_lane": "py-geopandas",
+            "auth_policy_revision": "auth-v1", "client_id": "GeoPandas", "runner_lane": "py-geopandas",
             "client_version": "1.0.1", "protocol": "ogc-features", "protocol_version": "1.0",
+            "protocol_profile": "core",
             "environment": "local-docker", "results": [{
                 "test_case_id": "CERT-DISC-01", "status": "pass", "duration_ms": 5,
                 "notes": "GeoPandas discovered collections",
+                "performed_by": "GeoPandas", "request_url": "https://candidate.test/collections",
+                "exercised_capabilities": ["positive", "range-efficiency"],
             }],
         }
         normalized = fetch_module.normalize_client_interop(raw, [req], CANDIDATE, SHA)

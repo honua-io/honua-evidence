@@ -124,6 +124,13 @@ def _fragment(head_sha: str) -> dict:
             "canonical_client": "honua-sdk-js",
             "client_version": "1.0.0",
             "deployment_target": "synthetic",
+            "client_id": "honua-sdk-js",
+            "runner_lane": "sdk-js",
+            "protocol_version": "1.0",
+            "protocol_profile": "core",
+            "performed_by": "honua-sdk-js",
+            "request_url": "https://candidate.test/collections",
+            "exercised_capabilities": ["positive"],
             "evidence_uri": "https://evidence.honua.io/data/sha256/" + "a" * 64,
         }],
     }
@@ -280,6 +287,11 @@ def test_fetch_counts_only_artifacts_with_fragments() -> None:
                         "canonical_client": "honua-sdk-python",
                         "client_version": "1.0.0",
                         "deployment_target": "synthetic",
+                        "client_id": "honua-sdk-python", "runner_lane": "sdk-python",
+                        "protocol_version": "1.0", "protocol_profile": "core",
+                        "performed_by": "honua-sdk-python",
+                        "request_url": "https://candidate.test/collections",
+                        "exercised_capabilities": ["positive"],
                         "evidence_uri": "https://github.com/honua-io/honua-sdk-python/actions/runs/8",
                     }],
                 }
@@ -504,11 +516,14 @@ def _interop_raw(**overrides) -> dict:
         "server_commit": PINNED_SHA, "producer_source_sha": PINNED_SHA,
         "image_digest": CANDIDATE["image_digest"],
         "fixture_revision": "fixture-v1", "server_config_revision": "config-v1",
-        "auth_policy_revision": "auth-v1", "client_lane": "py-geopandas",
+        "auth_policy_revision": "auth-v1", "client_id": "GeoPandas", "runner_lane": "py-geopandas",
         "client_version": "1.0.1", "protocol": "ogc-features", "protocol_version": "1.0",
+        "protocol_profile": "core",
         "environment": "local-docker", "results": [{
             "test_case_id": "CERT-DISC-01", "status": "pass", "duration_ms": 10,
             "notes": "GeoPandas discovered the governed collection.",
+            "performed_by": "GeoPandas", "request_url": "https://candidate.test/collections",
+            "exercised_capabilities": ["positive"],
         }],
     }
     raw.update(overrides)
@@ -542,6 +557,42 @@ def test_client_interop_normalizer_fails_closed() -> None:
     ]:
         with unittest.TestCase().assertRaisesRegex(ValueError, message):
             MODULE.normalize_client_interop(raw, [_interop_requirement()], candidate, PINNED_SHA)
+
+
+def test_client_identity_rejects_generic_js_lane_collision() -> None:
+    requirement = {**_interop_requirement(), "canonical_client": "OpenLayers", "client_lane": "js"}
+    raw = _interop_raw(client_id="js", runner_lane="js")
+    with unittest.TestCase().assertRaisesRegex(ValueError, "collides"):
+        MODULE.normalize_client_interop(raw, [requirement], {**CANDIDATE, "source_sha": PINNED_SHA}, PINNED_SHA)
+
+
+def test_client_identity_rejects_missing_protocol_profile() -> None:
+    raw = _interop_raw()
+    raw.pop("protocol_profile")
+    with unittest.TestCase().assertRaisesRegex(ValueError, "protocol_profile"):
+        MODULE.normalize_client_interop(raw, [_interop_requirement()], {**CANDIDATE, "source_sha": PINNED_SHA}, PINNED_SHA)
+
+
+def test_client_identity_rejects_unresolvable_candidate_revision() -> None:
+    with unittest.TestCase().assertRaisesRegex(ValueError, "exact resolvable revision"):
+        MODULE.normalize_client_interop(_interop_raw(server_commit="unknown"), [_interop_requirement()], {**CANDIDATE, "source_sha": PINNED_SHA}, PINNED_SHA)
+
+
+def test_client_identity_rejects_geopandas_result_performed_by_httpx() -> None:
+    result = {**_interop_raw()["results"][0], "performed_by": "httpx"}
+    with unittest.TestCase().assertRaisesRegex(ValueError, "generic HTTP probe"):
+        MODULE.normalize_client_interop(_interop_raw(results=[result]), [_interop_requirement()], {**CANDIDATE, "source_sha": PINNED_SHA}, PINNED_SHA)
+
+
+def test_client_identity_rejects_plain_http_tls_claim() -> None:
+    requirement = {**_interop_requirement(), "scenario_facets": ["tls"]}
+    result = {
+        **_interop_raw()["results"][0],
+        "request_url": "http://candidate.test/collections",
+        "exercised_capabilities": ["tls"],
+    }
+    with unittest.TestCase().assertRaisesRegex(ValueError, "claims TLS"):
+        MODULE.normalize_client_interop(_interop_raw(results=[result]), [requirement], {**CANDIDATE, "source_sha": PINNED_SHA}, PINNED_SHA)
 
 
 def test_client_interop_run_rejects_non_trunk_wrong_event_and_conclusion() -> None:
@@ -603,6 +654,10 @@ def test_fragment_observations_must_match_trusted_run_head() -> None:
         "fixture_revision": "fixture-v1", "surface": "cog", "operation": "read",
         "canonical_client": "gdal", "client_version": "3.11",
         "deployment_target": "synthetic",
+        "client_id": "gdal", "runner_lane": "cng",
+        "protocol_version": "1.0", "protocol_profile": "core",
+        "performed_by": "gdal", "request_url": "https://candidate.test/read",
+        "exercised_capabilities": ["positive"],
         "evidence_uri": "https://evidence.honua.io/data/sha256/" + "a" * 64,
     })
     MODULE.validate_fragment_producer(fragment, "honua-server-cng", head_sha)
@@ -781,6 +836,11 @@ class FetchCertificationProducerTests(unittest.TestCase):
         test_client_interop_receipt_normalizes_to_exact_candidate_fragment
     )
     test_interop_fail_closed = staticmethod(test_client_interop_normalizer_fails_closed)
+    test_identity_lane_collision = staticmethod(test_client_identity_rejects_generic_js_lane_collision)
+    test_identity_protocol_context = staticmethod(test_client_identity_rejects_missing_protocol_profile)
+    test_identity_candidate_revision = staticmethod(test_client_identity_rejects_unresolvable_candidate_revision)
+    test_identity_http_probe = staticmethod(test_client_identity_rejects_geopandas_result_performed_by_httpx)
+    test_identity_tls_claim = staticmethod(test_client_identity_rejects_plain_http_tls_claim)
     test_interop_run_fail_closed = staticmethod(
         test_client_interop_run_rejects_non_trunk_wrong_event_and_conclusion
     )

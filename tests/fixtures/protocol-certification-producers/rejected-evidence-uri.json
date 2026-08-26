@@ -11,6 +11,13 @@
     "canonical_client": "grpc-dotnet-generated",
     "client_version": "1.0.0",
     "deployment_target": "synthetic-ledger",
+    "client_id": "grpc-dotnet-generated",
+    "runner_lane": "grpc-dotnet",
+    "protocol_version": "1.0",
+    "protocol_profile": "core",
+    "performed_by": "grpc-dotnet-generated",
+    "request_url": "https://candidate.test/grpc",
+    "exercised_capabilities": ["positive"],
     "evidence_uri": "https://attacker.example/artifact.json"
   }]
 }
