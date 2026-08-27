@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-08-27T22:23:51Z",
+  "generatedAt": "2026-08-27T23:35:05Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -28,52 +28,52 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-08-27T22:23:42Z",
+      "fetchedAt": "2026-08-27T23:34:51Z",
       "sourceVersion": "3c7b80169e7c@2026-08-27T07:43:39Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-27T22:23:42Z",
+      "observedAt": "2026-08-27T23:34:51Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-08-27T22:23:42Z",
-      "sourceVersion": "f392e1a6721a@2026-08-27T21:33:51Z",
+      "fetchedAt": "2026-08-27T23:34:52Z",
+      "sourceVersion": "d115049685a5@2026-08-27T23:34:39Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-27T22:23:42Z",
+      "observedAt": "2026-08-27T23:34:52Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-08-27T22:23:42Z",
+      "fetchedAt": "2026-08-27T23:34:53Z",
       "sourceVersion": "883302cc789d@2026-08-26T19:57:45Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-27T22:23:42Z",
+      "observedAt": "2026-08-27T23:34:53Z",
       "ageDays": 0,
       "sourceAgeDays": 1,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-08-27T22:23:43Z",
+      "fetchedAt": "2026-08-27T23:34:53Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-27T22:23:43Z",
+      "observedAt": "2026-08-27T23:34:53Z",
       "ageDays": 0,
       "sourceAgeDays": 41,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-08-27T22:23:43Z",
+      "fetchedAt": "2026-08-27T23:34:53Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-27T22:23:43Z",
+      "observedAt": "2026-08-27T23:34:53Z",
       "ageDays": 0,
       "sourceAgeDays": 41,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-08-27T22:23:44Z",
+      "fetchedAt": "2026-08-27T23:34:55Z",
       "sourceVersion": "250f40ae65a2@2026-08-18T05:47:36Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-08-18T05:47:36Z",
@@ -82,16 +82,16 @@
       "status": "stale"
     },
     "open-issues": {
-      "fetchedAt": "2026-08-27T22:23:51Z",
+      "fetchedAt": "2026-08-27T23:35:05Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-27T22:23:51Z",
+      "observedAt": "2026-08-27T23:35:05Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-08-27T22:23:44Z",
+      "fetchedAt": "2026-08-27T23:34:55Z",
       "sourceVersion": "7ffc1d134ab1@2026-08-12T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-08-12T00:00:00Z",
@@ -100,7 +100,7 @@
       "status": "stale"
     },
     "live-canary": {
-      "fetchedAt": "2026-08-27T22:23:44Z",
+      "fetchedAt": "2026-08-27T23:34:55Z",
       "sourceVersion": "9da0eec796af@2026-08-27T22:18:54Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-08-27T22:18:54Z",
@@ -3787,6 +3787,49 @@
         "keyRefs": [],
         "categoryRefs": [],
         "label": "cap/field-ops"
+      }
+    },
+    {
+      "key": "format.geoarrow",
+      "displayName": "GeoArrow Response Format",
+      "category": "Format",
+      "edition": "Community",
+      "entryCount": 0,
+      "provingTestCount": 0,
+      "maturity": {},
+      "noSurface": {
+        "capability": "format.geoarrow",
+        "reasonCode": "content-negotiation",
+        "reason": "GeoArrow is selected with f=arrow on the shared FeatureServer query route and is proven by the formatter/query conformance tests; it has no separate route.",
+        "category": "Format",
+        "edition": "Community"
+      },
+      "cite": [],
+      "parity": [],
+      "esriAssess": [],
+      "interop": [],
+      "geobench": [],
+      "dr": [],
+      "liveCanary": [],
+      "sdks": {
+        "js": {
+          "status": "not-covered"
+        },
+        "dotnet": {
+          "status": "not-covered"
+        },
+        "python": {
+          "status": "not-covered"
+        }
+      },
+      "samples": [],
+      "openIssues": {
+        "count": 0,
+        "refs": [],
+        "categoryLevel": true,
+        "keyRefs": [],
+        "categoryRefs": [],
+        "label": "cap/format"
       }
     },
     {
@@ -8152,7 +8195,7 @@
       "category": "Process",
       "edition": "Community",
       "entryCount": 10,
-      "provingTestCount": 145,
+      "provingTestCount": 158,
       "maturity": {
         "implemented": 10
       },
@@ -8224,6 +8267,135 @@
           }
         ],
         "label": "cap/process"
+      }
+    },
+    {
+      "key": "provider.databricks",
+      "displayName": "Databricks SQL Provider",
+      "category": "DataProviders",
+      "edition": "Enterprise",
+      "entryCount": 0,
+      "provingTestCount": 0,
+      "maturity": {},
+      "noSurface": {
+        "capability": "provider.databricks",
+        "reasonCode": "provider-runtime-gate",
+        "reason": "Experimental Databricks is selected behind shared FeatureServer/OGC routes only when both provider gates and configuration are enabled; the provider has no distinct route and remains off by default for 2026.1.",
+        "category": "DataProviders",
+        "edition": "Enterprise"
+      },
+      "cite": [],
+      "parity": [],
+      "esriAssess": [],
+      "interop": [],
+      "geobench": [],
+      "dr": [],
+      "liveCanary": [],
+      "sdks": {
+        "js": {
+          "status": "not-covered"
+        },
+        "dotnet": {
+          "status": "not-covered"
+        },
+        "python": {
+          "status": "not-covered"
+        }
+      },
+      "samples": [],
+      "openIssues": {
+        "count": 0,
+        "refs": [],
+        "categoryLevel": true,
+        "keyRefs": [],
+        "categoryRefs": [],
+        "label": "cap/data-providers"
+      }
+    },
+    {
+      "key": "provider.redshift",
+      "displayName": "Amazon Redshift Provider",
+      "category": "DataProviders",
+      "edition": "Enterprise",
+      "entryCount": 0,
+      "provingTestCount": 0,
+      "maturity": {},
+      "noSurface": {
+        "capability": "provider.redshift",
+        "reasonCode": "provider-runtime-gate",
+        "reason": "Experimental Redshift is selected behind shared FeatureServer/OGC routes only when both provider gates and configuration are enabled; the provider has no distinct route and remains off by default for 2026.1.",
+        "category": "DataProviders",
+        "edition": "Enterprise"
+      },
+      "cite": [],
+      "parity": [],
+      "esriAssess": [],
+      "interop": [],
+      "geobench": [],
+      "dr": [],
+      "liveCanary": [],
+      "sdks": {
+        "js": {
+          "status": "not-covered"
+        },
+        "dotnet": {
+          "status": "not-covered"
+        },
+        "python": {
+          "status": "not-covered"
+        }
+      },
+      "samples": [],
+      "openIssues": {
+        "count": 0,
+        "refs": [],
+        "categoryLevel": true,
+        "keyRefs": [],
+        "categoryRefs": [],
+        "label": "cap/data-providers"
+      }
+    },
+    {
+      "key": "provider.snowflake",
+      "displayName": "Snowflake Provider",
+      "category": "DataProviders",
+      "edition": "Enterprise",
+      "entryCount": 0,
+      "provingTestCount": 0,
+      "maturity": {},
+      "noSurface": {
+        "capability": "provider.snowflake",
+        "reasonCode": "provider-runtime-gate",
+        "reason": "Experimental Snowflake is selected behind shared FeatureServer/OGC routes only when both provider gates and configuration are enabled; the provider has no distinct route and remains off by default for 2026.1.",
+        "category": "DataProviders",
+        "edition": "Enterprise"
+      },
+      "cite": [],
+      "parity": [],
+      "esriAssess": [],
+      "interop": [],
+      "geobench": [],
+      "dr": [],
+      "liveCanary": [],
+      "sdks": {
+        "js": {
+          "status": "not-covered"
+        },
+        "dotnet": {
+          "status": "not-covered"
+        },
+        "python": {
+          "status": "not-covered"
+        }
+      },
+      "samples": [],
+      "openIssues": {
+        "count": 0,
+        "refs": [],
+        "categoryLevel": true,
+        "keyRefs": [],
+        "categoryRefs": [],
+        "label": "cap/data-providers"
       }
     },
     {
@@ -9398,7 +9570,7 @@
           "protocol": "featureserver",
           "freshness": {
             "state": "stale",
-            "ageDays": 106,
+            "ageDays": 108,
             "runDate": "2026-05-07T14:05:19.209522Z"
           }
         },
@@ -10542,7 +10714,7 @@
           "protocol": "mapserver",
           "freshness": {
             "state": "stale",
-            "ageDays": 106,
+            "ageDays": 108,
             "runDate": "2026-05-07T14:05:19.321037Z"
           }
         },
@@ -13064,7 +13236,7 @@
           "protocol": "ogc-features",
           "freshness": {
             "state": "stale",
-            "ageDays": 106,
+            "ageDays": 108,
             "runDate": "2026-05-07T14:05:39.990000Z"
           }
         },
@@ -13073,7 +13245,7 @@
           "protocol": "ogc-features",
           "freshness": {
             "state": "stale",
-            "ageDays": 0,
+            "ageDays": 1,
             "runDate": "2026-08-22T02:57:06.792964Z"
           }
         },
@@ -13082,7 +13254,7 @@
           "protocol": "ogc-features",
           "freshness": {
             "state": "stale",
-            "ageDays": 106,
+            "ageDays": 108,
             "runDate": "2026-05-07T14:05:27.279118Z"
           }
         },
@@ -13774,7 +13946,7 @@
           "protocol": "ogc-maps",
           "freshness": {
             "state": "stale",
-            "ageDays": 106,
+            "ageDays": 108,
             "runDate": "2026-05-07T14:05:39.755000Z"
           }
         },
@@ -13783,7 +13955,7 @@
           "protocol": "ogc-maps",
           "freshness": {
             "state": "stale",
-            "ageDays": 106,
+            "ageDays": 108,
             "runDate": "2026-05-07T14:05:53.364000Z"
           }
         }
@@ -14059,7 +14231,7 @@
           "protocol": "ogc-tiles",
           "freshness": {
             "state": "stale",
-            "ageDays": 106,
+            "ageDays": 108,
             "runDate": "2026-05-07T14:05:53.364000Z"
           }
         }
@@ -14976,7 +15148,7 @@
           "protocol": "mvt",
           "freshness": {
             "state": "stale",
-            "ageDays": 106,
+            "ageDays": 108,
             "runDate": "2026-05-07T14:05:52.394000Z"
           }
         }
@@ -16307,7 +16479,7 @@
           "protocol": "wfs",
           "freshness": {
             "state": "stale",
-            "ageDays": 106,
+            "ageDays": 108,
             "runDate": "2026-05-07T14:05:40.991000Z"
           }
         },
@@ -16316,7 +16488,7 @@
           "protocol": "wfs",
           "freshness": {
             "state": "stale",
-            "ageDays": 0,
+            "ageDays": 1,
             "runDate": "2026-08-22T02:57:06.793352Z"
           }
         },
@@ -16325,7 +16497,7 @@
           "protocol": "wfs",
           "freshness": {
             "state": "stale",
-            "ageDays": 106,
+            "ageDays": 108,
             "runDate": "2026-05-07T14:05:27.279118Z"
           }
         }
@@ -16477,7 +16649,7 @@
           "protocol": "wms",
           "freshness": {
             "state": "stale",
-            "ageDays": 106,
+            "ageDays": 108,
             "runDate": "2026-05-07T14:05:39.001000Z"
           }
         },
@@ -16486,7 +16658,7 @@
           "protocol": "wms",
           "freshness": {
             "state": "stale",
-            "ageDays": 106,
+            "ageDays": 108,
             "runDate": "2026-05-07T14:05:53.364000Z"
           }
         },
@@ -17182,7 +17354,7 @@
           "protocol": "wmts",
           "freshness": {
             "state": "stale",
-            "ageDays": 106,
+            "ageDays": 108,
             "runDate": "2026-05-07T14:05:37.557000Z"
           }
         },
@@ -17191,7 +17363,7 @@
           "protocol": "wmts",
           "freshness": {
             "state": "stale",
-            "ageDays": 106,
+            "ageDays": 108,
             "runDate": "2026-05-07T14:05:53.364000Z"
           }
         },
