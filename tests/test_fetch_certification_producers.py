@@ -617,6 +617,23 @@ def test_client_interop_run_rejects_non_trunk_wrong_event_and_conclusion() -> No
     assert not MODULE.trusted_run({**run, "conclusion": "failure"}, artifact, source)
 
 
+def test_empty_exercised_capabilities_is_a_value_not_an_omission() -> None:
+    fragment = MODULE.normalize_client_interop(
+        _interop_raw(results=[{
+            "test_case_id": "CERT-DISC-01", "status": "skip", "notes": "lane skipped",
+            "performed_by": "GeoPandas", "request_url": "https://candidate.test/collections",
+            "exercised_capabilities": [],
+        }]), [_interop_requirement()], {**CANDIDATE, "source_sha": PINNED_SHA}, PINNED_SHA
+    )
+    observation = fragment["observations"][0]
+    observation.setdefault("client_lane", observation["runner_lane"])
+    # validate_fragment_producer's observation checks must accept [] for a skip
+    MODULE.validate_fragment_producer(
+        {**fragment, "producer": "honua-server-client-interop"},
+        "honua-server-client-interop", PINNED_SHA,
+    )
+
+
 def test_client_interop_unregistered_producer_is_rejected() -> None:
     candidate = {**CANDIDATE, "source_sha": PINNED_SHA}
     fragment = MODULE.normalize_client_interop(
