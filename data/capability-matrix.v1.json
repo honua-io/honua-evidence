@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-08-26T20:08:10Z",
+  "generatedAt": "2026-08-27T01:07:21Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -28,52 +28,52 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-08-26T20:08:01Z",
+      "fetchedAt": "2026-08-27T01:07:06Z",
       "sourceVersion": "834fec8f31f4@2026-08-18T03:19:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-26T20:08:01Z",
+      "observedAt": "2026-08-27T01:07:06Z",
       "ageDays": 0,
       "sourceAgeDays": 8,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-08-26T20:08:01Z",
-      "sourceVersion": "85d967ecdbb5@2026-08-26T00:40:31Z",
+      "fetchedAt": "2026-08-27T01:07:06Z",
+      "sourceVersion": "f5c5c4482f23@2026-08-26T17:53:10Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-26T20:08:01Z",
+      "observedAt": "2026-08-27T01:07:06Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-08-26T20:08:02Z",
+      "fetchedAt": "2026-08-27T01:07:08Z",
       "sourceVersion": "883302cc789d@2026-08-26T19:57:45Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-26T20:08:02Z",
+      "observedAt": "2026-08-27T01:07:08Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-08-26T20:08:02Z",
+      "fetchedAt": "2026-08-27T01:07:09Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-26T20:08:02Z",
+      "observedAt": "2026-08-27T01:07:09Z",
       "ageDays": 0,
-      "sourceAgeDays": 39,
+      "sourceAgeDays": 40,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-08-26T20:08:02Z",
+      "fetchedAt": "2026-08-27T01:07:10Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-26T20:08:02Z",
+      "observedAt": "2026-08-27T01:07:10Z",
       "ageDays": 0,
-      "sourceAgeDays": 39,
+      "sourceAgeDays": 40,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-08-26T20:08:03Z",
+      "fetchedAt": "2026-08-27T01:07:11Z",
       "sourceVersion": "250f40ae65a2@2026-08-18T05:47:36Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-08-18T05:47:36Z",
@@ -82,25 +82,25 @@
       "status": "stale"
     },
     "open-issues": {
-      "fetchedAt": "2026-08-26T20:08:10Z",
+      "fetchedAt": "2026-08-27T01:07:21Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-08-26T20:08:10Z",
+      "observedAt": "2026-08-27T01:07:21Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-08-26T20:08:03Z",
+      "fetchedAt": "2026-08-27T01:07:12Z",
       "sourceVersion": "7ffc1d134ab1@2026-08-12T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-08-12T00:00:00Z",
-      "ageDays": 14,
-      "sourceAgeDays": 14,
-      "status": "fresh"
+      "ageDays": 15,
+      "sourceAgeDays": 15,
+      "status": "stale"
     },
     "live-canary": {
-      "fetchedAt": "2026-08-26T20:08:03Z",
+      "fetchedAt": "2026-08-27T01:07:12Z",
       "sourceVersion": "4dead53986a0@2026-08-26T20:07:40Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-08-26T20:07:40Z",
@@ -129,7 +129,7 @@
       "category": "ControlPlane",
       "edition": "Community",
       "entryCount": 368,
-      "provingTestCount": 1042,
+      "provingTestCount": 1084,
       "maturity": {
         "implemented": 368
       },
@@ -589,7 +589,7 @@
       "category": "AI",
       "edition": "Community",
       "entryCount": 4,
-      "provingTestCount": 88,
+      "provingTestCount": 104,
       "maturity": {
         "implemented": 4
       },
@@ -2710,7 +2710,7 @@
       "category": "Discovery",
       "edition": "Community",
       "entryCount": 2,
-      "provingTestCount": 17,
+      "provingTestCount": 19,
       "maturity": {
         "implemented": 2
       },
@@ -3740,7 +3740,7 @@
       "category": "FieldOps",
       "edition": "Pro",
       "entryCount": 18,
-      "provingTestCount": 146,
+      "provingTestCount": 149,
       "maturity": {
         "implemented": 18
       },
@@ -3906,7 +3906,7 @@
       "category": "Geocoding",
       "edition": "Community",
       "entryCount": 10,
-      "provingTestCount": 57,
+      "provingTestCount": 61,
       "maturity": {
         "implemented": 10
       },
@@ -4678,7 +4678,7 @@
       "category": "Identity",
       "edition": "Enterprise",
       "entryCount": 13,
-      "provingTestCount": 24,
+      "provingTestCount": 26,
       "maturity": {
         "experimental": 13
       },
@@ -4789,7 +4789,7 @@
       "category": "Identity",
       "edition": "Pro",
       "entryCount": 6,
-      "provingTestCount": 20,
+      "provingTestCount": 24,
       "maturity": {
         "implemented": 6
       },
@@ -5035,7 +5035,7 @@
       "category": "Identity",
       "edition": "Community",
       "entryCount": 18,
-      "provingTestCount": 58,
+      "provingTestCount": 63,
       "maturity": {
         "implemented": 18
       },
@@ -5290,7 +5290,7 @@
       "category": "Identity",
       "edition": "Enterprise",
       "entryCount": 3,
-      "provingTestCount": 13,
+      "provingTestCount": 15,
       "maturity": {
         "implemented": 3
       },
@@ -5944,7 +5944,7 @@
       "category": "Ops",
       "edition": "Community",
       "entryCount": 15,
-      "provingTestCount": 55,
+      "provingTestCount": 61,
       "maturity": {
         "implemented": 15
       },
@@ -6564,7 +6564,7 @@
       "category": "Ops",
       "edition": "Community",
       "entryCount": 16,
-      "provingTestCount": 38,
+      "provingTestCount": 44,
       "maturity": {
         "implemented": 16
       },
@@ -8088,7 +8088,7 @@
       "category": "Process",
       "edition": "Community",
       "entryCount": 10,
-      "provingTestCount": 136,
+      "provingTestCount": 138,
       "maturity": {
         "implemented": 10
       },
@@ -9294,7 +9294,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 49,
-      "provingTestCount": 417,
+      "provingTestCount": 418,
       "maturity": {
         "implemented": 49
       },
@@ -10142,7 +10142,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 48,
-      "provingTestCount": 115,
+      "provingTestCount": 117,
       "maturity": {
         "implemented": 48
       },
@@ -12154,7 +12154,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 8,
-      "provingTestCount": 33,
+      "provingTestCount": 37,
       "maturity": {
         "implemented": 8
       },
@@ -12914,7 +12914,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 21,
-      "provingTestCount": 252,
+      "provingTestCount": 256,
       "maturity": {
         "implemented": 21
       },
@@ -13616,7 +13616,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 10,
-      "provingTestCount": 129,
+      "provingTestCount": 131,
       "maturity": {
         "implemented": 10
       },
@@ -13893,7 +13893,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 13,
-      "provingTestCount": 65,
+      "provingTestCount": 67,
       "maturity": {
         "implemented": 13
       },
@@ -14148,7 +14148,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 12,
-      "provingTestCount": 111,
+      "provingTestCount": 115,
       "maturity": {
         "implemented": 12
       },
@@ -17968,7 +17968,7 @@
       "category": "Styling",
       "edition": "Community",
       "entryCount": 8,
-      "provingTestCount": 66,
+      "provingTestCount": 68,
       "maturity": {
         "implemented": 8
       },
