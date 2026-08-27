@@ -332,7 +332,12 @@ def validate_fragment_producer(
                 f"Fragment observation {index} producer_source_sha does not match trusted run head "
                 f"{producer_source_sha}."
             )
-        missing = [field for field in REQUIRED_OBSERVATION_FIELDS if not observation.get(field)]
+        # Presence, not truthiness: an honest empty exercised_capabilities ([])
+        # on an unexecuted observation is a value, not an omission.
+        missing = [
+            field for field in REQUIRED_OBSERVATION_FIELDS
+            if field not in observation or observation[field] is None
+        ]
         if missing:
             raise ValueError(
                 f"Fragment observation {index} from {expected!r} is missing governed fields: {missing}."
