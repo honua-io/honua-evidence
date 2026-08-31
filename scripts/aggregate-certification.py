@@ -681,11 +681,21 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
                 pass
             else:
                 parsed_request = urlparse(request_url) if isinstance(request_url, str) else None
-                if parsed_request is None or parsed_request.scheme not in {"http", "https"} or not parsed_request.netloc:
+                if (
+                    parsed_request is None
+                    or parsed_request.scheme not in {"http", "https"}
+                    or not parsed_request.netloc
+                    or parsed_request.username is not None
+                    or parsed_request.password is not None
+                ):
                     raise ValueError(f"{path}: observations[{index}].request_url must be absolute HTTP(S)")
             exercised = observation.get("exercised_capabilities")
-            if not isinstance(exercised, list) or any(not isinstance(item, str) or not item for item in exercised):
-                raise ValueError(f"{path}: observations[{index}].exercised_capabilities must be a string array")
+            if (
+                not isinstance(exercised, list)
+                or any(not isinstance(item, str) or not item for item in exercised)
+                or len(exercised) != len(set(exercised))
+            ):
+                raise ValueError(f"{path}: observations[{index}].exercised_capabilities must be a unique string array")
             if observation.get("result") == "pass" and not set(requirement["scenario_facets"]).issubset(exercised):
                 raise ValueError(f"{path}: observations[{index}] claims capabilities it did not exercise")
             if observation.get("result") == "pass" and "tls" in requirement["scenario_facets"] and parsed_request.scheme != "https":

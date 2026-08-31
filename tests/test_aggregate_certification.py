@@ -212,6 +212,28 @@ class CertificationAggregationTests(unittest.TestCase):
                 now=datetime(2026, 8, 20, 10, 10, tzinfo=timezone.utc),
             )
 
+    def test_request_url_rejects_embedded_credentials(self):
+        req = requirement()
+        observed = observation(req)
+        observed["request_url"] = "https://user:secret@candidate.example.test/operation"
+        with self.assertRaisesRegex(ValueError, "request_url must be absolute"):
+            module.build_ledger(
+                "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+                [(Path("credentialed.json"), fragment("honua-server-cng", [observed]))], CANDIDATE,
+                now=datetime(2026, 8, 20, 10, 10, tzinfo=timezone.utc),
+            )
+
+    def test_exercised_capabilities_rejects_duplicates(self):
+        req = requirement()
+        observed = observation(req)
+        observed["exercised_capabilities"] = ["positive", "positive"]
+        with self.assertRaisesRegex(ValueError, "unique string array"):
+            module.build_ledger(
+                "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+                [(Path("duplicates.json"), fragment("honua-server-cng", [observed]))], CANDIDATE,
+                now=datetime(2026, 8, 20, 10, 10, tzinfo=timezone.utc),
+            )
+
     def test_source_test_host_evidence_does_not_claim_candidate_image_execution(self):
         req = requirement(test_ids=["HarnessTests.ExactOperation"])
         req["deployment_target"] = "source-test-host"

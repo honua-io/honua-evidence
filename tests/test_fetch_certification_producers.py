@@ -634,6 +634,29 @@ def test_empty_exercised_capabilities_is_a_value_not_an_omission() -> None:
     )
 
 
+def test_fragment_identity_contract_allows_null_url_only_for_skip() -> None:
+    skipped = _fragment(PINNED_SHA)
+    skipped["observations"][0].update({"result": "skip", "request_url": None})
+    MODULE.validate_fragment_producer(skipped, "honua-sdk-js", PINNED_SHA)
+
+    executed = _fragment(PINNED_SHA)
+    executed["observations"][0].update({"result": "pass", "request_url": None})
+    with unittest.TestCase().assertRaisesRegex(ValueError, "invalid request_url"):
+        MODULE.validate_fragment_producer(executed, "honua-sdk-js", PINNED_SHA)
+
+
+def test_fragment_identity_contract_rejects_credentials_and_duplicate_capabilities() -> None:
+    credentialed = _fragment(PINNED_SHA)
+    credentialed["observations"][0]["request_url"] = "https://user:secret@candidate.test/collections"
+    with unittest.TestCase().assertRaisesRegex(ValueError, "invalid request_url"):
+        MODULE.validate_fragment_producer(credentialed, "honua-sdk-js", PINNED_SHA)
+
+    duplicated = _fragment(PINNED_SHA)
+    duplicated["observations"][0]["exercised_capabilities"] = ["positive", "positive"]
+    with unittest.TestCase().assertRaisesRegex(ValueError, "invalid exercised_capabilities"):
+        MODULE.validate_fragment_producer(duplicated, "honua-sdk-js", PINNED_SHA)
+
+
 def test_client_interop_unregistered_producer_is_rejected() -> None:
     candidate = {**CANDIDATE, "source_sha": PINNED_SHA}
     fragment = MODULE.normalize_client_interop(
@@ -858,6 +881,12 @@ class FetchCertificationProducerTests(unittest.TestCase):
     test_identity_candidate_revision = staticmethod(test_client_identity_rejects_unresolvable_candidate_revision)
     test_identity_http_probe = staticmethod(test_client_identity_rejects_geopandas_result_performed_by_httpx)
     test_identity_tls_claim = staticmethod(test_client_identity_rejects_plain_http_tls_claim)
+    test_fragment_identity_skip_url = staticmethod(
+        test_fragment_identity_contract_allows_null_url_only_for_skip
+    )
+    test_fragment_identity_values = staticmethod(
+        test_fragment_identity_contract_rejects_credentials_and_duplicate_capabilities
+    )
     test_interop_run_fail_closed = staticmethod(
         test_client_interop_run_rejects_non_trunk_wrong_event_and_conclusion
     )
