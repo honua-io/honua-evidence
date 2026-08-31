@@ -803,6 +803,26 @@ class CertificationAggregationTests(unittest.TestCase):
                 now=datetime(2026, 8, 20, 10, 30, tzinfo=timezone.utc),
             )
 
+    def test_observation_before_governed_candidate_cut_is_invalidated(self):
+        req = requirement()
+        stale = observation(req, completed="2026-08-20T08:59:59Z")
+        stale["started_at"] = "2026-08-20T08:55:00Z"
+        stale["evidence_receipt"]["identity"]["started_at"] = stale["started_at"]
+        stale["evidence_receipt"]["identity"]["completed_at"] = stale["completed_at"]
+        digest = "sha256:" + hashlib.sha256(
+            json.dumps(stale["evidence_receipt"], sort_keys=True, separators=(",", ":")).encode("utf-8")
+        ).hexdigest()
+        stale["evidence_digest"] = digest
+        stale["evidence_uri"] = "https://evidence.honua.io/data/sha256/" + digest[7:]
+        for facet in stale["facet_results"].values():
+            facet["evidence_digest"] = digest
+        with self.assertRaisesRegex(ValueError, "predates the governed candidate cut"):
+            module.build_ledger(
+                "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+                [(Path("pre-cut.json"), fragment("server", [stale]))], CANDIDATE,
+                now=datetime(2026, 8, 20, 10, 10, tzinfo=timezone.utc),
+            )
+
     def test_two_producers_for_same_cell_are_rejected(self):
         req = requirement()
         fragments = [

@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import base64
 import hashlib
+import importlib.util
 import json
 import math
 import re
@@ -38,6 +39,9 @@ OBSERVATION_FIELDS = (
 )
 CLOCK_SKEW_TOLERANCE = timedelta(minutes=5)
 OBSERVATION_RESULTS = frozenset({"pass", "fail", "skip"})
+REQUIRED_SCENARIO_DEPTH_FACETS = (
+    "positive", "negative", "auth", "pagination", "limit", "metadata", "range-efficiency",
+)
 ENTITLEMENT_POLICIES = {
     "honua-pro-feature-subscriptions-v1": ("licensed-release", "api-key-protected-v1"),
     "esri-arcgis-pro-arcpy-v1": ("windows-licensed", "anonymous-and-protected-v1"),
@@ -388,7 +392,47 @@ def _dimension_counts(cells: list[dict], field: str) -> dict[str, dict[str, int]
     return {key: _result_counts(grouped[key]) for key in sorted(grouped)}
 
 
-def build_summary(ledger: dict) -> dict:
+def _cloud_native_inventory_summary(ledger: dict, inventory: dict) -> dict:
+    cells = ledger["cells"]
+    counts: dict[str, int] = defaultdict(int)
+    entries: list[dict] = []
+    for item in inventory["entries"]:
+        counts[item["classification"]] += 1
+        joined = [
+            cell for cell in cells
+            if cell["capability_key"] == f"format.{item['format']}"
+            and cell["canonical_client"] in item["ledger_clients"]
+        ]
+        provenance_complete = sum(
+            isinstance(cell.get("source_sha"), str)
+            and isinstance(cell.get("producer_source_sha"), str)
+            and (cell.get("image_digest") is not None or cell["deployment_target"] == "source-test-host")
+            and isinstance(cell.get("fixture_revision"), str)
+            for cell in joined
+        )
+        entries.append({
+            "format": item["format"],
+            "tool": item["tool"],
+            "classification": item["classification"],
+            "maturity": item["maturity"],
+            "owner": item["owner"],
+            "rationale": item["rationale"],
+            "ledger_clients": item["ledger_clients"],
+            "ledger": {
+                **_result_counts(joined),
+                "provenance_complete": provenance_complete,
+            },
+        })
+    return {
+        "guide_revision": inventory["source"]["revision"],
+        "inventory_source": inventory["source"]["inventory_source"],
+        "inventory_source_revision": inventory["source"]["inventory_source_revision"],
+        "counts_by_classification": {key: counts[key] for key in sorted(counts)},
+        "entries": entries,
+    }
+
+
+def build_summary(ledger: dict, cloud_native_inventory: dict | None = None) -> dict:
     cells = ledger["cells"]
     facet_rows: dict[str, list[dict]] = defaultdict(list)
     client_operations: dict[str, set[tuple[str, str]]] = defaultdict(set)
@@ -415,7 +459,7 @@ def build_summary(ledger: dict) -> dict:
     )
     supported_required = len(addressable_supported_groups)
 
-    return {
+    summary = {
         "schema": "honua.protocol-certification-summary/v1",
         "requirements_revision": ledger["requirements_revision"],
         "requirements_source_revision": ledger["requirements_source_revision"],
@@ -428,7 +472,8 @@ def build_summary(ledger: dict) -> dict:
         "by_target": _dimension_counts(cells, "deployment_target"),
         "by_required_tier": _dimension_counts(cells, "required_tier"),
         "scenario_facets": {
-            facet: _result_counts(facet_rows[facet]) for facet in sorted(facet_rows)
+            facet: _result_counts(facet_rows[facet])
+            for facet in sorted(set(facet_rows) | set(REQUIRED_SCENARIO_DEPTH_FACETS))
         },
         "supported_operation_coverage": {
             "required": supported_required,
@@ -443,6 +488,21 @@ def build_summary(ledger: dict) -> dict:
             for client in sorted(client_operations)
         },
     }
+    if cloud_native_inventory is not None:
+        summary["cloud_native_inventory"] = _cloud_native_inventory_summary(
+            ledger, cloud_native_inventory
+        )
+    return summary
+
+
+def load_cloud_native_inventory(path: Path) -> dict:
+    validator = Path(__file__).with_name("validate-cloud-native-inventory.py")
+    spec = importlib.util.spec_from_file_location("validate_cloud_native_inventory", validator)
+    if spec is None or spec.loader is None:
+        raise ValueError(f"cannot load inventory validator from {validator}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module.load_inventory(path)
 
 
 def _timestamp(value: object) -> datetime | None:
@@ -793,6 +853,11 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
                 raise ValueError(f"{path}: observations[{index}].completed_at is after fragment generation")
             if completed > now + CLOCK_SKEW_TOLERANCE:
                 raise ValueError(f"{path}: observations[{index}].completed_at is in the future")
+            candidate_cut = _timestamp(fragment["candidate"].get("cut_at"))
+            if candidate_cut is None or completed < candidate_cut:
+                raise ValueError(
+                    f"{path}: observations[{index}] predates the governed candidate cut and is invalidated"
+                )
             composite = (producer, observation_key)
             by_producer_key.setdefault(composite, []).append((completed, path, observation))
 
@@ -890,6 +955,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--producers", default="data/producers/protocol-certification", type=Path)
     parser.add_argument("--output", default="data/protocol-certification.v1.json", type=Path)
     parser.add_argument("--summary", default="data/protocol-certification-summary.v1.json", type=Path)
+    parser.add_argument(
+        "--cloud-native-inventory",
+        default="config/cloud-native-client-inventory.v1.json",
+        type=Path,
+    )
     parser.add_argument("--candidate-source-sha", required=True)
     parser.add_argument("--candidate-image-digest", required=True)
     parser.add_argument("--candidate-cut-at", required=True)
@@ -915,7 +985,8 @@ def main(argv: list[str] | None = None) -> int:
         receipt_path.write_bytes(receipt)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(ledger, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    summary = build_summary(ledger)
+    inventory = load_cloud_native_inventory(args.cloud_native_inventory)
+    summary = build_summary(ledger, inventory)
     args.summary.parent.mkdir(parents=True, exist_ok=True)
     args.summary.write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(f"wrote {args.output}: {len(ledger['cells'])} required cell(s), candidate {candidate['source_sha']}")

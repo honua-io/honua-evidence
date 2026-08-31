@@ -154,3 +154,31 @@ The aggregator also publishes `data/protocol-certification-summary.v1.json`. It 
 surface, canonical client, deployment target, and required tier; scenario-facet counts; supported-operation
 coverage; and per-client operation depth. These metrics are diagnostic only: percentages never override a
 failed, skipped, stale, mismatched, or otherwise invalid required cell in the release ledger.
+
+## Governed Cloud Native Geospatial inventory
+
+`config/cloud-native-client-inventory.v1.json` is the normalized, machine-readable projection of
+the Cloud Native Geospatial Guide roster governed in `honua-release`. Both the Guide commit and the
+exact `honua-release` inventory revision are immutable pins. Every format/tool identity has exactly
+one classification, rationale, and owner. The normalized classifications are `required-consumer`,
+`optional-consumer`, `producer`, `supporting-tool`, and `not-applicable`; roadmap consumers are
+truthfully `not-applicable` until their Honua operation is addressable.
+
+Supported required consumers and producers must name their canonical ledger client identity. The
+summary joins those identities only to the corresponding `format.<format>` cells and publishes
+their pass/fail/skip/not-addressable and complete-provenance counts. A fixture validator or
+supporting tool never substitutes for required API consumption.
+
+`scripts/validate-cloud-native-inventory.py` rejects schema drift, duplicate format/tool rows,
+unpinned sources, unknown classifications, missing owners/rationales, and supported release-required
+tools without a ledger join. The PR workflow runs it before the test suite.
+
+## Freshness and invalidation
+
+The release-owned requirements catalog supplies each cell's tier and its fixture, contract, auth,
+client-version, and producer revision pins; the release manifest supplies the exact candidate SHA,
+image digest, and cut timestamp. Aggregation fails closed when any pin differs. An observation that
+completed before the governed cut is invalidated even when its source SHA and digest happen to
+match, preventing pre-cut evidence from being relabeled as fresh release evidence. The summary
+retains per-tier counts so `honua-release` can apply its tier windows without weakening a cell
+verdict.
