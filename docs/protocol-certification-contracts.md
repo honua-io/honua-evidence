@@ -64,6 +64,13 @@ Evidence producers push immutable fragments using this envelope:
     "canonical_client": "Rasterio",
     "client_version": "1.4.3",
     "deployment_target": "local-docker",
+    "client_id": "Rasterio",
+    "runner_lane": "cng",
+    "protocol_version": "1.0",
+    "protocol_profile": "cloud-native-geospatial",
+    "performed_by": "Rasterio",
+    "request_url": "https://candidate.example.test/data/example.tif",
+    "exercised_capabilities": ["positive", "range-efficiency"],
     "result": "pass",
     "skip_reason": null,
     "source_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -78,6 +85,14 @@ Evidence producers push immutable fragments using this envelope:
   }]
 }
 ```
+
+All seven execution-context keys are required by presence. The five identity
+strings must be non-empty, `performed_by` must equal `client_id`, and
+`exercised_capabilities` must be a unique string array. `request_url` must be
+an absolute HTTP(S) URL without embedded credentials for executed results. It
+may be `null` only when `result` is `skip`, because no request was performed.
+Producers must report observed values; neither ingest nor aggregation supplies
+defaults for missing identities, URLs, capabilities, or timestamps.
 
 ## Certification receipt contract
 

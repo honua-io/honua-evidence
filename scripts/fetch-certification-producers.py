@@ -182,7 +182,15 @@ def normalize_client_interop(
         if performed_by != raw["client_id"]:
             raise ValueError(f"Client interop result {test_id!r} was not performed by client_id.")
         parsed_request = urlparse(request_url) if isinstance(request_url, str) else None
-        if parsed_request is None or parsed_request.scheme not in {"http", "https"} or not parsed_request.netloc:
+        if status == "skip" and request_url is None:
+            pass
+        elif (
+            parsed_request is None
+            or parsed_request.scheme not in {"http", "https"}
+            or not parsed_request.netloc
+            or parsed_request.username is not None
+            or parsed_request.password is not None
+        ):
             raise ValueError(f"Client interop result {test_id!r} has no absolute request_url.")
         if not (
             isinstance(exercised, list) and exercised
@@ -334,13 +342,43 @@ def validate_fragment_producer(
             )
         # Presence, not truthiness: an honest empty exercised_capabilities ([])
         # on an unexecuted observation is a value, not an omission.
-        missing = [
-            field for field in REQUIRED_OBSERVATION_FIELDS
-            if field not in observation or observation[field] is None
-        ]
+        missing = [field for field in REQUIRED_OBSERVATION_FIELDS if field not in observation]
         if missing:
             raise ValueError(
                 f"Fragment observation {index} from {expected!r} is missing governed fields: {missing}."
+            )
+        for field in ("client_id", "runner_lane", "protocol_version", "protocol_profile", "performed_by"):
+            if not isinstance(observation[field], str) or not observation[field].strip():
+                raise ValueError(
+                    f"Fragment observation {index} from {expected!r} has invalid {field}."
+                )
+        if observation["performed_by"] != observation["client_id"]:
+            raise ValueError(
+                f"Fragment observation {index} from {expected!r} was not performed by client_id."
+            )
+        request_url = observation["request_url"]
+        if observation.get("result") == "skip" and request_url is None:
+            pass
+        else:
+            parsed_request = urlparse(request_url) if isinstance(request_url, str) else None
+            if (
+                parsed_request is None
+                or parsed_request.scheme not in {"http", "https"}
+                or not parsed_request.netloc
+                or parsed_request.username is not None
+                or parsed_request.password is not None
+            ):
+                raise ValueError(
+                    f"Fragment observation {index} from {expected!r} has invalid request_url."
+                )
+        exercised = observation["exercised_capabilities"]
+        if (
+            not isinstance(exercised, list)
+            or any(not isinstance(value, str) or not value for value in exercised)
+            or len(exercised) != len(set(exercised))
+        ):
+            raise ValueError(
+                f"Fragment observation {index} from {expected!r} has invalid exercised_capabilities."
             )
         for field in ("canonical_client", "client_lane"):
             value = observation.get(field)
