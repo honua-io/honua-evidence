@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-09-01T11:49:14Z",
+  "generatedAt": "2026-09-01T16:43:45Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -29,52 +29,52 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-09-01T11:49:05Z",
+      "fetchedAt": "2026-09-01T16:43:33Z",
       "sourceVersion": "f3617976a6c2@2026-08-29T19:28:12Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-01T11:49:05Z",
+      "observedAt": "2026-09-01T16:43:33Z",
       "ageDays": 0,
       "sourceAgeDays": 2,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-09-01T11:49:05Z",
+      "fetchedAt": "2026-09-01T16:43:33Z",
       "sourceVersion": "26061feadcd6@2026-09-01T11:18:26Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-01T11:49:05Z",
+      "observedAt": "2026-09-01T16:43:33Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-09-01T11:49:05Z",
+      "fetchedAt": "2026-09-01T16:43:33Z",
       "sourceVersion": "640535afe475@2026-08-29T20:03:17Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-01T11:49:05Z",
+      "observedAt": "2026-09-01T16:43:33Z",
       "ageDays": 0,
       "sourceAgeDays": 2,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-09-01T11:49:06Z",
+      "fetchedAt": "2026-09-01T16:43:34Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-01T11:49:06Z",
+      "observedAt": "2026-09-01T16:43:34Z",
       "ageDays": 0,
       "sourceAgeDays": 45,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-09-01T11:49:06Z",
+      "fetchedAt": "2026-09-01T16:43:34Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-01T11:49:06Z",
+      "observedAt": "2026-09-01T16:43:34Z",
       "ageDays": 0,
       "sourceAgeDays": 45,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-09-01T11:49:06Z",
+      "fetchedAt": "2026-09-01T16:43:35Z",
       "sourceVersion": "773c2574c39b@2026-09-01T10:10:27Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-01T10:10:27Z",
@@ -83,16 +83,16 @@
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-09-01T11:49:14Z",
+      "fetchedAt": "2026-09-01T16:43:45Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-01T11:49:14Z",
+      "observedAt": "2026-09-01T16:43:45Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-09-01T11:49:07Z",
+      "fetchedAt": "2026-09-01T16:43:36Z",
       "sourceVersion": "26061feadcd6@2026-09-01T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-01T00:00:00Z",
@@ -101,10 +101,10 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-09-01T11:49:07Z",
-      "sourceVersion": "420f1d9e20e0@2026-09-01T11:44:10Z",
+      "fetchedAt": "2026-09-01T16:43:36Z",
+      "sourceVersion": "340ac0d0e3fb@2026-09-01T16:43:16Z",
       "freshnessBasis": "observation",
-      "observedAt": "2026-09-01T11:44:10Z",
+      "observedAt": "2026-09-01T16:43:16Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
@@ -179,7 +179,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 4,
         "refs": [
           {
             "number": 346,
@@ -190,11 +190,6 @@
             "number": 3411,
             "title": "feat(control-plane): WS1b \u2014 canonical operation instance/evidence envelope and durable approval bridge",
             "url": "https://github.com/honua-io/honua-server/issues/3411"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3447,
@@ -219,11 +214,6 @@
             "number": 3411,
             "title": "feat(control-plane): WS1b \u2014 canonical operation instance/evidence envelope and durable approval bridge",
             "url": "https://github.com/honua-io/honua-server/issues/3411"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3447,
@@ -286,7 +276,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 3,
         "refs": [
           {
             "number": 3411,
@@ -297,16 +287,6 @@
             "number": 3424,
             "title": "feat(ai proxy): sign canonical real-model transcript provenance",
             "url": "https://github.com/honua-io/honua-server/issues/3424"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3475,
@@ -326,16 +306,6 @@
             "number": 3424,
             "title": "feat(ai proxy): sign canonical real-model transcript provenance",
             "url": "https://github.com/honua-io/honua-server/issues/3424"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3475,
@@ -393,7 +363,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 3,
         "refs": [
           {
             "number": 3411,
@@ -404,16 +374,6 @@
             "number": 3424,
             "title": "feat(ai proxy): sign canonical real-model transcript provenance",
             "url": "https://github.com/honua-io/honua-server/issues/3424"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3475,
@@ -433,16 +393,6 @@
             "number": 3424,
             "title": "feat(ai proxy): sign canonical real-model transcript provenance",
             "url": "https://github.com/honua-io/honua-server/issues/3424"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3475,
@@ -484,7 +434,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 3,
         "refs": [
           {
             "number": 3411,
@@ -495,16 +445,6 @@
             "number": 3424,
             "title": "feat(ai proxy): sign canonical real-model transcript provenance",
             "url": "https://github.com/honua-io/honua-server/issues/3424"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3475,
@@ -524,16 +464,6 @@
             "number": 3424,
             "title": "feat(ai proxy): sign canonical real-model transcript provenance",
             "url": "https://github.com/honua-io/honua-server/issues/3424"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3475,
@@ -584,7 +514,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 3,
         "refs": [
           {
             "number": 3411,
@@ -595,16 +525,6 @@
             "number": 3424,
             "title": "feat(ai proxy): sign canonical real-model transcript provenance",
             "url": "https://github.com/honua-io/honua-server/issues/3424"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3475,
@@ -624,16 +544,6 @@
             "number": 3424,
             "title": "feat(ai proxy): sign canonical real-model transcript provenance",
             "url": "https://github.com/honua-io/honua-server/issues/3424"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3475,
@@ -680,7 +590,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 3,
         "refs": [
           {
             "number": 3411,
@@ -691,16 +601,6 @@
             "number": 3424,
             "title": "feat(ai proxy): sign canonical real-model transcript provenance",
             "url": "https://github.com/honua-io/honua-server/issues/3424"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3475,
@@ -720,16 +620,6 @@
             "number": 3424,
             "title": "feat(ai proxy): sign canonical real-model transcript provenance",
             "url": "https://github.com/honua-io/honua-server/issues/3424"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3475,
@@ -775,7 +665,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 3,
         "refs": [
           {
             "number": 3411,
@@ -786,16 +676,6 @@
             "number": 3424,
             "title": "feat(ai proxy): sign canonical real-model transcript provenance",
             "url": "https://github.com/honua-io/honua-server/issues/3424"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3475,
@@ -815,16 +695,6 @@
             "number": 3424,
             "title": "feat(ai proxy): sign canonical real-model transcript provenance",
             "url": "https://github.com/honua-io/honua-server/issues/3424"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3475,
@@ -3220,6 +3090,14 @@
           "status": "red",
           "lastGreenAt": "",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33503973289"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-01T16:43:16Z",
+          "probeName": "capability-manifest",
+          "targetEnvironment": "demo.honua.io",
+          "status": "red",
+          "lastGreenAt": "",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33533459401"
         }
       ],
       "sdks": {
@@ -4589,6 +4467,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-01T11:44:10Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33503973289"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-01T16:43:16Z",
+          "probeName": "geocoding-latency",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-01T16:43:16Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33533459401"
         }
       ],
       "sdks": {
@@ -4758,7 +4644,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 4,
         "refs": [
           {
             "number": 346,
@@ -4774,16 +4660,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3454,
@@ -4808,16 +4684,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3454,
@@ -4859,7 +4725,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 4,
         "refs": [
           {
             "number": 346,
@@ -4875,16 +4741,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3454,
@@ -4909,16 +4765,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3454,
@@ -4975,7 +4821,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 4,
         "refs": [
           {
             "number": 346,
@@ -4991,16 +4837,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3454,
@@ -5025,16 +4861,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3454,
@@ -5085,7 +4911,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 4,
         "refs": [
           {
             "number": 346,
@@ -5101,16 +4927,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3454,
@@ -5135,16 +4951,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3454,
@@ -5207,7 +5013,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 4,
         "refs": [
           {
             "number": 346,
@@ -5223,16 +5029,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3454,
@@ -5257,16 +5053,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3454,
@@ -5320,7 +5106,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 4,
         "refs": [
           {
             "number": 346,
@@ -5336,16 +5122,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3454,
@@ -5370,16 +5146,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3454,
@@ -5421,7 +5187,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 4,
         "refs": [
           {
             "number": 346,
@@ -5437,16 +5203,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3454,
@@ -5471,16 +5227,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3454,
@@ -5522,7 +5268,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 4,
         "refs": [
           {
             "number": 346,
@@ -5538,16 +5284,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3454,
@@ -5572,16 +5308,6 @@
             "number": 1275,
             "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
             "url": "https://github.com/honua-io/honua-server/issues/1275"
-          },
-          {
-            "number": 3430,
-            "title": "fix(mcp): authenticate OAuth before tenant resolution and canonically bind sessions",
-            "url": "https://github.com/honua-io/honua-server/issues/3430"
-          },
-          {
-            "number": 3431,
-            "title": "fix(mcp): preserve OAuth scope narrowing through Studio and approved operation replay",
-            "url": "https://github.com/honua-io/honua-server/issues/3431"
           },
           {
             "number": 3454,
@@ -6673,6 +6399,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-01T11:44:10Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33503973289"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-01T16:43:16Z",
+          "probeName": "health-live-ready",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-01T16:43:16Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33533459401"
         }
       ],
       "sdks": {
@@ -8037,6 +7771,22 @@
           "status": "green",
           "lastGreenAt": "2026-09-01T11:44:10Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33503973289"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-01T16:43:16Z",
+          "probeName": "metrics-gated",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-01T16:43:16Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33533459401"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-01T16:43:16Z",
+          "probeName": "admin-metrics-health",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-01T16:43:16Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33533459401"
         }
       ],
       "sdks": {
@@ -10593,6 +10343,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-01T11:44:10Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33503973289"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-01T16:43:16Z",
+          "probeName": "render-query-smoke",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-01T16:43:16Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33533459401"
         }
       ],
       "sdks": {
@@ -11840,6 +11598,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-01T11:44:10Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33503973289"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-01T16:43:16Z",
+          "probeName": "render-query-smoke",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-01T16:43:16Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33533459401"
         }
       ],
       "sdks": {
@@ -13005,6 +12771,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-01T11:44:10Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33503973289"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-01T16:43:16Z",
+          "probeName": "odata-service-document",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-01T16:43:16Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33533459401"
         }
       ],
       "sdks": {
@@ -13924,6 +13698,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-01T11:44:10Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33503973289"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-01T16:43:16Z",
+          "probeName": "edr-collections",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-01T16:43:16Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33533459401"
         }
       ],
       "sdks": {
@@ -14717,6 +14499,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-01T11:44:10Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33503973289"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-01T16:43:16Z",
+          "probeName": "ogc-features-collections",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-01T16:43:16Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33533459401"
         }
       ],
       "sdks": {
@@ -16030,6 +15820,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-01T11:44:10Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33503973289"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-01T16:43:16Z",
+          "probeName": "stac-collections",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-01T16:43:16Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33533459401"
         }
       ],
       "sdks": {
@@ -16822,6 +16620,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-01T11:44:10Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33503973289"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-01T16:43:16Z",
+          "probeName": "tiles-tilejson",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-01T16:43:16Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33533459401"
         }
       ],
       "sdks": {
@@ -17590,6 +17396,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-01T11:44:10Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33503973289"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-01T16:43:16Z",
+          "probeName": "ogc-wcs-capabilities",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-01T16:43:16Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33533459401"
         }
       ],
       "sdks": {
@@ -18570,6 +18384,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-01T11:44:10Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33503973289"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-01T16:43:16Z",
+          "probeName": "ogc-wms-capabilities",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-01T16:43:16Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33533459401"
         }
       ],
       "sdks": {
@@ -19384,6 +19206,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-01T11:44:10Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33503973289"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-01T16:43:16Z",
+          "probeName": "ogc-wmts-capabilities",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-01T16:43:16Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33533459401"
         }
       ],
       "sdks": {
