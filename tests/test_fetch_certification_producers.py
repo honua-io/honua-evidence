@@ -621,11 +621,12 @@ def test_empty_exercised_capabilities_is_a_value_not_an_omission() -> None:
     fragment = MODULE.normalize_client_interop(
         _interop_raw(results=[{
             "test_case_id": "CERT-DISC-01", "status": "skip", "notes": "lane skipped",
-            "performed_by": "GeoPandas", "request_url": "https://candidate.test/collections",
+            "performed_by": "GeoPandas", "request_url": None,
             "exercised_capabilities": [],
         }]), [_interop_requirement()], {**CANDIDATE, "source_sha": PINNED_SHA}, PINNED_SHA
     )
     observation = fragment["observations"][0]
+    assert observation["request_url"] is None
     observation.setdefault("client_lane", observation["runner_lane"])
     # validate_fragment_producer's observation checks must accept [] for a skip
     MODULE.validate_fragment_producer(
