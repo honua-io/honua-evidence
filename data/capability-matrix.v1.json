@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-09-02T16:39:27Z",
+  "generatedAt": "2026-09-02T16:49:30Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -29,52 +29,52 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-09-02T16:39:17Z",
+      "fetchedAt": "2026-09-02T16:49:16Z",
       "sourceVersion": "f3617976a6c2@2026-08-29T19:28:12Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-02T16:39:17Z",
+      "observedAt": "2026-09-02T16:49:16Z",
       "ageDays": 0,
       "sourceAgeDays": 3,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-09-02T16:39:17Z",
-      "sourceVersion": "4b4ead710459@2026-09-02T10:46:08Z",
+      "fetchedAt": "2026-09-02T16:49:16Z",
+      "sourceVersion": "8d35c9fd0fd1@2026-09-02T16:48:56Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-02T16:39:17Z",
+      "observedAt": "2026-09-02T16:49:16Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-09-02T16:39:18Z",
+      "fetchedAt": "2026-09-02T16:49:17Z",
       "sourceVersion": "640535afe475@2026-08-29T20:03:17Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-02T16:39:18Z",
+      "observedAt": "2026-09-02T16:49:17Z",
       "ageDays": 0,
       "sourceAgeDays": 3,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-09-02T16:39:18Z",
+      "fetchedAt": "2026-09-02T16:49:17Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-02T16:39:18Z",
+      "observedAt": "2026-09-02T16:49:17Z",
       "ageDays": 0,
       "sourceAgeDays": 46,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-09-02T16:39:18Z",
+      "fetchedAt": "2026-09-02T16:49:18Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-02T16:39:18Z",
+      "observedAt": "2026-09-02T16:49:18Z",
       "ageDays": 0,
       "sourceAgeDays": 46,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-09-02T16:39:19Z",
+      "fetchedAt": "2026-09-02T16:49:19Z",
       "sourceVersion": "773c2574c39b@2026-09-02T09:42:02Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-02T09:42:02Z",
@@ -83,16 +83,16 @@
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-09-02T16:39:27Z",
+      "fetchedAt": "2026-09-02T16:49:30Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-02T16:39:27Z",
+      "observedAt": "2026-09-02T16:49:30Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-09-02T16:39:19Z",
+      "fetchedAt": "2026-09-02T16:49:19Z",
       "sourceVersion": "4b4ead710459@2026-09-02T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-02T00:00:00Z",
@@ -101,7 +101,7 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-09-02T16:39:19Z",
+      "fetchedAt": "2026-09-02T16:49:19Z",
       "sourceVersion": "4e600c7f8492@2026-09-02T16:38:53Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-02T16:38:53Z",
@@ -200,11 +200,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3498"
           },
           {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
-          },
-          {
             "number": 3889,
             "title": "fix(deploy): make rollback request and reconciliation atomic so stale success cannot erase rollback",
             "url": "https://github.com/honua-io/honua-server/issues/3889"
@@ -233,6 +228,11 @@
             "number": 3896,
             "title": "fix(auth): bind MCP publish tools to service.publish authorization and approval",
             "url": "https://github.com/honua-io/honua-server/issues/3896"
+          },
+          {
+            "number": 3908,
+            "title": "bug(control-plane): preserve canonical lineage across jobs, alerts, realtime, imports, and support bridge",
+            "url": "https://github.com/honua-io/honua-server/issues/3908"
           }
         ],
         "categoryLevel": true,
@@ -254,11 +254,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3498"
           },
           {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
-          },
-          {
             "number": 3889,
             "title": "fix(deploy): make rollback request and reconciliation atomic so stale success cannot erase rollback",
             "url": "https://github.com/honua-io/honua-server/issues/3889"
@@ -287,6 +282,11 @@
             "number": 3896,
             "title": "fix(auth): bind MCP publish tools to service.publish authorization and approval",
             "url": "https://github.com/honua-io/honua-server/issues/3896"
+          },
+          {
+            "number": 3908,
+            "title": "bug(control-plane): preserve canonical lineage across jobs, alerts, realtime, imports, and support bridge",
+            "url": "https://github.com/honua-io/honua-server/issues/3908"
           }
         ],
         "label": "cap/control-plane"
@@ -339,7 +339,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 5,
         "refs": [
           {
             "number": 3424,
@@ -365,11 +365,6 @@
             "number": 3886,
             "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
             "url": "https://github.com/honua-io/honua-server/issues/3886"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "categoryLevel": true,
@@ -399,11 +394,6 @@
             "number": 3886,
             "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
             "url": "https://github.com/honua-io/honua-server/issues/3886"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "label": "cap/ai"
@@ -456,7 +446,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 5,
         "refs": [
           {
             "number": 3424,
@@ -482,11 +472,6 @@
             "number": 3886,
             "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
             "url": "https://github.com/honua-io/honua-server/issues/3886"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "categoryLevel": true,
@@ -516,11 +501,6 @@
             "number": 3886,
             "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
             "url": "https://github.com/honua-io/honua-server/issues/3886"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "label": "cap/ai"
@@ -557,7 +537,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 5,
         "refs": [
           {
             "number": 3424,
@@ -583,11 +563,6 @@
             "number": 3886,
             "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
             "url": "https://github.com/honua-io/honua-server/issues/3886"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "categoryLevel": true,
@@ -617,11 +592,6 @@
             "number": 3886,
             "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
             "url": "https://github.com/honua-io/honua-server/issues/3886"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "label": "cap/ai"
@@ -667,7 +637,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 5,
         "refs": [
           {
             "number": 3424,
@@ -693,11 +663,6 @@
             "number": 3886,
             "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
             "url": "https://github.com/honua-io/honua-server/issues/3886"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "categoryLevel": true,
@@ -727,11 +692,6 @@
             "number": 3886,
             "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
             "url": "https://github.com/honua-io/honua-server/issues/3886"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "label": "cap/ai"
@@ -743,7 +703,7 @@
       "category": "AI",
       "edition": "Pro",
       "entryCount": 1,
-      "provingTestCount": 18,
+      "provingTestCount": 19,
       "maturity": {
         "implemented": 1
       },
@@ -773,7 +733,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 5,
         "refs": [
           {
             "number": 3424,
@@ -799,11 +759,6 @@
             "number": 3886,
             "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
             "url": "https://github.com/honua-io/honua-server/issues/3886"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "categoryLevel": true,
@@ -833,11 +788,6 @@
             "number": 3886,
             "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
             "url": "https://github.com/honua-io/honua-server/issues/3886"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "label": "cap/ai"
@@ -849,7 +799,7 @@
       "category": "AI",
       "edition": "Community",
       "entryCount": 4,
-      "provingTestCount": 18,
+      "provingTestCount": 20,
       "maturity": {
         "implemented": 4
       },
@@ -878,7 +828,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 5,
         "refs": [
           {
             "number": 3424,
@@ -904,11 +854,6 @@
             "number": 3886,
             "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
             "url": "https://github.com/honua-io/honua-server/issues/3886"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "categoryLevel": true,
@@ -938,11 +883,6 @@
             "number": 3886,
             "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
             "url": "https://github.com/honua-io/honua-server/issues/3886"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "label": "cap/ai"
@@ -6117,7 +6057,7 @@
       "category": "Import",
       "edition": "Community",
       "entryCount": 74,
-      "provingTestCount": 217,
+      "provingTestCount": 219,
       "maturity": {
         "implemented": 74
       },
@@ -18681,7 +18621,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 2,
-      "provingTestCount": 117,
+      "provingTestCount": 118,
       "maturity": {
         "implemented": 2
       },
