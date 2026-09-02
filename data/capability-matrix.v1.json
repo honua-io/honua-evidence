@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-09-02T16:49:30Z",
+  "generatedAt": "2026-09-02T21:07:11Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -29,52 +29,52 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-09-02T16:49:16Z",
+      "fetchedAt": "2026-09-02T21:06:59Z",
       "sourceVersion": "f3617976a6c2@2026-08-29T19:28:12Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-02T16:49:16Z",
+      "observedAt": "2026-09-02T21:06:59Z",
       "ageDays": 0,
-      "sourceAgeDays": 3,
+      "sourceAgeDays": 4,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-09-02T16:49:16Z",
+      "fetchedAt": "2026-09-02T21:07:00Z",
       "sourceVersion": "8d35c9fd0fd1@2026-09-02T16:48:56Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-02T16:49:16Z",
+      "observedAt": "2026-09-02T21:07:00Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-09-02T16:49:17Z",
+      "fetchedAt": "2026-09-02T21:07:00Z",
       "sourceVersion": "640535afe475@2026-08-29T20:03:17Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-02T16:49:17Z",
+      "observedAt": "2026-09-02T21:07:00Z",
       "ageDays": 0,
-      "sourceAgeDays": 3,
+      "sourceAgeDays": 4,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-09-02T16:49:17Z",
+      "fetchedAt": "2026-09-02T21:07:00Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-02T16:49:17Z",
+      "observedAt": "2026-09-02T21:07:00Z",
       "ageDays": 0,
-      "sourceAgeDays": 46,
+      "sourceAgeDays": 47,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-09-02T16:49:18Z",
+      "fetchedAt": "2026-09-02T21:07:01Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-02T16:49:18Z",
+      "observedAt": "2026-09-02T21:07:01Z",
       "ageDays": 0,
-      "sourceAgeDays": 46,
+      "sourceAgeDays": 47,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-09-02T16:49:19Z",
+      "fetchedAt": "2026-09-02T21:07:02Z",
       "sourceVersion": "773c2574c39b@2026-09-02T09:42:02Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-02T09:42:02Z",
@@ -83,16 +83,16 @@
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-09-02T16:49:30Z",
+      "fetchedAt": "2026-09-02T21:07:11Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-02T16:49:30Z",
+      "observedAt": "2026-09-02T21:07:11Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-09-02T16:49:19Z",
+      "fetchedAt": "2026-09-02T21:07:02Z",
       "sourceVersion": "4b4ead710459@2026-09-02T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-02T00:00:00Z",
@@ -101,10 +101,10 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-09-02T16:49:19Z",
-      "sourceVersion": "4e600c7f8492@2026-09-02T16:38:53Z",
+      "fetchedAt": "2026-09-02T21:07:02Z",
+      "sourceVersion": "4e600c7f8492@2026-09-02T21:06:40Z",
       "freshnessBasis": "observation",
-      "observedAt": "2026-09-02T16:38:53Z",
+      "observedAt": "2026-09-02T21:06:40Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
@@ -122,7 +122,6 @@
     "open-issues: honua-io/honua-server#3104: 'Capability Key(s)' field references unknown capability key 'ops' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#3104: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#3105: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
-    "open-issues: honua-io/honua-server#3896: 'Capability Key(s)' field references unknown capability key 'control-plane' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#3898: 'Capability Key(s)' field references unknown capability key 'cap/editing' (not in honua-server's canonical capability-keys.v1.json) -- ignored"
   ],
   "capabilities": [
@@ -200,6 +199,11 @@
             "url": "https://github.com/honua-io/honua-server/issues/3498"
           },
           {
+            "number": 3888,
+            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
+            "url": "https://github.com/honua-io/honua-server/issues/3888"
+          },
+          {
             "number": 3889,
             "title": "fix(deploy): make rollback request and reconciliation atomic so stale success cannot erase rollback",
             "url": "https://github.com/honua-io/honua-server/issues/3889"
@@ -223,11 +227,6 @@
             "number": 3893,
             "title": "test(capabilities): bind deploy.rollback availability to target-scoped executable rollback receipts",
             "url": "https://github.com/honua-io/honua-server/issues/3893"
-          },
-          {
-            "number": 3896,
-            "title": "fix(auth): bind MCP publish tools to service.publish authorization and approval",
-            "url": "https://github.com/honua-io/honua-server/issues/3896"
           },
           {
             "number": 3908,
@@ -254,6 +253,11 @@
             "url": "https://github.com/honua-io/honua-server/issues/3498"
           },
           {
+            "number": 3888,
+            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
+            "url": "https://github.com/honua-io/honua-server/issues/3888"
+          },
+          {
             "number": 3889,
             "title": "fix(deploy): make rollback request and reconciliation atomic so stale success cannot erase rollback",
             "url": "https://github.com/honua-io/honua-server/issues/3889"
@@ -277,11 +281,6 @@
             "number": 3893,
             "title": "test(capabilities): bind deploy.rollback availability to target-scoped executable rollback receipts",
             "url": "https://github.com/honua-io/honua-server/issues/3893"
-          },
-          {
-            "number": 3896,
-            "title": "fix(auth): bind MCP publish tools to service.publish authorization and approval",
-            "url": "https://github.com/honua-io/honua-server/issues/3896"
           },
           {
             "number": 3908,
@@ -339,7 +338,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 6,
         "refs": [
           {
             "number": 3424,
@@ -365,6 +364,11 @@
             "number": 3886,
             "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
             "url": "https://github.com/honua-io/honua-server/issues/3886"
+          },
+          {
+            "number": 3888,
+            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
+            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "categoryLevel": true,
@@ -394,6 +398,11 @@
             "number": 3886,
             "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
             "url": "https://github.com/honua-io/honua-server/issues/3886"
+          },
+          {
+            "number": 3888,
+            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
+            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "label": "cap/ai"
@@ -446,7 +455,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 6,
         "refs": [
           {
             "number": 3424,
@@ -472,6 +481,11 @@
             "number": 3886,
             "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
             "url": "https://github.com/honua-io/honua-server/issues/3886"
+          },
+          {
+            "number": 3888,
+            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
+            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "categoryLevel": true,
@@ -501,6 +515,11 @@
             "number": 3886,
             "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
             "url": "https://github.com/honua-io/honua-server/issues/3886"
+          },
+          {
+            "number": 3888,
+            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
+            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "label": "cap/ai"
@@ -537,7 +556,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 6,
         "refs": [
           {
             "number": 3424,
@@ -563,6 +582,11 @@
             "number": 3886,
             "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
             "url": "https://github.com/honua-io/honua-server/issues/3886"
+          },
+          {
+            "number": 3888,
+            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
+            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "categoryLevel": true,
@@ -592,6 +616,11 @@
             "number": 3886,
             "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
             "url": "https://github.com/honua-io/honua-server/issues/3886"
+          },
+          {
+            "number": 3888,
+            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
+            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "label": "cap/ai"
@@ -637,7 +666,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 6,
         "refs": [
           {
             "number": 3424,
@@ -663,6 +692,11 @@
             "number": 3886,
             "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
             "url": "https://github.com/honua-io/honua-server/issues/3886"
+          },
+          {
+            "number": 3888,
+            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
+            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "categoryLevel": true,
@@ -692,6 +726,11 @@
             "number": 3886,
             "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
             "url": "https://github.com/honua-io/honua-server/issues/3886"
+          },
+          {
+            "number": 3888,
+            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
+            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "label": "cap/ai"
@@ -733,7 +772,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 6,
         "refs": [
           {
             "number": 3424,
@@ -759,6 +798,11 @@
             "number": 3886,
             "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
             "url": "https://github.com/honua-io/honua-server/issues/3886"
+          },
+          {
+            "number": 3888,
+            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
+            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "categoryLevel": true,
@@ -788,6 +832,11 @@
             "number": 3886,
             "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
             "url": "https://github.com/honua-io/honua-server/issues/3886"
+          },
+          {
+            "number": 3888,
+            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
+            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "label": "cap/ai"
@@ -828,7 +877,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 6,
         "refs": [
           {
             "number": 3424,
@@ -854,6 +903,11 @@
             "number": 3886,
             "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
             "url": "https://github.com/honua-io/honua-server/issues/3886"
+          },
+          {
+            "number": 3888,
+            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
+            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "categoryLevel": true,
@@ -883,6 +937,11 @@
             "number": 3886,
             "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
             "url": "https://github.com/honua-io/honua-server/issues/3886"
+          },
+          {
+            "number": 3888,
+            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
+            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "label": "cap/ai"
@@ -3721,6 +3780,14 @@
           "status": "red",
           "lastGreenAt": "",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T21:06:40Z",
+          "probeName": "capability-manifest",
+          "targetEnvironment": "demo.honua.io",
+          "status": "red",
+          "lastGreenAt": "",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
         }
       ],
       "sdks": {
@@ -5208,6 +5275,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T16:38:53Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T21:06:40Z",
+          "probeName": "geocoding-latency",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T21:06:40Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
         }
       ],
       "sdks": {
@@ -7172,6 +7247,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T16:38:53Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T21:06:40Z",
+          "probeName": "health-live-ready",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T21:06:40Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
         }
       ],
       "sdks": {
@@ -8626,6 +8709,22 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T16:38:53Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T21:06:40Z",
+          "probeName": "metrics-gated",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T21:06:40Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T21:06:40Z",
+          "probeName": "admin-metrics-health",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T21:06:40Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
         }
       ],
       "sdks": {
@@ -11232,6 +11331,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T16:38:53Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T21:06:40Z",
+          "probeName": "render-query-smoke",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T21:06:40Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
         }
       ],
       "sdks": {
@@ -12519,6 +12626,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T16:38:53Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T21:06:40Z",
+          "probeName": "render-query-smoke",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T21:06:40Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
         }
       ],
       "sdks": {
@@ -13724,6 +13839,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T16:38:53Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T21:06:40Z",
+          "probeName": "odata-service-document",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T21:06:40Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
         }
       ],
       "sdks": {
@@ -14683,6 +14806,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T16:38:53Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T21:06:40Z",
+          "probeName": "edr-collections",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T21:06:40Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
         }
       ],
       "sdks": {
@@ -15516,6 +15647,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T16:38:53Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T21:06:40Z",
+          "probeName": "ogc-features-collections",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T21:06:40Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
         }
       ],
       "sdks": {
@@ -16869,6 +17008,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T16:38:53Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T21:06:40Z",
+          "probeName": "stac-collections",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T21:06:40Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
         }
       ],
       "sdks": {
@@ -17701,6 +17848,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T16:38:53Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T21:06:40Z",
+          "probeName": "tiles-tilejson",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T21:06:40Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
         }
       ],
       "sdks": {
@@ -18509,6 +18664,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T16:38:53Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T21:06:40Z",
+          "probeName": "ogc-wcs-capabilities",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T21:06:40Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
         }
       ],
       "sdks": {
@@ -19529,6 +19692,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T16:38:53Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T21:06:40Z",
+          "probeName": "ogc-wms-capabilities",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T21:06:40Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
         }
       ],
       "sdks": {
@@ -20383,6 +20554,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T16:38:53Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T21:06:40Z",
+          "probeName": "ogc-wmts-capabilities",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T21:06:40Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
         }
       ],
       "sdks": {
