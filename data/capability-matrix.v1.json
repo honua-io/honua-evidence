@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-09-02T11:29:56Z",
+  "generatedAt": "2026-09-02T16:39:27Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -29,52 +29,52 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-09-02T11:29:40Z",
+      "fetchedAt": "2026-09-02T16:39:17Z",
       "sourceVersion": "f3617976a6c2@2026-08-29T19:28:12Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-02T11:29:40Z",
+      "observedAt": "2026-09-02T16:39:17Z",
       "ageDays": 0,
       "sourceAgeDays": 3,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-09-02T11:29:40Z",
+      "fetchedAt": "2026-09-02T16:39:17Z",
       "sourceVersion": "4b4ead710459@2026-09-02T10:46:08Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-02T11:29:40Z",
+      "observedAt": "2026-09-02T16:39:17Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-09-02T11:29:41Z",
+      "fetchedAt": "2026-09-02T16:39:18Z",
       "sourceVersion": "640535afe475@2026-08-29T20:03:17Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-02T11:29:41Z",
+      "observedAt": "2026-09-02T16:39:18Z",
       "ageDays": 0,
       "sourceAgeDays": 3,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-09-02T11:29:42Z",
+      "fetchedAt": "2026-09-02T16:39:18Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-02T11:29:42Z",
+      "observedAt": "2026-09-02T16:39:18Z",
       "ageDays": 0,
       "sourceAgeDays": 46,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-09-02T11:29:42Z",
+      "fetchedAt": "2026-09-02T16:39:18Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-02T11:29:42Z",
+      "observedAt": "2026-09-02T16:39:18Z",
       "ageDays": 0,
       "sourceAgeDays": 46,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-09-02T11:29:43Z",
+      "fetchedAt": "2026-09-02T16:39:19Z",
       "sourceVersion": "773c2574c39b@2026-09-02T09:42:02Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-02T09:42:02Z",
@@ -83,16 +83,16 @@
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-09-02T11:29:56Z",
+      "fetchedAt": "2026-09-02T16:39:27Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-02T11:29:56Z",
+      "observedAt": "2026-09-02T16:39:27Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-09-02T11:29:44Z",
+      "fetchedAt": "2026-09-02T16:39:19Z",
       "sourceVersion": "4b4ead710459@2026-09-02T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-02T00:00:00Z",
@@ -101,10 +101,10 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-09-02T11:29:44Z",
-      "sourceVersion": "4e600c7f8492@2026-09-02T11:25:06Z",
+      "fetchedAt": "2026-09-02T16:39:19Z",
+      "sourceVersion": "4e600c7f8492@2026-09-02T16:38:53Z",
       "freshnessBasis": "observation",
-      "observedAt": "2026-09-02T11:25:06Z",
+      "observedAt": "2026-09-02T16:38:53Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
@@ -122,8 +122,6 @@
     "open-issues: honua-io/honua-server#3104: 'Capability Key(s)' field references unknown capability key 'ops' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#3104: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#3105: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
-    "open-issues: honua-io/honua-server#3894: 'Capability Key(s)' field references unknown capability key 'ai' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
-    "open-issues: honua-io/honua-server#3895: 'Capability Key(s)' field references unknown capability key 'editing.feature-edits' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#3896: 'Capability Key(s)' field references unknown capability key 'control-plane' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#3898: 'Capability Key(s)' field references unknown capability key 'cap/editing' (not in honua-server's canonical capability-keys.v1.json) -- ignored"
   ],
@@ -341,7 +339,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 9,
+        "count": 6,
         "refs": [
           {
             "number": 3424,
@@ -352,16 +350,6 @@
             "number": 3475,
             "title": "fix(observability): publish source freshness and completeness envelopes for agent evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3475"
-          },
-          {
-            "number": 3882,
-            "title": "test(ai proxy): reject malformed or post-terminal provider streams before signing",
-            "url": "https://github.com/honua-io/honua-server/issues/3882"
-          },
-          {
-            "number": 3883,
-            "title": "fix(ai proxy): fail closed when a provider API-key secret reference cannot resolve",
-            "url": "https://github.com/honua-io/honua-server/issues/3883"
           },
           {
             "number": 3884,
@@ -382,11 +370,6 @@
             "number": 3888,
             "title": "test(ai governance): join verified model output to proposal-only execution evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3888"
-          },
-          {
-            "number": 3894,
-            "title": "fix(auth): enforce REST-equivalent admin authorization on gRPC SpecService",
-            "url": "https://github.com/honua-io/honua-server/issues/3894"
           }
         ],
         "categoryLevel": true,
@@ -403,16 +386,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3475"
           },
           {
-            "number": 3882,
-            "title": "test(ai proxy): reject malformed or post-terminal provider streams before signing",
-            "url": "https://github.com/honua-io/honua-server/issues/3882"
-          },
-          {
-            "number": 3883,
-            "title": "fix(ai proxy): fail closed when a provider API-key secret reference cannot resolve",
-            "url": "https://github.com/honua-io/honua-server/issues/3883"
-          },
-          {
             "number": 3884,
             "title": "test(ai provenance): reject ambiguous raw JSON and cross-verify signed vectors",
             "url": "https://github.com/honua-io/honua-server/issues/3884"
@@ -431,11 +404,6 @@
             "number": 3888,
             "title": "test(ai governance): join verified model output to proposal-only execution evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3888"
-          },
-          {
-            "number": 3894,
-            "title": "fix(auth): enforce REST-equivalent admin authorization on gRPC SpecService",
-            "url": "https://github.com/honua-io/honua-server/issues/3894"
           }
         ],
         "label": "cap/ai"
@@ -488,7 +456,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 9,
+        "count": 6,
         "refs": [
           {
             "number": 3424,
@@ -499,16 +467,6 @@
             "number": 3475,
             "title": "fix(observability): publish source freshness and completeness envelopes for agent evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3475"
-          },
-          {
-            "number": 3882,
-            "title": "test(ai proxy): reject malformed or post-terminal provider streams before signing",
-            "url": "https://github.com/honua-io/honua-server/issues/3882"
-          },
-          {
-            "number": 3883,
-            "title": "fix(ai proxy): fail closed when a provider API-key secret reference cannot resolve",
-            "url": "https://github.com/honua-io/honua-server/issues/3883"
           },
           {
             "number": 3884,
@@ -529,11 +487,6 @@
             "number": 3888,
             "title": "test(ai governance): join verified model output to proposal-only execution evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3888"
-          },
-          {
-            "number": 3894,
-            "title": "fix(auth): enforce REST-equivalent admin authorization on gRPC SpecService",
-            "url": "https://github.com/honua-io/honua-server/issues/3894"
           }
         ],
         "categoryLevel": true,
@@ -550,16 +503,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3475"
           },
           {
-            "number": 3882,
-            "title": "test(ai proxy): reject malformed or post-terminal provider streams before signing",
-            "url": "https://github.com/honua-io/honua-server/issues/3882"
-          },
-          {
-            "number": 3883,
-            "title": "fix(ai proxy): fail closed when a provider API-key secret reference cannot resolve",
-            "url": "https://github.com/honua-io/honua-server/issues/3883"
-          },
-          {
             "number": 3884,
             "title": "test(ai provenance): reject ambiguous raw JSON and cross-verify signed vectors",
             "url": "https://github.com/honua-io/honua-server/issues/3884"
@@ -578,11 +521,6 @@
             "number": 3888,
             "title": "test(ai governance): join verified model output to proposal-only execution evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3888"
-          },
-          {
-            "number": 3894,
-            "title": "fix(auth): enforce REST-equivalent admin authorization on gRPC SpecService",
-            "url": "https://github.com/honua-io/honua-server/issues/3894"
           }
         ],
         "label": "cap/ai"
@@ -619,7 +557,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 9,
+        "count": 6,
         "refs": [
           {
             "number": 3424,
@@ -630,16 +568,6 @@
             "number": 3475,
             "title": "fix(observability): publish source freshness and completeness envelopes for agent evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3475"
-          },
-          {
-            "number": 3882,
-            "title": "test(ai proxy): reject malformed or post-terminal provider streams before signing",
-            "url": "https://github.com/honua-io/honua-server/issues/3882"
-          },
-          {
-            "number": 3883,
-            "title": "fix(ai proxy): fail closed when a provider API-key secret reference cannot resolve",
-            "url": "https://github.com/honua-io/honua-server/issues/3883"
           },
           {
             "number": 3884,
@@ -660,11 +588,6 @@
             "number": 3888,
             "title": "test(ai governance): join verified model output to proposal-only execution evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3888"
-          },
-          {
-            "number": 3894,
-            "title": "fix(auth): enforce REST-equivalent admin authorization on gRPC SpecService",
-            "url": "https://github.com/honua-io/honua-server/issues/3894"
           }
         ],
         "categoryLevel": true,
@@ -681,16 +604,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3475"
           },
           {
-            "number": 3882,
-            "title": "test(ai proxy): reject malformed or post-terminal provider streams before signing",
-            "url": "https://github.com/honua-io/honua-server/issues/3882"
-          },
-          {
-            "number": 3883,
-            "title": "fix(ai proxy): fail closed when a provider API-key secret reference cannot resolve",
-            "url": "https://github.com/honua-io/honua-server/issues/3883"
-          },
-          {
             "number": 3884,
             "title": "test(ai provenance): reject ambiguous raw JSON and cross-verify signed vectors",
             "url": "https://github.com/honua-io/honua-server/issues/3884"
@@ -709,11 +622,6 @@
             "number": 3888,
             "title": "test(ai governance): join verified model output to proposal-only execution evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3888"
-          },
-          {
-            "number": 3894,
-            "title": "fix(auth): enforce REST-equivalent admin authorization on gRPC SpecService",
-            "url": "https://github.com/honua-io/honua-server/issues/3894"
           }
         ],
         "label": "cap/ai"
@@ -759,7 +667,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 9,
+        "count": 6,
         "refs": [
           {
             "number": 3424,
@@ -770,16 +678,6 @@
             "number": 3475,
             "title": "fix(observability): publish source freshness and completeness envelopes for agent evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3475"
-          },
-          {
-            "number": 3882,
-            "title": "test(ai proxy): reject malformed or post-terminal provider streams before signing",
-            "url": "https://github.com/honua-io/honua-server/issues/3882"
-          },
-          {
-            "number": 3883,
-            "title": "fix(ai proxy): fail closed when a provider API-key secret reference cannot resolve",
-            "url": "https://github.com/honua-io/honua-server/issues/3883"
           },
           {
             "number": 3884,
@@ -800,11 +698,6 @@
             "number": 3888,
             "title": "test(ai governance): join verified model output to proposal-only execution evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3888"
-          },
-          {
-            "number": 3894,
-            "title": "fix(auth): enforce REST-equivalent admin authorization on gRPC SpecService",
-            "url": "https://github.com/honua-io/honua-server/issues/3894"
           }
         ],
         "categoryLevel": true,
@@ -821,16 +714,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3475"
           },
           {
-            "number": 3882,
-            "title": "test(ai proxy): reject malformed or post-terminal provider streams before signing",
-            "url": "https://github.com/honua-io/honua-server/issues/3882"
-          },
-          {
-            "number": 3883,
-            "title": "fix(ai proxy): fail closed when a provider API-key secret reference cannot resolve",
-            "url": "https://github.com/honua-io/honua-server/issues/3883"
-          },
-          {
             "number": 3884,
             "title": "test(ai provenance): reject ambiguous raw JSON and cross-verify signed vectors",
             "url": "https://github.com/honua-io/honua-server/issues/3884"
@@ -849,11 +732,6 @@
             "number": 3888,
             "title": "test(ai governance): join verified model output to proposal-only execution evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3888"
-          },
-          {
-            "number": 3894,
-            "title": "fix(auth): enforce REST-equivalent admin authorization on gRPC SpecService",
-            "url": "https://github.com/honua-io/honua-server/issues/3894"
           }
         ],
         "label": "cap/ai"
@@ -895,7 +773,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 9,
+        "count": 6,
         "refs": [
           {
             "number": 3424,
@@ -906,16 +784,6 @@
             "number": 3475,
             "title": "fix(observability): publish source freshness and completeness envelopes for agent evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3475"
-          },
-          {
-            "number": 3882,
-            "title": "test(ai proxy): reject malformed or post-terminal provider streams before signing",
-            "url": "https://github.com/honua-io/honua-server/issues/3882"
-          },
-          {
-            "number": 3883,
-            "title": "fix(ai proxy): fail closed when a provider API-key secret reference cannot resolve",
-            "url": "https://github.com/honua-io/honua-server/issues/3883"
           },
           {
             "number": 3884,
@@ -936,11 +804,6 @@
             "number": 3888,
             "title": "test(ai governance): join verified model output to proposal-only execution evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3888"
-          },
-          {
-            "number": 3894,
-            "title": "fix(auth): enforce REST-equivalent admin authorization on gRPC SpecService",
-            "url": "https://github.com/honua-io/honua-server/issues/3894"
           }
         ],
         "categoryLevel": true,
@@ -957,16 +820,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3475"
           },
           {
-            "number": 3882,
-            "title": "test(ai proxy): reject malformed or post-terminal provider streams before signing",
-            "url": "https://github.com/honua-io/honua-server/issues/3882"
-          },
-          {
-            "number": 3883,
-            "title": "fix(ai proxy): fail closed when a provider API-key secret reference cannot resolve",
-            "url": "https://github.com/honua-io/honua-server/issues/3883"
-          },
-          {
             "number": 3884,
             "title": "test(ai provenance): reject ambiguous raw JSON and cross-verify signed vectors",
             "url": "https://github.com/honua-io/honua-server/issues/3884"
@@ -985,11 +838,6 @@
             "number": 3888,
             "title": "test(ai governance): join verified model output to proposal-only execution evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3888"
-          },
-          {
-            "number": 3894,
-            "title": "fix(auth): enforce REST-equivalent admin authorization on gRPC SpecService",
-            "url": "https://github.com/honua-io/honua-server/issues/3894"
           }
         ],
         "label": "cap/ai"
@@ -1030,7 +878,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 9,
+        "count": 6,
         "refs": [
           {
             "number": 3424,
@@ -1041,16 +889,6 @@
             "number": 3475,
             "title": "fix(observability): publish source freshness and completeness envelopes for agent evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3475"
-          },
-          {
-            "number": 3882,
-            "title": "test(ai proxy): reject malformed or post-terminal provider streams before signing",
-            "url": "https://github.com/honua-io/honua-server/issues/3882"
-          },
-          {
-            "number": 3883,
-            "title": "fix(ai proxy): fail closed when a provider API-key secret reference cannot resolve",
-            "url": "https://github.com/honua-io/honua-server/issues/3883"
           },
           {
             "number": 3884,
@@ -1071,11 +909,6 @@
             "number": 3888,
             "title": "test(ai governance): join verified model output to proposal-only execution evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3888"
-          },
-          {
-            "number": 3894,
-            "title": "fix(auth): enforce REST-equivalent admin authorization on gRPC SpecService",
-            "url": "https://github.com/honua-io/honua-server/issues/3894"
           }
         ],
         "categoryLevel": true,
@@ -1092,16 +925,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3475"
           },
           {
-            "number": 3882,
-            "title": "test(ai proxy): reject malformed or post-terminal provider streams before signing",
-            "url": "https://github.com/honua-io/honua-server/issues/3882"
-          },
-          {
-            "number": 3883,
-            "title": "fix(ai proxy): fail closed when a provider API-key secret reference cannot resolve",
-            "url": "https://github.com/honua-io/honua-server/issues/3883"
-          },
-          {
             "number": 3884,
             "title": "test(ai provenance): reject ambiguous raw JSON and cross-verify signed vectors",
             "url": "https://github.com/honua-io/honua-server/issues/3884"
@@ -1120,11 +943,6 @@
             "number": 3888,
             "title": "test(ai governance): join verified model output to proposal-only execution evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3888"
-          },
-          {
-            "number": 3894,
-            "title": "fix(auth): enforce REST-equivalent admin authorization on gRPC SpecService",
-            "url": "https://github.com/honua-io/honua-server/issues/3894"
           }
         ],
         "label": "cap/ai"
@@ -1178,11 +996,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3859"
           },
           {
-            "number": 3860,
-            "title": "test(alerts): fence stale dispatch claimants and ambiguous provider acknowledgements",
-            "url": "https://github.com/honua-io/honua-server/issues/3860"
-          },
-          {
             "number": 3861,
             "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
             "url": "https://github.com/honua-io/honua-server/issues/3861"
@@ -1221,6 +1034,11 @@
             "number": 3869,
             "title": "test(alerts): prove Postgres DLQ redrive to successful provider delivery and audit",
             "url": "https://github.com/honua-io/honua-server/issues/3869"
+          },
+          {
+            "number": 3870,
+            "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
+            "url": "https://github.com/honua-io/honua-server/issues/3870"
           }
         ],
         "categoryLevel": true,
@@ -1232,11 +1050,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3859"
           },
           {
-            "number": 3860,
-            "title": "test(alerts): fence stale dispatch claimants and ambiguous provider acknowledgements",
-            "url": "https://github.com/honua-io/honua-server/issues/3860"
-          },
-          {
             "number": 3861,
             "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
             "url": "https://github.com/honua-io/honua-server/issues/3861"
@@ -1275,6 +1088,11 @@
             "number": 3869,
             "title": "test(alerts): prove Postgres DLQ redrive to successful provider delivery and audit",
             "url": "https://github.com/honua-io/honua-server/issues/3869"
+          },
+          {
+            "number": 3870,
+            "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
+            "url": "https://github.com/honua-io/honua-server/issues/3870"
           }
         ],
         "label": "cap/alerts"
@@ -1328,11 +1146,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3859"
           },
           {
-            "number": 3860,
-            "title": "test(alerts): fence stale dispatch claimants and ambiguous provider acknowledgements",
-            "url": "https://github.com/honua-io/honua-server/issues/3860"
-          },
-          {
             "number": 3861,
             "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
             "url": "https://github.com/honua-io/honua-server/issues/3861"
@@ -1371,6 +1184,11 @@
             "number": 3869,
             "title": "test(alerts): prove Postgres DLQ redrive to successful provider delivery and audit",
             "url": "https://github.com/honua-io/honua-server/issues/3869"
+          },
+          {
+            "number": 3870,
+            "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
+            "url": "https://github.com/honua-io/honua-server/issues/3870"
           }
         ],
         "categoryLevel": true,
@@ -1382,11 +1200,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3859"
           },
           {
-            "number": 3860,
-            "title": "test(alerts): fence stale dispatch claimants and ambiguous provider acknowledgements",
-            "url": "https://github.com/honua-io/honua-server/issues/3860"
-          },
-          {
             "number": 3861,
             "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
             "url": "https://github.com/honua-io/honua-server/issues/3861"
@@ -1425,6 +1238,11 @@
             "number": 3869,
             "title": "test(alerts): prove Postgres DLQ redrive to successful provider delivery and audit",
             "url": "https://github.com/honua-io/honua-server/issues/3869"
+          },
+          {
+            "number": 3870,
+            "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
+            "url": "https://github.com/honua-io/honua-server/issues/3870"
           }
         ],
         "label": "cap/alerts"
@@ -1469,11 +1287,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3859"
           },
           {
-            "number": 3860,
-            "title": "test(alerts): fence stale dispatch claimants and ambiguous provider acknowledgements",
-            "url": "https://github.com/honua-io/honua-server/issues/3860"
-          },
-          {
             "number": 3861,
             "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
             "url": "https://github.com/honua-io/honua-server/issues/3861"
@@ -1512,6 +1325,11 @@
             "number": 3869,
             "title": "test(alerts): prove Postgres DLQ redrive to successful provider delivery and audit",
             "url": "https://github.com/honua-io/honua-server/issues/3869"
+          },
+          {
+            "number": 3870,
+            "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
+            "url": "https://github.com/honua-io/honua-server/issues/3870"
           }
         ],
         "categoryLevel": true,
@@ -1523,11 +1341,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3859"
           },
           {
-            "number": 3860,
-            "title": "test(alerts): fence stale dispatch claimants and ambiguous provider acknowledgements",
-            "url": "https://github.com/honua-io/honua-server/issues/3860"
-          },
-          {
             "number": 3861,
             "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
             "url": "https://github.com/honua-io/honua-server/issues/3861"
@@ -1566,6 +1379,11 @@
             "number": 3869,
             "title": "test(alerts): prove Postgres DLQ redrive to successful provider delivery and audit",
             "url": "https://github.com/honua-io/honua-server/issues/3869"
+          },
+          {
+            "number": 3870,
+            "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
+            "url": "https://github.com/honua-io/honua-server/issues/3870"
           }
         ],
         "label": "cap/alerts"
@@ -1619,11 +1437,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3859"
           },
           {
-            "number": 3860,
-            "title": "test(alerts): fence stale dispatch claimants and ambiguous provider acknowledgements",
-            "url": "https://github.com/honua-io/honua-server/issues/3860"
-          },
-          {
             "number": 3861,
             "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
             "url": "https://github.com/honua-io/honua-server/issues/3861"
@@ -1662,6 +1475,11 @@
             "number": 3869,
             "title": "test(alerts): prove Postgres DLQ redrive to successful provider delivery and audit",
             "url": "https://github.com/honua-io/honua-server/issues/3869"
+          },
+          {
+            "number": 3870,
+            "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
+            "url": "https://github.com/honua-io/honua-server/issues/3870"
           }
         ],
         "categoryLevel": true,
@@ -1673,11 +1491,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3859"
           },
           {
-            "number": 3860,
-            "title": "test(alerts): fence stale dispatch claimants and ambiguous provider acknowledgements",
-            "url": "https://github.com/honua-io/honua-server/issues/3860"
-          },
-          {
             "number": 3861,
             "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
             "url": "https://github.com/honua-io/honua-server/issues/3861"
@@ -1716,6 +1529,11 @@
             "number": 3869,
             "title": "test(alerts): prove Postgres DLQ redrive to successful provider delivery and audit",
             "url": "https://github.com/honua-io/honua-server/issues/3869"
+          },
+          {
+            "number": 3870,
+            "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
+            "url": "https://github.com/honua-io/honua-server/issues/3870"
           }
         ],
         "label": "cap/alerts"
@@ -3955,6 +3773,14 @@
           "status": "red",
           "lastGreenAt": "",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33624459462"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T16:38:53Z",
+          "probeName": "capability-manifest",
+          "targetEnvironment": "demo.honua.io",
+          "status": "red",
+          "lastGreenAt": "",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
         }
       ],
       "sdks": {
@@ -4309,17 +4135,12 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 3,
+        "count": 2,
         "refs": [
           {
             "number": 1726,
             "title": "chore: per-layer generation streams for branch-version posts (scale, deferred)",
             "url": "https://github.com/honua-io/honua-server/issues/1726"
-          },
-          {
-            "number": 3895,
-            "title": "fix(auth): authorize gRPC ApplyEdits by the edit kinds present",
-            "url": "https://github.com/honua-io/honua-server/issues/3895"
           },
           {
             "number": 3898,
@@ -4334,11 +4155,6 @@
             "number": 1726,
             "title": "chore: per-layer generation streams for branch-version posts (scale, deferred)",
             "url": "https://github.com/honua-io/honua-server/issues/1726"
-          },
-          {
-            "number": 3895,
-            "title": "fix(auth): authorize gRPC ApplyEdits by the edit kinds present",
-            "url": "https://github.com/honua-io/honua-server/issues/3895"
           },
           {
             "number": 3898,
@@ -4407,17 +4223,12 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 3,
+        "count": 2,
         "refs": [
           {
             "number": 1726,
             "title": "chore: per-layer generation streams for branch-version posts (scale, deferred)",
             "url": "https://github.com/honua-io/honua-server/issues/1726"
-          },
-          {
-            "number": 3895,
-            "title": "fix(auth): authorize gRPC ApplyEdits by the edit kinds present",
-            "url": "https://github.com/honua-io/honua-server/issues/3895"
           },
           {
             "number": 3898,
@@ -4432,11 +4243,6 @@
             "number": 1726,
             "title": "chore: per-layer generation streams for branch-version posts (scale, deferred)",
             "url": "https://github.com/honua-io/honua-server/issues/1726"
-          },
-          {
-            "number": 3895,
-            "title": "fix(auth): authorize gRPC ApplyEdits by the edit kinds present",
-            "url": "https://github.com/honua-io/honua-server/issues/3895"
           },
           {
             "number": 3898,
@@ -5454,6 +5260,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T11:25:06Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33624459462"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T16:38:53Z",
+          "probeName": "geocoding-latency",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T16:38:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
         }
       ],
       "sdks": {
@@ -7410,6 +7224,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T11:25:06Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33624459462"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T16:38:53Z",
+          "probeName": "health-live-ready",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T16:38:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
         }
       ],
       "sdks": {
@@ -8848,6 +8670,22 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T11:25:06Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33624459462"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T16:38:53Z",
+          "probeName": "metrics-gated",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T16:38:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T16:38:53Z",
+          "probeName": "admin-metrics-health",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T16:38:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
         }
       ],
       "sdks": {
@@ -11446,6 +11284,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T11:25:06Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33624459462"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T16:38:53Z",
+          "probeName": "render-query-smoke",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T16:38:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
         }
       ],
       "sdks": {
@@ -12725,6 +12571,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T11:25:06Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33624459462"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T16:38:53Z",
+          "probeName": "render-query-smoke",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T16:38:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
         }
       ],
       "sdks": {
@@ -13922,6 +13776,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T11:25:06Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33624459462"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T16:38:53Z",
+          "probeName": "odata-service-document",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T16:38:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
         }
       ],
       "sdks": {
@@ -14873,6 +14735,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T11:25:06Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33624459462"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T16:38:53Z",
+          "probeName": "edr-collections",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T16:38:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
         }
       ],
       "sdks": {
@@ -15698,6 +15568,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T11:25:06Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33624459462"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T16:38:53Z",
+          "probeName": "ogc-features-collections",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T16:38:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
         }
       ],
       "sdks": {
@@ -17043,6 +16921,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T11:25:06Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33624459462"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T16:38:53Z",
+          "probeName": "stac-collections",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T16:38:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
         }
       ],
       "sdks": {
@@ -17867,6 +17753,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T11:25:06Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33624459462"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T16:38:53Z",
+          "probeName": "tiles-tilejson",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T16:38:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
         }
       ],
       "sdks": {
@@ -18667,6 +18561,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T11:25:06Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33624459462"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T16:38:53Z",
+          "probeName": "ogc-wcs-capabilities",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T16:38:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
         }
       ],
       "sdks": {
@@ -19679,6 +19581,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T11:25:06Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33624459462"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T16:38:53Z",
+          "probeName": "ogc-wms-capabilities",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T16:38:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
         }
       ],
       "sdks": {
@@ -20525,6 +20435,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T11:25:06Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33624459462"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-02T16:38:53Z",
+          "probeName": "ogc-wmts-capabilities",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-02T16:38:53Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33656175903"
         }
       ],
       "sdks": {
