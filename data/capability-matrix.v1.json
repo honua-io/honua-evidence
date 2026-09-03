@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-09-02T21:07:11Z",
+  "generatedAt": "2026-09-03T04:40:02Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -29,52 +29,52 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-09-02T21:06:59Z",
+      "fetchedAt": "2026-09-03T04:39:52Z",
       "sourceVersion": "f3617976a6c2@2026-08-29T19:28:12Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-02T21:06:59Z",
+      "observedAt": "2026-09-03T04:39:52Z",
       "ageDays": 0,
       "sourceAgeDays": 4,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-09-02T21:07:00Z",
+      "fetchedAt": "2026-09-03T04:39:52Z",
       "sourceVersion": "8d35c9fd0fd1@2026-09-02T16:48:56Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-02T21:07:00Z",
+      "observedAt": "2026-09-03T04:39:52Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-09-02T21:07:00Z",
+      "fetchedAt": "2026-09-03T04:39:53Z",
       "sourceVersion": "640535afe475@2026-08-29T20:03:17Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-02T21:07:00Z",
+      "observedAt": "2026-09-03T04:39:53Z",
       "ageDays": 0,
       "sourceAgeDays": 4,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-09-02T21:07:00Z",
+      "fetchedAt": "2026-09-03T04:39:53Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-02T21:07:00Z",
+      "observedAt": "2026-09-03T04:39:53Z",
       "ageDays": 0,
       "sourceAgeDays": 47,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-09-02T21:07:01Z",
+      "fetchedAt": "2026-09-03T04:39:53Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-02T21:07:01Z",
+      "observedAt": "2026-09-03T04:39:53Z",
       "ageDays": 0,
       "sourceAgeDays": 47,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-09-02T21:07:02Z",
+      "fetchedAt": "2026-09-03T04:39:54Z",
       "sourceVersion": "773c2574c39b@2026-09-02T09:42:02Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-02T09:42:02Z",
@@ -83,28 +83,28 @@
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-09-02T21:07:11Z",
+      "fetchedAt": "2026-09-03T04:40:02Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-02T21:07:11Z",
+      "observedAt": "2026-09-03T04:40:02Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-09-02T21:07:02Z",
+      "fetchedAt": "2026-09-03T04:39:54Z",
       "sourceVersion": "4b4ead710459@2026-09-02T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-02T00:00:00Z",
-      "ageDays": 0,
-      "sourceAgeDays": 0,
+      "ageDays": 1,
+      "sourceAgeDays": 1,
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-09-02T21:07:02Z",
-      "sourceVersion": "4e600c7f8492@2026-09-02T21:06:40Z",
+      "fetchedAt": "2026-09-03T04:39:54Z",
+      "sourceVersion": "4e600c7f8492@2026-09-03T04:38:48Z",
       "freshnessBasis": "observation",
-      "observedAt": "2026-09-02T21:06:40Z",
+      "observedAt": "2026-09-03T04:38:48Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
@@ -121,8 +121,7 @@
     "open-issues: honua-io/honua-server#3101: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#3104: 'Capability Key(s)' field references unknown capability key 'ops' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#3104: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
-    "open-issues: honua-io/honua-server#3105: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
-    "open-issues: honua-io/honua-server#3898: 'Capability Key(s)' field references unknown capability key 'cap/editing' (not in honua-server's canonical capability-keys.v1.json) -- ignored"
+    "open-issues: honua-io/honua-server#3105: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored"
   ],
   "capabilities": [
     {
@@ -181,7 +180,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 10,
+        "count": 9,
         "refs": [
           {
             "number": 346,
@@ -202,11 +201,6 @@
             "number": 3888,
             "title": "test(ai governance): join verified model output to proposal-only execution evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3888"
-          },
-          {
-            "number": 3889,
-            "title": "fix(deploy): make rollback request and reconciliation atomic so stale success cannot erase rollback",
-            "url": "https://github.com/honua-io/honua-server/issues/3889"
           },
           {
             "number": 3890,
@@ -256,11 +250,6 @@
             "number": 3888,
             "title": "test(ai governance): join verified model output to proposal-only execution evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3888"
-          },
-          {
-            "number": 3889,
-            "title": "fix(deploy): make rollback request and reconciliation atomic so stale success cannot erase rollback",
-            "url": "https://github.com/honua-io/honua-server/issues/3889"
           },
           {
             "number": 3890,
@@ -338,7 +327,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 4,
         "refs": [
           {
             "number": 3424,
@@ -351,19 +340,9 @@
             "url": "https://github.com/honua-io/honua-server/issues/3475"
           },
           {
-            "number": 3884,
-            "title": "test(ai provenance): reject ambiguous raw JSON and cross-verify signed vectors",
-            "url": "https://github.com/honua-io/honua-server/issues/3884"
-          },
-          {
             "number": 3885,
             "title": "test(ai proxy): bound every provider outage phase and fail closed after partial output",
             "url": "https://github.com/honua-io/honua-server/issues/3885"
-          },
-          {
-            "number": 3886,
-            "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
-            "url": "https://github.com/honua-io/honua-server/issues/3886"
           },
           {
             "number": 3888,
@@ -385,19 +364,9 @@
             "url": "https://github.com/honua-io/honua-server/issues/3475"
           },
           {
-            "number": 3884,
-            "title": "test(ai provenance): reject ambiguous raw JSON and cross-verify signed vectors",
-            "url": "https://github.com/honua-io/honua-server/issues/3884"
-          },
-          {
             "number": 3885,
             "title": "test(ai proxy): bound every provider outage phase and fail closed after partial output",
             "url": "https://github.com/honua-io/honua-server/issues/3885"
-          },
-          {
-            "number": 3886,
-            "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
-            "url": "https://github.com/honua-io/honua-server/issues/3886"
           },
           {
             "number": 3888,
@@ -455,7 +424,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 4,
         "refs": [
           {
             "number": 3424,
@@ -468,19 +437,9 @@
             "url": "https://github.com/honua-io/honua-server/issues/3475"
           },
           {
-            "number": 3884,
-            "title": "test(ai provenance): reject ambiguous raw JSON and cross-verify signed vectors",
-            "url": "https://github.com/honua-io/honua-server/issues/3884"
-          },
-          {
             "number": 3885,
             "title": "test(ai proxy): bound every provider outage phase and fail closed after partial output",
             "url": "https://github.com/honua-io/honua-server/issues/3885"
-          },
-          {
-            "number": 3886,
-            "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
-            "url": "https://github.com/honua-io/honua-server/issues/3886"
           },
           {
             "number": 3888,
@@ -502,19 +461,9 @@
             "url": "https://github.com/honua-io/honua-server/issues/3475"
           },
           {
-            "number": 3884,
-            "title": "test(ai provenance): reject ambiguous raw JSON and cross-verify signed vectors",
-            "url": "https://github.com/honua-io/honua-server/issues/3884"
-          },
-          {
             "number": 3885,
             "title": "test(ai proxy): bound every provider outage phase and fail closed after partial output",
             "url": "https://github.com/honua-io/honua-server/issues/3885"
-          },
-          {
-            "number": 3886,
-            "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
-            "url": "https://github.com/honua-io/honua-server/issues/3886"
           },
           {
             "number": 3888,
@@ -556,7 +505,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 4,
         "refs": [
           {
             "number": 3424,
@@ -569,19 +518,9 @@
             "url": "https://github.com/honua-io/honua-server/issues/3475"
           },
           {
-            "number": 3884,
-            "title": "test(ai provenance): reject ambiguous raw JSON and cross-verify signed vectors",
-            "url": "https://github.com/honua-io/honua-server/issues/3884"
-          },
-          {
             "number": 3885,
             "title": "test(ai proxy): bound every provider outage phase and fail closed after partial output",
             "url": "https://github.com/honua-io/honua-server/issues/3885"
-          },
-          {
-            "number": 3886,
-            "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
-            "url": "https://github.com/honua-io/honua-server/issues/3886"
           },
           {
             "number": 3888,
@@ -603,19 +542,9 @@
             "url": "https://github.com/honua-io/honua-server/issues/3475"
           },
           {
-            "number": 3884,
-            "title": "test(ai provenance): reject ambiguous raw JSON and cross-verify signed vectors",
-            "url": "https://github.com/honua-io/honua-server/issues/3884"
-          },
-          {
             "number": 3885,
             "title": "test(ai proxy): bound every provider outage phase and fail closed after partial output",
             "url": "https://github.com/honua-io/honua-server/issues/3885"
-          },
-          {
-            "number": 3886,
-            "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
-            "url": "https://github.com/honua-io/honua-server/issues/3886"
           },
           {
             "number": 3888,
@@ -666,7 +595,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 4,
         "refs": [
           {
             "number": 3424,
@@ -679,19 +608,9 @@
             "url": "https://github.com/honua-io/honua-server/issues/3475"
           },
           {
-            "number": 3884,
-            "title": "test(ai provenance): reject ambiguous raw JSON and cross-verify signed vectors",
-            "url": "https://github.com/honua-io/honua-server/issues/3884"
-          },
-          {
             "number": 3885,
             "title": "test(ai proxy): bound every provider outage phase and fail closed after partial output",
             "url": "https://github.com/honua-io/honua-server/issues/3885"
-          },
-          {
-            "number": 3886,
-            "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
-            "url": "https://github.com/honua-io/honua-server/issues/3886"
           },
           {
             "number": 3888,
@@ -713,19 +632,9 @@
             "url": "https://github.com/honua-io/honua-server/issues/3475"
           },
           {
-            "number": 3884,
-            "title": "test(ai provenance): reject ambiguous raw JSON and cross-verify signed vectors",
-            "url": "https://github.com/honua-io/honua-server/issues/3884"
-          },
-          {
             "number": 3885,
             "title": "test(ai proxy): bound every provider outage phase and fail closed after partial output",
             "url": "https://github.com/honua-io/honua-server/issues/3885"
-          },
-          {
-            "number": 3886,
-            "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
-            "url": "https://github.com/honua-io/honua-server/issues/3886"
           },
           {
             "number": 3888,
@@ -772,7 +681,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 4,
         "refs": [
           {
             "number": 3424,
@@ -785,19 +694,9 @@
             "url": "https://github.com/honua-io/honua-server/issues/3475"
           },
           {
-            "number": 3884,
-            "title": "test(ai provenance): reject ambiguous raw JSON and cross-verify signed vectors",
-            "url": "https://github.com/honua-io/honua-server/issues/3884"
-          },
-          {
             "number": 3885,
             "title": "test(ai proxy): bound every provider outage phase and fail closed after partial output",
             "url": "https://github.com/honua-io/honua-server/issues/3885"
-          },
-          {
-            "number": 3886,
-            "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
-            "url": "https://github.com/honua-io/honua-server/issues/3886"
           },
           {
             "number": 3888,
@@ -819,19 +718,9 @@
             "url": "https://github.com/honua-io/honua-server/issues/3475"
           },
           {
-            "number": 3884,
-            "title": "test(ai provenance): reject ambiguous raw JSON and cross-verify signed vectors",
-            "url": "https://github.com/honua-io/honua-server/issues/3884"
-          },
-          {
             "number": 3885,
             "title": "test(ai proxy): bound every provider outage phase and fail closed after partial output",
             "url": "https://github.com/honua-io/honua-server/issues/3885"
-          },
-          {
-            "number": 3886,
-            "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
-            "url": "https://github.com/honua-io/honua-server/issues/3886"
           },
           {
             "number": 3888,
@@ -877,7 +766,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 4,
         "refs": [
           {
             "number": 3424,
@@ -890,19 +779,9 @@
             "url": "https://github.com/honua-io/honua-server/issues/3475"
           },
           {
-            "number": 3884,
-            "title": "test(ai provenance): reject ambiguous raw JSON and cross-verify signed vectors",
-            "url": "https://github.com/honua-io/honua-server/issues/3884"
-          },
-          {
             "number": 3885,
             "title": "test(ai proxy): bound every provider outage phase and fail closed after partial output",
             "url": "https://github.com/honua-io/honua-server/issues/3885"
-          },
-          {
-            "number": 3886,
-            "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
-            "url": "https://github.com/honua-io/honua-server/issues/3886"
           },
           {
             "number": 3888,
@@ -924,19 +803,9 @@
             "url": "https://github.com/honua-io/honua-server/issues/3475"
           },
           {
-            "number": 3884,
-            "title": "test(ai provenance): reject ambiguous raw JSON and cross-verify signed vectors",
-            "url": "https://github.com/honua-io/honua-server/issues/3884"
-          },
-          {
             "number": 3885,
             "title": "test(ai proxy): bound every provider outage phase and fail closed after partial output",
             "url": "https://github.com/honua-io/honua-server/issues/3885"
-          },
-          {
-            "number": 3886,
-            "title": "test(ai proxy): enforce bidirectional request and model-output limits on the real route",
-            "url": "https://github.com/honua-io/honua-server/issues/3886"
           },
           {
             "number": 3888,
@@ -1015,11 +884,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3865"
           },
           {
-            "number": 3866,
-            "title": "test(alerts): retain delivered and acknowledged alert evidence after rule deletion",
-            "url": "https://github.com/honua-io/honua-server/issues/3866"
-          },
-          {
             "number": 3867,
             "title": "test(alerts): qualify secret rotation and secret-provider outage through the production cache",
             "url": "https://github.com/honua-io/honua-server/issues/3867"
@@ -1038,6 +902,11 @@
             "number": 3870,
             "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
             "url": "https://github.com/honua-io/honua-server/issues/3870"
+          },
+          {
+            "number": 3881,
+            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
+            "url": "https://github.com/honua-io/honua-server/issues/3881"
           }
         ],
         "categoryLevel": true,
@@ -1069,11 +938,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3865"
           },
           {
-            "number": 3866,
-            "title": "test(alerts): retain delivered and acknowledged alert evidence after rule deletion",
-            "url": "https://github.com/honua-io/honua-server/issues/3866"
-          },
-          {
             "number": 3867,
             "title": "test(alerts): qualify secret rotation and secret-provider outage through the production cache",
             "url": "https://github.com/honua-io/honua-server/issues/3867"
@@ -1092,6 +956,11 @@
             "number": 3870,
             "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
             "url": "https://github.com/honua-io/honua-server/issues/3870"
+          },
+          {
+            "number": 3881,
+            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
+            "url": "https://github.com/honua-io/honua-server/issues/3881"
           }
         ],
         "label": "cap/alerts"
@@ -1165,11 +1034,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3865"
           },
           {
-            "number": 3866,
-            "title": "test(alerts): retain delivered and acknowledged alert evidence after rule deletion",
-            "url": "https://github.com/honua-io/honua-server/issues/3866"
-          },
-          {
             "number": 3867,
             "title": "test(alerts): qualify secret rotation and secret-provider outage through the production cache",
             "url": "https://github.com/honua-io/honua-server/issues/3867"
@@ -1188,6 +1052,11 @@
             "number": 3870,
             "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
             "url": "https://github.com/honua-io/honua-server/issues/3870"
+          },
+          {
+            "number": 3881,
+            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
+            "url": "https://github.com/honua-io/honua-server/issues/3881"
           }
         ],
         "categoryLevel": true,
@@ -1219,11 +1088,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3865"
           },
           {
-            "number": 3866,
-            "title": "test(alerts): retain delivered and acknowledged alert evidence after rule deletion",
-            "url": "https://github.com/honua-io/honua-server/issues/3866"
-          },
-          {
             "number": 3867,
             "title": "test(alerts): qualify secret rotation and secret-provider outage through the production cache",
             "url": "https://github.com/honua-io/honua-server/issues/3867"
@@ -1242,6 +1106,11 @@
             "number": 3870,
             "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
             "url": "https://github.com/honua-io/honua-server/issues/3870"
+          },
+          {
+            "number": 3881,
+            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
+            "url": "https://github.com/honua-io/honua-server/issues/3881"
           }
         ],
         "label": "cap/alerts"
@@ -1306,11 +1175,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3865"
           },
           {
-            "number": 3866,
-            "title": "test(alerts): retain delivered and acknowledged alert evidence after rule deletion",
-            "url": "https://github.com/honua-io/honua-server/issues/3866"
-          },
-          {
             "number": 3867,
             "title": "test(alerts): qualify secret rotation and secret-provider outage through the production cache",
             "url": "https://github.com/honua-io/honua-server/issues/3867"
@@ -1329,6 +1193,11 @@
             "number": 3870,
             "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
             "url": "https://github.com/honua-io/honua-server/issues/3870"
+          },
+          {
+            "number": 3881,
+            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
+            "url": "https://github.com/honua-io/honua-server/issues/3881"
           }
         ],
         "categoryLevel": true,
@@ -1360,11 +1229,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3865"
           },
           {
-            "number": 3866,
-            "title": "test(alerts): retain delivered and acknowledged alert evidence after rule deletion",
-            "url": "https://github.com/honua-io/honua-server/issues/3866"
-          },
-          {
             "number": 3867,
             "title": "test(alerts): qualify secret rotation and secret-provider outage through the production cache",
             "url": "https://github.com/honua-io/honua-server/issues/3867"
@@ -1383,6 +1247,11 @@
             "number": 3870,
             "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
             "url": "https://github.com/honua-io/honua-server/issues/3870"
+          },
+          {
+            "number": 3881,
+            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
+            "url": "https://github.com/honua-io/honua-server/issues/3881"
           }
         ],
         "label": "cap/alerts"
@@ -1456,11 +1325,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3865"
           },
           {
-            "number": 3866,
-            "title": "test(alerts): retain delivered and acknowledged alert evidence after rule deletion",
-            "url": "https://github.com/honua-io/honua-server/issues/3866"
-          },
-          {
             "number": 3867,
             "title": "test(alerts): qualify secret rotation and secret-provider outage through the production cache",
             "url": "https://github.com/honua-io/honua-server/issues/3867"
@@ -1479,6 +1343,11 @@
             "number": 3870,
             "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
             "url": "https://github.com/honua-io/honua-server/issues/3870"
+          },
+          {
+            "number": 3881,
+            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
+            "url": "https://github.com/honua-io/honua-server/issues/3881"
           }
         ],
         "categoryLevel": true,
@@ -1510,11 +1379,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/3865"
           },
           {
-            "number": 3866,
-            "title": "test(alerts): retain delivered and acknowledged alert evidence after rule deletion",
-            "url": "https://github.com/honua-io/honua-server/issues/3866"
-          },
-          {
             "number": 3867,
             "title": "test(alerts): qualify secret rotation and secret-provider outage through the production cache",
             "url": "https://github.com/honua-io/honua-server/issues/3867"
@@ -1533,6 +1397,11 @@
             "number": 3870,
             "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
             "url": "https://github.com/honua-io/honua-server/issues/3870"
+          },
+          {
+            "number": 3881,
+            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
+            "url": "https://github.com/honua-io/honua-server/issues/3881"
           }
         ],
         "label": "cap/alerts"
@@ -3788,6 +3657,14 @@
           "status": "red",
           "lastGreenAt": "",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-03T04:38:48Z",
+          "probeName": "capability-manifest",
+          "targetEnvironment": "demo.honua.io",
+          "status": "red",
+          "lastGreenAt": "",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33715766426"
         }
       ],
       "sdks": {
@@ -4142,17 +4019,12 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
+        "count": 1,
         "refs": [
           {
             "number": 1726,
             "title": "chore: per-layer generation streams for branch-version posts (scale, deferred)",
             "url": "https://github.com/honua-io/honua-server/issues/1726"
-          },
-          {
-            "number": 3898,
-            "title": "bug(wfs): partial TransactionResponse drops failed operation receipts",
-            "url": "https://github.com/honua-io/honua-server/issues/3898"
           }
         ],
         "categoryLevel": true,
@@ -4162,11 +4034,6 @@
             "number": 1726,
             "title": "chore: per-layer generation streams for branch-version posts (scale, deferred)",
             "url": "https://github.com/honua-io/honua-server/issues/1726"
-          },
-          {
-            "number": 3898,
-            "title": "bug(wfs): partial TransactionResponse drops failed operation receipts",
-            "url": "https://github.com/honua-io/honua-server/issues/3898"
           }
         ],
         "label": "cap/editing"
@@ -4230,17 +4097,12 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
+        "count": 1,
         "refs": [
           {
             "number": 1726,
             "title": "chore: per-layer generation streams for branch-version posts (scale, deferred)",
             "url": "https://github.com/honua-io/honua-server/issues/1726"
-          },
-          {
-            "number": 3898,
-            "title": "bug(wfs): partial TransactionResponse drops failed operation receipts",
-            "url": "https://github.com/honua-io/honua-server/issues/3898"
           }
         ],
         "categoryLevel": true,
@@ -4250,11 +4112,6 @@
             "number": 1726,
             "title": "chore: per-layer generation streams for branch-version posts (scale, deferred)",
             "url": "https://github.com/honua-io/honua-server/issues/1726"
-          },
-          {
-            "number": 3898,
-            "title": "bug(wfs): partial TransactionResponse drops failed operation receipts",
-            "url": "https://github.com/honua-io/honua-server/issues/3898"
           }
         ],
         "label": "cap/editing"
@@ -5283,6 +5140,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T21:06:40Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-03T04:38:48Z",
+          "probeName": "geocoding-latency",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-03T04:38:48Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33715766426"
         }
       ],
       "sdks": {
@@ -7255,6 +7120,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T21:06:40Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-03T04:38:48Z",
+          "probeName": "health-live-ready",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-03T04:38:48Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33715766426"
         }
       ],
       "sdks": {
@@ -8725,6 +8598,22 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T21:06:40Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-03T04:38:48Z",
+          "probeName": "metrics-gated",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-03T04:38:48Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33715766426"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-03T04:38:48Z",
+          "probeName": "admin-metrics-health",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-03T04:38:48Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33715766426"
         }
       ],
       "sdks": {
@@ -11339,6 +11228,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T21:06:40Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-03T04:38:48Z",
+          "probeName": "render-query-smoke",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-03T04:38:48Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33715766426"
         }
       ],
       "sdks": {
@@ -12634,6 +12531,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T21:06:40Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-03T04:38:48Z",
+          "probeName": "render-query-smoke",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-03T04:38:48Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33715766426"
         }
       ],
       "sdks": {
@@ -13847,6 +13752,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T21:06:40Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-03T04:38:48Z",
+          "probeName": "odata-service-document",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-03T04:38:48Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33715766426"
         }
       ],
       "sdks": {
@@ -14814,6 +14727,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T21:06:40Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-03T04:38:48Z",
+          "probeName": "edr-collections",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-03T04:38:48Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33715766426"
         }
       ],
       "sdks": {
@@ -15655,6 +15576,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T21:06:40Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-03T04:38:48Z",
+          "probeName": "ogc-features-collections",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-03T04:38:48Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33715766426"
         }
       ],
       "sdks": {
@@ -17016,6 +16945,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T21:06:40Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-03T04:38:48Z",
+          "probeName": "stac-collections",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-03T04:38:48Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33715766426"
         }
       ],
       "sdks": {
@@ -17856,6 +17793,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T21:06:40Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-03T04:38:48Z",
+          "probeName": "tiles-tilejson",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-03T04:38:48Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33715766426"
         }
       ],
       "sdks": {
@@ -18672,6 +18617,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T21:06:40Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-03T04:38:48Z",
+          "probeName": "ogc-wcs-capabilities",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-03T04:38:48Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33715766426"
         }
       ],
       "sdks": {
@@ -19700,6 +19653,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T21:06:40Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-03T04:38:48Z",
+          "probeName": "ogc-wms-capabilities",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-03T04:38:48Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33715766426"
         }
       ],
       "sdks": {
@@ -20562,6 +20523,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-02T21:06:40Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33683241775"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-03T04:38:48Z",
+          "probeName": "ogc-wmts-capabilities",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-03T04:38:48Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/33715766426"
         }
       ],
       "sdks": {
