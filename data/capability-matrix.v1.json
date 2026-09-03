@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-09-03T21:19:12Z",
+  "generatedAt": "2026-09-03T21:40:56Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -29,52 +29,52 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-09-03T21:18:59Z",
+      "fetchedAt": "2026-09-03T21:40:38Z",
       "sourceVersion": "f3617976a6c2@2026-08-29T19:28:12Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-03T21:18:59Z",
+      "observedAt": "2026-09-03T21:40:38Z",
       "ageDays": 0,
       "sourceAgeDays": 5,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-09-03T21:19:00Z",
-      "sourceVersion": "9c88d7533d26@2026-09-03T21:18:41Z",
+      "fetchedAt": "2026-09-03T21:40:39Z",
+      "sourceVersion": "c49a29c18769@2026-09-03T21:40:05Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-03T21:19:00Z",
+      "observedAt": "2026-09-03T21:40:39Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-09-03T21:19:00Z",
+      "fetchedAt": "2026-09-03T21:40:39Z",
       "sourceVersion": "640535afe475@2026-08-29T20:03:17Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-03T21:19:00Z",
+      "observedAt": "2026-09-03T21:40:39Z",
       "ageDays": 0,
       "sourceAgeDays": 5,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-09-03T21:19:01Z",
+      "fetchedAt": "2026-09-03T21:40:41Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-03T21:19:01Z",
+      "observedAt": "2026-09-03T21:40:41Z",
       "ageDays": 0,
       "sourceAgeDays": 48,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-09-03T21:19:01Z",
+      "fetchedAt": "2026-09-03T21:40:41Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-03T21:19:01Z",
+      "observedAt": "2026-09-03T21:40:41Z",
       "ageDays": 0,
       "sourceAgeDays": 48,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-09-03T21:19:02Z",
+      "fetchedAt": "2026-09-03T21:40:43Z",
       "sourceVersion": "773c2574c39b@2026-09-03T09:55:01Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-03T09:55:01Z",
@@ -83,16 +83,16 @@
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-09-03T21:19:12Z",
+      "fetchedAt": "2026-09-03T21:40:56Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-03T21:19:12Z",
+      "observedAt": "2026-09-03T21:40:56Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-09-03T21:19:02Z",
+      "fetchedAt": "2026-09-03T21:40:43Z",
       "sourceVersion": "4b4ead710459@2026-09-02T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-02T00:00:00Z",
@@ -101,7 +101,7 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-09-03T21:19:02Z",
+      "fetchedAt": "2026-09-03T21:40:43Z",
       "sourceVersion": "4e600c7f8492@2026-09-03T21:06:55Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-03T21:06:55Z",
@@ -4460,10 +4460,10 @@
       "displayName": "Forward Geocoding",
       "category": "Geocoding",
       "edition": "Community",
-      "entryCount": 10,
-      "provingTestCount": 61,
+      "entryCount": 11,
+      "provingTestCount": 62,
       "maturity": {
-        "implemented": 10
+        "implemented": 11
       },
       "noSurface": null,
       "cite": [],
@@ -5677,10 +5677,10 @@
       "displayName": "ArcGIS Portal Sharing Read Surface",
       "category": "Identity",
       "edition": "Community",
-      "entryCount": 18,
-      "provingTestCount": 66,
+      "entryCount": 20,
+      "provingTestCount": 68,
       "maturity": {
-        "implemented": 18
+        "implemented": 20
       },
       "noSurface": null,
       "cite": [],
@@ -10590,7 +10590,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 49,
-      "provingTestCount": 420,
+      "provingTestCount": 421,
       "maturity": {
         "implemented": 49
       },
@@ -12817,7 +12817,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 4,
-      "provingTestCount": 40,
+      "provingTestCount": 42,
       "maturity": {
         "implemented": 4
       },
