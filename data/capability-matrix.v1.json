@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-09-04T23:14:18Z",
+  "generatedAt": "2026-09-04T23:28:37Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -29,70 +29,70 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-09-04T23:14:00Z",
-      "sourceVersion": "d4eff8627d32@2026-09-04T22:22:36Z",
+      "fetchedAt": "2026-09-04T23:28:21Z",
+      "sourceVersion": "70cf54cc66a5@2026-09-04T23:19:08Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-04T23:14:00Z",
+      "observedAt": "2026-09-04T23:28:21Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-09-04T23:14:01Z",
-      "sourceVersion": "541a1df6c7e6@2026-09-04T23:07:41Z",
+      "fetchedAt": "2026-09-04T23:28:21Z",
+      "sourceVersion": "ba3a686874b8@2026-09-04T23:28:19Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-04T23:14:01Z",
+      "observedAt": "2026-09-04T23:28:21Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-09-04T23:14:01Z",
+      "fetchedAt": "2026-09-04T23:28:22Z",
       "sourceVersion": "640535afe475@2026-08-29T20:03:17Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-04T23:14:01Z",
+      "observedAt": "2026-09-04T23:28:22Z",
       "ageDays": 0,
       "sourceAgeDays": 6,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-09-04T23:14:02Z",
+      "fetchedAt": "2026-09-04T23:28:22Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-04T23:14:02Z",
+      "observedAt": "2026-09-04T23:28:22Z",
       "ageDays": 0,
       "sourceAgeDays": 49,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-09-04T23:14:03Z",
+      "fetchedAt": "2026-09-04T23:28:23Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-04T23:14:03Z",
+      "observedAt": "2026-09-04T23:28:23Z",
       "ageDays": 0,
       "sourceAgeDays": 49,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-09-04T23:14:04Z",
-      "sourceVersion": "773c2574c39b@2026-09-04T09:45:29Z",
+      "fetchedAt": "2026-09-04T23:28:24Z",
+      "sourceVersion": "914660867e45@2026-07-18T07:11:19Z",
       "freshnessBasis": "observation",
-      "observedAt": "2026-09-04T09:45:29Z",
-      "ageDays": 0,
-      "sourceAgeDays": 0,
-      "status": "fresh"
+      "observedAt": "2026-07-18T07:11:19Z",
+      "ageDays": 48,
+      "sourceAgeDays": 48,
+      "status": "stale"
     },
     "open-issues": {
-      "fetchedAt": "2026-09-04T23:14:18Z",
+      "fetchedAt": "2026-09-04T23:28:37Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-04T23:14:18Z",
+      "observedAt": "2026-09-04T23:28:37Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-09-04T23:14:04Z",
+      "fetchedAt": "2026-09-04T23:28:25Z",
       "sourceVersion": "c62281396e03@2026-09-02T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-02T00:00:00Z",
@@ -101,7 +101,7 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-09-04T23:14:04Z",
+      "fetchedAt": "2026-09-04T23:28:25Z",
       "sourceVersion": "7870615163db@2026-09-04T20:48:48Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-04T20:48:48Z",
@@ -130,7 +130,7 @@
       "category": "ControlPlane",
       "edition": "Community",
       "entryCount": 380,
-      "provingTestCount": 1151,
+      "provingTestCount": 1153,
       "maturity": {
         "implemented": 377,
         "preview": 2,
@@ -181,7 +181,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 5,
         "refs": [
           {
             "number": 346,
@@ -197,11 +197,6 @@
             "number": 3498,
             "title": "feat(studio): versioned server-owned contracts for the seven stub package families (query, analysis, report, form, workflow, gp, etl)",
             "url": "https://github.com/honua-io/honua-server/issues/3498"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           },
           {
             "number": 3892,
@@ -231,11 +226,6 @@
             "number": 3498,
             "title": "feat(studio): versioned server-owned contracts for the seven stub package families (query, analysis, report, form, workflow, gp, etl)",
             "url": "https://github.com/honua-io/honua-server/issues/3498"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           },
           {
             "number": 3892,
@@ -298,7 +288,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 3,
+        "count": 2,
         "refs": [
           {
             "number": 3424,
@@ -309,11 +299,6 @@
             "number": 3475,
             "title": "fix(observability): publish source freshness and completeness envelopes for agent evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3475"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "categoryLevel": true,
@@ -328,11 +313,6 @@
             "number": 3475,
             "title": "fix(observability): publish source freshness and completeness envelopes for agent evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3475"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "label": "cap/ai"
@@ -385,7 +365,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 3,
+        "count": 2,
         "refs": [
           {
             "number": 3424,
@@ -396,11 +376,6 @@
             "number": 3475,
             "title": "fix(observability): publish source freshness and completeness envelopes for agent evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3475"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "categoryLevel": true,
@@ -415,11 +390,6 @@
             "number": 3475,
             "title": "fix(observability): publish source freshness and completeness envelopes for agent evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3475"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "label": "cap/ai"
@@ -456,7 +426,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 3,
+        "count": 2,
         "refs": [
           {
             "number": 3424,
@@ -467,11 +437,6 @@
             "number": 3475,
             "title": "fix(observability): publish source freshness and completeness envelopes for agent evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3475"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "categoryLevel": true,
@@ -486,11 +451,6 @@
             "number": 3475,
             "title": "fix(observability): publish source freshness and completeness envelopes for agent evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3475"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "label": "cap/ai"
@@ -536,7 +496,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 3,
+        "count": 2,
         "refs": [
           {
             "number": 3424,
@@ -547,11 +507,6 @@
             "number": 3475,
             "title": "fix(observability): publish source freshness and completeness envelopes for agent evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3475"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "categoryLevel": true,
@@ -566,11 +521,6 @@
             "number": 3475,
             "title": "fix(observability): publish source freshness and completeness envelopes for agent evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3475"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "label": "cap/ai"
@@ -612,7 +562,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 3,
+        "count": 2,
         "refs": [
           {
             "number": 3424,
@@ -623,11 +573,6 @@
             "number": 3475,
             "title": "fix(observability): publish source freshness and completeness envelopes for agent evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3475"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "categoryLevel": true,
@@ -642,11 +587,6 @@
             "number": 3475,
             "title": "fix(observability): publish source freshness and completeness envelopes for agent evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3475"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "label": "cap/ai"
@@ -687,7 +627,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 3,
+        "count": 2,
         "refs": [
           {
             "number": 3424,
@@ -698,11 +638,6 @@
             "number": 3475,
             "title": "fix(observability): publish source freshness and completeness envelopes for agent evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3475"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "categoryLevel": true,
@@ -717,11 +652,6 @@
             "number": 3475,
             "title": "fix(observability): publish source freshness and completeness envelopes for agent evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3475"
-          },
-          {
-            "number": 3888,
-            "title": "test(ai governance): join verified model output to proposal-only execution evidence",
-            "url": "https://github.com/honua-io/honua-server/issues/3888"
           }
         ],
         "label": "cap/ai"
@@ -1630,6 +1560,107 @@
       "provingTestCount": 10,
       "maturity": {
         "implemented": 1
+      },
+      "noSurface": null,
+      "cite": [],
+      "parity": [],
+      "esriAssess": [],
+      "interop": [],
+      "geobench": [],
+      "dr": [],
+      "liveCanary": [],
+      "sdks": {
+        "js": {
+          "status": "not-covered"
+        },
+        "dotnet": {
+          "status": "not-covered"
+        },
+        "python": {
+          "status": "not-covered"
+        }
+      },
+      "samples": [],
+      "openIssues": {
+        "count": 6,
+        "refs": [
+          {
+            "number": 2437,
+            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
+            "url": "https://github.com/honua-io/honua-server/issues/2437"
+          },
+          {
+            "number": 2453,
+            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
+            "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3470,
+            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
+            "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 3472,
+            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3472"
+          }
+        ],
+        "categoryLevel": true,
+        "keyRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2437,
+            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
+            "url": "https://github.com/honua-io/honua-server/issues/2437"
+          },
+          {
+            "number": 2453,
+            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
+            "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3470,
+            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
+            "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 3472,
+            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3472"
+          }
+        ],
+        "label": "cap/analytics"
+      }
+    },
+    {
+      "key": "analytics.h3",
+      "displayName": "H3 Aggregation",
+      "category": "Analytics",
+      "edition": "Pro",
+      "entryCount": 4,
+      "provingTestCount": 34,
+      "maturity": {
+        "implemented": 4
       },
       "noSurface": null,
       "cite": [],
@@ -5203,17 +5234,7 @@
           ]
         }
       },
-      "samples": [
-        {
-          "id": "geocode-single-line",
-          "title": "Single-line forward geocode (plain REST)",
-          "url": "https://samples.honua.io/geocode-single-line",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "pro"
-        }
-      ],
+      "samples": [],
       "openIssues": {
         "count": 1,
         "refs": [
@@ -5858,7 +5879,7 @@
       "category": "Identity",
       "edition": "Enterprise",
       "entryCount": 3,
-      "provingTestCount": 15,
+      "provingTestCount": 16,
       "maturity": {
         "implemented": 3
       },
@@ -6045,9 +6066,9 @@
       },
       "samples": [
         {
-          "id": "browser-featureserver-query",
-          "title": "Hello FeatureServer (headless browser, plain fetch+DOM)",
-          "url": "https://samples.honua.io/browser-featureserver-query",
+          "id": "hello-featureserver-rest",
+          "title": "Hello FeatureServer (plain REST)",
+          "url": "https://samples.honua.io/hello-featureserver-rest",
           "sdks": [
             "rest"
           ],
@@ -6055,21 +6076,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-09-04T09:45:21.927Z"
-          }
-        },
-        {
-          "id": "wms-getmap-check",
-          "title": "WMS GetCapabilities + GetMap check (bash + curl)",
-          "url": "https://samples.honua.io/wms-getmap-check",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-09-04T09:45:21.927Z"
+            "at": "2026-07-18T07:11:14.933Z"
           }
         }
       ],
@@ -10670,10 +10677,10 @@
       "displayName": "FeatureServer Query",
       "category": "Serve",
       "edition": "Community",
-      "entryCount": 49,
-      "provingTestCount": 423,
+      "entryCount": 47,
+      "provingTestCount": 410,
       "maturity": {
-        "implemented": 49
+        "implemented": 47
       },
       "noSurface": null,
       "cite": [],
@@ -11523,22 +11530,8 @@
       },
       "samples": [
         {
-          "id": "browser-featureserver-query",
-          "title": "Hello FeatureServer (headless browser, plain fetch+DOM)",
-          "url": "https://samples.honua.io/browser-featureserver-query",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-09-04T09:45:21.927Z"
-          }
-        },
-        {
           "id": "hello-featureserver-rest",
-          "title": "Query a public FeatureServer (plain REST)",
+          "title": "Hello FeatureServer (plain REST)",
           "url": "https://samples.honua.io/hello-featureserver-rest",
           "sdks": [
             "rest"
@@ -11547,7 +11540,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "1.0.0",
-            "at": "2026-09-04T09:45:21.927Z"
+            "at": "2026-07-18T07:11:14.933Z"
           }
         }
       ],
@@ -13084,7 +13077,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 9,
-      "provingTestCount": 25,
+      "provingTestCount": 27,
       "maturity": {
         "implemented": 9
       },
@@ -14148,22 +14141,7 @@
           "note": "Read/query only (service_document, metadata, layers, features, and pagination helpers). No create/update/delete entity-set operations are implemented, so the write half of 'query and edit features through OData v4' is not covered."
         }
       },
-      "samples": [
-        {
-          "id": "odata-query-rest",
-          "title": "Read spatial features with OData v4",
-          "url": "https://samples.honua.io/odata-query-rest",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-09-04T09:45:21.927Z"
-          }
-        }
-      ],
+      "samples": [],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -15250,10 +15228,10 @@
       "displayName": "OGC API Features",
       "category": "Serve",
       "edition": "Community",
-      "entryCount": 21,
-      "provingTestCount": 280,
+      "entryCount": 19,
+      "provingTestCount": 273,
       "maturity": {
-        "implemented": 21
+        "implemented": 19
       },
       "noSurface": null,
       "cite": [
@@ -16090,22 +16068,7 @@
           ]
         }
       },
-      "samples": [
-        {
-          "id": "ogc-features-python",
-          "title": "Read OGC API Features with Python",
-          "url": "https://samples.honua.io/ogc-features-python",
-          "sdks": [
-            "python"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-09-04T09:45:21.927Z"
-          }
-        }
-      ],
+      "samples": [],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -17516,22 +17479,7 @@
           ]
         }
       },
-      "samples": [
-        {
-          "id": "stac-search-rest",
-          "title": "Discover a public STAC catalog",
-          "url": "https://samples.honua.io/stac-search-rest",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-09-04T09:45:21.927Z"
-          }
-        }
-      ],
+      "samples": [],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -17619,7 +17567,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 7,
-      "provingTestCount": 38,
+      "provingTestCount": 40,
       "maturity": {
         "implemented": 7
       },
@@ -20386,22 +20334,7 @@
           ]
         }
       },
-      "samples": [
-        {
-          "id": "wms-getmap-check",
-          "title": "WMS GetCapabilities + GetMap check (bash + curl)",
-          "url": "https://samples.honua.io/wms-getmap-check",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-09-04T09:45:21.927Z"
-          }
-        }
-      ],
+      "samples": [],
       "openIssues": {
         "count": 7,
         "refs": [
