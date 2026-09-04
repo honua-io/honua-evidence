@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-09-04T00:15:19Z",
+  "generatedAt": "2026-09-04T03:58:44Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -29,52 +29,52 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-09-04T00:15:07Z",
+      "fetchedAt": "2026-09-04T03:58:32Z",
       "sourceVersion": "f3617976a6c2@2026-08-29T19:28:12Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-04T00:15:07Z",
+      "observedAt": "2026-09-04T03:58:32Z",
       "ageDays": 0,
       "sourceAgeDays": 5,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-09-04T00:15:07Z",
-      "sourceVersion": "317566cc054b@2026-09-04T00:14:38Z",
+      "fetchedAt": "2026-09-04T03:58:33Z",
+      "sourceVersion": "8128ab9c495e@2026-09-04T03:57:50Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-04T00:15:07Z",
+      "observedAt": "2026-09-04T03:58:33Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-09-04T00:15:08Z",
+      "fetchedAt": "2026-09-04T03:58:33Z",
       "sourceVersion": "640535afe475@2026-08-29T20:03:17Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-04T00:15:08Z",
+      "observedAt": "2026-09-04T03:58:33Z",
       "ageDays": 0,
       "sourceAgeDays": 5,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-09-04T00:15:08Z",
+      "fetchedAt": "2026-09-04T03:58:33Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-04T00:15:08Z",
+      "observedAt": "2026-09-04T03:58:33Z",
       "ageDays": 0,
       "sourceAgeDays": 48,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-09-04T00:15:08Z",
+      "fetchedAt": "2026-09-04T03:58:34Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-04T00:15:08Z",
+      "observedAt": "2026-09-04T03:58:34Z",
       "ageDays": 0,
       "sourceAgeDays": 48,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-09-04T00:15:09Z",
+      "fetchedAt": "2026-09-04T03:58:35Z",
       "sourceVersion": "773c2574c39b@2026-09-03T09:55:01Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-03T09:55:01Z",
@@ -83,17 +83,17 @@
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-09-04T00:15:19Z",
+      "fetchedAt": "2026-09-04T03:58:44Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-04T00:15:19Z",
+      "observedAt": "2026-09-04T03:58:44Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-09-04T00:15:10Z",
-      "sourceVersion": "4b4ead710459@2026-09-02T00:00:00Z",
+      "fetchedAt": "2026-09-04T03:58:35Z",
+      "sourceVersion": "8128ab9c495e@2026-09-02T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-02T00:00:00Z",
       "ageDays": 2,
@@ -101,7 +101,7 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-09-04T00:15:10Z",
+      "fetchedAt": "2026-09-04T03:58:35Z",
       "sourceVersion": "4e600c7f8492@2026-09-03T21:06:55Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-03T21:06:55Z",
@@ -129,11 +129,12 @@
       "displayName": "Admin Control Plane",
       "category": "ControlPlane",
       "edition": "Community",
-      "entryCount": 375,
-      "provingTestCount": 1146,
+      "entryCount": 380,
+      "provingTestCount": 1151,
       "maturity": {
-        "implemented": 373,
-        "preview": 2
+        "implemented": 377,
+        "preview": 2,
+        "experimental": 1
       },
       "noSurface": null,
       "cite": [],
@@ -180,7 +181,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 8,
+        "count": 6,
         "refs": [
           {
             "number": 346,
@@ -201,16 +202,6 @@
             "number": 3888,
             "title": "test(ai governance): join verified model output to proposal-only execution evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3888"
-          },
-          {
-            "number": 3890,
-            "title": "fix(coordinated-release): wait for child rollback settlement before marking parent RolledBack",
-            "url": "https://github.com/honua-io/honua-server/issues/3890"
-          },
-          {
-            "number": 3891,
-            "title": "fix(deploy): replace syntactic #3301 ratchet with behavioral exact-prior-revision rollback contract",
-            "url": "https://github.com/honua-io/honua-server/issues/3891"
           },
           {
             "number": 3892,
@@ -245,16 +236,6 @@
             "number": 3888,
             "title": "test(ai governance): join verified model output to proposal-only execution evidence",
             "url": "https://github.com/honua-io/honua-server/issues/3888"
-          },
-          {
-            "number": 3890,
-            "title": "fix(coordinated-release): wait for child rollback settlement before marking parent RolledBack",
-            "url": "https://github.com/honua-io/honua-server/issues/3890"
-          },
-          {
-            "number": 3891,
-            "title": "fix(deploy): replace syntactic #3301 ratchet with behavioral exact-prior-revision rollback contract",
-            "url": "https://github.com/honua-io/honua-server/issues/3891"
           },
           {
             "number": 3892,
@@ -1114,7 +1095,7 @@
       "entryCount": 18,
       "provingTestCount": 47,
       "maturity": {
-        "implemented": 18
+        "preview": 18
       },
       "noSurface": null,
       "cite": [],
@@ -4002,7 +3983,7 @@
       "category": "Editing",
       "edition": "Enterprise",
       "entryCount": 15,
-      "provingTestCount": 27,
+      "provingTestCount": 28,
       "maturity": {
         "experimental": 15
       },
@@ -4254,7 +4235,8 @@
       "entryCount": 18,
       "provingTestCount": 149,
       "maturity": {
-        "implemented": 18
+        "implemented": 12,
+        "preview": 6
       },
       "noSurface": null,
       "cite": [],
@@ -9946,7 +9928,7 @@
       "entryCount": 1,
       "provingTestCount": 6,
       "maturity": {
-        "implemented": 1
+        "experimental": 1
       },
       "noSurface": null,
       "cite": [],
@@ -10217,7 +10199,7 @@
       "entryCount": 1,
       "provingTestCount": 10,
       "maturity": {
-        "implemented": 1
+        "experimental": 1
       },
       "noSurface": null,
       "cite": [],
@@ -10348,7 +10330,7 @@
       "entryCount": 6,
       "provingTestCount": 60,
       "maturity": {
-        "implemented": 6
+        "experimental": 6
       },
       "noSurface": null,
       "cite": [],
