@@ -182,7 +182,9 @@ def normalize_client_interop(
         if performed_by != raw["client_id"]:
             raise ValueError(f"Client interop result {test_id!r} was not performed by client_id.")
         parsed_request = urlparse(request_url) if isinstance(request_url, str) else None
-        if (
+        if status == "skip" and request_url is None:
+            pass
+        elif (
             parsed_request is None
             or parsed_request.scheme not in {"http", "https"}
             or not parsed_request.netloc
