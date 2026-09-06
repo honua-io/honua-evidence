@@ -18,8 +18,17 @@ ENTRY_FIELDS = frozenset({
 })
 
 
+def _unique_object(pairs: list[tuple[str, object]]) -> dict:
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"duplicate JSON field {key!r}")
+        result[key] = value
+    return result
+
+
 def load_inventory(path: Path) -> dict:
-    document = json.loads(path.read_text(encoding="utf-8"))
+    document = json.loads(path.read_text(encoding="utf-8"), object_pairs_hook=_unique_object)
     if not isinstance(document, dict) or set(document) != {
         "schema", "source", "governance", "entries",
     }:
@@ -38,6 +47,8 @@ def load_inventory(path: Path) -> dict:
     for field in ("guide", "repository", "inventory_source"):
         if not isinstance(source.get(field), str) or not source[field].startswith("https://"):
             raise ValueError(f"{path}: source.{field} must be an HTTPS URL")
+    if f"/blob/{source['inventory_source_revision']}/" not in source["inventory_source"]:
+        raise ValueError(f"{path}: inventory_source URL must match inventory_source_revision")
 
     governance = document.get("governance")
     if not isinstance(governance, dict) or set(governance) != {
@@ -57,6 +68,7 @@ def load_inventory(path: Path) -> dict:
     if not isinstance(entries, list) or not entries:
         raise ValueError(f"{path}: entries must be a non-empty array")
     seen: set[tuple[str, str]] = set()
+    seen_clients: set[tuple[str, str]] = set()
     for index, entry in enumerate(entries):
         prefix = f"{path}: entries[{index}]"
         if not isinstance(entry, dict) or set(entry) != ENTRY_FIELDS:
@@ -79,6 +91,11 @@ def load_inventory(path: Path) -> dict:
             raise ValueError(f"{prefix} is release-required but has no ledger client join")
         if entry["classification"] == "not-applicable" and clients:
             raise ValueError(f"{prefix} is not applicable but claims ledger clients")
+        for client in clients:
+            client_key = (entry["format"], client)
+            if client_key in seen_clients:
+                raise ValueError(f"{prefix} has ambiguous ledger client {client_key}")
+            seen_clients.add(client_key)
         key = (entry["format"], entry["tool"])
         if key in seen:
             raise ValueError(f"{prefix} duplicates inventory identity {key}")

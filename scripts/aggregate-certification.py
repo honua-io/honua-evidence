@@ -404,7 +404,8 @@ def _cloud_native_inventory_summary(ledger: dict, inventory: dict) -> dict:
             and cell["canonical_client"] in item["ledger_clients"]
         ]
         provenance_complete = sum(
-            isinstance(cell.get("source_sha"), str)
+            cell.get("result") in {"pass", "fail"}
+            and isinstance(cell.get("source_sha"), str)
             and isinstance(cell.get("producer_source_sha"), str)
             and (cell.get("image_digest") is not None or cell["deployment_target"] == "source-test-host")
             and isinstance(cell.get("fixture_revision"), str)
@@ -422,12 +423,25 @@ def _cloud_native_inventory_summary(ledger: dict, inventory: dict) -> dict:
                 **_result_counts(joined),
                 "provenance_complete": provenance_complete,
             },
+            "required": (
+                item["maturity"] == "supported"
+                and item["classification"] in inventory["governance"]["release_required_classifications"]
+            ),
         })
+        entries[-1]["status"] = (
+            "not-required" if not entries[-1]["required"] else
+            "missing" if not joined else
+            "pass" if all(cell["result"] == "pass" for cell in joined)
+            and provenance_complete == len(joined) else "non-passing"
+        )
     return {
         "guide_revision": inventory["source"]["revision"],
         "inventory_source": inventory["source"]["inventory_source"],
         "inventory_source_revision": inventory["source"]["inventory_source_revision"],
         "counts_by_classification": {key: counts[key] for key in sorted(counts)},
+        "required_tools": sum(entry["required"] for entry in entries),
+        "passing_required_tools": sum(entry["status"] == "pass" for entry in entries),
+        "missing_required_tools": sum(entry["status"] == "missing" for entry in entries),
         "entries": entries,
     }
 
@@ -436,16 +450,20 @@ def build_summary(ledger: dict, cloud_native_inventory: dict | None = None) -> d
     cells = ledger["cells"]
     facet_rows: dict[str, list[dict]] = defaultdict(list)
     client_operations: dict[str, set[tuple[str, str]]] = defaultdict(set)
-    client_passed_operations: dict[str, set[tuple[str, str]]] = defaultdict(set)
+    client_operation_rows: dict[tuple[str, str, str], list[dict]] = defaultdict(list)
     supported_groups: dict[tuple[str, str, str], list[dict]] = defaultdict(list)
 
     for cell in cells:
         for facet in cell["scenario_facets"]:
-            facet_rows[facet].append(cell)
+            # A failing cell can still contain passing assertions. Count the
+            # receipt-bound assertion verdict, not the enclosing cell verdict.
+            result = cell["result"]
+            if result in {"pass", "fail"}:
+                result = (cell.get("facet_results") or {}).get(facet, {}).get("result", "skip")
+            facet_rows[facet].append({**cell, "result": result})
         operation = (cell["surface"], cell["operation"])
         client_operations[cell["canonical_client"]].add(operation)
-        if cell["result"] == "pass":
-            client_passed_operations[cell["canonical_client"]].add(operation)
+        client_operation_rows[(cell["canonical_client"], *operation)].append(cell)
         if cell["maturity"] in {"supported", "deprecated"}:
             supported_groups[(cell["surface"], cell["operation"], cell["deployment_target"])].append(cell)
 
@@ -483,7 +501,11 @@ def build_summary(ledger: dict, cloud_native_inventory: dict | None = None) -> d
         "canonical_client_operation_depth": {
             client: {
                 "required_operations": len(client_operations[client]),
-                "passed_operations": len(client_passed_operations[client]),
+                "passed_operations": sum(
+                    any(row["addressable_by_client"] for row in rows)
+                    and all(row["result"] == "pass" for row in rows if row["addressable_by_client"])
+                    for (owner, _, _), rows in client_operation_rows.items() if owner == client
+                ),
             }
             for client in sorted(client_operations)
         },
@@ -516,7 +538,7 @@ def _timestamp(value: object) -> datetime | None:
 
 
 def _read_json(path: Path) -> dict:
-    value = json.loads(path.read_text(encoding="utf-8"))
+    value = json.loads(path.read_text(encoding="utf-8"), object_pairs_hook=_unique_json_object)
     if not isinstance(value, dict):
         raise ValueError(f"{path}: root must be an object")
     return value
@@ -700,6 +722,7 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
         if generated > now + CLOCK_SKEW_TOLERANCE:
             raise ValueError(f"{path}: generated_at is in the future")
         producer = fragment["producer"]
+        seen_observations: set[tuple[object, ...]] = set()
         for index, observation in enumerate(fragment["observations"]):
             if not isinstance(observation, dict):
                 raise ValueError(f"{path}: observations[{index}] must be an object")
@@ -716,6 +739,9 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
             if "test_ids" in observation and not isinstance(requirement_test_ids, list):
                 raise ValueError(f"{path}: observations[{index}].test_ids must be an array")
             observation_key = _governed_identity(observation)
+            if observation_key in seen_observations:
+                raise ValueError(f"{path}: duplicate observation identity {observation_key}")
+            seen_observations.add(observation_key)
             if observation_key not in requirement_keys:
                 raise ValueError(
                     f"observations do not resolve to requirements: "
@@ -854,7 +880,7 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
             if completed > now + CLOCK_SKEW_TOLERANCE:
                 raise ValueError(f"{path}: observations[{index}].completed_at is in the future")
             candidate_cut = _timestamp(fragment["candidate"].get("cut_at"))
-            if candidate_cut is None or completed < candidate_cut:
+            if candidate_cut is None or started < candidate_cut:
                 raise ValueError(
                     f"{path}: observations[{index}] predates the governed candidate cut and is invalidated"
                 )
