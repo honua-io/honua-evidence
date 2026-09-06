@@ -91,15 +91,15 @@ def load_inventory(path: Path) -> dict:
             raise ValueError(f"{prefix} is release-required but has no ledger client join")
         if entry["classification"] == "not-applicable" and clients:
             raise ValueError(f"{prefix} is not applicable but claims ledger clients")
+        key = (entry["format"], entry["tool"])
+        if key in seen:
+            raise ValueError(f"{prefix} duplicates inventory identity {key}")
+        seen.add(key)
         for client in clients:
             client_key = (entry["format"], client)
             if client_key in seen_clients:
                 raise ValueError(f"{prefix} has ambiguous ledger client {client_key}")
             seen_clients.add(client_key)
-        key = (entry["format"], entry["tool"])
-        if key in seen:
-            raise ValueError(f"{prefix} duplicates inventory identity {key}")
-        seen.add(key)
     return document
 
 

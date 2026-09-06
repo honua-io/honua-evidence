@@ -58,6 +58,24 @@ class CloudNativeInventoryTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "no ledger client join"):
             validator.load_inventory(self.write_invalid(invalid))
 
+    def test_duplicate_json_fields_are_rejected(self):
+        path = self.write_invalid(self.inventory)
+        path.write_text(path.read_text().replace('"schema":', '"schema": "ignored", "schema":', 1))
+        with self.assertRaisesRegex(ValueError, "duplicate JSON field"):
+            validator.load_inventory(path)
+
+    def test_inventory_url_must_bind_its_declared_revision(self):
+        invalid = copy.deepcopy(self.inventory)
+        invalid["source"]["inventory_source_revision"] = "f" * 40
+        with self.assertRaisesRegex(ValueError, "URL must match"):
+            validator.load_inventory(self.write_invalid(invalid))
+
+    def test_two_tools_cannot_claim_the_same_format_client(self):
+        invalid = copy.deepcopy(self.inventory)
+        invalid["entries"][1]["ledger_clients"] = invalid["entries"][0]["ledger_clients"]
+        with self.assertRaisesRegex(ValueError, "ambiguous ledger client"):
+            validator.load_inventory(self.write_invalid(invalid))
+
     def test_summary_joins_format_cells_and_reports_provenance(self):
         item = next(
             entry for entry in self.inventory["entries"]
@@ -80,6 +98,27 @@ class CloudNativeInventoryTests(unittest.TestCase):
         self.assertEqual(1, joined["required"])
         self.assertEqual(1, joined["passed"])
         self.assertEqual(1, joined["provenance_complete"])
+        self.assertEqual("pass", summary["entries"][0]["status"])
+        self.assertEqual(1, summary["passing_required_tools"])
+
+        # A required consumer absent from the denominator must remain visible.
+        missing = aggregator._cloud_native_inventory_summary(
+            {"cells": []}, {**self.inventory, "entries": [item]},
+        )
+        self.assertEqual(1, missing["required_tools"])
+        self.assertEqual(1, missing["missing_required_tools"])
+        self.assertEqual(0, missing["passing_required_tools"])
+        self.assertEqual("missing", missing["entries"][0]["status"])
+
+        for result in ("skip", "not-addressable", "fail"):
+            with self.subTest(result=result):
+                ledger["cells"][0]["result"] = result
+                report = aggregator._cloud_native_inventory_summary(
+                    ledger, {**self.inventory, "entries": [item]},
+                )
+                self.assertEqual("non-passing", report["entries"][0]["status"])
+                self.assertEqual(0, report["passing_required_tools"])
+                self.assertEqual(int(result == "fail"), report["entries"][0]["ledger"]["provenance_complete"])
 
     def test_required_scenario_depth_facets_are_published_even_at_zero(self):
         ledger = {

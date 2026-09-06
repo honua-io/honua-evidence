@@ -708,6 +708,8 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
     now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
     candidate_id = _candidate_identity(candidate)
     requirement_by_key = {_governed_identity(requirement): requirement for requirement in requirements}
+    if len(requirement_by_key) != len(requirements):
+        raise ValueError("duplicate requirement identity")
     requirement_keys = set(requirement_by_key)
     by_producer_key: dict[
         tuple[str, tuple[object, ...]],
