@@ -683,6 +683,89 @@ class CertificationAggregationTests(unittest.TestCase):
         ledger = module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, False, [requirement(addressable=False)], [], CANDIDATE)
         self.assertEqual(0, module.build_summary(ledger)["supported_operation_coverage"]["required"])
 
+    def test_client_operation_needs_every_addressable_target_to_pass(self):
+        local = requirement()
+        cloud = {**local, "deployment_target": "aws-ecs"}
+        ledger = module.build_ledger(
+            "rev-1", REQUIREMENTS_SOURCE_SHA, True, [local, cloud],
+            [(Path("local.json"), fragment("server", [observation(local)]))], CANDIDATE,
+        )
+        self.assertEqual(
+            {"required_operations": 1, "passed_operations": 0},
+            module.build_summary(ledger)["canonical_client_operation_depth"]["Rasterio"],
+        )
+
+    def test_failed_cell_retains_independent_passing_facet_verdicts(self):
+        req = requirement()
+        ledger = module.build_ledger(
+            "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+            [(Path("failed.json"), fragment("server", [observation(req, result="fail")]))], CANDIDATE,
+        )
+        report = module.build_summary(ledger)
+        self.assertEqual(1, report["overall"]["failed"])
+        self.assertEqual(1, report["scenario_facets"]["positive"]["failed"])
+        self.assertEqual(0, report["scenario_facets"]["positive"]["passed"])
+        self.assertEqual(1, report["scenario_facets"]["range-efficiency"]["passed"])
+        self.assertEqual(0, report["scenario_facets"]["range-efficiency"]["failed"])
+
+    def test_all_six_producer_families_join_executed_receipts_without_losing_identity(self):
+        requirements, fragments = [], []
+        for producer, client in (
+            ("cite", "CITE"), ("esri", "ArcGIS-REST"), ("sdk", "sdk-dotnet"),
+            ("grpc", "grpc-dotnet"), ("mcp", "mcp"), ("cloud-native", "Rasterio"),
+        ):
+            req = requirement(client)
+            requirements.append(req)
+            fragments.append((Path(f"{producer}.json"), fragment(producer, [observation(req)])))
+        ledger = module.build_ledger("six-producers", REQUIREMENTS_SOURCE_SHA, True, requirements, fragments, CANDIDATE)
+        self.assertEqual(6, len(ledger["cells"]))
+        for cell, (path, source) in zip(ledger["cells"], fragments):
+            with self.subTest(producer=path.stem):
+                self.assertEqual("pass", cell["result"])
+                for field in ("canonical_client", "source_sha", "producer_source_sha", "image_digest",
+                              "fixture_revision", "evidence_digest", "evidence_receipt"):
+                    self.assertEqual(source["observations"][0][field], cell[field])
+
+    def test_duplicate_rows_in_one_fragment_are_rejected_even_when_identical(self):
+        req = requirement()
+        for second in (observation(req), observation(req, result="fail")):
+            with self.subTest(result=second["result"]):
+                with self.assertRaisesRegex(ValueError, "duplicate observation identity"):
+                    module.build_ledger(
+                        "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+                        [(Path("duplicate.json"), fragment("server", [observation(req), second]))], CANDIDATE,
+                    )
+
+    def test_in_memory_duplicate_requirements_are_rejected(self):
+        req = requirement()
+        with self.assertRaisesRegex(ValueError, "duplicate requirement identity"):
+            module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, True, [req, req], [], CANDIDATE)
+
+    def test_duplicate_json_fields_cannot_override_policy(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "requirements.json"
+            path.write_text('{"complete": false, "complete": true}')
+            with self.assertRaisesRegex(ValueError, "duplicate JSON"):
+                module.load_requirements(path)
+
+    def test_execution_starting_before_cut_is_invalid_even_if_it_finishes_after(self):
+        req = requirement()
+        obs = observation(req)
+        obs["started_at"] = "2026-08-20T08:59:59Z"
+        obs["evidence_receipt"]["identity"]["started_at"] = obs["started_at"]
+        digest = "sha256:" + hashlib.sha256(
+            json.dumps(obs["evidence_receipt"], sort_keys=True, separators=(",", ":")).encode()
+        ).hexdigest()
+        obs["evidence_digest"] = digest
+        obs["evidence_uri"] = "https://evidence.honua.io/data/sha256/" + digest[7:]
+        for facet in obs["facet_results"].values():
+            facet["evidence_digest"] = digest
+        with self.assertRaisesRegex(ValueError, "predates the governed candidate cut"):
+            module.build_ledger(
+                "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+                [(Path("straddles-cut.json"), fragment("server", [obs]))], CANDIDATE,
+            )
+
     def test_observation_cannot_override_non_addressable_policy(self):
         req = requirement(addressable=False)
         fragments = [(Path("producer.json"), fragment("server", [observation(req, result="pass")]))]
@@ -801,6 +884,26 @@ class CertificationAggregationTests(unittest.TestCase):
                 [(Path("late.json"), doc)],
                 CANDIDATE,
                 now=datetime(2026, 8, 20, 10, 30, tzinfo=timezone.utc),
+            )
+
+    def test_observation_before_governed_candidate_cut_is_invalidated(self):
+        req = requirement()
+        stale = observation(req, completed="2026-08-20T08:59:59Z")
+        stale["started_at"] = "2026-08-20T08:55:00Z"
+        stale["evidence_receipt"]["identity"]["started_at"] = stale["started_at"]
+        stale["evidence_receipt"]["identity"]["completed_at"] = stale["completed_at"]
+        digest = "sha256:" + hashlib.sha256(
+            json.dumps(stale["evidence_receipt"], sort_keys=True, separators=(",", ":")).encode("utf-8")
+        ).hexdigest()
+        stale["evidence_digest"] = digest
+        stale["evidence_uri"] = "https://evidence.honua.io/data/sha256/" + digest[7:]
+        for facet in stale["facet_results"].values():
+            facet["evidence_digest"] = digest
+        with self.assertRaisesRegex(ValueError, "predates the governed candidate cut"):
+            module.build_ledger(
+                "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+                [(Path("pre-cut.json"), fragment("server", [stale]))], CANDIDATE,
+                now=datetime(2026, 8, 20, 10, 10, tzinfo=timezone.utc),
             )
 
     def test_two_producers_for_same_cell_are_rejected(self):
