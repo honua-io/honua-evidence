@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import importlib.util
 import json
+import re
 import tempfile
 import unittest
 from pathlib import Path
@@ -39,11 +41,36 @@ class CloudNativeInventoryTests(unittest.TestCase):
     def test_committed_inventory_is_revision_pinned_and_every_tool_is_governed(self):
         self.assertRegex(self.inventory["source"]["revision"], r"^[0-9a-f]{40}$")
         self.assertRegex(self.inventory["source"]["inventory_source_revision"], r"^[0-9a-f]{40}$")
-        self.assertGreater(len(self.inventory["entries"]), 40)
+        self.assertEqual(53, len(self.inventory["entries"]))
         for entry in self.inventory["entries"]:
             self.assertTrue(entry["owner"])
             self.assertTrue(entry["rationale"])
             self.assertIn(entry["classification"], validator.CLASSIFICATIONS)
+
+    def test_projection_contains_every_tool_in_the_independently_pinned_source(self):
+        source = ROOT / "tests/fixtures/protocol-certification/cloud-native-client-inventory.upstream.yaml"
+        self.assertEqual(
+            "a3533deb93348ea3f9d7f65b286cdbbf4c6ef7e857fa7d073723812631bfed75",
+            hashlib.sha256(source.read_bytes()).hexdigest(),
+        )
+        text = source.read_text()
+        self.assertIn(f"  revision: {self.inventory['source']['revision']}\n", text)
+        # Read only the flat format/tool roster from the frozen upstream YAML;
+        # do not derive the expected identities from our normalized inventory.
+        expected = set()
+        current_format, in_tools = None, False
+        for line in text.split("\nformats:\n", 1)[1].splitlines():
+            format_match = re.fullmatch(r"  ([a-z0-9-]+):", line)
+            if format_match:
+                current_format, in_tools = format_match[1], False
+            elif line == "    tools:":
+                in_tools = True
+            elif in_tools:
+                tool_match = re.fullmatch(r"      ([^:]+): [a-z-]+", line)
+                if tool_match:
+                    expected.add((current_format, tool_match[1]))
+        self.assertEqual(53, len(expected))
+        self.assertEqual(expected, {(entry["format"], entry["tool"]) for entry in self.inventory["entries"]})
 
     def test_duplicate_format_tool_identity_is_rejected(self):
         invalid = copy.deepcopy(self.inventory)
