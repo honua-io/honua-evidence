@@ -708,6 +708,24 @@ class CertificationAggregationTests(unittest.TestCase):
         self.assertEqual(1, report["scenario_facets"]["range-efficiency"]["passed"])
         self.assertEqual(0, report["scenario_facets"]["range-efficiency"]["failed"])
 
+    def test_all_six_producer_families_join_executed_receipts_without_losing_identity(self):
+        requirements, fragments = [], []
+        for producer, client in (
+            ("cite", "CITE"), ("esri", "ArcGIS-REST"), ("sdk", "sdk-dotnet"),
+            ("grpc", "grpc-dotnet"), ("mcp", "mcp"), ("cloud-native", "Rasterio"),
+        ):
+            req = requirement(client)
+            requirements.append(req)
+            fragments.append((Path(f"{producer}.json"), fragment(producer, [observation(req)])))
+        ledger = module.build_ledger("six-producers", REQUIREMENTS_SOURCE_SHA, True, requirements, fragments, CANDIDATE)
+        self.assertEqual(6, len(ledger["cells"]))
+        for cell, (path, source) in zip(ledger["cells"], fragments):
+            with self.subTest(producer=path.stem):
+                self.assertEqual("pass", cell["result"])
+                for field in ("canonical_client", "source_sha", "producer_source_sha", "image_digest",
+                              "fixture_revision", "evidence_digest", "evidence_receipt"):
+                    self.assertEqual(source["observations"][0][field], cell[field])
+
     def test_duplicate_rows_in_one_fragment_are_rejected_even_when_identical(self):
         req = requirement()
         for second in (observation(req), observation(req, result="fail")):

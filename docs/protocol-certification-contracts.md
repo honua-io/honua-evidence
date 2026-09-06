@@ -169,16 +169,49 @@ summary joins those identities only to the corresponding `format.<format>` cells
 their pass/fail/skip/not-addressable and complete-provenance counts. A fixture validator or
 supporting tool never substitutes for required API consumption.
 
+Each supported required tool also has a status: `missing` when its ledger join is empty,
+`non-passing` when any joined cell is non-passing or lacks execution provenance, and `pass`
+only when all joined cells pass with provenance. Optional and roadmap tools report
+`not-required`. `required_tools`, `passing_required_tools`, and `missing_required_tools`
+keep absent consumers visible even when the requirements catalog omitted them. These
+diagnostics describe the pinned inventory; they do not promote optional tools or add
+release promises beyond the release-owned denominator.
+
+Scenario-depth counts use each receipt-bound assertion verdict: a failed positive assertion
+does not erase a passing metadata assertion in the same cell. A client operation counts as
+passing only when every addressable target/version row for that operation passes. One
+successful target cannot hide a skipped or failed target.
+
 `scripts/validate-cloud-native-inventory.py` rejects schema drift, duplicate format/tool rows,
 unpinned sources, unknown classifications, missing owners/rationales, and supported release-required
-tools without a ledger join. The PR workflow runs it before the test suite.
+tools without a ledger join, conflicting ledger-client aliases, duplicate JSON fields, and
+inventory URLs whose revision differs from the declared pin. The PR workflow runs it before
+the test suite. Duplicate observations within one fragment are rejected even if identical;
+separate historical fragments from the same producer still select the newest observation,
+with conflicting newest observations and multiple producer owners rejected.
 
 ## Freshness and invalidation
 
 The release-owned requirements catalog supplies each cell's tier and its fixture, contract, auth,
 client-version, and producer revision pins; the release manifest supplies the exact candidate SHA,
 image digest, and cut timestamp. Aggregation fails closed when any pin differs. An observation that
-completed before the governed cut is invalidated even when its source SHA and digest happen to
+started before the governed cut is invalidated even when its source SHA and digest happen to
 match, preventing pre-cut evidence from being relabeled as fresh release evidence. The summary
 retains per-tier counts so `honua-release` can apply its tier windows without weakening a cell
 verdict.
+
+The enforcement boundary for elapsed-time freshness is the release consumer,
+`honua-release/tools/check_protocol_certification.py`: nightly evidence expires after seven
+days, licensed evidence after 72 hours, and all candidate evidence must start at or after the
+manifest's `protocolCertification.candidateCutAt`. The consumer also checks producer source
+revisions and requirement context against the release-owned inputs. The manifest carries the
+candidate and immutable ledger binding; the evaluator owns the time windows. Aggregation
+preserves execution results and timestamps so a historical pass cannot be mistaken for a
+fresh release qualification. Rebuilding this summary never refreshes an execution timestamp.
+
+`tests/fixtures/protocol-certification/join-scenarios.json` is an authored ledger-contract
+fixture with independent expected counts in `tests/test_certification_join_fixture.py`.
+It exercises the CLI through stored receipt bytes and summary output, including all result
+states, six producer families, every required scenario axis, and source-host null image
+provenance. It is not live protocol or geospatial execution evidence. Exact-candidate
+qualification still uses receipts produced after the candidate is cut.

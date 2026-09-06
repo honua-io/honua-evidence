@@ -126,7 +126,7 @@ def _unique_json_object(pairs: list[tuple[str, object]]) -> dict[str, object]:
     value: dict[str, object] = {}
     for key, item in pairs:
         if key in value:
-            raise _DuplicateJsonKey(key)
+            raise _DuplicateJsonKey(f"duplicate JSON field {key!r}")
         value[key] = item
     return value
 
