@@ -1,0 +1,79 @@
+{
+  "schema": "honua.cloud-native-client-inventory/v1",
+  "source": {
+    "guide": "https://guide.cloudnativegeo.org/",
+    "repository": "https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide",
+    "revision": "0fabdf7c04ff135dd8160f39bf7a0fbb2f402f46",
+    "inventory_source": "https://github.com/honua-io/honua-release/blob/32b68decc54c0db88780b4e439ecbcb00504bb36/docs/cloud-native-client-inventory.yaml",
+    "inventory_source_revision": "32b68decc54c0db88780b4e439ecbcb00504bb36"
+  },
+  "governance": {
+    "owner": "honua-evidence",
+    "tracking_issue": "https://github.com/honua-io/honua-evidence/issues/22",
+    "classifications": ["not-applicable", "optional-consumer", "producer", "required-consumer", "supporting-tool"],
+    "release_required_classifications": ["producer", "required-consumer"]
+  },
+  "entries": [
+    {"format":"cog","tool":"Rasterio","classification":"required-consumer","maturity":"supported","rationale":"Canonical windowed COG reader; release evidence must prove range-efficient reads.","owner":"honua-io/honua-server#3377","ledger_clients":["Rasterio"]},
+    {"format":"cog","tool":"GDAL","classification":"required-consumer","maturity":"supported","rationale":"Canonical cross-language COG reader and metadata inspector.","owner":"honua-io/honua-server#3377","ledger_clients":["GDAL"]},
+    {"format":"cog","tool":"rio-cogeo","classification":"producer","maturity":"supported","rationale":"Validates produced COG structure; it does not substitute for API readability.","owner":"honua-io/honua-server#3377","ledger_clients":["rio-cogeo"]},
+    {"format":"cog","tool":"rio-xarray","classification":"optional-consumer","maturity":"supported","rationale":"Useful xarray integration, but Rasterio and GDAL define the blocking denominator.","owner":"honua-io/honua-server#3377","ledger_clients":[]},
+    {"format":"cog","tool":"R-stars","classification":"optional-consumer","maturity":"supported","rationale":"Distinct R workflow retained for breadth after the required readers pass.","owner":"honua-io/honua-server#3377","ledger_clients":[]},
+    {"format":"cog","tool":"R-terra","classification":"optional-consumer","maturity":"supported","rationale":"Distinct R workflow retained for breadth after the required readers pass.","owner":"honua-io/honua-server#3377","ledger_clients":[]},
+
+    {"format":"hdf5-netcdf","tool":"h5stat","classification":"required-consumer","maturity":"supported","rationale":"Canonical structural inspection is required for produced HDF5/NetCDF artifacts.","owner":"honua-io/honua-server#3377","ledger_clients":["h5stat"]},
+    {"format":"hdf5-netcdf","tool":"h5dump","classification":"producer","maturity":"supported","rationale":"Validates serialized metadata and values emitted by the producer.","owner":"honua-io/honua-server#3377","ledger_clients":["h5dump"]},
+    {"format":"hdf5-netcdf","tool":"h5repack","classification":"producer","maturity":"supported","rationale":"Checks that emitted files survive a canonical HDF5 rewrite.","owner":"honua-io/honua-server#3377","ledger_clients":["h5repack"]},
+    {"format":"hdf5-netcdf","tool":"h5py","classification":"required-consumer","maturity":"supported","rationale":"Canonical Python HDF5 consumer for metadata and array reads.","owner":"honua-io/honua-server#3377","ledger_clients":["h5py"]},
+    {"format":"hdf5-netcdf","tool":"xarray","classification":"required-consumer","maturity":"supported","rationale":"Canonical labeled multidimensional-array workflow.","owner":"honua-io/honua-server#3377","ledger_clients":["xarray"]},
+    {"format":"hdf5-netcdf","tool":"fsspec","classification":"supporting-tool","maturity":"supported","rationale":"Transport abstraction supports consumers but is not an independent HDF5 assertion.","owner":"honua-io/honua-server#3377","ledger_clients":["fsspec"]},
+    {"format":"hdf5-netcdf","tool":"ROS3","classification":"optional-consumer","maturity":"supported","rationale":"Optional remote HDF5 transport with environment-specific availability.","owner":"honua-io/honua-server#3377","ledger_clients":[]},
+
+    {"format":"zarr","tool":"zarr","classification":"required-consumer","maturity":"supported","rationale":"Reference Zarr implementation defines the blocking array-read path.","owner":"honua-io/honua-server#3377","ledger_clients":["zarr"]},
+    {"format":"zarr","tool":"xarray","classification":"required-consumer","maturity":"supported","rationale":"Canonical labeled-array consumer must open the governed store.","owner":"honua-io/honua-server#3377","ledger_clients":["xarray"]},
+    {"format":"zarr","tool":"fsspec","classification":"required-consumer","maturity":"supported","rationale":"Required object-store access path for governed Zarr fixtures.","owner":"honua-io/honua-server#3377","ledger_clients":["fsspec"]},
+    {"format":"zarr","tool":"Dask","classification":"required-consumer","maturity":"supported","rationale":"Required lazy/chunked execution path catches store and chunk-layout defects.","owner":"honua-io/honua-server#3377","ledger_clients":["Dask"]},
+    {"format":"zarr","tool":"s3fs","classification":"supporting-tool","maturity":"supported","rationale":"S3 transport supports consumers but is not a separate format verdict.","owner":"honua-io/honua-server#3377","ledger_clients":[]},
+    {"format":"zarr","tool":"adlfs","classification":"optional-consumer","maturity":"supported","rationale":"Azure transport is useful breadth outside the first release denominator.","owner":"honua-io/honua-server#3377","ledger_clients":[]},
+    {"format":"zarr","tool":"Planetary-Computer","classification":"optional-consumer","maturity":"supported","rationale":"External catalog workflow is informative but not owned release infrastructure.","owner":"honua-io/honua-server#3377","ledger_clients":[]},
+
+    {"format":"kerchunk","tool":"kerchunk","classification":"not-applicable","maturity":"roadmap","rationale":"Kerchunk serving is roadmap and cannot count toward the supported denominator.","owner":"honua-io/honua-server#3378","ledger_clients":[]},
+    {"format":"kerchunk","tool":"fsspec-reference-filesystem","classification":"not-applicable","maturity":"roadmap","rationale":"Reference-filesystem consumption waits for the roadmap implementation.","owner":"honua-io/honua-server#3378","ledger_clients":[]},
+    {"format":"kerchunk","tool":"xarray","classification":"not-applicable","maturity":"roadmap","rationale":"The xarray kerchunk path is not addressable until serving is implemented.","owner":"honua-io/honua-server#3378","ledger_clients":[]},
+    {"format":"kerchunk","tool":"h5py","classification":"supporting-tool","maturity":"roadmap","rationale":"Input inspection supports future reference generation, not current API proof.","owner":"honua-io/honua-server#3378","ledger_clients":[]},
+    {"format":"kerchunk","tool":"s3fs","classification":"supporting-tool","maturity":"roadmap","rationale":"Object-store transport supports the future lane without proving it.","owner":"honua-io/honua-server#3378","ledger_clients":[]},
+    {"format":"kerchunk","tool":"Dask","classification":"optional-consumer","maturity":"roadmap","rationale":"Lazy execution is post-implementation breadth, not a current requirement.","owner":"honua-io/honua-server#3378","ledger_clients":[]},
+    {"format":"kerchunk","tool":"imagecodecs","classification":"supporting-tool","maturity":"roadmap","rationale":"Codec support is an implementation dependency rather than a consumer verdict.","owner":"honua-io/honua-server#3378","ledger_clients":[]},
+
+    {"format":"copc","tool":"PDAL-CLI","classification":"not-applicable","maturity":"roadmap","rationale":"COPC API serving is roadmap; CLI consumption cannot count yet.","owner":"honua-io/honua-server#3289","ledger_clients":[]},
+    {"format":"copc","tool":"PDAL-Python","classification":"not-applicable","maturity":"roadmap","rationale":"COPC API serving is roadmap; Python consumption cannot count yet.","owner":"honua-io/honua-server#3289","ledger_clients":[]},
+    {"format":"copc","tool":"readers.las","classification":"supporting-tool","maturity":"roadmap","rationale":"LAS input support is a future producer prerequisite, not COPC API evidence.","owner":"honua-io/honua-server#2442","ledger_clients":[]},
+    {"format":"copc","tool":"writers.copc","classification":"not-applicable","maturity":"roadmap","rationale":"The roadmap producer is not activated in the current release denominator.","owner":"honua-io/honua-server#3289","ledger_clients":[]},
+    {"format":"copc","tool":"readers.copc","classification":"not-applicable","maturity":"roadmap","rationale":"The roadmap reader is not addressable through a supported Honua operation.","owner":"honua-io/honua-server#3290","ledger_clients":[]},
+    {"format":"copc","tool":"filters.stats","classification":"supporting-tool","maturity":"roadmap","rationale":"Statistics support future validation but is not an independent consumer.","owner":"honua-io/honua-server#2442","ledger_clients":[]},
+
+    {"format":"geoparquet","tool":"GeoPandas","classification":"required-consumer","maturity":"supported","rationale":"Canonical dataframe workflow must read produced GeoParquet through the API.","owner":"honua-io/honua-server#3377","ledger_clients":["GeoPandas"]},
+    {"format":"geoparquet","tool":"PyArrow","classification":"required-consumer","maturity":"supported","rationale":"Canonical Arrow metadata and columnar-read implementation.","owner":"honua-io/honua-server#3377","ledger_clients":["PyArrow"]},
+    {"format":"geoparquet","tool":"GDAL","classification":"required-consumer","maturity":"supported","rationale":"Cross-language reader verifies interoperability beyond Python dataframes.","owner":"honua-io/honua-server#3377","ledger_clients":["GDAL"]},
+    {"format":"geoparquet","tool":"fsspec","classification":"supporting-tool","maturity":"supported","rationale":"Remote I/O supports the consumers but does not independently validate GeoParquet.","owner":"honua-io/honua-server#3377","ledger_clients":["fsspec"]},
+
+    {"format":"flatgeobuf","tool":"GDAL","classification":"required-consumer","maturity":"supported","rationale":"Canonical native reader for FlatGeobuf interoperability.","owner":"honua-io/honua-server#3377","ledger_clients":["GDAL"]},
+    {"format":"flatgeobuf","tool":"GeoPandas","classification":"required-consumer","maturity":"supported","rationale":"Canonical analyst dataframe workflow.","owner":"honua-io/honua-server#3377","ledger_clients":["GeoPandas"]},
+    {"format":"flatgeobuf","tool":"Pyogrio","classification":"required-consumer","maturity":"supported","rationale":"Required Python vector I/O engine for range and feature reads.","owner":"honua-io/honua-server#3377","ledger_clients":["Pyogrio"]},
+    {"format":"flatgeobuf","tool":"Fiona","classification":"optional-consumer","maturity":"supported","rationale":"Alternative Python vector stack retained for breadth.","owner":"honua-io/honua-server#3377","ledger_clients":[]},
+    {"format":"flatgeobuf","tool":"flatgeobuf-js","classification":"required-consumer","maturity":"supported","rationale":"Required browser/runtime implementation verifies JavaScript consumption.","owner":"honua-io/honua-server#3377","ledger_clients":["flatgeobuf-js"]},
+    {"format":"flatgeobuf","tool":"Leaflet","classification":"optional-consumer","maturity":"supported","rationale":"Viewer integration is useful breadth after the format readers pass.","owner":"honua-io/honua-server#3377","ledger_clients":[]},
+
+    {"format":"pmtiles","tool":"pmtiles-python-reader","classification":"required-consumer","maturity":"supported","rationale":"Required non-browser PMTiles reader verifies indexed range access.","owner":"honua-io/honua-server#3377","ledger_clients":["pmtiles"]},
+    {"format":"pmtiles","tool":"PMTiles-browser-viewer","classification":"required-consumer","maturity":"supported","rationale":"Required browser viewer proves customer-visible tile consumption.","owner":"honua-io/honua-server#3377","ledger_clients":["PMTiles-browser-viewer"]},
+    {"format":"pmtiles","tool":"Tippecanoe","classification":"producer","maturity":"supported","rationale":"Canonical tile producer validates generated archive compatibility.","owner":"honua-io/honua-server#3377","ledger_clients":["Tippecanoe"]},
+    {"format":"pmtiles","tool":"mapbox-vector-tile","classification":"supporting-tool","maturity":"supported","rationale":"Payload decoding supports assertions but is not an archive consumer.","owner":"honua-io/honua-server#3377","ledger_clients":[]},
+
+    {"format":"stac-zarr","tool":"PySTAC-Client","classification":"not-applicable","maturity":"roadmap","rationale":"Live STAC-to-Zarr assets are not implemented and must not certify.","owner":"honua-io/honua-server#3383","ledger_clients":[]},
+    {"format":"stac-zarr","tool":"xarray","classification":"not-applicable","maturity":"roadmap","rationale":"The xarray asset path is not addressable until live Zarr assets exist.","owner":"honua-io/honua-server#3383","ledger_clients":[]},
+    {"format":"stac-zarr","tool":"rustac","classification":"optional-consumer","maturity":"roadmap","rationale":"Alternative STAC client is post-implementation breadth.","owner":"honua-io/honua-server#3383","ledger_clients":[]},
+    {"format":"stac-zarr","tool":"stac-geoparquet","classification":"optional-consumer","maturity":"roadmap","rationale":"Catalog export workflow is outside the initial live asset path.","owner":"honua-io/honua-server#3383","ledger_clients":[]},
+    {"format":"stac-zarr","tool":"kerchunk","classification":"not-applicable","maturity":"roadmap","rationale":"Kerchunk-backed STAC assets depend on the separate roadmap implementation.","owner":"honua-io/honua-server#3383","ledger_clients":[]},
+    {"format":"stac-zarr","tool":"fsspec","classification":"supporting-tool","maturity":"roadmap","rationale":"Transport support alone cannot prove an unimplemented STAC-Zarr path.","owner":"honua-io/honua-server#3383","ledger_clients":[]}
+  ]
+}

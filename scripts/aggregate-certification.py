@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import base64
 import hashlib
+import importlib.util
 import json
 import math
 import re
@@ -38,6 +39,9 @@ OBSERVATION_FIELDS = (
 )
 CLOCK_SKEW_TOLERANCE = timedelta(minutes=5)
 OBSERVATION_RESULTS = frozenset({"pass", "fail", "skip"})
+REQUIRED_SCENARIO_DEPTH_FACETS = (
+    "positive", "negative", "auth", "pagination", "limit", "metadata", "range-efficiency",
+)
 ENTITLEMENT_POLICIES = {
     "honua-pro-feature-subscriptions-v1": ("licensed-release", "api-key-protected-v1"),
     "esri-arcgis-pro-arcpy-v1": ("windows-licensed", "anonymous-and-protected-v1"),
@@ -122,7 +126,7 @@ def _unique_json_object(pairs: list[tuple[str, object]]) -> dict[str, object]:
     value: dict[str, object] = {}
     for key, item in pairs:
         if key in value:
-            raise _DuplicateJsonKey(key)
+            raise _DuplicateJsonKey(f"duplicate JSON field {key!r}")
         value[key] = item
     return value
 
@@ -388,20 +392,78 @@ def _dimension_counts(cells: list[dict], field: str) -> dict[str, dict[str, int]
     return {key: _result_counts(grouped[key]) for key in sorted(grouped)}
 
 
-def build_summary(ledger: dict) -> dict:
+def _cloud_native_inventory_summary(ledger: dict, inventory: dict) -> dict:
+    cells = ledger["cells"]
+    counts: dict[str, int] = defaultdict(int)
+    entries: list[dict] = []
+    for item in inventory["entries"]:
+        counts[item["classification"]] += 1
+        joined = [
+            cell for cell in cells
+            if cell["capability_key"] == f"format.{item['format']}"
+            and cell["canonical_client"] in item["ledger_clients"]
+        ]
+        provenance_complete = sum(
+            cell.get("result") in {"pass", "fail"}
+            and isinstance(cell.get("source_sha"), str)
+            and isinstance(cell.get("producer_source_sha"), str)
+            and (cell.get("image_digest") is not None or cell["deployment_target"] == "source-test-host")
+            and isinstance(cell.get("fixture_revision"), str)
+            for cell in joined
+        )
+        entries.append({
+            "format": item["format"],
+            "tool": item["tool"],
+            "classification": item["classification"],
+            "maturity": item["maturity"],
+            "owner": item["owner"],
+            "rationale": item["rationale"],
+            "ledger_clients": item["ledger_clients"],
+            "ledger": {
+                **_result_counts(joined),
+                "provenance_complete": provenance_complete,
+            },
+            "required": (
+                item["maturity"] == "supported"
+                and item["classification"] in inventory["governance"]["release_required_classifications"]
+            ),
+        })
+        entries[-1]["status"] = (
+            "not-required" if not entries[-1]["required"] else
+            "missing" if not joined else
+            "pass" if all(cell["result"] == "pass" for cell in joined)
+            and provenance_complete == len(joined) else "non-passing"
+        )
+    return {
+        "guide_revision": inventory["source"]["revision"],
+        "inventory_source": inventory["source"]["inventory_source"],
+        "inventory_source_revision": inventory["source"]["inventory_source_revision"],
+        "counts_by_classification": {key: counts[key] for key in sorted(counts)},
+        "required_tools": sum(entry["required"] for entry in entries),
+        "passing_required_tools": sum(entry["status"] == "pass" for entry in entries),
+        "missing_required_tools": sum(entry["status"] == "missing" for entry in entries),
+        "entries": entries,
+    }
+
+
+def build_summary(ledger: dict, cloud_native_inventory: dict | None = None) -> dict:
     cells = ledger["cells"]
     facet_rows: dict[str, list[dict]] = defaultdict(list)
     client_operations: dict[str, set[tuple[str, str]]] = defaultdict(set)
-    client_passed_operations: dict[str, set[tuple[str, str]]] = defaultdict(set)
+    client_operation_rows: dict[tuple[str, str, str], list[dict]] = defaultdict(list)
     supported_groups: dict[tuple[str, str, str], list[dict]] = defaultdict(list)
 
     for cell in cells:
         for facet in cell["scenario_facets"]:
-            facet_rows[facet].append(cell)
+            # A failing cell can still contain passing assertions. Count the
+            # receipt-bound assertion verdict, not the enclosing cell verdict.
+            result = cell["result"]
+            if result in {"pass", "fail"}:
+                result = (cell.get("facet_results") or {}).get(facet, {}).get("result", "skip")
+            facet_rows[facet].append({**cell, "result": result})
         operation = (cell["surface"], cell["operation"])
         client_operations[cell["canonical_client"]].add(operation)
-        if cell["result"] == "pass":
-            client_passed_operations[cell["canonical_client"]].add(operation)
+        client_operation_rows[(cell["canonical_client"], *operation)].append(cell)
         if cell["maturity"] in {"supported", "deprecated"}:
             supported_groups[(cell["surface"], cell["operation"], cell["deployment_target"])].append(cell)
 
@@ -415,7 +477,7 @@ def build_summary(ledger: dict) -> dict:
     )
     supported_required = len(addressable_supported_groups)
 
-    return {
+    summary = {
         "schema": "honua.protocol-certification-summary/v1",
         "requirements_revision": ledger["requirements_revision"],
         "requirements_source_revision": ledger["requirements_source_revision"],
@@ -428,7 +490,8 @@ def build_summary(ledger: dict) -> dict:
         "by_target": _dimension_counts(cells, "deployment_target"),
         "by_required_tier": _dimension_counts(cells, "required_tier"),
         "scenario_facets": {
-            facet: _result_counts(facet_rows[facet]) for facet in sorted(facet_rows)
+            facet: _result_counts(facet_rows[facet])
+            for facet in sorted(set(facet_rows) | set(REQUIRED_SCENARIO_DEPTH_FACETS))
         },
         "supported_operation_coverage": {
             "required": supported_required,
@@ -438,11 +501,30 @@ def build_summary(ledger: dict) -> dict:
         "canonical_client_operation_depth": {
             client: {
                 "required_operations": len(client_operations[client]),
-                "passed_operations": len(client_passed_operations[client]),
+                "passed_operations": sum(
+                    any(row["addressable_by_client"] for row in rows)
+                    and all(row["result"] == "pass" for row in rows if row["addressable_by_client"])
+                    for (owner, _, _), rows in client_operation_rows.items() if owner == client
+                ),
             }
             for client in sorted(client_operations)
         },
     }
+    if cloud_native_inventory is not None:
+        summary["cloud_native_inventory"] = _cloud_native_inventory_summary(
+            ledger, cloud_native_inventory
+        )
+    return summary
+
+
+def load_cloud_native_inventory(path: Path) -> dict:
+    validator = Path(__file__).with_name("validate-cloud-native-inventory.py")
+    spec = importlib.util.spec_from_file_location("validate_cloud_native_inventory", validator)
+    if spec is None or spec.loader is None:
+        raise ValueError(f"cannot load inventory validator from {validator}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module.load_inventory(path)
 
 
 def _timestamp(value: object) -> datetime | None:
@@ -456,7 +538,7 @@ def _timestamp(value: object) -> datetime | None:
 
 
 def _read_json(path: Path) -> dict:
-    value = json.loads(path.read_text(encoding="utf-8"))
+    value = json.loads(path.read_text(encoding="utf-8"), object_pairs_hook=_unique_json_object)
     if not isinstance(value, dict):
         raise ValueError(f"{path}: root must be an object")
     return value
@@ -626,6 +708,8 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
     now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
     candidate_id = _candidate_identity(candidate)
     requirement_by_key = {_governed_identity(requirement): requirement for requirement in requirements}
+    if len(requirement_by_key) != len(requirements):
+        raise ValueError("duplicate requirement identity")
     requirement_keys = set(requirement_by_key)
     by_producer_key: dict[
         tuple[str, tuple[object, ...]],
@@ -640,6 +724,7 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
         if generated > now + CLOCK_SKEW_TOLERANCE:
             raise ValueError(f"{path}: generated_at is in the future")
         producer = fragment["producer"]
+        seen_observations: set[tuple[object, ...]] = set()
         for index, observation in enumerate(fragment["observations"]):
             if not isinstance(observation, dict):
                 raise ValueError(f"{path}: observations[{index}] must be an object")
@@ -656,6 +741,9 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
             if "test_ids" in observation and not isinstance(requirement_test_ids, list):
                 raise ValueError(f"{path}: observations[{index}].test_ids must be an array")
             observation_key = _governed_identity(observation)
+            if observation_key in seen_observations:
+                raise ValueError(f"{path}: duplicate observation identity {observation_key}")
+            seen_observations.add(observation_key)
             if observation_key not in requirement_keys:
                 raise ValueError(
                     f"observations do not resolve to requirements: "
@@ -793,6 +881,11 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
                 raise ValueError(f"{path}: observations[{index}].completed_at is after fragment generation")
             if completed > now + CLOCK_SKEW_TOLERANCE:
                 raise ValueError(f"{path}: observations[{index}].completed_at is in the future")
+            candidate_cut = _timestamp(fragment["candidate"].get("cut_at"))
+            if candidate_cut is None or started < candidate_cut:
+                raise ValueError(
+                    f"{path}: observations[{index}] predates the governed candidate cut and is invalidated"
+                )
             composite = (producer, observation_key)
             by_producer_key.setdefault(composite, []).append((completed, path, observation))
 
@@ -890,6 +983,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--producers", default="data/producers/protocol-certification", type=Path)
     parser.add_argument("--output", default="data/protocol-certification.v1.json", type=Path)
     parser.add_argument("--summary", default="data/protocol-certification-summary.v1.json", type=Path)
+    parser.add_argument(
+        "--cloud-native-inventory",
+        default="config/cloud-native-client-inventory.v1.json",
+        type=Path,
+    )
     parser.add_argument("--candidate-source-sha", required=True)
     parser.add_argument("--candidate-image-digest", required=True)
     parser.add_argument("--candidate-cut-at", required=True)
@@ -915,7 +1013,8 @@ def main(argv: list[str] | None = None) -> int:
         receipt_path.write_bytes(receipt)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(ledger, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    summary = build_summary(ledger)
+    inventory = load_cloud_native_inventory(args.cloud_native_inventory)
+    summary = build_summary(ledger, inventory)
     args.summary.parent.mkdir(parents=True, exist_ok=True)
     args.summary.write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(f"wrote {args.output}: {len(ledger['cells'])} required cell(s), candidate {candidate['source_sha']}")

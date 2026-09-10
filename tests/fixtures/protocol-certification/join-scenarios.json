@@ -1,0 +1,23 @@
+{
+  "description": "Ledger arithmetic fixture, not a claim of live client qualification. Three passes, one failure, two missing observations, one non-addressable row across six producer families. The Rasterio operation has a passing local target and a missing cloud target, so its client operation is not passing.",
+  "facets": ["positive", "negative", "auth", "pagination", "limit", "metadata", "range-efficiency"],
+  "scenarios": [
+    {"producer":"cite", "sha_digit":"1", "client":"CITE", "surface":"ogc-api-features", "capability":"serve.ogc-api-features", "target":"local-docker", "tier":"nightly", "result":"pass"},
+    {"producer":"esri", "sha_digit":"2", "client":"ArcPy", "surface":"featureserver", "capability":"serve.featureserver", "target":"windows-licensed", "tier":"release", "result":"fail"},
+    {"producer":"sdk", "sha_digit":"3", "client":"sdk-dotnet", "surface":"rest", "capability":"serve.rest", "target":"source-test-host", "tier":"pr", "result":"pass"},
+    {"producer":"grpc", "sha_digit":"4", "client":"grpc-dotnet", "surface":"grpc", "capability":"serve.grpc", "target":"local-docker", "tier":"nightly", "result":"missing"},
+    {"producer":"mcp", "sha_digit":"5", "client":"mcp", "surface":"mcp", "capability":"serve.mcp", "target":"local-docker", "tier":"nightly", "result":"not-addressable"},
+    {"producer":"cloud-native", "sha_digit":"6", "client":"Rasterio", "surface":"cog", "capability":"format.cog", "target":"local-docker", "tier":"release", "result":"pass"},
+    {"producer":"cloud-native", "sha_digit":"6", "client":"Rasterio", "surface":"cog", "capability":"format.cog", "target":"aws-ecs", "tier":"release", "result":"missing"}
+  ],
+  "format_budget": {
+    "max_requests":4, "max_transferred_bytes":2048, "max_full_object_downloads":0,
+    "min_range_requests":1, "min_cache_hits":1, "max_coordinate_error":0.001,
+    "max_geometry_error":0.001, "required_metadata":["crs"], "expected_metadata":{"crs":"EPSG:4326"}
+  },
+  "format_observations": {
+    "requests":3, "transferred_bytes":1024, "full_object_downloads":0,
+    "range_requests":2, "cache_hits":1, "coordinate_error":0,
+    "geometry_error":0, "metadata_assertions":["crs"], "metadata_values":{"crs":"EPSG:4326"}
+  }
+}
