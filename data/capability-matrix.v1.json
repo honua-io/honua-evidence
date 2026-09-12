@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-09-11T22:19:56Z",
+  "generatedAt": "2026-09-12T00:30:58Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -29,52 +29,52 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-09-11T22:19:44Z",
-      "sourceVersion": "f27ab23be546@2026-09-11T22:18:59Z",
+      "fetchedAt": "2026-09-12T00:30:41Z",
+      "sourceVersion": "de1737aa369d@2026-09-12T00:30:21Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-11T22:19:44Z",
+      "observedAt": "2026-09-12T00:30:41Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-09-11T22:19:45Z",
-      "sourceVersion": "f27ab23be546@2026-09-11T22:18:59Z",
+      "fetchedAt": "2026-09-12T00:30:42Z",
+      "sourceVersion": "de1737aa369d@2026-09-12T00:30:21Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-11T22:19:45Z",
+      "observedAt": "2026-09-12T00:30:42Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-09-11T22:19:45Z",
+      "fetchedAt": "2026-09-12T00:30:42Z",
       "sourceVersion": "640535afe475@2026-08-29T20:03:17Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-11T22:19:45Z",
+      "observedAt": "2026-09-12T00:30:42Z",
       "ageDays": 0,
       "sourceAgeDays": 13,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-09-11T22:19:45Z",
+      "fetchedAt": "2026-09-12T00:30:43Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-11T22:19:45Z",
+      "observedAt": "2026-09-12T00:30:43Z",
       "ageDays": 0,
       "sourceAgeDays": 56,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-09-11T22:19:46Z",
+      "fetchedAt": "2026-09-12T00:30:43Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-11T22:19:46Z",
+      "observedAt": "2026-09-12T00:30:43Z",
       "ageDays": 0,
       "sourceAgeDays": 56,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-09-11T22:19:47Z",
+      "fetchedAt": "2026-09-12T00:30:45Z",
       "sourceVersion": "773c2574c39b@2026-09-11T09:45:57Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-11T09:45:57Z",
@@ -83,25 +83,25 @@
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-09-11T22:19:56Z",
+      "fetchedAt": "2026-09-12T00:30:58Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-11T22:19:56Z",
+      "observedAt": "2026-09-12T00:30:58Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-09-11T22:19:47Z",
+      "fetchedAt": "2026-09-12T00:30:45Z",
       "sourceVersion": "792046bdaf6e@2026-09-02T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-02T00:00:00Z",
-      "ageDays": 9,
-      "sourceAgeDays": 9,
+      "ageDays": 10,
+      "sourceAgeDays": 10,
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-09-11T22:19:47Z",
+      "fetchedAt": "2026-09-12T00:30:45Z",
       "sourceVersion": "53b506f1b0c4@2026-09-11T21:01:32Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-11T21:01:32Z",
@@ -6826,6 +6826,49 @@
           }
         ],
         "label": "cap/import"
+      }
+    },
+    {
+      "key": "jobs.durable-runtime",
+      "displayName": "Durable Job Runtime",
+      "category": "Jobs",
+      "edition": "Community",
+      "entryCount": 0,
+      "provingTestCount": 0,
+      "maturity": {},
+      "noSurface": {
+        "capability": "jobs.durable-runtime",
+        "category": "Jobs",
+        "edition": "Community",
+        "reasonCode": "ops-background-job",
+        "reason": "The durable job substrate is a background runtime behind the import, tile, geoprocessing and workflow routes rather than a route of its own; those routes are catalogued against their own capabilities. It is advertised as jobs.runner on the capability manifest and named by typed dependency-unavailable refusals, which is why it needs a key a client can resolve."
+      },
+      "cite": [],
+      "parity": [],
+      "esriAssess": [],
+      "interop": [],
+      "geobench": [],
+      "dr": [],
+      "liveCanary": [],
+      "sdks": {
+        "js": {
+          "status": "not-covered"
+        },
+        "dotnet": {
+          "status": "not-covered"
+        },
+        "python": {
+          "status": "not-covered"
+        }
+      },
+      "samples": [],
+      "openIssues": {
+        "count": 0,
+        "refs": [],
+        "categoryLevel": true,
+        "keyRefs": [],
+        "categoryRefs": [],
+        "label": "cap/jobs"
       }
     },
     {
@@ -14543,6 +14586,121 @@
       "esriAssess": [
         "vector-tiles"
       ],
+      "interop": [],
+      "geobench": [],
+      "dr": [],
+      "liveCanary": [],
+      "sdks": {
+        "js": {
+          "status": "not-covered"
+        },
+        "dotnet": {
+          "status": "not-covered"
+        },
+        "python": {
+          "status": "not-covered"
+        }
+      },
+      "samples": [],
+      "openIssues": {
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
+        "categoryLevel": true,
+        "keyRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
+        "label": "cap/serve"
+      }
+    },
+    {
+      "key": "serve.grpc",
+      "displayName": "gRPC (geospatial.v1)",
+      "category": "Serve",
+      "edition": "Community",
+      "entryCount": 0,
+      "provingTestCount": 0,
+      "maturity": {},
+      "noSurface": {
+        "capability": "serve.grpc",
+        "category": "Serve",
+        "edition": "Community",
+        "reasonCode": "non-http-transport",
+        "reason": "The geospatial.v1 services are served over native h2c gRPC on port 8081 and gRPC-Web on 8080. feature-catalog.json catalogues HTTP routes, so a protocol whose surface is a set of protobuf service methods has no entry there. This was the reason gRPC \u2014 alone among the 25 served protocols \u2014 had no capability key at all until #3607."
+      },
+      "cite": [],
+      "parity": [],
+      "esriAssess": [],
       "interop": [],
       "geobench": [],
       "dr": [],
