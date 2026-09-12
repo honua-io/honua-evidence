@@ -1,0 +1,200 @@
+{
+  "candidate": {
+    "configuration": {
+      "path": "platform-manifest.yaml",
+      "sha256": "sha256:8c71ca3c29d0a09676d579f918c1a2627556f257f7ac80454fe840ff7a6e3bec"
+    },
+    "imageDigest": "sha256:dd50cd81c057e37e73a6144572abdfc90d48de314d7625c54c4ef3b6eb65b0fd",
+    "platformRelease": "2026.1-rc.2",
+    "serverSha": "7ba422672e0c751843b17beb36e954a019cc19fb"
+  },
+  "candidateLockDigest": "sha256:8c71ca3c29d0a09676d579f918c1a2627556f257f7ac80454fe840ff7a6e3bec",
+  "completedAt": "2026-09-12T13:33:42.312Z",
+  "measurements": {
+    "rpoDefinition": "last accepted durable write to completion of the substrate backup set",
+    "rpoMs": 1449.701,
+    "rtoDefinition": "earliest primary-state destruction to the latest post-restart read through a runtime surface",
+    "rtoMs": 22423.471
+  },
+  "producer": {
+    "ref": "refs/heads/trunk",
+    "repository": "honua-io/honua-release",
+    "runUrl": "https://github.com/honua-io/honua-release/actions/runs/34696723880",
+    "workflow": ".github/workflows/dr-drill-local-docker.yml"
+  },
+  "schema": "honua.dr-drill-receipt/v2",
+  "scope": "full-platform",
+  "startedAt": "2026-09-12T13:32:52.440Z",
+  "status": "pass",
+  "substrates": {
+    "job-queue": {
+      "backup": {
+        "id": "job-queue.redis-slice.json",
+        "primaryStateDestroyed": true,
+        "restoredIntoCleanStore": true,
+        "sha256": "sha256:6b72eea9b89c8d2a041401615ecb4fca361840fd3569e2bd32ec2a81d5aba77f"
+      },
+      "restartRecovery": {
+        "instanceAfter": "redis-run:532b676e26841e8e84b16d9d08d4c402403cf902",
+        "instanceBefore": "redis-run:4244cf0f8ef1b709751df3b4b964acf64ee6e414",
+        "readAfterRestart": {
+          "count": 1,
+          "observedAt": "2026-09-12T13:33:41.466Z",
+          "runtimeSurface": "GET /rest/services/geoprocessing/GPServer/geometry.buffer/jobs/{jobId}",
+          "sha256": "sha256:28a1a662ea41e18b97fb38b95694025ab8f83966ddbb66ac911a65649e3d8a00",
+          "stateId": "gp-b9f145d6bcda403fa058c2d414911a9f"
+        },
+        "readyAt": "2026-09-12T13:33:29.764Z",
+        "stoppedAt": "2026-09-12T13:33:19.271Z",
+        "writtenBeforeRestart": {
+          "count": 1,
+          "observedAt": "2026-09-12T13:33:17.423Z",
+          "runtimeSurface": "GET /rest/services/geoprocessing/GPServer/geometry.buffer/jobs/{jobId}",
+          "sha256": "sha256:28a1a662ea41e18b97fb38b95694025ab8f83966ddbb66ac911a65649e3d8a00",
+          "stateId": "gp-b9f145d6bcda403fa058c2d414911a9f"
+        }
+      }
+    },
+    "object-storage": {
+      "backup": {
+        "id": "object-storage.tar",
+        "primaryStateDestroyed": true,
+        "restoredIntoCleanStore": true,
+        "sha256": "sha256:8c596cff1c73cdcc3ddec9f6d36b5f979ea091ad49b16f617d231afc52d5e53d"
+      },
+      "restartRecovery": {
+        "instanceAfter": "server-container:42b35cbcd605cd83f626433af305f1c52b1ece884bb862c237e211a64806ac51",
+        "instanceBefore": "server-container:2b2631635183f5f17cc73f6da757431467cef0ef65dc706e8b7089b88fd2fcc7",
+        "readAfterRestart": {
+          "count": 1,
+          "observedAt": "2026-09-12T13:33:41.487Z",
+          "runtimeSurface": "GET /rest/services/dr-sentinel/FeatureServer/1/3/attachments/1",
+          "sha256": "sha256:e5ee0f4caf505510521da65be7d371132abe9a3b0df8042c7c1c59a6a02f14f0",
+          "stateId": "attachment-1"
+        },
+        "readyAt": "2026-09-12T13:33:41.224Z",
+        "stoppedAt": "2026-09-12T13:33:19.271Z",
+        "writtenBeforeRestart": {
+          "count": 1,
+          "observedAt": "2026-09-12T13:33:17.428Z",
+          "runtimeSurface": "GET /rest/services/dr-sentinel/FeatureServer/1/3/attachments/1",
+          "sha256": "sha256:e5ee0f4caf505510521da65be7d371132abe9a3b0df8042c7c1c59a6a02f14f0",
+          "stateId": "attachment-1"
+        }
+      }
+    },
+    "postgresql": {
+      "backup": {
+        "id": "postgresql.dump",
+        "primaryStateDestroyed": true,
+        "restoredIntoCleanStore": true,
+        "sha256": "sha256:56b602d51b4165cafdbe4dce90ac384852798d101a426b55f5ab59fe35d57b0f"
+      },
+      "restartRecovery": {
+        "instanceAfter": "postgresql-cluster:7684641387713417254",
+        "instanceBefore": "postgresql-cluster:7684641303856533541",
+        "readAfterRestart": {
+          "count": 2,
+          "observedAt": "2026-09-12T13:33:41.521Z",
+          "runtimeSurface": "GET /ogc/features/collections/dr-sentinel/items",
+          "sha256": "sha256:787cc128ef3bb26182c84f34944a765de08890d6e916b15cd5b992079a389b0c",
+          "stateId": "dr-sentinel-features"
+        },
+        "readyAt": "2026-09-12T13:33:28.995Z",
+        "stoppedAt": "2026-09-12T13:33:19.271Z",
+        "writtenBeforeRestart": {
+          "count": 2,
+          "observedAt": "2026-09-12T13:33:17.437Z",
+          "runtimeSurface": "GET /ogc/features/collections/dr-sentinel/items",
+          "sha256": "sha256:787cc128ef3bb26182c84f34944a765de08890d6e916b15cd5b992079a389b0c",
+          "stateId": "dr-sentinel-features"
+        }
+      }
+    },
+    "redis": {
+      "backup": {
+        "id": "redis.redis-slice.json",
+        "primaryStateDestroyed": true,
+        "restoredIntoCleanStore": true,
+        "sha256": "sha256:5c78fd945d4c859dbeec5955026793528bbe570d7db268c460638617954f8446"
+      },
+      "restartRecovery": {
+        "instanceAfter": "redis-run:532b676e26841e8e84b16d9d08d4c402403cf902",
+        "instanceBefore": "redis-run:4244cf0f8ef1b709751df3b4b964acf64ee6e414",
+        "readAfterRestart": {
+          "count": 1,
+          "observedAt": "2026-09-12T13:33:41.525Z",
+          "runtimeSurface": "GET /api/v1/admin/feature-events/replay",
+          "sha256": "sha256:c903db8585b5b75cf4763ab94e3287b32408a2e6e6bee5c59538df75d6916007",
+          "stateId": "feature-change-event-store"
+        },
+        "readyAt": "2026-09-12T13:33:29.761Z",
+        "stoppedAt": "2026-09-12T13:33:19.271Z",
+        "writtenBeforeRestart": {
+          "count": 1,
+          "observedAt": "2026-09-12T13:33:17.439Z",
+          "runtimeSurface": "GET /api/v1/admin/feature-events/replay",
+          "sha256": "sha256:c903db8585b5b75cf4763ab94e3287b32408a2e6e6bee5c59538df75d6916007",
+          "stateId": "feature-change-event-store"
+        }
+      }
+    },
+    "transactional-outbox": {
+      "backup": {
+        "id": "transactional-outbox.dump",
+        "primaryStateDestroyed": true,
+        "restoredIntoCleanStore": true,
+        "sha256": "sha256:d4d0b2e9415a6ad57ac90b4da6f2a24b5b3dfa6051ebc5cc5d60ba57b3cd3357"
+      },
+      "restartRecovery": {
+        "instanceAfter": "postgresql-cluster:7684641387713417254",
+        "instanceBefore": "postgresql-cluster:7684641303856533541",
+        "readAfterRestart": {
+          "count": 1,
+          "observedAt": "2026-09-12T13:33:41.694Z",
+          "runtimeSurface": "SELECT over honua.feature_change_outbox",
+          "sha256": "sha256:52c6440f0da42655b381c43e12473a9a5f241084168f9d6c92024e6b409299c9",
+          "stateId": "feature-change-outbox"
+        },
+        "readyAt": "2026-09-12T13:33:28.995Z",
+        "stoppedAt": "2026-09-12T13:33:19.271Z",
+        "writtenBeforeRestart": {
+          "count": 1,
+          "observedAt": "2026-09-12T13:33:17.594Z",
+          "runtimeSurface": "SELECT over honua.feature_change_outbox",
+          "sha256": "sha256:52c6440f0da42655b381c43e12473a9a5f241084168f9d6c92024e6b409299c9",
+          "stateId": "feature-change-outbox"
+        }
+      }
+    },
+    "workflow-cursors": {
+      "backup": {
+        "id": "workflow-cursors.redis-slice.json",
+        "primaryStateDestroyed": true,
+        "restoredIntoCleanStore": true,
+        "sha256": "sha256:41fdbaeed98e2de83361a48bf79b5068cecff14701778eb32f796987f68b8508"
+      },
+      "restartRecovery": {
+        "instanceAfter": "redis-run:532b676e26841e8e84b16d9d08d4c402403cf902",
+        "instanceBefore": "redis-run:4244cf0f8ef1b709751df3b4b964acf64ee6e414",
+        "readAfterRestart": {
+          "count": 1,
+          "observedAt": "2026-09-12T13:33:41.695Z",
+          "runtimeSurface": "GET orchestration:def:{workflowDefinitionId} on the durable workflow store",
+          "sha256": "sha256:123464e4ac25070f5fdb01accb356609933b3044cf4765f8981158e170dd0bea",
+          "stateId": "workflow-package:dr-drill-cursor:v1"
+        },
+        "readyAt": "2026-09-12T13:33:29.764Z",
+        "stoppedAt": "2026-09-12T13:33:19.271Z",
+        "writtenBeforeRestart": {
+          "count": 1,
+          "observedAt": "2026-09-12T13:33:17.594Z",
+          "runtimeSurface": "GET orchestration:def:{workflowDefinitionId} on the durable workflow store",
+          "sha256": "sha256:123464e4ac25070f5fdb01accb356609933b3044cf4765f8981158e170dd0bea",
+          "stateId": "workflow-package:dr-drill-cursor:v1"
+        }
+      }
+    }
+  },
+  "topology": "local-docker-single-tenant"
+}
