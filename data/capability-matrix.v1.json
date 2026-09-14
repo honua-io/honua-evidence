@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-09-14T14:28:57Z",
+  "generatedAt": "2026-09-14T15:29:02Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -29,52 +29,52 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-09-14T14:28:27Z",
+      "fetchedAt": "2026-09-14T15:28:48Z",
       "sourceVersion": "b65e4f5b00af@2026-09-13T22:55:33Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-14T14:28:27Z",
+      "observedAt": "2026-09-14T15:28:48Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-09-14T14:28:28Z",
-      "sourceVersion": "a29728734fae@2026-09-14T14:26:31Z",
+      "fetchedAt": "2026-09-14T15:28:48Z",
+      "sourceVersion": "c0ceceaa6f7d@2026-09-14T15:27:24Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-14T14:28:28Z",
+      "observedAt": "2026-09-14T15:28:48Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-09-14T14:28:28Z",
+      "fetchedAt": "2026-09-14T15:28:49Z",
       "sourceVersion": "640535afe475@2026-08-29T20:03:17Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-14T14:28:28Z",
+      "observedAt": "2026-09-14T15:28:49Z",
       "ageDays": 0,
       "sourceAgeDays": 15,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-09-14T14:28:29Z",
+      "fetchedAt": "2026-09-14T15:28:49Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-14T14:28:29Z",
+      "observedAt": "2026-09-14T15:28:49Z",
       "ageDays": 0,
       "sourceAgeDays": 58,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-09-14T14:28:29Z",
+      "fetchedAt": "2026-09-14T15:28:50Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-14T14:28:29Z",
+      "observedAt": "2026-09-14T15:28:50Z",
       "ageDays": 0,
       "sourceAgeDays": 58,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-09-14T14:28:30Z",
+      "fetchedAt": "2026-09-14T15:28:51Z",
       "sourceVersion": "773c2574c39b@2026-09-14T10:43:42Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-14T10:43:42Z",
@@ -83,16 +83,16 @@
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-09-14T14:28:57Z",
+      "fetchedAt": "2026-09-14T15:29:02Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-14T14:28:57Z",
+      "observedAt": "2026-09-14T15:29:02Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-09-14T14:28:31Z",
+      "fetchedAt": "2026-09-14T15:28:52Z",
       "sourceVersion": "792046bdaf6e@2026-09-02T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-02T00:00:00Z",
@@ -101,7 +101,7 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-09-14T14:28:31Z",
+      "fetchedAt": "2026-09-14T15:28:52Z",
       "sourceVersion": "b240dc8835e4@2026-09-14T12:56:48Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-14T12:56:48Z",
@@ -4399,7 +4399,7 @@
       "category": "FieldOps",
       "edition": "Pro",
       "entryCount": 18,
-      "provingTestCount": 167,
+      "provingTestCount": 171,
       "maturity": {
         "preview": 18
       },
@@ -5830,11 +5830,53 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 4,
+        "refs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "label": "cap/identity"
       }
     },
@@ -5869,11 +5911,53 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 4,
+        "refs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "label": "cap/identity"
       }
     },
@@ -5923,11 +6007,53 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 4,
+        "refs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "label": "cap/identity"
       }
     },
@@ -5971,11 +6097,53 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 4,
+        "refs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "label": "cap/identity"
       }
     },
@@ -6031,11 +6199,53 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 4,
+        "refs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "label": "cap/identity"
       }
     },
@@ -6082,11 +6292,53 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 4,
+        "refs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "label": "cap/identity"
       }
     },
@@ -6121,11 +6373,53 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 4,
+        "refs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "label": "cap/identity"
       }
     },
@@ -6160,11 +6454,53 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 4,
+        "refs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "label": "cap/identity"
       }
     },
@@ -6228,11 +6564,103 @@
         }
       ],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 9,
+        "refs": [
+          {
+            "number": 1716,
+            "title": "test: live Amazon Redshift integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1716"
+          },
+          {
+            "number": 1717,
+            "title": "test: live Snowflake integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1717"
+          },
+          {
+            "number": 1718,
+            "title": "test: live Databricks integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1718"
+          },
+          {
+            "number": 2436,
+            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2026.2",
+            "url": "https://github.com/honua-io/honua-server/issues/2436"
+          },
+          {
+            "number": 2445,
+            "title": "Drag-and-drop data upload \u2192 instant styled map",
+            "url": "https://github.com/honua-io/honua-server/issues/2445"
+          },
+          {
+            "number": 2452,
+            "title": "feat(bigquery): BigQuery read-only feature-store provider (REST, Metadata-v2 bindable, predicates, statistics, live lane)",
+            "url": "https://github.com/honua-io/honua-server/issues/2452"
+          },
+          {
+            "number": 3099,
+            "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
+            "url": "https://github.com/honua-io/honua-server/issues/3099"
+          },
+          {
+            "number": 3443,
+            "title": "feat(upload): durable resumable asset-upload sessions shared by raster and 3D ingest",
+            "url": "https://github.com/honua-io/honua-server/issues/3443"
+          },
+          {
+            "number": 3444,
+            "title": "feat(scene): safely import existing 3D Tiles archives into an immutable scene revision",
+            "url": "https://github.com/honua-io/honua-server/issues/3444"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 1716,
+            "title": "test: live Amazon Redshift integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1716"
+          },
+          {
+            "number": 1717,
+            "title": "test: live Snowflake integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1717"
+          },
+          {
+            "number": 1718,
+            "title": "test: live Databricks integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1718"
+          },
+          {
+            "number": 2436,
+            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2026.2",
+            "url": "https://github.com/honua-io/honua-server/issues/2436"
+          },
+          {
+            "number": 2445,
+            "title": "Drag-and-drop data upload \u2192 instant styled map",
+            "url": "https://github.com/honua-io/honua-server/issues/2445"
+          },
+          {
+            "number": 2452,
+            "title": "feat(bigquery): BigQuery read-only feature-store provider (REST, Metadata-v2 bindable, predicates, statistics, live lane)",
+            "url": "https://github.com/honua-io/honua-server/issues/2452"
+          },
+          {
+            "number": 3099,
+            "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
+            "url": "https://github.com/honua-io/honua-server/issues/3099"
+          },
+          {
+            "number": 3443,
+            "title": "feat(upload): durable resumable asset-upload sessions shared by raster and 3D ingest",
+            "url": "https://github.com/honua-io/honua-server/issues/3443"
+          },
+          {
+            "number": 3444,
+            "title": "feat(scene): safely import existing 3D Tiles archives into an immutable scene revision",
+            "url": "https://github.com/honua-io/honua-server/issues/3444"
+          }
+        ],
         "label": "cap/import"
       }
     },
@@ -6272,11 +6700,103 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 9,
+        "refs": [
+          {
+            "number": 1716,
+            "title": "test: live Amazon Redshift integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1716"
+          },
+          {
+            "number": 1717,
+            "title": "test: live Snowflake integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1717"
+          },
+          {
+            "number": 1718,
+            "title": "test: live Databricks integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1718"
+          },
+          {
+            "number": 2436,
+            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2026.2",
+            "url": "https://github.com/honua-io/honua-server/issues/2436"
+          },
+          {
+            "number": 2445,
+            "title": "Drag-and-drop data upload \u2192 instant styled map",
+            "url": "https://github.com/honua-io/honua-server/issues/2445"
+          },
+          {
+            "number": 2452,
+            "title": "feat(bigquery): BigQuery read-only feature-store provider (REST, Metadata-v2 bindable, predicates, statistics, live lane)",
+            "url": "https://github.com/honua-io/honua-server/issues/2452"
+          },
+          {
+            "number": 3099,
+            "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
+            "url": "https://github.com/honua-io/honua-server/issues/3099"
+          },
+          {
+            "number": 3443,
+            "title": "feat(upload): durable resumable asset-upload sessions shared by raster and 3D ingest",
+            "url": "https://github.com/honua-io/honua-server/issues/3443"
+          },
+          {
+            "number": 3444,
+            "title": "feat(scene): safely import existing 3D Tiles archives into an immutable scene revision",
+            "url": "https://github.com/honua-io/honua-server/issues/3444"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 1716,
+            "title": "test: live Amazon Redshift integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1716"
+          },
+          {
+            "number": 1717,
+            "title": "test: live Snowflake integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1717"
+          },
+          {
+            "number": 1718,
+            "title": "test: live Databricks integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1718"
+          },
+          {
+            "number": 2436,
+            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2026.2",
+            "url": "https://github.com/honua-io/honua-server/issues/2436"
+          },
+          {
+            "number": 2445,
+            "title": "Drag-and-drop data upload \u2192 instant styled map",
+            "url": "https://github.com/honua-io/honua-server/issues/2445"
+          },
+          {
+            "number": 2452,
+            "title": "feat(bigquery): BigQuery read-only feature-store provider (REST, Metadata-v2 bindable, predicates, statistics, live lane)",
+            "url": "https://github.com/honua-io/honua-server/issues/2452"
+          },
+          {
+            "number": 3099,
+            "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
+            "url": "https://github.com/honua-io/honua-server/issues/3099"
+          },
+          {
+            "number": 3443,
+            "title": "feat(upload): durable resumable asset-upload sessions shared by raster and 3D ingest",
+            "url": "https://github.com/honua-io/honua-server/issues/3443"
+          },
+          {
+            "number": 3444,
+            "title": "feat(scene): safely import existing 3D Tiles archives into an immutable scene revision",
+            "url": "https://github.com/honua-io/honua-server/issues/3444"
+          }
+        ],
         "label": "cap/import"
       }
     },
@@ -6316,11 +6836,103 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 9,
+        "refs": [
+          {
+            "number": 1716,
+            "title": "test: live Amazon Redshift integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1716"
+          },
+          {
+            "number": 1717,
+            "title": "test: live Snowflake integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1717"
+          },
+          {
+            "number": 1718,
+            "title": "test: live Databricks integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1718"
+          },
+          {
+            "number": 2436,
+            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2026.2",
+            "url": "https://github.com/honua-io/honua-server/issues/2436"
+          },
+          {
+            "number": 2445,
+            "title": "Drag-and-drop data upload \u2192 instant styled map",
+            "url": "https://github.com/honua-io/honua-server/issues/2445"
+          },
+          {
+            "number": 2452,
+            "title": "feat(bigquery): BigQuery read-only feature-store provider (REST, Metadata-v2 bindable, predicates, statistics, live lane)",
+            "url": "https://github.com/honua-io/honua-server/issues/2452"
+          },
+          {
+            "number": 3099,
+            "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
+            "url": "https://github.com/honua-io/honua-server/issues/3099"
+          },
+          {
+            "number": 3443,
+            "title": "feat(upload): durable resumable asset-upload sessions shared by raster and 3D ingest",
+            "url": "https://github.com/honua-io/honua-server/issues/3443"
+          },
+          {
+            "number": 3444,
+            "title": "feat(scene): safely import existing 3D Tiles archives into an immutable scene revision",
+            "url": "https://github.com/honua-io/honua-server/issues/3444"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 1716,
+            "title": "test: live Amazon Redshift integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1716"
+          },
+          {
+            "number": 1717,
+            "title": "test: live Snowflake integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1717"
+          },
+          {
+            "number": 1718,
+            "title": "test: live Databricks integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1718"
+          },
+          {
+            "number": 2436,
+            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2026.2",
+            "url": "https://github.com/honua-io/honua-server/issues/2436"
+          },
+          {
+            "number": 2445,
+            "title": "Drag-and-drop data upload \u2192 instant styled map",
+            "url": "https://github.com/honua-io/honua-server/issues/2445"
+          },
+          {
+            "number": 2452,
+            "title": "feat(bigquery): BigQuery read-only feature-store provider (REST, Metadata-v2 bindable, predicates, statistics, live lane)",
+            "url": "https://github.com/honua-io/honua-server/issues/2452"
+          },
+          {
+            "number": 3099,
+            "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
+            "url": "https://github.com/honua-io/honua-server/issues/3099"
+          },
+          {
+            "number": 3443,
+            "title": "feat(upload): durable resumable asset-upload sessions shared by raster and 3D ingest",
+            "url": "https://github.com/honua-io/honua-server/issues/3443"
+          },
+          {
+            "number": 3444,
+            "title": "feat(scene): safely import existing 3D Tiles archives into an immutable scene revision",
+            "url": "https://github.com/honua-io/honua-server/issues/3444"
+          }
+        ],
         "label": "cap/import"
       }
     },
@@ -9903,8 +10515,13 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 16,
+        "count": 17,
         "refs": [
+          {
+            "number": 3098,
+            "title": "raster ingest: move large imports to a durable staged worker pipeline",
+            "url": "https://github.com/honua-io/honua-server/issues/3098"
+          },
           {
             "number": 3101,
             "title": "raster serving: define request budgets and promote excessive work to durable jobs",
@@ -9988,6 +10605,11 @@
         ],
         "categoryLevel": false,
         "keyRefs": [
+          {
+            "number": 3098,
+            "title": "raster ingest: move large imports to a durable staged worker pipeline",
+            "url": "https://github.com/honua-io/honua-server/issues/3098"
+          },
           {
             "number": 3101,
             "title": "raster serving: define request budgets and promote excessive work to durable jobs",
