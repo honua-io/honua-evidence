@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-09-14T14:11:37Z",
+  "generatedAt": "2026-09-14T14:23:48Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -29,52 +29,52 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-09-14T14:11:18Z",
+      "fetchedAt": "2026-09-14T14:23:33Z",
       "sourceVersion": "b65e4f5b00af@2026-09-13T22:55:33Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-14T14:11:18Z",
+      "observedAt": "2026-09-14T14:23:33Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-09-14T14:11:18Z",
-      "sourceVersion": "ec8b34b9dfff@2026-09-14T14:08:42Z",
+      "fetchedAt": "2026-09-14T14:23:33Z",
+      "sourceVersion": "06b083e053e8@2026-09-14T14:21:21Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-14T14:11:18Z",
+      "observedAt": "2026-09-14T14:23:33Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-09-14T14:11:19Z",
+      "fetchedAt": "2026-09-14T14:23:34Z",
       "sourceVersion": "640535afe475@2026-08-29T20:03:17Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-14T14:11:19Z",
+      "observedAt": "2026-09-14T14:23:34Z",
       "ageDays": 0,
       "sourceAgeDays": 15,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-09-14T14:11:19Z",
+      "fetchedAt": "2026-09-14T14:23:34Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-14T14:11:19Z",
+      "observedAt": "2026-09-14T14:23:34Z",
       "ageDays": 0,
       "sourceAgeDays": 58,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-09-14T14:11:20Z",
+      "fetchedAt": "2026-09-14T14:23:34Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-14T14:11:20Z",
+      "observedAt": "2026-09-14T14:23:34Z",
       "ageDays": 0,
       "sourceAgeDays": 58,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-09-14T14:11:21Z",
+      "fetchedAt": "2026-09-14T14:23:35Z",
       "sourceVersion": "773c2574c39b@2026-09-14T10:43:42Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-14T10:43:42Z",
@@ -83,16 +83,16 @@
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-09-14T14:11:37Z",
+      "fetchedAt": "2026-09-14T14:23:48Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-14T14:11:37Z",
+      "observedAt": "2026-09-14T14:23:48Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-09-14T14:11:21Z",
+      "fetchedAt": "2026-09-14T14:23:36Z",
       "sourceVersion": "792046bdaf6e@2026-09-02T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-02T00:00:00Z",
@@ -101,7 +101,7 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-09-14T14:11:21Z",
+      "fetchedAt": "2026-09-14T14:23:36Z",
       "sourceVersion": "b240dc8835e4@2026-09-14T12:56:48Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-14T12:56:48Z",
@@ -16780,7 +16780,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 6,
-      "provingTestCount": 42,
+      "provingTestCount": 48,
       "maturity": {
         "preview": 6
       },
