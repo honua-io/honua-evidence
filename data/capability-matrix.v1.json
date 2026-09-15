@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-09-15T14:33:35Z",
+  "generatedAt": "2026-09-15T15:53:36Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -29,70 +29,70 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-09-15T14:33:09Z",
+      "fetchedAt": "2026-09-15T15:53:21Z",
       "sourceVersion": "b65e4f5b00af@2026-09-13T22:55:33Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-15T14:33:09Z",
+      "observedAt": "2026-09-15T15:53:21Z",
       "ageDays": 0,
       "sourceAgeDays": 1,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-09-15T14:33:10Z",
-      "sourceVersion": "5beba87f69be@2026-09-15T14:26:37Z",
+      "fetchedAt": "2026-09-15T15:53:22Z",
+      "sourceVersion": "23f14478a2a1@2026-09-15T15:53:00Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-15T14:33:10Z",
+      "observedAt": "2026-09-15T15:53:22Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-09-15T14:33:10Z",
+      "fetchedAt": "2026-09-15T15:53:22Z",
       "sourceVersion": "640535afe475@2026-08-29T20:03:17Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-15T14:33:10Z",
+      "observedAt": "2026-09-15T15:53:22Z",
       "ageDays": 0,
       "sourceAgeDays": 16,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-09-15T14:33:11Z",
+      "fetchedAt": "2026-09-15T15:53:23Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-15T14:33:11Z",
+      "observedAt": "2026-09-15T15:53:23Z",
       "ageDays": 0,
       "sourceAgeDays": 59,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-09-15T14:33:11Z",
+      "fetchedAt": "2026-09-15T15:53:23Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-15T14:33:11Z",
+      "observedAt": "2026-09-15T15:53:23Z",
       "ageDays": 0,
       "sourceAgeDays": 59,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-09-15T14:33:12Z",
-      "sourceVersion": "773c2574c39b@2026-09-09T09:49:51Z",
+      "fetchedAt": "2026-09-15T15:53:24Z",
+      "sourceVersion": "773c2574c39b@2026-09-15T10:07:29Z",
       "freshnessBasis": "observation",
-      "observedAt": "2026-09-09T09:49:51Z",
-      "ageDays": 6,
-      "sourceAgeDays": 6,
-      "status": "stale"
+      "observedAt": "2026-09-15T10:07:29Z",
+      "ageDays": 0,
+      "sourceAgeDays": 0,
+      "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-09-15T14:33:35Z",
+      "fetchedAt": "2026-09-15T15:53:36Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-15T14:33:35Z",
+      "observedAt": "2026-09-15T15:53:36Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-09-15T14:33:13Z",
+      "fetchedAt": "2026-09-15T15:53:25Z",
       "sourceVersion": "792046bdaf6e@2026-09-02T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-02T00:00:00Z",
@@ -101,7 +101,7 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-09-15T14:33:13Z",
+      "fetchedAt": "2026-09-15T15:53:25Z",
       "sourceVersion": "4b317a3fc6a2@2026-09-15T11:50:59Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-15T11:50:59Z",
@@ -130,7 +130,7 @@
       "category": "ControlPlane",
       "edition": "Community",
       "entryCount": 374,
-      "provingTestCount": 1229,
+      "provingTestCount": 1231,
       "maturity": {
         "implemented": 371,
         "preview": 2,
@@ -604,11 +604,103 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 9,
+        "refs": [
+          {
+            "number": 3861,
+            "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
+            "url": "https://github.com/honua-io/honua-server/issues/3861"
+          },
+          {
+            "number": 3863,
+            "title": "test(alerts): prove leader handoff, database recovery, and restart persistence with two replicas",
+            "url": "https://github.com/honua-io/honua-server/issues/3863"
+          },
+          {
+            "number": 3864,
+            "title": "test(alerts): preserve ordered threshold and geofence transitions during change bursts",
+            "url": "https://github.com/honua-io/honua-server/issues/3864"
+          },
+          {
+            "number": 3867,
+            "title": "test(alerts): qualify secret rotation and secret-provider outage through the production cache",
+            "url": "https://github.com/honua-io/honua-server/issues/3867"
+          },
+          {
+            "number": 3868,
+            "title": "test(alerts): qualify fleet-wide storm limits, circuit recovery, backlog SLO, and provider outages",
+            "url": "https://github.com/honua-io/honua-server/issues/3868"
+          },
+          {
+            "number": 3869,
+            "title": "test(alerts): prove Postgres DLQ redrive to successful provider delivery and audit",
+            "url": "https://github.com/honua-io/honua-server/issues/3869"
+          },
+          {
+            "number": 3870,
+            "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
+            "url": "https://github.com/honua-io/honua-server/issues/3870"
+          },
+          {
+            "number": 3881,
+            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
+            "url": "https://github.com/honua-io/honua-server/issues/3881"
+          },
+          {
+            "number": 4793,
+            "title": "test(alerts): qualify concurrent tenant execution and signed dual-receiver delivery once tenant workers are enabled (2026.2 follow-on to #3859)",
+            "url": "https://github.com/honua-io/honua-server/issues/4793"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 3861,
+            "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
+            "url": "https://github.com/honua-io/honua-server/issues/3861"
+          },
+          {
+            "number": 3863,
+            "title": "test(alerts): prove leader handoff, database recovery, and restart persistence with two replicas",
+            "url": "https://github.com/honua-io/honua-server/issues/3863"
+          },
+          {
+            "number": 3864,
+            "title": "test(alerts): preserve ordered threshold and geofence transitions during change bursts",
+            "url": "https://github.com/honua-io/honua-server/issues/3864"
+          },
+          {
+            "number": 3867,
+            "title": "test(alerts): qualify secret rotation and secret-provider outage through the production cache",
+            "url": "https://github.com/honua-io/honua-server/issues/3867"
+          },
+          {
+            "number": 3868,
+            "title": "test(alerts): qualify fleet-wide storm limits, circuit recovery, backlog SLO, and provider outages",
+            "url": "https://github.com/honua-io/honua-server/issues/3868"
+          },
+          {
+            "number": 3869,
+            "title": "test(alerts): prove Postgres DLQ redrive to successful provider delivery and audit",
+            "url": "https://github.com/honua-io/honua-server/issues/3869"
+          },
+          {
+            "number": 3870,
+            "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
+            "url": "https://github.com/honua-io/honua-server/issues/3870"
+          },
+          {
+            "number": 3881,
+            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
+            "url": "https://github.com/honua-io/honua-server/issues/3881"
+          },
+          {
+            "number": 4793,
+            "title": "test(alerts): qualify concurrent tenant execution and signed dual-receiver delivery once tenant workers are enabled (2026.2 follow-on to #3859)",
+            "url": "https://github.com/honua-io/honua-server/issues/4793"
+          }
+        ],
         "label": "cap/alerts"
       }
     },
@@ -652,11 +744,103 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 9,
+        "refs": [
+          {
+            "number": 3861,
+            "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
+            "url": "https://github.com/honua-io/honua-server/issues/3861"
+          },
+          {
+            "number": 3863,
+            "title": "test(alerts): prove leader handoff, database recovery, and restart persistence with two replicas",
+            "url": "https://github.com/honua-io/honua-server/issues/3863"
+          },
+          {
+            "number": 3864,
+            "title": "test(alerts): preserve ordered threshold and geofence transitions during change bursts",
+            "url": "https://github.com/honua-io/honua-server/issues/3864"
+          },
+          {
+            "number": 3867,
+            "title": "test(alerts): qualify secret rotation and secret-provider outage through the production cache",
+            "url": "https://github.com/honua-io/honua-server/issues/3867"
+          },
+          {
+            "number": 3868,
+            "title": "test(alerts): qualify fleet-wide storm limits, circuit recovery, backlog SLO, and provider outages",
+            "url": "https://github.com/honua-io/honua-server/issues/3868"
+          },
+          {
+            "number": 3869,
+            "title": "test(alerts): prove Postgres DLQ redrive to successful provider delivery and audit",
+            "url": "https://github.com/honua-io/honua-server/issues/3869"
+          },
+          {
+            "number": 3870,
+            "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
+            "url": "https://github.com/honua-io/honua-server/issues/3870"
+          },
+          {
+            "number": 3881,
+            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
+            "url": "https://github.com/honua-io/honua-server/issues/3881"
+          },
+          {
+            "number": 4793,
+            "title": "test(alerts): qualify concurrent tenant execution and signed dual-receiver delivery once tenant workers are enabled (2026.2 follow-on to #3859)",
+            "url": "https://github.com/honua-io/honua-server/issues/4793"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 3861,
+            "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
+            "url": "https://github.com/honua-io/honua-server/issues/3861"
+          },
+          {
+            "number": 3863,
+            "title": "test(alerts): prove leader handoff, database recovery, and restart persistence with two replicas",
+            "url": "https://github.com/honua-io/honua-server/issues/3863"
+          },
+          {
+            "number": 3864,
+            "title": "test(alerts): preserve ordered threshold and geofence transitions during change bursts",
+            "url": "https://github.com/honua-io/honua-server/issues/3864"
+          },
+          {
+            "number": 3867,
+            "title": "test(alerts): qualify secret rotation and secret-provider outage through the production cache",
+            "url": "https://github.com/honua-io/honua-server/issues/3867"
+          },
+          {
+            "number": 3868,
+            "title": "test(alerts): qualify fleet-wide storm limits, circuit recovery, backlog SLO, and provider outages",
+            "url": "https://github.com/honua-io/honua-server/issues/3868"
+          },
+          {
+            "number": 3869,
+            "title": "test(alerts): prove Postgres DLQ redrive to successful provider delivery and audit",
+            "url": "https://github.com/honua-io/honua-server/issues/3869"
+          },
+          {
+            "number": 3870,
+            "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
+            "url": "https://github.com/honua-io/honua-server/issues/3870"
+          },
+          {
+            "number": 3881,
+            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
+            "url": "https://github.com/honua-io/honua-server/issues/3881"
+          },
+          {
+            "number": 4793,
+            "title": "test(alerts): qualify concurrent tenant execution and signed dual-receiver delivery once tenant workers are enabled (2026.2 follow-on to #3859)",
+            "url": "https://github.com/honua-io/honua-server/issues/4793"
+          }
+        ],
         "label": "cap/alerts"
       }
     },
@@ -691,11 +875,103 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 9,
+        "refs": [
+          {
+            "number": 3861,
+            "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
+            "url": "https://github.com/honua-io/honua-server/issues/3861"
+          },
+          {
+            "number": 3863,
+            "title": "test(alerts): prove leader handoff, database recovery, and restart persistence with two replicas",
+            "url": "https://github.com/honua-io/honua-server/issues/3863"
+          },
+          {
+            "number": 3864,
+            "title": "test(alerts): preserve ordered threshold and geofence transitions during change bursts",
+            "url": "https://github.com/honua-io/honua-server/issues/3864"
+          },
+          {
+            "number": 3867,
+            "title": "test(alerts): qualify secret rotation and secret-provider outage through the production cache",
+            "url": "https://github.com/honua-io/honua-server/issues/3867"
+          },
+          {
+            "number": 3868,
+            "title": "test(alerts): qualify fleet-wide storm limits, circuit recovery, backlog SLO, and provider outages",
+            "url": "https://github.com/honua-io/honua-server/issues/3868"
+          },
+          {
+            "number": 3869,
+            "title": "test(alerts): prove Postgres DLQ redrive to successful provider delivery and audit",
+            "url": "https://github.com/honua-io/honua-server/issues/3869"
+          },
+          {
+            "number": 3870,
+            "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
+            "url": "https://github.com/honua-io/honua-server/issues/3870"
+          },
+          {
+            "number": 3881,
+            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
+            "url": "https://github.com/honua-io/honua-server/issues/3881"
+          },
+          {
+            "number": 4793,
+            "title": "test(alerts): qualify concurrent tenant execution and signed dual-receiver delivery once tenant workers are enabled (2026.2 follow-on to #3859)",
+            "url": "https://github.com/honua-io/honua-server/issues/4793"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 3861,
+            "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
+            "url": "https://github.com/honua-io/honua-server/issues/3861"
+          },
+          {
+            "number": 3863,
+            "title": "test(alerts): prove leader handoff, database recovery, and restart persistence with two replicas",
+            "url": "https://github.com/honua-io/honua-server/issues/3863"
+          },
+          {
+            "number": 3864,
+            "title": "test(alerts): preserve ordered threshold and geofence transitions during change bursts",
+            "url": "https://github.com/honua-io/honua-server/issues/3864"
+          },
+          {
+            "number": 3867,
+            "title": "test(alerts): qualify secret rotation and secret-provider outage through the production cache",
+            "url": "https://github.com/honua-io/honua-server/issues/3867"
+          },
+          {
+            "number": 3868,
+            "title": "test(alerts): qualify fleet-wide storm limits, circuit recovery, backlog SLO, and provider outages",
+            "url": "https://github.com/honua-io/honua-server/issues/3868"
+          },
+          {
+            "number": 3869,
+            "title": "test(alerts): prove Postgres DLQ redrive to successful provider delivery and audit",
+            "url": "https://github.com/honua-io/honua-server/issues/3869"
+          },
+          {
+            "number": 3870,
+            "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
+            "url": "https://github.com/honua-io/honua-server/issues/3870"
+          },
+          {
+            "number": 3881,
+            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
+            "url": "https://github.com/honua-io/honua-server/issues/3881"
+          },
+          {
+            "number": 4793,
+            "title": "test(alerts): qualify concurrent tenant execution and signed dual-receiver delivery once tenant workers are enabled (2026.2 follow-on to #3859)",
+            "url": "https://github.com/honua-io/honua-server/issues/4793"
+          }
+        ],
         "label": "cap/alerts"
       }
     },
@@ -739,11 +1015,103 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 9,
+        "refs": [
+          {
+            "number": 3861,
+            "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
+            "url": "https://github.com/honua-io/honua-server/issues/3861"
+          },
+          {
+            "number": 3863,
+            "title": "test(alerts): prove leader handoff, database recovery, and restart persistence with two replicas",
+            "url": "https://github.com/honua-io/honua-server/issues/3863"
+          },
+          {
+            "number": 3864,
+            "title": "test(alerts): preserve ordered threshold and geofence transitions during change bursts",
+            "url": "https://github.com/honua-io/honua-server/issues/3864"
+          },
+          {
+            "number": 3867,
+            "title": "test(alerts): qualify secret rotation and secret-provider outage through the production cache",
+            "url": "https://github.com/honua-io/honua-server/issues/3867"
+          },
+          {
+            "number": 3868,
+            "title": "test(alerts): qualify fleet-wide storm limits, circuit recovery, backlog SLO, and provider outages",
+            "url": "https://github.com/honua-io/honua-server/issues/3868"
+          },
+          {
+            "number": 3869,
+            "title": "test(alerts): prove Postgres DLQ redrive to successful provider delivery and audit",
+            "url": "https://github.com/honua-io/honua-server/issues/3869"
+          },
+          {
+            "number": 3870,
+            "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
+            "url": "https://github.com/honua-io/honua-server/issues/3870"
+          },
+          {
+            "number": 3881,
+            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
+            "url": "https://github.com/honua-io/honua-server/issues/3881"
+          },
+          {
+            "number": 4793,
+            "title": "test(alerts): qualify concurrent tenant execution and signed dual-receiver delivery once tenant workers are enabled (2026.2 follow-on to #3859)",
+            "url": "https://github.com/honua-io/honua-server/issues/4793"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 3861,
+            "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
+            "url": "https://github.com/honua-io/honua-server/issues/3861"
+          },
+          {
+            "number": 3863,
+            "title": "test(alerts): prove leader handoff, database recovery, and restart persistence with two replicas",
+            "url": "https://github.com/honua-io/honua-server/issues/3863"
+          },
+          {
+            "number": 3864,
+            "title": "test(alerts): preserve ordered threshold and geofence transitions during change bursts",
+            "url": "https://github.com/honua-io/honua-server/issues/3864"
+          },
+          {
+            "number": 3867,
+            "title": "test(alerts): qualify secret rotation and secret-provider outage through the production cache",
+            "url": "https://github.com/honua-io/honua-server/issues/3867"
+          },
+          {
+            "number": 3868,
+            "title": "test(alerts): qualify fleet-wide storm limits, circuit recovery, backlog SLO, and provider outages",
+            "url": "https://github.com/honua-io/honua-server/issues/3868"
+          },
+          {
+            "number": 3869,
+            "title": "test(alerts): prove Postgres DLQ redrive to successful provider delivery and audit",
+            "url": "https://github.com/honua-io/honua-server/issues/3869"
+          },
+          {
+            "number": 3870,
+            "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
+            "url": "https://github.com/honua-io/honua-server/issues/3870"
+          },
+          {
+            "number": 3881,
+            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
+            "url": "https://github.com/honua-io/honua-server/issues/3881"
+          },
+          {
+            "number": 4793,
+            "title": "test(alerts): qualify concurrent tenant execution and signed dual-receiver delivery once tenant workers are enabled (2026.2 follow-on to #3859)",
+            "url": "https://github.com/honua-io/honua-server/issues/4793"
+          }
+        ],
         "label": "cap/alerts"
       }
     },
@@ -4183,11 +4551,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 1263,
+            "title": "Epic: geocoding GeocodeServer compat + Esri locator import",
+            "url": "https://github.com/honua-io/honua-server/issues/1263"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 1263,
+            "title": "Epic: geocoding GeocodeServer compat + Esri locator import",
+            "url": "https://github.com/honua-io/honua-server/issues/1263"
+          }
+        ],
         "label": "cap/geocoding"
       }
     },
@@ -4226,11 +4606,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 1263,
+            "title": "Epic: geocoding GeocodeServer compat + Esri locator import",
+            "url": "https://github.com/honua-io/honua-server/issues/1263"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 1263,
+            "title": "Epic: geocoding GeocodeServer compat + Esri locator import",
+            "url": "https://github.com/honua-io/honua-server/issues/1263"
+          }
+        ],
         "label": "cap/geocoding"
       }
     },
@@ -5361,11 +5753,23 @@
         }
       ],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 1263,
+            "title": "Epic: geocoding GeocodeServer compat + Esri locator import",
+            "url": "https://github.com/honua-io/honua-server/issues/1263"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 1263,
+            "title": "Epic: geocoding GeocodeServer compat + Esri locator import",
+            "url": "https://github.com/honua-io/honua-server/issues/1263"
+          }
+        ],
         "label": "cap/geocoding"
       }
     },
@@ -5419,11 +5823,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 1263,
+            "title": "Epic: geocoding GeocodeServer compat + Esri locator import",
+            "url": "https://github.com/honua-io/honua-server/issues/1263"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 1263,
+            "title": "Epic: geocoding GeocodeServer compat + Esri locator import",
+            "url": "https://github.com/honua-io/honua-server/issues/1263"
+          }
+        ],
         "label": "cap/geocoding"
       }
     },
@@ -5462,11 +5878,53 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 4,
+        "refs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "label": "cap/identity"
       }
     },
@@ -5501,11 +5959,53 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 4,
+        "refs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "label": "cap/identity"
       }
     },
@@ -5555,11 +6055,53 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 4,
+        "refs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "label": "cap/identity"
       }
     },
@@ -5603,11 +6145,53 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 4,
+        "refs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "label": "cap/identity"
       }
     },
@@ -5663,11 +6247,53 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 4,
+        "refs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "label": "cap/identity"
       }
     },
@@ -5714,11 +6340,53 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 4,
+        "refs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "label": "cap/identity"
       }
     },
@@ -5753,11 +6421,53 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 4,
+        "refs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "label": "cap/identity"
       }
     },
@@ -5792,11 +6502,53 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 4,
+        "refs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 1273,
+            "title": "Epic: non-functional parity (CRS/datum fidelity, gov auth, licensing mapping)",
+            "url": "https://github.com/honua-io/honua-server/issues/1273"
+          },
+          {
+            "number": 1275,
+            "title": "Government auth: SAML, CAC/PIV, FIPS, row/field-level security",
+            "url": "https://github.com/honua-io/honua-server/issues/1275"
+          },
+          {
+            "number": 3454,
+            "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
+            "url": "https://github.com/honua-io/honua-server/issues/3454"
+          }
+        ],
         "label": "cap/identity"
       }
     },
@@ -5840,8 +6592,8 @@
           "edition": "community",
           "lastRun": {
             "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-09-09T09:49:45.939Z"
+            "serverVersion": "2026.1.1",
+            "at": "2026-09-15T10:07:24.423Z"
           }
         },
         {
@@ -5854,8 +6606,8 @@
           "edition": "community",
           "lastRun": {
             "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-09-09T09:49:45.939Z"
+            "serverVersion": "2026.1.1",
+            "at": "2026-09-15T10:07:24.423Z"
           }
         }
       ],
@@ -9831,7 +10583,7 @@
       "category": "Process",
       "edition": "Community",
       "entryCount": 15,
-      "provingTestCount": 142,
+      "provingTestCount": 146,
       "maturity": {
         "implemented": 15
       },
@@ -9883,7 +10635,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 16,
+        "count": 17,
         "refs": [
           {
             "number": 3098,
@@ -9954,6 +10706,11 @@
             "number": 3104,
             "title": "ops(raster): expose placement, artifact I/O, and Batch cost",
             "url": "https://github.com/honua-io/honua-server/issues/3104"
+          },
+          {
+            "number": 3105,
+            "title": "photogrammetry: produce orthomosaics as raster GP artifacts and keep 3D serving separate",
+            "url": "https://github.com/honua-io/honua-server/issues/3105"
           },
           {
             "number": 3105,
@@ -10037,6 +10794,11 @@
             "number": 3104,
             "title": "ops(raster): expose placement, artifact I/O, and Batch cost",
             "url": "https://github.com/honua-io/honua-server/issues/3104"
+          },
+          {
+            "number": 3105,
+            "title": "photogrammetry: produce orthomosaics as raster GP artifacts and keep 3D serving separate",
+            "url": "https://github.com/honua-io/honua-server/issues/3105"
           },
           {
             "number": 3105,
@@ -10789,11 +11551,103 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 9,
+        "refs": [
+          {
+            "number": 2442,
+            "title": "feat(scene): COPC-native range serving + LAS/LAZ/COPC source registration (point cloud, T5)",
+            "url": "https://github.com/honua-io/honua-server/issues/2442"
+          },
+          {
+            "number": 3249,
+            "title": "Epic: 3D \u2014 honest, renderable, documented (3D Tiles canonical, I3S renderable, terrain, point cloud)",
+            "url": "https://github.com/honua-io/honua-server/issues/3249"
+          },
+          {
+            "number": 3280,
+            "title": "feat(scene): production ISceneNodeGeometryProvider \u2014 I3S root-node geometry renderable in ArcGIS clients",
+            "url": "https://github.com/honua-io/honua-server/issues/3280"
+          },
+          {
+            "number": 3281,
+            "title": "feat(scene): I3S per-node geometry paging and textures (full HLOD)",
+            "url": "https://github.com/honua-io/honua-server/issues/3281"
+          },
+          {
+            "number": 3282,
+            "title": "feat(scene): I3S all-node geometry paging over the LOD tileset",
+            "url": "https://github.com/honua-io/honua-server/issues/3282"
+          },
+          {
+            "number": 3283,
+            "title": "feat(scene): I3S texture/material definitions and texture route",
+            "url": "https://github.com/honua-io/honua-server/issues/3283"
+          },
+          {
+            "number": 3284,
+            "title": "feat(scene): job-based (202 + job URL) 3D Tiles generation and ingest; validate LOD tileset in the CNG lane",
+            "url": "https://github.com/honua-io/honua-server/issues/3284"
+          },
+          {
+            "number": 3285,
+            "title": "feat(terrain): quantized-mesh terrain provider (layer.json + .terrain tiles) from DEM rasters",
+            "url": "https://github.com/honua-io/honua-server/issues/3285"
+          },
+          {
+            "number": 3286,
+            "title": "feat(mcp): scene_list / scene_get / scene_resolve MCP tools bound to the scene catalog",
+            "url": "https://github.com/honua-io/honua-server/issues/3286"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2442,
+            "title": "feat(scene): COPC-native range serving + LAS/LAZ/COPC source registration (point cloud, T5)",
+            "url": "https://github.com/honua-io/honua-server/issues/2442"
+          },
+          {
+            "number": 3249,
+            "title": "Epic: 3D \u2014 honest, renderable, documented (3D Tiles canonical, I3S renderable, terrain, point cloud)",
+            "url": "https://github.com/honua-io/honua-server/issues/3249"
+          },
+          {
+            "number": 3280,
+            "title": "feat(scene): production ISceneNodeGeometryProvider \u2014 I3S root-node geometry renderable in ArcGIS clients",
+            "url": "https://github.com/honua-io/honua-server/issues/3280"
+          },
+          {
+            "number": 3281,
+            "title": "feat(scene): I3S per-node geometry paging and textures (full HLOD)",
+            "url": "https://github.com/honua-io/honua-server/issues/3281"
+          },
+          {
+            "number": 3282,
+            "title": "feat(scene): I3S all-node geometry paging over the LOD tileset",
+            "url": "https://github.com/honua-io/honua-server/issues/3282"
+          },
+          {
+            "number": 3283,
+            "title": "feat(scene): I3S texture/material definitions and texture route",
+            "url": "https://github.com/honua-io/honua-server/issues/3283"
+          },
+          {
+            "number": 3284,
+            "title": "feat(scene): job-based (202 + job URL) 3D Tiles generation and ingest; validate LOD tileset in the CNG lane",
+            "url": "https://github.com/honua-io/honua-server/issues/3284"
+          },
+          {
+            "number": 3285,
+            "title": "feat(terrain): quantized-mesh terrain provider (layer.json + .terrain tiles) from DEM rasters",
+            "url": "https://github.com/honua-io/honua-server/issues/3285"
+          },
+          {
+            "number": 3286,
+            "title": "feat(mcp): scene_list / scene_get / scene_resolve MCP tools bound to the scene catalog",
+            "url": "https://github.com/honua-io/honua-server/issues/3286"
+          }
+        ],
         "label": "cap/scene"
       }
     },
@@ -10837,11 +11691,103 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 9,
+        "refs": [
+          {
+            "number": 2442,
+            "title": "feat(scene): COPC-native range serving + LAS/LAZ/COPC source registration (point cloud, T5)",
+            "url": "https://github.com/honua-io/honua-server/issues/2442"
+          },
+          {
+            "number": 3249,
+            "title": "Epic: 3D \u2014 honest, renderable, documented (3D Tiles canonical, I3S renderable, terrain, point cloud)",
+            "url": "https://github.com/honua-io/honua-server/issues/3249"
+          },
+          {
+            "number": 3280,
+            "title": "feat(scene): production ISceneNodeGeometryProvider \u2014 I3S root-node geometry renderable in ArcGIS clients",
+            "url": "https://github.com/honua-io/honua-server/issues/3280"
+          },
+          {
+            "number": 3281,
+            "title": "feat(scene): I3S per-node geometry paging and textures (full HLOD)",
+            "url": "https://github.com/honua-io/honua-server/issues/3281"
+          },
+          {
+            "number": 3282,
+            "title": "feat(scene): I3S all-node geometry paging over the LOD tileset",
+            "url": "https://github.com/honua-io/honua-server/issues/3282"
+          },
+          {
+            "number": 3283,
+            "title": "feat(scene): I3S texture/material definitions and texture route",
+            "url": "https://github.com/honua-io/honua-server/issues/3283"
+          },
+          {
+            "number": 3284,
+            "title": "feat(scene): job-based (202 + job URL) 3D Tiles generation and ingest; validate LOD tileset in the CNG lane",
+            "url": "https://github.com/honua-io/honua-server/issues/3284"
+          },
+          {
+            "number": 3285,
+            "title": "feat(terrain): quantized-mesh terrain provider (layer.json + .terrain tiles) from DEM rasters",
+            "url": "https://github.com/honua-io/honua-server/issues/3285"
+          },
+          {
+            "number": 3286,
+            "title": "feat(mcp): scene_list / scene_get / scene_resolve MCP tools bound to the scene catalog",
+            "url": "https://github.com/honua-io/honua-server/issues/3286"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2442,
+            "title": "feat(scene): COPC-native range serving + LAS/LAZ/COPC source registration (point cloud, T5)",
+            "url": "https://github.com/honua-io/honua-server/issues/2442"
+          },
+          {
+            "number": 3249,
+            "title": "Epic: 3D \u2014 honest, renderable, documented (3D Tiles canonical, I3S renderable, terrain, point cloud)",
+            "url": "https://github.com/honua-io/honua-server/issues/3249"
+          },
+          {
+            "number": 3280,
+            "title": "feat(scene): production ISceneNodeGeometryProvider \u2014 I3S root-node geometry renderable in ArcGIS clients",
+            "url": "https://github.com/honua-io/honua-server/issues/3280"
+          },
+          {
+            "number": 3281,
+            "title": "feat(scene): I3S per-node geometry paging and textures (full HLOD)",
+            "url": "https://github.com/honua-io/honua-server/issues/3281"
+          },
+          {
+            "number": 3282,
+            "title": "feat(scene): I3S all-node geometry paging over the LOD tileset",
+            "url": "https://github.com/honua-io/honua-server/issues/3282"
+          },
+          {
+            "number": 3283,
+            "title": "feat(scene): I3S texture/material definitions and texture route",
+            "url": "https://github.com/honua-io/honua-server/issues/3283"
+          },
+          {
+            "number": 3284,
+            "title": "feat(scene): job-based (202 + job URL) 3D Tiles generation and ingest; validate LOD tileset in the CNG lane",
+            "url": "https://github.com/honua-io/honua-server/issues/3284"
+          },
+          {
+            "number": 3285,
+            "title": "feat(terrain): quantized-mesh terrain provider (layer.json + .terrain tiles) from DEM rasters",
+            "url": "https://github.com/honua-io/honua-server/issues/3285"
+          },
+          {
+            "number": 3286,
+            "title": "feat(mcp): scene_list / scene_get / scene_resolve MCP tools bound to the scene catalog",
+            "url": "https://github.com/honua-io/honua-server/issues/3286"
+          }
+        ],
         "label": "cap/scene"
       }
     },
@@ -10876,11 +11822,103 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 9,
+        "refs": [
+          {
+            "number": 2442,
+            "title": "feat(scene): COPC-native range serving + LAS/LAZ/COPC source registration (point cloud, T5)",
+            "url": "https://github.com/honua-io/honua-server/issues/2442"
+          },
+          {
+            "number": 3249,
+            "title": "Epic: 3D \u2014 honest, renderable, documented (3D Tiles canonical, I3S renderable, terrain, point cloud)",
+            "url": "https://github.com/honua-io/honua-server/issues/3249"
+          },
+          {
+            "number": 3280,
+            "title": "feat(scene): production ISceneNodeGeometryProvider \u2014 I3S root-node geometry renderable in ArcGIS clients",
+            "url": "https://github.com/honua-io/honua-server/issues/3280"
+          },
+          {
+            "number": 3281,
+            "title": "feat(scene): I3S per-node geometry paging and textures (full HLOD)",
+            "url": "https://github.com/honua-io/honua-server/issues/3281"
+          },
+          {
+            "number": 3282,
+            "title": "feat(scene): I3S all-node geometry paging over the LOD tileset",
+            "url": "https://github.com/honua-io/honua-server/issues/3282"
+          },
+          {
+            "number": 3283,
+            "title": "feat(scene): I3S texture/material definitions and texture route",
+            "url": "https://github.com/honua-io/honua-server/issues/3283"
+          },
+          {
+            "number": 3284,
+            "title": "feat(scene): job-based (202 + job URL) 3D Tiles generation and ingest; validate LOD tileset in the CNG lane",
+            "url": "https://github.com/honua-io/honua-server/issues/3284"
+          },
+          {
+            "number": 3285,
+            "title": "feat(terrain): quantized-mesh terrain provider (layer.json + .terrain tiles) from DEM rasters",
+            "url": "https://github.com/honua-io/honua-server/issues/3285"
+          },
+          {
+            "number": 3286,
+            "title": "feat(mcp): scene_list / scene_get / scene_resolve MCP tools bound to the scene catalog",
+            "url": "https://github.com/honua-io/honua-server/issues/3286"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2442,
+            "title": "feat(scene): COPC-native range serving + LAS/LAZ/COPC source registration (point cloud, T5)",
+            "url": "https://github.com/honua-io/honua-server/issues/2442"
+          },
+          {
+            "number": 3249,
+            "title": "Epic: 3D \u2014 honest, renderable, documented (3D Tiles canonical, I3S renderable, terrain, point cloud)",
+            "url": "https://github.com/honua-io/honua-server/issues/3249"
+          },
+          {
+            "number": 3280,
+            "title": "feat(scene): production ISceneNodeGeometryProvider \u2014 I3S root-node geometry renderable in ArcGIS clients",
+            "url": "https://github.com/honua-io/honua-server/issues/3280"
+          },
+          {
+            "number": 3281,
+            "title": "feat(scene): I3S per-node geometry paging and textures (full HLOD)",
+            "url": "https://github.com/honua-io/honua-server/issues/3281"
+          },
+          {
+            "number": 3282,
+            "title": "feat(scene): I3S all-node geometry paging over the LOD tileset",
+            "url": "https://github.com/honua-io/honua-server/issues/3282"
+          },
+          {
+            "number": 3283,
+            "title": "feat(scene): I3S texture/material definitions and texture route",
+            "url": "https://github.com/honua-io/honua-server/issues/3283"
+          },
+          {
+            "number": 3284,
+            "title": "feat(scene): job-based (202 + job URL) 3D Tiles generation and ingest; validate LOD tileset in the CNG lane",
+            "url": "https://github.com/honua-io/honua-server/issues/3284"
+          },
+          {
+            "number": 3285,
+            "title": "feat(terrain): quantized-mesh terrain provider (layer.json + .terrain tiles) from DEM rasters",
+            "url": "https://github.com/honua-io/honua-server/issues/3285"
+          },
+          {
+            "number": 3286,
+            "title": "feat(mcp): scene_list / scene_get / scene_resolve MCP tools bound to the scene catalog",
+            "url": "https://github.com/honua-io/honua-server/issues/3286"
+          }
+        ],
         "label": "cap/scene"
       }
     },
@@ -12315,8 +13353,8 @@
           "edition": "community",
           "lastRun": {
             "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-09-09T09:49:45.939Z"
+            "serverVersion": "2026.1.1",
+            "at": "2026-09-15T10:07:24.423Z"
           }
         },
         {
@@ -12329,8 +13367,8 @@
           "edition": "community",
           "lastRun": {
             "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-09-09T09:49:45.939Z"
+            "serverVersion": "2026.1.1",
+            "at": "2026-09-15T10:07:24.423Z"
           }
         }
       ],
@@ -15698,8 +16736,8 @@
           "edition": "community",
           "lastRun": {
             "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-09-09T09:49:45.939Z"
+            "serverVersion": "2026.1.1",
+            "at": "2026-09-15T10:07:24.423Z"
           }
         }
       ],
@@ -18280,8 +19318,8 @@
           "edition": "community",
           "lastRun": {
             "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-09-09T09:49:45.939Z"
+            "serverVersion": "2026.1.1",
+            "at": "2026-09-15T10:07:24.423Z"
           }
         }
       ],
@@ -20026,8 +21064,8 @@
           "edition": "community",
           "lastRun": {
             "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-09-09T09:49:45.939Z"
+            "serverVersion": "2026.1.1",
+            "at": "2026-09-15T10:07:24.423Z"
           }
         }
       ],
@@ -23856,8 +24894,8 @@
           "edition": "community",
           "lastRun": {
             "outcome": "pass",
-            "serverVersion": "1.0.0",
-            "at": "2026-09-09T09:49:45.939Z"
+            "serverVersion": "2026.1.1",
+            "at": "2026-09-15T10:07:24.423Z"
           }
         }
       ],
@@ -25489,11 +26527,33 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 2,
+        "refs": [
+          {
+            "number": 2441,
+            "title": "Military symbology rendering (MIL-STD-2525 / APP-6)",
+            "url": "https://github.com/honua-io/honua-server/issues/2441"
+          },
+          {
+            "number": 2445,
+            "title": "Drag-and-drop data upload \u2192 instant styled map",
+            "url": "https://github.com/honua-io/honua-server/issues/2445"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2441,
+            "title": "Military symbology rendering (MIL-STD-2525 / APP-6)",
+            "url": "https://github.com/honua-io/honua-server/issues/2441"
+          },
+          {
+            "number": 2445,
+            "title": "Drag-and-drop data upload \u2192 instant styled map",
+            "url": "https://github.com/honua-io/honua-server/issues/2445"
+          }
+        ],
         "label": "cap/styling"
       }
     },
@@ -25537,11 +26597,33 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 2,
+        "refs": [
+          {
+            "number": 2441,
+            "title": "Military symbology rendering (MIL-STD-2525 / APP-6)",
+            "url": "https://github.com/honua-io/honua-server/issues/2441"
+          },
+          {
+            "number": 2445,
+            "title": "Drag-and-drop data upload \u2192 instant styled map",
+            "url": "https://github.com/honua-io/honua-server/issues/2445"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2441,
+            "title": "Military symbology rendering (MIL-STD-2525 / APP-6)",
+            "url": "https://github.com/honua-io/honua-server/issues/2441"
+          },
+          {
+            "number": 2445,
+            "title": "Drag-and-drop data upload \u2192 instant styled map",
+            "url": "https://github.com/honua-io/honua-server/issues/2445"
+          }
+        ],
         "label": "cap/styling"
       }
     },
@@ -25596,11 +26678,33 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 2,
+        "refs": [
+          {
+            "number": 2441,
+            "title": "Military symbology rendering (MIL-STD-2525 / APP-6)",
+            "url": "https://github.com/honua-io/honua-server/issues/2441"
+          },
+          {
+            "number": 2445,
+            "title": "Drag-and-drop data upload \u2192 instant styled map",
+            "url": "https://github.com/honua-io/honua-server/issues/2445"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2441,
+            "title": "Military symbology rendering (MIL-STD-2525 / APP-6)",
+            "url": "https://github.com/honua-io/honua-server/issues/2441"
+          },
+          {
+            "number": 2445,
+            "title": "Drag-and-drop data upload \u2192 instant styled map",
+            "url": "https://github.com/honua-io/honua-server/issues/2445"
+          }
+        ],
         "label": "cap/styling"
       }
     },
