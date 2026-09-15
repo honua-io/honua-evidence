@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-09-15T13:19:06Z",
+  "generatedAt": "2026-09-15T13:51:46Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -29,52 +29,52 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-09-15T13:18:50Z",
+      "fetchedAt": "2026-09-15T13:51:19Z",
       "sourceVersion": "b65e4f5b00af@2026-09-13T22:55:33Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-15T13:18:50Z",
+      "observedAt": "2026-09-15T13:51:19Z",
       "ageDays": 0,
       "sourceAgeDays": 1,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-09-15T13:18:50Z",
-      "sourceVersion": "9b9646019e17@2026-09-15T13:18:27Z",
+      "fetchedAt": "2026-09-15T13:51:19Z",
+      "sourceVersion": "57aafd72d89c@2026-09-15T13:50:56Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-15T13:18:50Z",
+      "observedAt": "2026-09-15T13:51:19Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-09-15T13:18:51Z",
+      "fetchedAt": "2026-09-15T13:51:19Z",
       "sourceVersion": "640535afe475@2026-08-29T20:03:17Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-15T13:18:51Z",
+      "observedAt": "2026-09-15T13:51:19Z",
       "ageDays": 0,
       "sourceAgeDays": 16,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-09-15T13:18:51Z",
+      "fetchedAt": "2026-09-15T13:51:20Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-15T13:18:51Z",
+      "observedAt": "2026-09-15T13:51:20Z",
       "ageDays": 0,
       "sourceAgeDays": 59,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-09-15T13:18:51Z",
+      "fetchedAt": "2026-09-15T13:51:20Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-15T13:18:51Z",
+      "observedAt": "2026-09-15T13:51:20Z",
       "ageDays": 0,
       "sourceAgeDays": 59,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-09-15T13:18:53Z",
+      "fetchedAt": "2026-09-15T13:51:22Z",
       "sourceVersion": "773c2574c39b@2026-09-15T10:07:29Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-15T10:07:29Z",
@@ -83,16 +83,16 @@
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-09-15T13:19:06Z",
+      "fetchedAt": "2026-09-15T13:51:46Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-15T13:19:06Z",
+      "observedAt": "2026-09-15T13:51:46Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-09-15T13:18:53Z",
+      "fetchedAt": "2026-09-15T13:51:22Z",
       "sourceVersion": "792046bdaf6e@2026-09-02T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-02T00:00:00Z",
@@ -101,7 +101,7 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-09-15T13:18:53Z",
+      "fetchedAt": "2026-09-15T13:51:22Z",
       "sourceVersion": "4b317a3fc6a2@2026-09-15T11:50:59Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-15T11:50:59Z",
@@ -130,7 +130,7 @@
       "category": "ControlPlane",
       "edition": "Community",
       "entryCount": 374,
-      "provingTestCount": 1226,
+      "provingTestCount": 1229,
       "maturity": {
         "implemented": 371,
         "preview": 2,
@@ -604,103 +604,11 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 9,
-        "refs": [
-          {
-            "number": 3861,
-            "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
-            "url": "https://github.com/honua-io/honua-server/issues/3861"
-          },
-          {
-            "number": 3863,
-            "title": "test(alerts): prove leader handoff, database recovery, and restart persistence with two replicas",
-            "url": "https://github.com/honua-io/honua-server/issues/3863"
-          },
-          {
-            "number": 3864,
-            "title": "test(alerts): preserve ordered threshold and geofence transitions during change bursts",
-            "url": "https://github.com/honua-io/honua-server/issues/3864"
-          },
-          {
-            "number": 3867,
-            "title": "test(alerts): qualify secret rotation and secret-provider outage through the production cache",
-            "url": "https://github.com/honua-io/honua-server/issues/3867"
-          },
-          {
-            "number": 3868,
-            "title": "test(alerts): qualify fleet-wide storm limits, circuit recovery, backlog SLO, and provider outages",
-            "url": "https://github.com/honua-io/honua-server/issues/3868"
-          },
-          {
-            "number": 3869,
-            "title": "test(alerts): prove Postgres DLQ redrive to successful provider delivery and audit",
-            "url": "https://github.com/honua-io/honua-server/issues/3869"
-          },
-          {
-            "number": 3870,
-            "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
-            "url": "https://github.com/honua-io/honua-server/issues/3870"
-          },
-          {
-            "number": 3881,
-            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
-            "url": "https://github.com/honua-io/honua-server/issues/3881"
-          },
-          {
-            "number": 4793,
-            "title": "test(alerts): qualify concurrent tenant execution and signed dual-receiver delivery once tenant workers are enabled (2026.2 follow-on to #3859)",
-            "url": "https://github.com/honua-io/honua-server/issues/4793"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 3861,
-            "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
-            "url": "https://github.com/honua-io/honua-server/issues/3861"
-          },
-          {
-            "number": 3863,
-            "title": "test(alerts): prove leader handoff, database recovery, and restart persistence with two replicas",
-            "url": "https://github.com/honua-io/honua-server/issues/3863"
-          },
-          {
-            "number": 3864,
-            "title": "test(alerts): preserve ordered threshold and geofence transitions during change bursts",
-            "url": "https://github.com/honua-io/honua-server/issues/3864"
-          },
-          {
-            "number": 3867,
-            "title": "test(alerts): qualify secret rotation and secret-provider outage through the production cache",
-            "url": "https://github.com/honua-io/honua-server/issues/3867"
-          },
-          {
-            "number": 3868,
-            "title": "test(alerts): qualify fleet-wide storm limits, circuit recovery, backlog SLO, and provider outages",
-            "url": "https://github.com/honua-io/honua-server/issues/3868"
-          },
-          {
-            "number": 3869,
-            "title": "test(alerts): prove Postgres DLQ redrive to successful provider delivery and audit",
-            "url": "https://github.com/honua-io/honua-server/issues/3869"
-          },
-          {
-            "number": 3870,
-            "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
-            "url": "https://github.com/honua-io/honua-server/issues/3870"
-          },
-          {
-            "number": 3881,
-            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
-            "url": "https://github.com/honua-io/honua-server/issues/3881"
-          },
-          {
-            "number": 4793,
-            "title": "test(alerts): qualify concurrent tenant execution and signed dual-receiver delivery once tenant workers are enabled (2026.2 follow-on to #3859)",
-            "url": "https://github.com/honua-io/honua-server/issues/4793"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/alerts"
       }
     },
@@ -744,103 +652,11 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 9,
-        "refs": [
-          {
-            "number": 3861,
-            "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
-            "url": "https://github.com/honua-io/honua-server/issues/3861"
-          },
-          {
-            "number": 3863,
-            "title": "test(alerts): prove leader handoff, database recovery, and restart persistence with two replicas",
-            "url": "https://github.com/honua-io/honua-server/issues/3863"
-          },
-          {
-            "number": 3864,
-            "title": "test(alerts): preserve ordered threshold and geofence transitions during change bursts",
-            "url": "https://github.com/honua-io/honua-server/issues/3864"
-          },
-          {
-            "number": 3867,
-            "title": "test(alerts): qualify secret rotation and secret-provider outage through the production cache",
-            "url": "https://github.com/honua-io/honua-server/issues/3867"
-          },
-          {
-            "number": 3868,
-            "title": "test(alerts): qualify fleet-wide storm limits, circuit recovery, backlog SLO, and provider outages",
-            "url": "https://github.com/honua-io/honua-server/issues/3868"
-          },
-          {
-            "number": 3869,
-            "title": "test(alerts): prove Postgres DLQ redrive to successful provider delivery and audit",
-            "url": "https://github.com/honua-io/honua-server/issues/3869"
-          },
-          {
-            "number": 3870,
-            "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
-            "url": "https://github.com/honua-io/honua-server/issues/3870"
-          },
-          {
-            "number": 3881,
-            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
-            "url": "https://github.com/honua-io/honua-server/issues/3881"
-          },
-          {
-            "number": 4793,
-            "title": "test(alerts): qualify concurrent tenant execution and signed dual-receiver delivery once tenant workers are enabled (2026.2 follow-on to #3859)",
-            "url": "https://github.com/honua-io/honua-server/issues/4793"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 3861,
-            "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
-            "url": "https://github.com/honua-io/honua-server/issues/3861"
-          },
-          {
-            "number": 3863,
-            "title": "test(alerts): prove leader handoff, database recovery, and restart persistence with two replicas",
-            "url": "https://github.com/honua-io/honua-server/issues/3863"
-          },
-          {
-            "number": 3864,
-            "title": "test(alerts): preserve ordered threshold and geofence transitions during change bursts",
-            "url": "https://github.com/honua-io/honua-server/issues/3864"
-          },
-          {
-            "number": 3867,
-            "title": "test(alerts): qualify secret rotation and secret-provider outage through the production cache",
-            "url": "https://github.com/honua-io/honua-server/issues/3867"
-          },
-          {
-            "number": 3868,
-            "title": "test(alerts): qualify fleet-wide storm limits, circuit recovery, backlog SLO, and provider outages",
-            "url": "https://github.com/honua-io/honua-server/issues/3868"
-          },
-          {
-            "number": 3869,
-            "title": "test(alerts): prove Postgres DLQ redrive to successful provider delivery and audit",
-            "url": "https://github.com/honua-io/honua-server/issues/3869"
-          },
-          {
-            "number": 3870,
-            "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
-            "url": "https://github.com/honua-io/honua-server/issues/3870"
-          },
-          {
-            "number": 3881,
-            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
-            "url": "https://github.com/honua-io/honua-server/issues/3881"
-          },
-          {
-            "number": 4793,
-            "title": "test(alerts): qualify concurrent tenant execution and signed dual-receiver delivery once tenant workers are enabled (2026.2 follow-on to #3859)",
-            "url": "https://github.com/honua-io/honua-server/issues/4793"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/alerts"
       }
     },
@@ -875,103 +691,11 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 9,
-        "refs": [
-          {
-            "number": 3861,
-            "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
-            "url": "https://github.com/honua-io/honua-server/issues/3861"
-          },
-          {
-            "number": 3863,
-            "title": "test(alerts): prove leader handoff, database recovery, and restart persistence with two replicas",
-            "url": "https://github.com/honua-io/honua-server/issues/3863"
-          },
-          {
-            "number": 3864,
-            "title": "test(alerts): preserve ordered threshold and geofence transitions during change bursts",
-            "url": "https://github.com/honua-io/honua-server/issues/3864"
-          },
-          {
-            "number": 3867,
-            "title": "test(alerts): qualify secret rotation and secret-provider outage through the production cache",
-            "url": "https://github.com/honua-io/honua-server/issues/3867"
-          },
-          {
-            "number": 3868,
-            "title": "test(alerts): qualify fleet-wide storm limits, circuit recovery, backlog SLO, and provider outages",
-            "url": "https://github.com/honua-io/honua-server/issues/3868"
-          },
-          {
-            "number": 3869,
-            "title": "test(alerts): prove Postgres DLQ redrive to successful provider delivery and audit",
-            "url": "https://github.com/honua-io/honua-server/issues/3869"
-          },
-          {
-            "number": 3870,
-            "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
-            "url": "https://github.com/honua-io/honua-server/issues/3870"
-          },
-          {
-            "number": 3881,
-            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
-            "url": "https://github.com/honua-io/honua-server/issues/3881"
-          },
-          {
-            "number": 4793,
-            "title": "test(alerts): qualify concurrent tenant execution and signed dual-receiver delivery once tenant workers are enabled (2026.2 follow-on to #3859)",
-            "url": "https://github.com/honua-io/honua-server/issues/4793"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 3861,
-            "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
-            "url": "https://github.com/honua-io/honua-server/issues/3861"
-          },
-          {
-            "number": 3863,
-            "title": "test(alerts): prove leader handoff, database recovery, and restart persistence with two replicas",
-            "url": "https://github.com/honua-io/honua-server/issues/3863"
-          },
-          {
-            "number": 3864,
-            "title": "test(alerts): preserve ordered threshold and geofence transitions during change bursts",
-            "url": "https://github.com/honua-io/honua-server/issues/3864"
-          },
-          {
-            "number": 3867,
-            "title": "test(alerts): qualify secret rotation and secret-provider outage through the production cache",
-            "url": "https://github.com/honua-io/honua-server/issues/3867"
-          },
-          {
-            "number": 3868,
-            "title": "test(alerts): qualify fleet-wide storm limits, circuit recovery, backlog SLO, and provider outages",
-            "url": "https://github.com/honua-io/honua-server/issues/3868"
-          },
-          {
-            "number": 3869,
-            "title": "test(alerts): prove Postgres DLQ redrive to successful provider delivery and audit",
-            "url": "https://github.com/honua-io/honua-server/issues/3869"
-          },
-          {
-            "number": 3870,
-            "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
-            "url": "https://github.com/honua-io/honua-server/issues/3870"
-          },
-          {
-            "number": 3881,
-            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
-            "url": "https://github.com/honua-io/honua-server/issues/3881"
-          },
-          {
-            "number": 4793,
-            "title": "test(alerts): qualify concurrent tenant execution and signed dual-receiver delivery once tenant workers are enabled (2026.2 follow-on to #3859)",
-            "url": "https://github.com/honua-io/honua-server/issues/4793"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/alerts"
       }
     },
@@ -1015,103 +739,11 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 9,
-        "refs": [
-          {
-            "number": 3861,
-            "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
-            "url": "https://github.com/honua-io/honua-server/issues/3861"
-          },
-          {
-            "number": 3863,
-            "title": "test(alerts): prove leader handoff, database recovery, and restart persistence with two replicas",
-            "url": "https://github.com/honua-io/honua-server/issues/3863"
-          },
-          {
-            "number": 3864,
-            "title": "test(alerts): preserve ordered threshold and geofence transitions during change bursts",
-            "url": "https://github.com/honua-io/honua-server/issues/3864"
-          },
-          {
-            "number": 3867,
-            "title": "test(alerts): qualify secret rotation and secret-provider outage through the production cache",
-            "url": "https://github.com/honua-io/honua-server/issues/3867"
-          },
-          {
-            "number": 3868,
-            "title": "test(alerts): qualify fleet-wide storm limits, circuit recovery, backlog SLO, and provider outages",
-            "url": "https://github.com/honua-io/honua-server/issues/3868"
-          },
-          {
-            "number": 3869,
-            "title": "test(alerts): prove Postgres DLQ redrive to successful provider delivery and audit",
-            "url": "https://github.com/honua-io/honua-server/issues/3869"
-          },
-          {
-            "number": 3870,
-            "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
-            "url": "https://github.com/honua-io/honua-server/issues/3870"
-          },
-          {
-            "number": 3881,
-            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
-            "url": "https://github.com/honua-io/honua-server/issues/3881"
-          },
-          {
-            "number": 4793,
-            "title": "test(alerts): qualify concurrent tenant execution and signed dual-receiver delivery once tenant workers are enabled (2026.2 follow-on to #3859)",
-            "url": "https://github.com/honua-io/honua-server/issues/4793"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 3861,
-            "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
-            "url": "https://github.com/honua-io/honua-server/issues/3861"
-          },
-          {
-            "number": 3863,
-            "title": "test(alerts): prove leader handoff, database recovery, and restart persistence with two replicas",
-            "url": "https://github.com/honua-io/honua-server/issues/3863"
-          },
-          {
-            "number": 3864,
-            "title": "test(alerts): preserve ordered threshold and geofence transitions during change bursts",
-            "url": "https://github.com/honua-io/honua-server/issues/3864"
-          },
-          {
-            "number": 3867,
-            "title": "test(alerts): qualify secret rotation and secret-provider outage through the production cache",
-            "url": "https://github.com/honua-io/honua-server/issues/3867"
-          },
-          {
-            "number": 3868,
-            "title": "test(alerts): qualify fleet-wide storm limits, circuit recovery, backlog SLO, and provider outages",
-            "url": "https://github.com/honua-io/honua-server/issues/3868"
-          },
-          {
-            "number": 3869,
-            "title": "test(alerts): prove Postgres DLQ redrive to successful provider delivery and audit",
-            "url": "https://github.com/honua-io/honua-server/issues/3869"
-          },
-          {
-            "number": 3870,
-            "title": "test(alerts): prove cooldown, dwell, dedupe, and incident time under clock and zone shifts",
-            "url": "https://github.com/honua-io/honua-server/issues/3870"
-          },
-          {
-            "number": 3881,
-            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
-            "url": "https://github.com/honua-io/honua-server/issues/3881"
-          },
-          {
-            "number": 4793,
-            "title": "test(alerts): qualify concurrent tenant execution and signed dual-receiver delivery once tenant workers are enabled (2026.2 follow-on to #3859)",
-            "url": "https://github.com/honua-io/honua-server/issues/4793"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/alerts"
       }
     },
@@ -1146,73 +778,11 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
-        "refs": [
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3415,
-            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
-            "url": "https://github.com/honua-io/honua-server/issues/3415"
-          },
-          {
-            "number": 3469,
-            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
-            "url": "https://github.com/honua-io/honua-server/issues/3469"
-          },
-          {
-            "number": 3470,
-            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
-            "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3415,
-            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
-            "url": "https://github.com/honua-io/honua-server/issues/3415"
-          },
-          {
-            "number": 3469,
-            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
-            "url": "https://github.com/honua-io/honua-server/issues/3469"
-          },
-          {
-            "number": 3470,
-            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
-            "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/analytics"
       }
     },
@@ -1247,73 +817,11 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
-        "refs": [
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3415,
-            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
-            "url": "https://github.com/honua-io/honua-server/issues/3415"
-          },
-          {
-            "number": 3469,
-            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
-            "url": "https://github.com/honua-io/honua-server/issues/3469"
-          },
-          {
-            "number": 3470,
-            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
-            "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3415,
-            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
-            "url": "https://github.com/honua-io/honua-server/issues/3415"
-          },
-          {
-            "number": 3469,
-            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
-            "url": "https://github.com/honua-io/honua-server/issues/3469"
-          },
-          {
-            "number": 3470,
-            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
-            "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/analytics"
       }
     },
@@ -1348,73 +856,11 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
-        "refs": [
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3415,
-            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
-            "url": "https://github.com/honua-io/honua-server/issues/3415"
-          },
-          {
-            "number": 3469,
-            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
-            "url": "https://github.com/honua-io/honua-server/issues/3469"
-          },
-          {
-            "number": 3470,
-            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
-            "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3415,
-            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
-            "url": "https://github.com/honua-io/honua-server/issues/3415"
-          },
-          {
-            "number": 3469,
-            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
-            "url": "https://github.com/honua-io/honua-server/issues/3469"
-          },
-          {
-            "number": 3470,
-            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
-            "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/analytics"
       }
     },
@@ -1449,73 +895,11 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
-        "refs": [
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3415,
-            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
-            "url": "https://github.com/honua-io/honua-server/issues/3415"
-          },
-          {
-            "number": 3469,
-            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
-            "url": "https://github.com/honua-io/honua-server/issues/3469"
-          },
-          {
-            "number": 3470,
-            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
-            "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3415,
-            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
-            "url": "https://github.com/honua-io/honua-server/issues/3415"
-          },
-          {
-            "number": 3469,
-            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
-            "url": "https://github.com/honua-io/honua-server/issues/3469"
-          },
-          {
-            "number": 3470,
-            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
-            "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/analytics"
       }
     },
@@ -1550,73 +934,11 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
-        "refs": [
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3415,
-            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
-            "url": "https://github.com/honua-io/honua-server/issues/3415"
-          },
-          {
-            "number": 3469,
-            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
-            "url": "https://github.com/honua-io/honua-server/issues/3469"
-          },
-          {
-            "number": 3470,
-            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
-            "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3415,
-            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
-            "url": "https://github.com/honua-io/honua-server/issues/3415"
-          },
-          {
-            "number": 3469,
-            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
-            "url": "https://github.com/honua-io/honua-server/issues/3469"
-          },
-          {
-            "number": 3470,
-            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
-            "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/analytics"
       }
     },
@@ -1651,73 +973,11 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
-        "refs": [
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3415,
-            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
-            "url": "https://github.com/honua-io/honua-server/issues/3415"
-          },
-          {
-            "number": 3469,
-            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
-            "url": "https://github.com/honua-io/honua-server/issues/3469"
-          },
-          {
-            "number": 3470,
-            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
-            "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3415,
-            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
-            "url": "https://github.com/honua-io/honua-server/issues/3415"
-          },
-          {
-            "number": 3469,
-            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
-            "url": "https://github.com/honua-io/honua-server/issues/3469"
-          },
-          {
-            "number": 3470,
-            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
-            "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/analytics"
       }
     },
@@ -1758,73 +1018,11 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
-        "refs": [
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3415,
-            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
-            "url": "https://github.com/honua-io/honua-server/issues/3415"
-          },
-          {
-            "number": 3469,
-            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
-            "url": "https://github.com/honua-io/honua-server/issues/3469"
-          },
-          {
-            "number": 3470,
-            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
-            "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3415,
-            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
-            "url": "https://github.com/honua-io/honua-server/issues/3415"
-          },
-          {
-            "number": 3469,
-            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
-            "url": "https://github.com/honua-io/honua-server/issues/3469"
-          },
-          {
-            "number": 3470,
-            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
-            "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/analytics"
       }
     },
@@ -1859,73 +1057,11 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
-        "refs": [
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3415,
-            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
-            "url": "https://github.com/honua-io/honua-server/issues/3415"
-          },
-          {
-            "number": 3469,
-            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
-            "url": "https://github.com/honua-io/honua-server/issues/3469"
-          },
-          {
-            "number": 3470,
-            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
-            "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3415,
-            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
-            "url": "https://github.com/honua-io/honua-server/issues/3415"
-          },
-          {
-            "number": 3469,
-            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
-            "url": "https://github.com/honua-io/honua-server/issues/3469"
-          },
-          {
-            "number": 3470,
-            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
-            "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/analytics"
       }
     },
@@ -1960,73 +1096,11 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
-        "refs": [
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3415,
-            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
-            "url": "https://github.com/honua-io/honua-server/issues/3415"
-          },
-          {
-            "number": 3469,
-            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
-            "url": "https://github.com/honua-io/honua-server/issues/3469"
-          },
-          {
-            "number": 3470,
-            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
-            "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3415,
-            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
-            "url": "https://github.com/honua-io/honua-server/issues/3415"
-          },
-          {
-            "number": 3469,
-            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
-            "url": "https://github.com/honua-io/honua-server/issues/3469"
-          },
-          {
-            "number": 3470,
-            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
-            "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/analytics"
       }
     },
@@ -2061,73 +1135,11 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
-        "refs": [
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3415,
-            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
-            "url": "https://github.com/honua-io/honua-server/issues/3415"
-          },
-          {
-            "number": 3469,
-            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
-            "url": "https://github.com/honua-io/honua-server/issues/3469"
-          },
-          {
-            "number": 3470,
-            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
-            "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3415,
-            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
-            "url": "https://github.com/honua-io/honua-server/issues/3415"
-          },
-          {
-            "number": 3469,
-            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
-            "url": "https://github.com/honua-io/honua-server/issues/3469"
-          },
-          {
-            "number": 3470,
-            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
-            "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/analytics"
       }
     },
@@ -2162,73 +1174,11 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
-        "refs": [
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3415,
-            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
-            "url": "https://github.com/honua-io/honua-server/issues/3415"
-          },
-          {
-            "number": 3469,
-            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
-            "url": "https://github.com/honua-io/honua-server/issues/3469"
-          },
-          {
-            "number": 3470,
-            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
-            "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 2437,
-            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
-            "url": "https://github.com/honua-io/honua-server/issues/2437"
-          },
-          {
-            "number": 2453,
-            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
-            "url": "https://github.com/honua-io/honua-server/issues/2453"
-          },
-          {
-            "number": 3415,
-            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
-            "url": "https://github.com/honua-io/honua-server/issues/3415"
-          },
-          {
-            "number": 3469,
-            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
-            "url": "https://github.com/honua-io/honua-server/issues/3469"
-          },
-          {
-            "number": 3470,
-            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
-            "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/analytics"
       }
     },
@@ -6612,103 +5562,11 @@
         }
       ],
       "openIssues": {
-        "count": 9,
-        "refs": [
-          {
-            "number": 1716,
-            "title": "test: live Amazon Redshift integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1716"
-          },
-          {
-            "number": 1717,
-            "title": "test: live Snowflake integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1717"
-          },
-          {
-            "number": 1718,
-            "title": "test: live Databricks integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1718"
-          },
-          {
-            "number": 2436,
-            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2026.2",
-            "url": "https://github.com/honua-io/honua-server/issues/2436"
-          },
-          {
-            "number": 2445,
-            "title": "Drag-and-drop data upload \u2192 instant styled map",
-            "url": "https://github.com/honua-io/honua-server/issues/2445"
-          },
-          {
-            "number": 2452,
-            "title": "feat(bigquery): BigQuery read-only feature-store provider (REST, Metadata-v2 bindable, predicates, statistics, live lane)",
-            "url": "https://github.com/honua-io/honua-server/issues/2452"
-          },
-          {
-            "number": 3099,
-            "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
-            "url": "https://github.com/honua-io/honua-server/issues/3099"
-          },
-          {
-            "number": 3443,
-            "title": "feat(upload): durable resumable asset-upload sessions shared by raster and 3D ingest",
-            "url": "https://github.com/honua-io/honua-server/issues/3443"
-          },
-          {
-            "number": 3444,
-            "title": "feat(scene): safely import existing 3D Tiles archives into an immutable scene revision",
-            "url": "https://github.com/honua-io/honua-server/issues/3444"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 1716,
-            "title": "test: live Amazon Redshift integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1716"
-          },
-          {
-            "number": 1717,
-            "title": "test: live Snowflake integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1717"
-          },
-          {
-            "number": 1718,
-            "title": "test: live Databricks integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1718"
-          },
-          {
-            "number": 2436,
-            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2026.2",
-            "url": "https://github.com/honua-io/honua-server/issues/2436"
-          },
-          {
-            "number": 2445,
-            "title": "Drag-and-drop data upload \u2192 instant styled map",
-            "url": "https://github.com/honua-io/honua-server/issues/2445"
-          },
-          {
-            "number": 2452,
-            "title": "feat(bigquery): BigQuery read-only feature-store provider (REST, Metadata-v2 bindable, predicates, statistics, live lane)",
-            "url": "https://github.com/honua-io/honua-server/issues/2452"
-          },
-          {
-            "number": 3099,
-            "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
-            "url": "https://github.com/honua-io/honua-server/issues/3099"
-          },
-          {
-            "number": 3443,
-            "title": "feat(upload): durable resumable asset-upload sessions shared by raster and 3D ingest",
-            "url": "https://github.com/honua-io/honua-server/issues/3443"
-          },
-          {
-            "number": 3444,
-            "title": "feat(scene): safely import existing 3D Tiles archives into an immutable scene revision",
-            "url": "https://github.com/honua-io/honua-server/issues/3444"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/import"
       }
     },
@@ -6748,103 +5606,11 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 9,
-        "refs": [
-          {
-            "number": 1716,
-            "title": "test: live Amazon Redshift integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1716"
-          },
-          {
-            "number": 1717,
-            "title": "test: live Snowflake integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1717"
-          },
-          {
-            "number": 1718,
-            "title": "test: live Databricks integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1718"
-          },
-          {
-            "number": 2436,
-            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2026.2",
-            "url": "https://github.com/honua-io/honua-server/issues/2436"
-          },
-          {
-            "number": 2445,
-            "title": "Drag-and-drop data upload \u2192 instant styled map",
-            "url": "https://github.com/honua-io/honua-server/issues/2445"
-          },
-          {
-            "number": 2452,
-            "title": "feat(bigquery): BigQuery read-only feature-store provider (REST, Metadata-v2 bindable, predicates, statistics, live lane)",
-            "url": "https://github.com/honua-io/honua-server/issues/2452"
-          },
-          {
-            "number": 3099,
-            "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
-            "url": "https://github.com/honua-io/honua-server/issues/3099"
-          },
-          {
-            "number": 3443,
-            "title": "feat(upload): durable resumable asset-upload sessions shared by raster and 3D ingest",
-            "url": "https://github.com/honua-io/honua-server/issues/3443"
-          },
-          {
-            "number": 3444,
-            "title": "feat(scene): safely import existing 3D Tiles archives into an immutable scene revision",
-            "url": "https://github.com/honua-io/honua-server/issues/3444"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 1716,
-            "title": "test: live Amazon Redshift integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1716"
-          },
-          {
-            "number": 1717,
-            "title": "test: live Snowflake integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1717"
-          },
-          {
-            "number": 1718,
-            "title": "test: live Databricks integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1718"
-          },
-          {
-            "number": 2436,
-            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2026.2",
-            "url": "https://github.com/honua-io/honua-server/issues/2436"
-          },
-          {
-            "number": 2445,
-            "title": "Drag-and-drop data upload \u2192 instant styled map",
-            "url": "https://github.com/honua-io/honua-server/issues/2445"
-          },
-          {
-            "number": 2452,
-            "title": "feat(bigquery): BigQuery read-only feature-store provider (REST, Metadata-v2 bindable, predicates, statistics, live lane)",
-            "url": "https://github.com/honua-io/honua-server/issues/2452"
-          },
-          {
-            "number": 3099,
-            "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
-            "url": "https://github.com/honua-io/honua-server/issues/3099"
-          },
-          {
-            "number": 3443,
-            "title": "feat(upload): durable resumable asset-upload sessions shared by raster and 3D ingest",
-            "url": "https://github.com/honua-io/honua-server/issues/3443"
-          },
-          {
-            "number": 3444,
-            "title": "feat(scene): safely import existing 3D Tiles archives into an immutable scene revision",
-            "url": "https://github.com/honua-io/honua-server/issues/3444"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/import"
       }
     },
@@ -6884,103 +5650,11 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 9,
-        "refs": [
-          {
-            "number": 1716,
-            "title": "test: live Amazon Redshift integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1716"
-          },
-          {
-            "number": 1717,
-            "title": "test: live Snowflake integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1717"
-          },
-          {
-            "number": 1718,
-            "title": "test: live Databricks integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1718"
-          },
-          {
-            "number": 2436,
-            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2026.2",
-            "url": "https://github.com/honua-io/honua-server/issues/2436"
-          },
-          {
-            "number": 2445,
-            "title": "Drag-and-drop data upload \u2192 instant styled map",
-            "url": "https://github.com/honua-io/honua-server/issues/2445"
-          },
-          {
-            "number": 2452,
-            "title": "feat(bigquery): BigQuery read-only feature-store provider (REST, Metadata-v2 bindable, predicates, statistics, live lane)",
-            "url": "https://github.com/honua-io/honua-server/issues/2452"
-          },
-          {
-            "number": 3099,
-            "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
-            "url": "https://github.com/honua-io/honua-server/issues/3099"
-          },
-          {
-            "number": 3443,
-            "title": "feat(upload): durable resumable asset-upload sessions shared by raster and 3D ingest",
-            "url": "https://github.com/honua-io/honua-server/issues/3443"
-          },
-          {
-            "number": 3444,
-            "title": "feat(scene): safely import existing 3D Tiles archives into an immutable scene revision",
-            "url": "https://github.com/honua-io/honua-server/issues/3444"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 1716,
-            "title": "test: live Amazon Redshift integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1716"
-          },
-          {
-            "number": 1717,
-            "title": "test: live Snowflake integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1717"
-          },
-          {
-            "number": 1718,
-            "title": "test: live Databricks integration coverage in nightly CI",
-            "url": "https://github.com/honua-io/honua-server/issues/1718"
-          },
-          {
-            "number": 2436,
-            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2026.2",
-            "url": "https://github.com/honua-io/honua-server/issues/2436"
-          },
-          {
-            "number": 2445,
-            "title": "Drag-and-drop data upload \u2192 instant styled map",
-            "url": "https://github.com/honua-io/honua-server/issues/2445"
-          },
-          {
-            "number": 2452,
-            "title": "feat(bigquery): BigQuery read-only feature-store provider (REST, Metadata-v2 bindable, predicates, statistics, live lane)",
-            "url": "https://github.com/honua-io/honua-server/issues/2452"
-          },
-          {
-            "number": 3099,
-            "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
-            "url": "https://github.com/honua-io/honua-server/issues/3099"
-          },
-          {
-            "number": 3443,
-            "title": "feat(upload): durable resumable asset-upload sessions shared by raster and 3D ingest",
-            "url": "https://github.com/honua-io/honua-server/issues/3443"
-          },
-          {
-            "number": 3444,
-            "title": "feat(scene): safely import existing 3D Tiles archives into an immutable scene revision",
-            "url": "https://github.com/honua-io/honua-server/issues/3444"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/import"
       }
     },
@@ -10635,14 +9309,9 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 17,
+        "count": 10,
         "refs": [
           {
-            "number": 3098,
-            "title": "raster ingest: move large imports to a durable staged worker pipeline",
-            "url": "https://github.com/honua-io/honua-server/issues/3098"
-          },
-          {
             "number": 3101,
             "title": "raster serving: define request budgets and promote excessive work to durable jobs",
             "url": "https://github.com/honua-io/honua-server/issues/3101"
@@ -10651,36 +9320,6 @@
             "number": 3104,
             "title": "ops(raster): expose placement, artifact I/O, and Batch cost",
             "url": "https://github.com/honua-io/honua-server/issues/3104"
-          },
-          {
-            "number": 2438,
-            "title": "Raster function chains compiled to durable GP",
-            "url": "https://github.com/honua-io/honua-server/issues/2438"
-          },
-          {
-            "number": 3085,
-            "title": "Epic: single-engine raster execution on the isolated GDAL worker (PostGIS as serving/storage plane)",
-            "url": "https://github.com/honua-io/honua-server/issues/3085"
-          },
-          {
-            "number": 3098,
-            "title": "raster ingest: move large imports to a durable staged worker pipeline",
-            "url": "https://github.com/honua-io/honua-server/issues/3098"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3104,
-            "title": "ops(raster): expose placement, artifact I/O, and Batch cost",
-            "url": "https://github.com/honua-io/honua-server/issues/3104"
-          },
-          {
-            "number": 3105,
-            "title": "photogrammetry: produce orthomosaics as raster GP artifacts and keep 3D serving separate",
-            "url": "https://github.com/honua-io/honua-server/issues/3105"
           },
           {
             "number": 2438,
@@ -10726,11 +9365,6 @@
         "categoryLevel": false,
         "keyRefs": [
           {
-            "number": 3098,
-            "title": "raster ingest: move large imports to a durable staged worker pipeline",
-            "url": "https://github.com/honua-io/honua-server/issues/3098"
-          },
-          {
             "number": 3101,
             "title": "raster serving: define request budgets and promote excessive work to durable jobs",
             "url": "https://github.com/honua-io/honua-server/issues/3101"
@@ -10739,36 +9373,6 @@
             "number": 3104,
             "title": "ops(raster): expose placement, artifact I/O, and Batch cost",
             "url": "https://github.com/honua-io/honua-server/issues/3104"
-          },
-          {
-            "number": 2438,
-            "title": "Raster function chains compiled to durable GP",
-            "url": "https://github.com/honua-io/honua-server/issues/2438"
-          },
-          {
-            "number": 3085,
-            "title": "Epic: single-engine raster execution on the isolated GDAL worker (PostGIS as serving/storage plane)",
-            "url": "https://github.com/honua-io/honua-server/issues/3085"
-          },
-          {
-            "number": 3098,
-            "title": "raster ingest: move large imports to a durable staged worker pipeline",
-            "url": "https://github.com/honua-io/honua-server/issues/3098"
-          },
-          {
-            "number": 3101,
-            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3101"
-          },
-          {
-            "number": 3104,
-            "title": "ops(raster): expose placement, artifact I/O, and Batch cost",
-            "url": "https://github.com/honua-io/honua-server/issues/3104"
-          },
-          {
-            "number": 3105,
-            "title": "photogrammetry: produce orthomosaics as raster GP artifacts and keep 3D serving separate",
-            "url": "https://github.com/honua-io/honua-server/issues/3105"
           },
           {
             "number": 2438,
@@ -10811,23 +9415,7 @@
             "url": "https://github.com/honua-io/honua-server/issues/3101"
           }
         ],
-        "categoryRefs": [
-          {
-            "number": 3284,
-            "title": "feat(scene): job-based (202 + job URL) 3D Tiles generation and ingest; validate LOD tileset in the CNG lane",
-            "url": "https://github.com/honua-io/honua-server/issues/3284"
-          },
-          {
-            "number": 3443,
-            "title": "feat(upload): durable resumable asset-upload sessions shared by raster and 3D ingest",
-            "url": "https://github.com/honua-io/honua-server/issues/3443"
-          },
-          {
-            "number": 3446,
-            "title": "feat(scene): tile georeferenced glTF, GLB, and OBJ model assets through SceneGeneration jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3446"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/process"
       }
     },
@@ -10871,43 +9459,11 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 3,
-        "refs": [
-          {
-            "number": 3284,
-            "title": "feat(scene): job-based (202 + job URL) 3D Tiles generation and ingest; validate LOD tileset in the CNG lane",
-            "url": "https://github.com/honua-io/honua-server/issues/3284"
-          },
-          {
-            "number": 3443,
-            "title": "feat(upload): durable resumable asset-upload sessions shared by raster and 3D ingest",
-            "url": "https://github.com/honua-io/honua-server/issues/3443"
-          },
-          {
-            "number": 3446,
-            "title": "feat(scene): tile georeferenced glTF, GLB, and OBJ model assets through SceneGeneration jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3446"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 3284,
-            "title": "feat(scene): job-based (202 + job URL) 3D Tiles generation and ingest; validate LOD tileset in the CNG lane",
-            "url": "https://github.com/honua-io/honua-server/issues/3284"
-          },
-          {
-            "number": 3443,
-            "title": "feat(upload): durable resumable asset-upload sessions shared by raster and 3D ingest",
-            "url": "https://github.com/honua-io/honua-server/issues/3443"
-          },
-          {
-            "number": 3446,
-            "title": "feat(scene): tile georeferenced glTF, GLB, and OBJ model assets through SceneGeneration jobs",
-            "url": "https://github.com/honua-io/honua-server/issues/3446"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/process"
       }
     },
@@ -11082,13 +9638,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 3,
         "refs": [
-          {
-            "number": 3085,
-            "title": "Epic: single-engine raster execution on the isolated GDAL worker (PostGIS as serving/storage plane)",
-            "url": "https://github.com/honua-io/honua-server/issues/3085"
-          },
           {
             "number": 3085,
             "title": "Epic: single-engine raster execution on the isolated GDAL worker (PostGIS as serving/storage plane)",
@@ -11107,11 +9658,6 @@
         ],
         "categoryLevel": false,
         "keyRefs": [
-          {
-            "number": 3085,
-            "title": "Epic: single-engine raster execution on the isolated GDAL worker (PostGIS as serving/storage plane)",
-            "url": "https://github.com/honua-io/honua-server/issues/3085"
-          },
           {
             "number": 3085,
             "title": "Epic: single-engine raster execution on the isolated GDAL worker (PostGIS as serving/storage plane)",
@@ -11244,18 +9790,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 3,
         "refs": [
-          {
-            "number": 3085,
-            "title": "Epic: single-engine raster execution on the isolated GDAL worker (PostGIS as serving/storage plane)",
-            "url": "https://github.com/honua-io/honua-server/issues/3085"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): atomic hierarchy publication, GP offload, and deployment conformance",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
-          },
           {
             "number": 3085,
             "title": "Epic: single-engine raster execution on the isolated GDAL worker (PostGIS as serving/storage plane)",
@@ -11274,16 +9810,6 @@
         ],
         "categoryLevel": false,
         "keyRefs": [
-          {
-            "number": 3085,
-            "title": "Epic: single-engine raster execution on the isolated GDAL worker (PostGIS as serving/storage plane)",
-            "url": "https://github.com/honua-io/honua-server/issues/3085"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): atomic hierarchy publication, GP offload, and deployment conformance",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
-          },
           {
             "number": 3085,
             "title": "Epic: single-engine raster execution on the isolated GDAL worker (PostGIS as serving/storage plane)",
@@ -16870,18 +15396,8 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 3,
         "refs": [
-          {
-            "number": 3085,
-            "title": "Epic: single-engine raster execution on the isolated GDAL worker (PostGIS as serving/storage plane)",
-            "url": "https://github.com/honua-io/honua-server/issues/3085"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): atomic hierarchy publication, GP offload, and deployment conformance",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
-          },
           {
             "number": 3085,
             "title": "Epic: single-engine raster execution on the isolated GDAL worker (PostGIS as serving/storage plane)",
@@ -16900,16 +15416,6 @@
         ],
         "categoryLevel": false,
         "keyRefs": [
-          {
-            "number": 3085,
-            "title": "Epic: single-engine raster execution on the isolated GDAL worker (PostGIS as serving/storage plane)",
-            "url": "https://github.com/honua-io/honua-server/issues/3085"
-          },
-          {
-            "number": 3103,
-            "title": "raster(Zarr): atomic hierarchy publication, GP offload, and deployment conformance",
-            "url": "https://github.com/honua-io/honua-server/issues/3103"
-          },
           {
             "number": 3085,
             "title": "Epic: single-engine raster execution on the isolated GDAL worker (PostGIS as serving/storage plane)",
