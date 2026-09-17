@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-09-17T07:06:51Z",
+  "generatedAt": "2026-09-17T10:03:01Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -29,70 +29,70 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-09-17T07:06:40Z",
+      "fetchedAt": "2026-09-17T10:02:46Z",
       "sourceVersion": "b65e4f5b00af@2026-09-13T22:55:33Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-17T07:06:40Z",
+      "observedAt": "2026-09-17T10:02:46Z",
       "ageDays": 0,
       "sourceAgeDays": 3,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-09-17T07:06:41Z",
+      "fetchedAt": "2026-09-17T10:02:47Z",
       "sourceVersion": "7143df4502b0@2026-09-17T07:05:54Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-17T07:06:41Z",
+      "observedAt": "2026-09-17T10:02:47Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-09-17T07:06:41Z",
+      "fetchedAt": "2026-09-17T10:02:48Z",
       "sourceVersion": "640535afe475@2026-08-29T20:03:17Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-17T07:06:41Z",
+      "observedAt": "2026-09-17T10:02:48Z",
       "ageDays": 0,
       "sourceAgeDays": 18,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-09-17T07:06:42Z",
+      "fetchedAt": "2026-09-17T10:02:48Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-17T07:06:42Z",
+      "observedAt": "2026-09-17T10:02:48Z",
       "ageDays": 0,
       "sourceAgeDays": 61,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-09-17T07:06:42Z",
+      "fetchedAt": "2026-09-17T10:02:49Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-17T07:06:42Z",
+      "observedAt": "2026-09-17T10:02:49Z",
       "ageDays": 0,
       "sourceAgeDays": 61,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-09-17T07:06:43Z",
-      "sourceVersion": "773c2574c39b@2026-09-16T10:00:54Z",
+      "fetchedAt": "2026-09-17T10:02:50Z",
+      "sourceVersion": "773c2574c39b@2026-09-17T10:02:30Z",
       "freshnessBasis": "observation",
-      "observedAt": "2026-09-16T10:00:54Z",
+      "observedAt": "2026-09-17T10:02:30Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-09-17T07:06:51Z",
+      "fetchedAt": "2026-09-17T10:03:01Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-17T07:06:51Z",
+      "observedAt": "2026-09-17T10:03:01Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-09-17T07:06:43Z",
+      "fetchedAt": "2026-09-17T10:02:51Z",
       "sourceVersion": "7885b4ebbc76@2026-09-15T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-15T00:00:00Z",
@@ -101,7 +101,7 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-09-17T07:06:43Z",
+      "fetchedAt": "2026-09-17T10:02:51Z",
       "sourceVersion": "7165e7f67937@2026-09-17T04:57:58Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-17T04:57:58Z",
@@ -6705,7 +6705,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-09-16T10:00:46.673Z"
+            "at": "2026-09-17T10:02:24.261Z"
           }
         },
         {
@@ -6719,7 +6719,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-09-16T10:00:46.673Z"
+            "at": "2026-09-17T10:02:24.261Z"
           }
         }
       ],
@@ -13690,7 +13690,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-09-16T10:00:46.673Z"
+            "at": "2026-09-17T10:02:24.261Z"
           }
         },
         {
@@ -13704,7 +13704,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-09-16T10:00:46.673Z"
+            "at": "2026-09-17T10:02:24.261Z"
           }
         }
       ],
@@ -17185,7 +17185,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-09-16T10:00:46.673Z"
+            "at": "2026-09-17T10:02:24.261Z"
           }
         }
       ],
@@ -19879,7 +19879,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-09-16T10:00:46.673Z"
+            "at": "2026-09-17T10:02:24.261Z"
           }
         }
       ],
@@ -21681,7 +21681,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-09-16T10:00:46.673Z"
+            "at": "2026-09-17T10:02:24.261Z"
           }
         }
       ],
@@ -25679,7 +25679,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-09-16T10:00:46.673Z"
+            "at": "2026-09-17T10:02:24.261Z"
           }
         }
       ],
