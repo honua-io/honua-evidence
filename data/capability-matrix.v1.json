@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-09-22T06:07:16Z",
+  "generatedAt": "2026-09-22T08:06:34Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -29,70 +29,70 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-09-22T06:07:03Z",
+      "fetchedAt": "2026-09-22T08:06:19Z",
       "sourceVersion": "b65e4f5b00af@2026-09-13T22:55:33Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-22T06:07:03Z",
+      "observedAt": "2026-09-22T08:06:19Z",
       "ageDays": 0,
       "sourceAgeDays": 8,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-09-22T06:07:03Z",
-      "sourceVersion": "6ef100c06e94@2026-09-22T05:53:29Z",
+      "fetchedAt": "2026-09-22T08:06:20Z",
+      "sourceVersion": "b22e0377b096@2026-09-22T08:02:49Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-22T06:07:03Z",
+      "observedAt": "2026-09-22T08:06:20Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-09-22T06:07:04Z",
+      "fetchedAt": "2026-09-22T08:06:20Z",
       "sourceVersion": "640535afe475@2026-08-29T20:03:17Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-22T06:07:04Z",
+      "observedAt": "2026-09-22T08:06:20Z",
       "ageDays": 0,
       "sourceAgeDays": 23,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-09-22T06:07:04Z",
+      "fetchedAt": "2026-09-22T08:06:21Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-22T06:07:04Z",
+      "observedAt": "2026-09-22T08:06:21Z",
       "ageDays": 0,
       "sourceAgeDays": 66,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-09-22T06:07:04Z",
+      "fetchedAt": "2026-09-22T08:06:21Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-22T06:07:04Z",
+      "observedAt": "2026-09-22T08:06:21Z",
       "ageDays": 0,
       "sourceAgeDays": 66,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-09-22T06:07:05Z",
-      "sourceVersion": "773c2574c39b@2026-09-21T10:47:24Z",
+      "fetchedAt": "2026-09-22T08:06:23Z",
+      "sourceVersion": "773c2574c39b@2026-09-14T10:43:42Z",
       "freshnessBasis": "observation",
-      "observedAt": "2026-09-21T10:47:24Z",
-      "ageDays": 0,
-      "sourceAgeDays": 0,
-      "status": "fresh"
+      "observedAt": "2026-09-14T10:43:42Z",
+      "ageDays": 7,
+      "sourceAgeDays": 7,
+      "status": "stale"
     },
     "open-issues": {
-      "fetchedAt": "2026-09-22T06:07:16Z",
+      "fetchedAt": "2026-09-22T08:06:34Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-22T06:07:16Z",
+      "observedAt": "2026-09-22T08:06:34Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-09-22T06:07:06Z",
+      "fetchedAt": "2026-09-22T08:06:23Z",
       "sourceVersion": "45fdbed079ac@2026-09-15T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-15T00:00:00Z",
@@ -101,7 +101,7 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-09-22T06:07:06Z",
+      "fetchedAt": "2026-09-22T08:06:23Z",
       "sourceVersion": "7165e7f67937@2026-09-22T05:05:43Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-22T05:05:43Z",
@@ -7033,7 +7033,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-09-21T10:47:16.490Z"
+            "at": "2026-09-14T10:43:35.518Z"
           }
         },
         {
@@ -7047,7 +7047,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-09-21T10:47:16.490Z"
+            "at": "2026-09-14T10:43:35.518Z"
           }
         }
       ],
@@ -13235,10 +13235,10 @@
       "displayName": "FeatureServer Query",
       "category": "Serve",
       "edition": "Community",
-      "entryCount": 47,
-      "provingTestCount": 446,
+      "entryCount": 49,
+      "provingTestCount": 448,
       "maturity": {
-        "implemented": 47
+        "implemented": 49
       },
       "noSurface": null,
       "cite": [],
@@ -14626,7 +14626,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-09-21T10:47:16.490Z"
+            "at": "2026-09-14T10:43:35.518Z"
           }
         },
         {
@@ -14640,7 +14640,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-09-21T10:47:16.490Z"
+            "at": "2026-09-14T10:43:35.518Z"
           }
         }
       ],
@@ -16583,10 +16583,10 @@
       "displayName": "GeoServices REST Root",
       "category": "Serve",
       "edition": "Community",
-      "entryCount": 4,
-      "provingTestCount": 49,
+      "entryCount": 6,
+      "provingTestCount": 51,
       "maturity": {
-        "implemented": 4
+        "implemented": 6
       },
       "noSurface": null,
       "cite": [],
@@ -18425,7 +18425,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-09-21T10:47:16.490Z"
+            "at": "2026-09-14T10:43:35.518Z"
           }
         }
       ],
@@ -21423,7 +21423,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-09-21T10:47:16.490Z"
+            "at": "2026-09-14T10:43:35.518Z"
           }
         }
       ],
@@ -23377,7 +23377,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-09-21T10:47:16.490Z"
+            "at": "2026-09-14T10:43:35.518Z"
           }
         }
       ],
@@ -27831,7 +27831,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-09-21T10:47:16.490Z"
+            "at": "2026-09-14T10:43:35.518Z"
           }
         }
       ],
