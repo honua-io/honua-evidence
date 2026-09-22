@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-09-22T19:06:06Z",
+  "generatedAt": "2026-09-22T21:30:29Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -29,52 +29,52 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-09-22T19:05:48Z",
+      "fetchedAt": "2026-09-22T21:30:18Z",
       "sourceVersion": "afc9ae08b401@2026-09-22T15:36:47Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-22T19:05:48Z",
+      "observedAt": "2026-09-22T21:30:18Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-09-22T19:05:49Z",
+      "fetchedAt": "2026-09-22T21:30:18Z",
       "sourceVersion": "23d6f0fe0713@2026-09-22T19:05:28Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-22T19:05:49Z",
+      "observedAt": "2026-09-22T21:30:18Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-09-22T19:05:49Z",
+      "fetchedAt": "2026-09-22T21:30:18Z",
       "sourceVersion": "640535afe475@2026-08-29T20:03:17Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-22T19:05:49Z",
+      "observedAt": "2026-09-22T21:30:18Z",
       "ageDays": 0,
-      "sourceAgeDays": 23,
+      "sourceAgeDays": 24,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-09-22T19:05:50Z",
+      "fetchedAt": "2026-09-22T21:30:19Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-22T19:05:50Z",
+      "observedAt": "2026-09-22T21:30:19Z",
       "ageDays": 0,
-      "sourceAgeDays": 66,
+      "sourceAgeDays": 67,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-09-22T19:05:50Z",
+      "fetchedAt": "2026-09-22T21:30:19Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-22T19:05:50Z",
+      "observedAt": "2026-09-22T21:30:19Z",
       "ageDays": 0,
-      "sourceAgeDays": 66,
+      "sourceAgeDays": 67,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-09-22T19:05:52Z",
+      "fetchedAt": "2026-09-22T21:30:20Z",
       "sourceVersion": "773c2574c39b@2026-09-22T10:00:44Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-22T10:00:44Z",
@@ -83,16 +83,16 @@
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-09-22T19:06:06Z",
+      "fetchedAt": "2026-09-22T21:30:29Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-22T19:06:06Z",
+      "observedAt": "2026-09-22T21:30:29Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-09-22T19:05:52Z",
+      "fetchedAt": "2026-09-22T21:30:21Z",
       "sourceVersion": "45fdbed079ac@2026-09-15T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-15T00:00:00Z",
@@ -101,10 +101,10 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-09-22T19:05:52Z",
-      "sourceVersion": "7165e7f67937@2026-09-22T17:01:13Z",
+      "fetchedAt": "2026-09-22T21:30:21Z",
+      "sourceVersion": "7165e7f67937@2026-09-22T21:25:01Z",
       "freshnessBasis": "observation",
-      "observedAt": "2026-09-22T17:01:13Z",
+      "observedAt": "2026-09-22T21:25:01Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
@@ -121,7 +121,8 @@
     "open-issues: honua-io/honua-server#3101: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#3104: 'Capability Key(s)' field references unknown capability key 'ops' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#3104: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
-    "open-issues: honua-io/honua-server#3105: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored"
+    "open-issues: honua-io/honua-server#3105: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#3589: 'Capability Key(s)' field references unknown capability key 'process' (not in honua-server's canonical capability-keys.v1.json) -- ignored"
   ],
   "capabilities": [
     {
@@ -181,7 +182,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 6,
         "refs": [
           {
             "number": 346,
@@ -197,6 +198,11 @@
             "number": 3498,
             "title": "feat(studio): versioned server-owned contracts for the seven stub package families (query, analysis, report, form, workflow, gp, etl)",
             "url": "https://github.com/honua-io/honua-server/issues/3498"
+          },
+          {
+            "number": 3589,
+            "title": "tech-debt(workflows): IWorkflowPackageStore is in-memory in every topology, so packages, versions, and publications do not survive a restart",
+            "url": "https://github.com/honua-io/honua-server/issues/3589"
           },
           {
             "number": 3892,
@@ -226,6 +232,11 @@
             "number": 3498,
             "title": "feat(studio): versioned server-owned contracts for the seven stub package families (query, analysis, report, form, workflow, gp, etl)",
             "url": "https://github.com/honua-io/honua-server/issues/3498"
+          },
+          {
+            "number": 3589,
+            "title": "tech-debt(workflows): IWorkflowPackageStore is in-memory in every topology, so packages, versions, and publications do not survive a restart",
+            "url": "https://github.com/honua-io/honua-server/issues/3589"
           },
           {
             "number": 3892,
@@ -327,11 +338,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 4181,
+            "title": "[MCP] Implement the standard ping method on /mcp",
+            "url": "https://github.com/honua-io/honua-server/issues/4181"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 4181,
+            "title": "[MCP] Implement the standard ping method on /mcp",
+            "url": "https://github.com/honua-io/honua-server/issues/4181"
+          }
+        ],
         "label": "cap/ai"
       }
     },
@@ -382,11 +405,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 4181,
+            "title": "[MCP] Implement the standard ping method on /mcp",
+            "url": "https://github.com/honua-io/honua-server/issues/4181"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 4181,
+            "title": "[MCP] Implement the standard ping method on /mcp",
+            "url": "https://github.com/honua-io/honua-server/issues/4181"
+          }
+        ],
         "label": "cap/ai"
       }
     },
@@ -421,11 +456,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 4181,
+            "title": "[MCP] Implement the standard ping method on /mcp",
+            "url": "https://github.com/honua-io/honua-server/issues/4181"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 4181,
+            "title": "[MCP] Implement the standard ping method on /mcp",
+            "url": "https://github.com/honua-io/honua-server/issues/4181"
+          }
+        ],
         "label": "cap/ai"
       }
     },
@@ -469,11 +516,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 4181,
+            "title": "[MCP] Implement the standard ping method on /mcp",
+            "url": "https://github.com/honua-io/honua-server/issues/4181"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 4181,
+            "title": "[MCP] Implement the standard ping method on /mcp",
+            "url": "https://github.com/honua-io/honua-server/issues/4181"
+          }
+        ],
         "label": "cap/ai"
       }
     },
@@ -513,11 +572,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 4181,
+            "title": "[MCP] Implement the standard ping method on /mcp",
+            "url": "https://github.com/honua-io/honua-server/issues/4181"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 4181,
+            "title": "[MCP] Implement the standard ping method on /mcp",
+            "url": "https://github.com/honua-io/honua-server/issues/4181"
+          }
+        ],
         "label": "cap/ai"
       }
     },
@@ -556,11 +627,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 4181,
+            "title": "[MCP] Implement the standard ping method on /mcp",
+            "url": "https://github.com/honua-io/honua-server/issues/4181"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 4181,
+            "title": "[MCP] Implement the standard ping method on /mcp",
+            "url": "https://github.com/honua-io/honua-server/issues/4181"
+          }
+        ],
         "label": "cap/ai"
       }
     },
@@ -1146,7 +1229,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 7,
         "refs": [
           {
             "number": 2437,
@@ -1177,6 +1260,11 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5043,
+            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
+            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "categoryLevel": true,
@@ -1211,6 +1299,11 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5043,
+            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
+            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "label": "cap/analytics"
@@ -1247,7 +1340,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 7,
         "refs": [
           {
             "number": 2437,
@@ -1278,6 +1371,11 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5043,
+            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
+            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "categoryLevel": true,
@@ -1312,6 +1410,11 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5043,
+            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
+            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "label": "cap/analytics"
@@ -1348,7 +1451,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 7,
         "refs": [
           {
             "number": 2437,
@@ -1379,6 +1482,11 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5043,
+            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
+            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "categoryLevel": true,
@@ -1413,6 +1521,11 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5043,
+            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
+            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "label": "cap/analytics"
@@ -1449,7 +1562,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 7,
         "refs": [
           {
             "number": 2437,
@@ -1480,6 +1593,11 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5043,
+            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
+            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "categoryLevel": true,
@@ -1514,6 +1632,11 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5043,
+            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
+            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "label": "cap/analytics"
@@ -1550,7 +1673,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 7,
         "refs": [
           {
             "number": 2437,
@@ -1581,6 +1704,11 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5043,
+            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
+            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "categoryLevel": true,
@@ -1615,6 +1743,11 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5043,
+            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
+            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "label": "cap/analytics"
@@ -1651,7 +1784,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 7,
         "refs": [
           {
             "number": 2437,
@@ -1682,6 +1815,11 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5043,
+            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
+            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "categoryLevel": true,
@@ -1716,6 +1854,11 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5043,
+            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
+            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "label": "cap/analytics"
@@ -1758,7 +1901,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 7,
         "refs": [
           {
             "number": 2437,
@@ -1789,6 +1932,11 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5043,
+            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
+            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "categoryLevel": true,
@@ -1823,6 +1971,11 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5043,
+            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
+            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "label": "cap/analytics"
@@ -1859,7 +2012,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 7,
         "refs": [
           {
             "number": 2437,
@@ -1890,6 +2043,11 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5043,
+            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
+            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "categoryLevel": true,
@@ -1924,6 +2082,11 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5043,
+            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
+            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "label": "cap/analytics"
@@ -1960,7 +2123,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 7,
         "refs": [
           {
             "number": 2437,
@@ -1991,6 +2154,11 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5043,
+            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
+            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "categoryLevel": true,
@@ -2025,6 +2193,11 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5043,
+            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
+            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "label": "cap/analytics"
@@ -2061,7 +2234,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 7,
         "refs": [
           {
             "number": 2437,
@@ -2092,6 +2265,11 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5043,
+            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
+            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "categoryLevel": true,
@@ -2126,6 +2304,11 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5043,
+            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
+            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "label": "cap/analytics"
@@ -2162,7 +2345,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 7,
         "refs": [
           {
             "number": 2437,
@@ -2193,6 +2376,11 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5043,
+            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
+            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "categoryLevel": true,
@@ -2227,6 +2415,11 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5043,
+            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
+            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "label": "cap/analytics"
@@ -4074,6 +4267,14 @@
           "status": "red",
           "lastGreenAt": "",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35757860599"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-22T21:25:01Z",
+          "probeName": "capability-manifest",
+          "targetEnvironment": "demo.honua.io",
+          "status": "red",
+          "lastGreenAt": "",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35786356025"
         }
       ],
       "sdks": {
@@ -4206,12 +4407,17 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 1,
+        "count": 2,
         "refs": [
           {
             "number": 3876,
             "title": "test(realtime): qualify multi-node proxy routing and Redis failover snapshot recovery",
             "url": "https://github.com/honua-io/honua-server/issues/3876"
+          },
+          {
+            "number": 4677,
+            "title": "feat(dr): scope disaster recovery as an opt-in managed Enterprise capability (2026.2)",
+            "url": "https://github.com/honua-io/honua-server/issues/4677"
           }
         ],
         "categoryLevel": true,
@@ -4221,6 +4427,11 @@
             "number": 3876,
             "title": "test(realtime): qualify multi-node proxy routing and Redis failover snapshot recovery",
             "url": "https://github.com/honua-io/honua-server/issues/3876"
+          },
+          {
+            "number": 4677,
+            "title": "feat(dr): scope disaster recovery as an opt-in managed Enterprise capability (2026.2)",
+            "url": "https://github.com/honua-io/honua-server/issues/4677"
           }
         ],
         "label": "cap/disaster-recovery"
@@ -4261,12 +4472,17 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 1,
+        "count": 2,
         "refs": [
           {
             "number": 3876,
             "title": "test(realtime): qualify multi-node proxy routing and Redis failover snapshot recovery",
             "url": "https://github.com/honua-io/honua-server/issues/3876"
+          },
+          {
+            "number": 4677,
+            "title": "feat(dr): scope disaster recovery as an opt-in managed Enterprise capability (2026.2)",
+            "url": "https://github.com/honua-io/honua-server/issues/4677"
           }
         ],
         "categoryLevel": true,
@@ -4276,6 +4492,11 @@
             "number": 3876,
             "title": "test(realtime): qualify multi-node proxy routing and Redis failover snapshot recovery",
             "url": "https://github.com/honua-io/honua-server/issues/3876"
+          },
+          {
+            "number": 4677,
+            "title": "feat(dr): scope disaster recovery as an opt-in managed Enterprise capability (2026.2)",
+            "url": "https://github.com/honua-io/honua-server/issues/4677"
           }
         ],
         "label": "cap/disaster-recovery"
@@ -4316,12 +4537,17 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 1,
+        "count": 2,
         "refs": [
           {
             "number": 3876,
             "title": "test(realtime): qualify multi-node proxy routing and Redis failover snapshot recovery",
             "url": "https://github.com/honua-io/honua-server/issues/3876"
+          },
+          {
+            "number": 4677,
+            "title": "feat(dr): scope disaster recovery as an opt-in managed Enterprise capability (2026.2)",
+            "url": "https://github.com/honua-io/honua-server/issues/4677"
           }
         ],
         "categoryLevel": true,
@@ -4331,6 +4557,11 @@
             "number": 3876,
             "title": "test(realtime): qualify multi-node proxy routing and Redis failover snapshot recovery",
             "url": "https://github.com/honua-io/honua-server/issues/3876"
+          },
+          {
+            "number": 4677,
+            "title": "feat(dr): scope disaster recovery as an opt-in managed Enterprise capability (2026.2)",
+            "url": "https://github.com/honua-io/honua-server/issues/4677"
           }
         ],
         "label": "cap/disaster-recovery"
@@ -4371,12 +4602,17 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 1,
+        "count": 2,
         "refs": [
           {
             "number": 3876,
             "title": "test(realtime): qualify multi-node proxy routing and Redis failover snapshot recovery",
             "url": "https://github.com/honua-io/honua-server/issues/3876"
+          },
+          {
+            "number": 4677,
+            "title": "feat(dr): scope disaster recovery as an opt-in managed Enterprise capability (2026.2)",
+            "url": "https://github.com/honua-io/honua-server/issues/4677"
           }
         ],
         "categoryLevel": true,
@@ -4386,6 +4622,11 @@
             "number": 3876,
             "title": "test(realtime): qualify multi-node proxy routing and Redis failover snapshot recovery",
             "url": "https://github.com/honua-io/honua-server/issues/3876"
+          },
+          {
+            "number": 4677,
+            "title": "feat(dr): scope disaster recovery as an opt-in managed Enterprise capability (2026.2)",
+            "url": "https://github.com/honua-io/honua-server/issues/4677"
           }
         ],
         "label": "cap/disaster-recovery"
@@ -4428,12 +4669,17 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 1,
+        "count": 2,
         "refs": [
           {
             "number": 1726,
             "title": "chore: per-layer generation streams for branch-version posts (scale, deferred)",
             "url": "https://github.com/honua-io/honua-server/issues/1726"
+          },
+          {
+            "number": 4440,
+            "title": "backlog: free Apache-2.0 Excel OData editing add-in in a dedicated repository",
+            "url": "https://github.com/honua-io/honua-server/issues/4440"
           }
         ],
         "categoryLevel": true,
@@ -4443,6 +4689,11 @@
             "number": 1726,
             "title": "chore: per-layer generation streams for branch-version posts (scale, deferred)",
             "url": "https://github.com/honua-io/honua-server/issues/1726"
+          },
+          {
+            "number": 4440,
+            "title": "backlog: free Apache-2.0 Excel OData editing add-in in a dedicated repository",
+            "url": "https://github.com/honua-io/honua-server/issues/4440"
           }
         ],
         "label": "cap/editing"
@@ -4506,12 +4757,17 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 1,
+        "count": 2,
         "refs": [
           {
             "number": 1726,
             "title": "chore: per-layer generation streams for branch-version posts (scale, deferred)",
             "url": "https://github.com/honua-io/honua-server/issues/1726"
+          },
+          {
+            "number": 4440,
+            "title": "backlog: free Apache-2.0 Excel OData editing add-in in a dedicated repository",
+            "url": "https://github.com/honua-io/honua-server/issues/4440"
           }
         ],
         "categoryLevel": true,
@@ -4521,6 +4777,11 @@
             "number": 1726,
             "title": "chore: per-layer generation streams for branch-version posts (scale, deferred)",
             "url": "https://github.com/honua-io/honua-server/issues/1726"
+          },
+          {
+            "number": 4440,
+            "title": "backlog: free Apache-2.0 Excel OData editing add-in in a dedicated repository",
+            "url": "https://github.com/honua-io/honua-server/issues/4440"
           }
         ],
         "label": "cap/editing"
@@ -6157,6 +6418,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-22T17:01:13Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35757860599"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-22T21:25:01Z",
+          "probeName": "geocoding-latency",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-22T21:25:01Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35786356025"
         }
       ],
       "sdks": {
@@ -8780,6 +9049,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-22T17:01:13Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35757860599"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-22T21:25:01Z",
+          "probeName": "health-live-ready",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-22T21:25:01Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35786356025"
         }
       ],
       "sdks": {
@@ -11446,6 +11723,22 @@
           "status": "green",
           "lastGreenAt": "2026-09-22T17:01:13Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35757860599"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-22T21:25:01Z",
+          "probeName": "metrics-gated",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-22T21:25:01Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35786356025"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-22T21:25:01Z",
+          "probeName": "admin-metrics-health",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-22T21:25:01Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35786356025"
         }
       ],
       "sdks": {
@@ -14648,6 +14941,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-22T17:01:13Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35757860599"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-22T21:25:01Z",
+          "probeName": "render-query-smoke",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-22T21:25:01Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35786356025"
         }
       ],
       "sdks": {
@@ -16552,6 +16853,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-22T17:01:13Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35757860599"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-22T21:25:01Z",
+          "probeName": "render-query-smoke",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-22T21:25:01Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35786356025"
         }
       ],
       "sdks": {
@@ -18488,6 +18797,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-22T17:01:13Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35757860599"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-22T21:25:01Z",
+          "probeName": "odata-service-document",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-22T21:25:01Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35786356025"
         }
       ],
       "sdks": {
@@ -20063,6 +20380,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-22T17:01:13Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35757860599"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-22T21:25:01Z",
+          "probeName": "edr-collections",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-22T21:25:01Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35786356025"
         }
       ],
       "sdks": {
@@ -21512,6 +21837,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-22T17:01:13Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35757860599"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-22T21:25:01Z",
+          "probeName": "ogc-features-collections",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-22T21:25:01Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35786356025"
         }
       ],
       "sdks": {
@@ -23481,6 +23814,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-22T17:01:13Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35757860599"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-22T21:25:01Z",
+          "probeName": "stac-collections",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-22T21:25:01Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35786356025"
         }
       ],
       "sdks": {
@@ -24929,6 +25270,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-22T17:01:13Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35757860599"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-22T21:25:01Z",
+          "probeName": "tiles-tilejson",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-22T21:25:01Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35786356025"
         }
       ],
       "sdks": {
@@ -26353,6 +26702,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-22T17:01:13Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35757860599"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-22T21:25:01Z",
+          "probeName": "ogc-wcs-capabilities",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-22T21:25:01Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35786356025"
         }
       ],
       "sdks": {
@@ -27989,6 +28346,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-22T17:01:13Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35757860599"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-22T21:25:01Z",
+          "probeName": "ogc-wms-capabilities",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-22T21:25:01Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35786356025"
         }
       ],
       "sdks": {
@@ -29459,6 +29824,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-22T17:01:13Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35757860599"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-22T21:25:01Z",
+          "probeName": "ogc-wmts-capabilities",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-22T21:25:01Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35786356025"
         }
       ],
       "sdks": {
