@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-09-23T04:51:10Z",
+  "generatedAt": "2026-09-23T05:01:22Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -29,52 +29,52 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-09-23T04:51:00Z",
+      "fetchedAt": "2026-09-23T05:01:12Z",
       "sourceVersion": "afc9ae08b401@2026-09-22T15:36:47Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-23T04:51:00Z",
+      "observedAt": "2026-09-23T05:01:12Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-09-23T04:51:00Z",
-      "sourceVersion": "9a63b3f99ab9@2026-09-22T22:17:54Z",
+      "fetchedAt": "2026-09-23T05:01:12Z",
+      "sourceVersion": "55fc1b6223ec@2026-09-23T05:00:56Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-23T04:51:00Z",
+      "observedAt": "2026-09-23T05:01:12Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-09-23T04:51:01Z",
+      "fetchedAt": "2026-09-23T05:01:13Z",
       "sourceVersion": "c0fc88835274@2026-09-22T21:19:49Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-23T04:51:01Z",
+      "observedAt": "2026-09-23T05:01:13Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-09-23T04:51:01Z",
+      "fetchedAt": "2026-09-23T05:01:13Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-23T04:51:01Z",
+      "observedAt": "2026-09-23T05:01:13Z",
       "ageDays": 0,
       "sourceAgeDays": 67,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-09-23T04:51:01Z",
+      "fetchedAt": "2026-09-23T05:01:13Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-23T04:51:01Z",
+      "observedAt": "2026-09-23T05:01:13Z",
       "ageDays": 0,
       "sourceAgeDays": 67,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-09-23T04:51:02Z",
+      "fetchedAt": "2026-09-23T05:01:14Z",
       "sourceVersion": "773c2574c39b@2026-09-22T10:00:44Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-22T10:00:44Z",
@@ -83,16 +83,16 @@
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-09-23T04:51:10Z",
+      "fetchedAt": "2026-09-23T05:01:22Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-23T04:51:10Z",
+      "observedAt": "2026-09-23T05:01:22Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-09-23T04:51:02Z",
+      "fetchedAt": "2026-09-23T05:01:14Z",
       "sourceVersion": "34418c01e995@2026-09-22T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-22T00:00:00Z",
@@ -101,7 +101,7 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-09-23T04:51:03Z",
+      "fetchedAt": "2026-09-23T05:01:14Z",
       "sourceVersion": "7165e7f67937@2026-09-23T04:50:44Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-23T04:50:44Z",
@@ -131,7 +131,7 @@
       "category": "ControlPlane",
       "edition": "Community",
       "entryCount": 376,
-      "provingTestCount": 1296,
+      "provingTestCount": 1300,
       "maturity": {
         "implemented": 373,
         "preview": 2,
@@ -1229,7 +1229,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 2437,
@@ -1260,11 +1260,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5043,
-            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
-            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "categoryLevel": true,
@@ -1299,11 +1294,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5043,
-            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
-            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "label": "cap/analytics"
@@ -1340,7 +1330,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 2437,
@@ -1371,11 +1361,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5043,
-            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
-            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "categoryLevel": true,
@@ -1410,11 +1395,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5043,
-            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
-            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "label": "cap/analytics"
@@ -1451,7 +1431,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 2437,
@@ -1482,11 +1462,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5043,
-            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
-            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "categoryLevel": true,
@@ -1521,11 +1496,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5043,
-            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
-            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "label": "cap/analytics"
@@ -1562,7 +1532,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 2437,
@@ -1593,11 +1563,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5043,
-            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
-            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "categoryLevel": true,
@@ -1632,11 +1597,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5043,
-            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
-            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "label": "cap/analytics"
@@ -1673,7 +1633,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 2437,
@@ -1704,11 +1664,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5043,
-            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
-            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "categoryLevel": true,
@@ -1743,11 +1698,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5043,
-            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
-            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "label": "cap/analytics"
@@ -1784,7 +1734,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 2437,
@@ -1815,11 +1765,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5043,
-            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
-            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "categoryLevel": true,
@@ -1854,11 +1799,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5043,
-            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
-            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "label": "cap/analytics"
@@ -1901,7 +1841,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 2437,
@@ -1932,11 +1872,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5043,
-            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
-            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "categoryLevel": true,
@@ -1971,11 +1906,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5043,
-            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
-            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "label": "cap/analytics"
@@ -2012,7 +1942,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 2437,
@@ -2043,11 +1973,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5043,
-            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
-            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "categoryLevel": true,
@@ -2082,11 +2007,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5043,
-            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
-            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "label": "cap/analytics"
@@ -2123,7 +2043,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 2437,
@@ -2154,11 +2074,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5043,
-            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
-            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "categoryLevel": true,
@@ -2193,11 +2108,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5043,
-            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
-            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "label": "cap/analytics"
@@ -2234,7 +2144,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 2437,
@@ -2265,11 +2175,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5043,
-            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
-            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "categoryLevel": true,
@@ -2304,11 +2209,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5043,
-            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
-            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "label": "cap/analytics"
@@ -2345,7 +2245,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 2437,
@@ -2376,11 +2276,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5043,
-            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
-            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "categoryLevel": true,
@@ -2415,11 +2310,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5043,
-            "title": "Grouped FeatureServer statistics fail when ordering JSONB-backed group fields",
-            "url": "https://github.com/honua-io/honua-server/issues/5043"
           }
         ],
         "label": "cap/analytics"
@@ -4645,10 +4535,10 @@
       "displayName": "Branch Versioning",
       "category": "Editing",
       "edition": "Pro",
-      "entryCount": 15,
-      "provingTestCount": 37,
+      "entryCount": 16,
+      "provingTestCount": 60,
       "maturity": {
-        "experimental": 15
+        "experimental": 16
       },
       "noSurface": null,
       "cite": [],
@@ -13625,7 +13515,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 49,
-      "provingTestCount": 466,
+      "provingTestCount": 502,
       "maturity": {
         "implemented": 49
       },
@@ -15553,7 +15443,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 45,
-      "provingTestCount": 367,
+      "provingTestCount": 379,
       "maturity": {
         "implemented": 43,
         "preview": 2
@@ -17036,10 +16926,10 @@
       "displayName": "GeoServices REST Root",
       "category": "Serve",
       "edition": "Community",
-      "entryCount": 6,
-      "provingTestCount": 53,
+      "entryCount": 10,
+      "provingTestCount": 69,
       "maturity": {
-        "implemented": 6
+        "implemented": 10
       },
       "noSurface": null,
       "cite": [],
