@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-09-23T10:02:20Z",
+  "generatedAt": "2026-09-23T11:45:57Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -29,52 +29,52 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-09-23T10:02:05Z",
+      "fetchedAt": "2026-09-23T11:45:45Z",
       "sourceVersion": "afc9ae08b401@2026-09-22T15:36:47Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-23T10:02:05Z",
+      "observedAt": "2026-09-23T11:45:45Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-09-23T10:02:05Z",
+      "fetchedAt": "2026-09-23T11:45:46Z",
       "sourceVersion": "28def9c3fddf@2026-09-23T05:29:48Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-23T10:02:05Z",
+      "observedAt": "2026-09-23T11:45:46Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-09-23T10:02:06Z",
+      "fetchedAt": "2026-09-23T11:45:46Z",
       "sourceVersion": "c0fc88835274@2026-09-22T21:19:49Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-23T10:02:06Z",
+      "observedAt": "2026-09-23T11:45:46Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-09-23T10:02:06Z",
+      "fetchedAt": "2026-09-23T11:45:47Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-23T10:02:06Z",
+      "observedAt": "2026-09-23T11:45:47Z",
       "ageDays": 0,
       "sourceAgeDays": 67,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-09-23T10:02:07Z",
+      "fetchedAt": "2026-09-23T11:45:47Z",
       "sourceVersion": "7af4dd8ca654@2026-07-17T20:39:55Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-23T10:02:07Z",
+      "observedAt": "2026-09-23T11:45:47Z",
       "ageDays": 0,
       "sourceAgeDays": 67,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-09-23T10:02:08Z",
+      "fetchedAt": "2026-09-23T11:45:48Z",
       "sourceVersion": "773c2574c39b@2026-09-23T10:01:46Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-23T10:01:46Z",
@@ -83,16 +83,16 @@
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-09-23T10:02:20Z",
+      "fetchedAt": "2026-09-23T11:45:57Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-09-23T10:02:20Z",
+      "observedAt": "2026-09-23T11:45:57Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-09-23T10:02:09Z",
+      "fetchedAt": "2026-09-23T11:45:48Z",
       "sourceVersion": "34418c01e995@2026-09-22T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-22T00:00:00Z",
@@ -101,10 +101,10 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-09-23T10:02:09Z",
-      "sourceVersion": "7165e7f67937@2026-09-23T04:50:44Z",
+      "fetchedAt": "2026-09-23T11:45:48Z",
+      "sourceVersion": "7165e7f67937@2026-09-23T11:45:29Z",
       "freshnessBasis": "observation",
-      "observedAt": "2026-09-23T04:50:44Z",
+      "observedAt": "2026-09-23T11:45:29Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
@@ -4173,6 +4173,14 @@
           "status": "red",
           "lastGreenAt": "",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35819959137"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-23T11:45:29Z",
+          "probeName": "capability-manifest",
+          "targetEnvironment": "demo.honua.io",
+          "status": "red",
+          "lastGreenAt": "",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35856367606"
         }
       ],
       "sdks": {
@@ -6332,6 +6340,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-23T04:50:44Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35819959137"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-23T11:45:29Z",
+          "probeName": "geocoding-latency",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-23T11:45:29Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35856367606"
         }
       ],
       "sdks": {
@@ -8971,6 +8987,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-23T04:50:44Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35819959137"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-23T11:45:29Z",
+          "probeName": "health-live-ready",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-23T11:45:29Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35856367606"
         }
       ],
       "sdks": {
@@ -11669,6 +11693,22 @@
           "status": "green",
           "lastGreenAt": "2026-09-23T04:50:44Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35819959137"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-23T11:45:29Z",
+          "probeName": "metrics-gated",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-23T11:45:29Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35856367606"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-23T11:45:29Z",
+          "probeName": "admin-metrics-health",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-23T11:45:29Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35856367606"
         }
       ],
       "sdks": {
@@ -14887,6 +14927,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-23T04:50:44Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35819959137"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-23T11:45:29Z",
+          "probeName": "render-query-smoke",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-23T11:45:29Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35856367606"
         }
       ],
       "sdks": {
@@ -16807,6 +16855,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-23T04:50:44Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35819959137"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-23T11:45:29Z",
+          "probeName": "render-query-smoke",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-23T11:45:29Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35856367606"
         }
       ],
       "sdks": {
@@ -18759,6 +18815,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-23T04:50:44Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35819959137"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-23T11:45:29Z",
+          "probeName": "odata-service-document",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-23T11:45:29Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35856367606"
         }
       ],
       "sdks": {
@@ -20350,6 +20414,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-23T04:50:44Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35819959137"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-23T11:45:29Z",
+          "probeName": "edr-collections",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-23T11:45:29Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35856367606"
         }
       ],
       "sdks": {
@@ -21815,6 +21887,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-23T04:50:44Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35819959137"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-23T11:45:29Z",
+          "probeName": "ogc-features-collections",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-23T11:45:29Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35856367606"
         }
       ],
       "sdks": {
@@ -23800,6 +23880,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-23T04:50:44Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35819959137"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-23T11:45:29Z",
+          "probeName": "stac-collections",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-23T11:45:29Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35856367606"
         }
       ],
       "sdks": {
@@ -25264,6 +25352,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-23T04:50:44Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35819959137"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-23T11:45:29Z",
+          "probeName": "tiles-tilejson",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-23T11:45:29Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35856367606"
         }
       ],
       "sdks": {
@@ -26704,6 +26800,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-23T04:50:44Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35819959137"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-23T11:45:29Z",
+          "probeName": "ogc-wcs-capabilities",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-23T11:45:29Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35856367606"
         }
       ],
       "sdks": {
@@ -28356,6 +28460,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-23T04:50:44Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35819959137"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-23T11:45:29Z",
+          "probeName": "ogc-wms-capabilities",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-23T11:45:29Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35856367606"
         }
       ],
       "sdks": {
@@ -29842,6 +29954,14 @@
           "status": "green",
           "lastGreenAt": "2026-09-23T04:50:44Z",
           "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35819959137"
+        },
+        {
+          "manifestId": "demo-canary-2026-09-23T11:45:29Z",
+          "probeName": "ogc-wmts-capabilities",
+          "targetEnvironment": "demo.honua.io",
+          "status": "green",
+          "lastGreenAt": "2026-09-23T11:45:29Z",
+          "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/35856367606"
         }
       ],
       "sdks": {
