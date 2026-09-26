@@ -2318,6 +2318,1131 @@
       "required_operations": 1
     }
   },
+  "cloud_native_inventory": {
+    "counts_by_classification": {
+      "not-applicable": 10,
+      "optional-consumer": 11,
+      "producer": 4,
+      "required-consumer": 18,
+      "supporting-tool": 10
+    },
+    "entries": [
+      {
+        "classification": "required-consumer",
+        "format": "cog",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 1,
+          "required_addressable": 1,
+          "skipped": 1
+        },
+        "ledger_clients": [
+          "Rasterio"
+        ],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Canonical windowed COG reader; release evidence must prove range-efficient reads.",
+        "required": true,
+        "status": "non-passing",
+        "tool": "Rasterio"
+      },
+      {
+        "classification": "required-consumer",
+        "format": "cog",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 1,
+          "required_addressable": 1,
+          "skipped": 1
+        },
+        "ledger_clients": [
+          "GDAL"
+        ],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Canonical cross-language COG reader and metadata inspector.",
+        "required": true,
+        "status": "non-passing",
+        "tool": "GDAL"
+      },
+      {
+        "classification": "producer",
+        "format": "cog",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 1,
+          "required_addressable": 1,
+          "skipped": 1
+        },
+        "ledger_clients": [
+          "rio-cogeo"
+        ],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Validates produced COG structure; it does not substitute for API readability.",
+        "required": true,
+        "status": "non-passing",
+        "tool": "rio-cogeo"
+      },
+      {
+        "classification": "optional-consumer",
+        "format": "cog",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Useful xarray integration, but Rasterio and GDAL define the blocking denominator.",
+        "required": false,
+        "status": "not-required",
+        "tool": "rio-xarray"
+      },
+      {
+        "classification": "optional-consumer",
+        "format": "cog",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Distinct R workflow retained for breadth after the required readers pass.",
+        "required": false,
+        "status": "not-required",
+        "tool": "R-stars"
+      },
+      {
+        "classification": "optional-consumer",
+        "format": "cog",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Distinct R workflow retained for breadth after the required readers pass.",
+        "required": false,
+        "status": "not-required",
+        "tool": "R-terra"
+      },
+      {
+        "classification": "required-consumer",
+        "format": "hdf5-netcdf",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 1,
+          "required_addressable": 1,
+          "skipped": 1
+        },
+        "ledger_clients": [
+          "h5stat"
+        ],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Canonical structural inspection is required for produced HDF5/NetCDF artifacts.",
+        "required": true,
+        "status": "non-passing",
+        "tool": "h5stat"
+      },
+      {
+        "classification": "producer",
+        "format": "hdf5-netcdf",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 1,
+          "required_addressable": 1,
+          "skipped": 1
+        },
+        "ledger_clients": [
+          "h5dump"
+        ],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Validates serialized metadata and values emitted by the producer.",
+        "required": true,
+        "status": "non-passing",
+        "tool": "h5dump"
+      },
+      {
+        "classification": "producer",
+        "format": "hdf5-netcdf",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 1,
+          "required_addressable": 1,
+          "skipped": 1
+        },
+        "ledger_clients": [
+          "h5repack"
+        ],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Checks that emitted files survive a canonical HDF5 rewrite.",
+        "required": true,
+        "status": "non-passing",
+        "tool": "h5repack"
+      },
+      {
+        "classification": "required-consumer",
+        "format": "hdf5-netcdf",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 1,
+          "required_addressable": 1,
+          "skipped": 1
+        },
+        "ledger_clients": [
+          "h5py"
+        ],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Canonical Python HDF5 consumer for metadata and array reads.",
+        "required": true,
+        "status": "non-passing",
+        "tool": "h5py"
+      },
+      {
+        "classification": "required-consumer",
+        "format": "hdf5-netcdf",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 1,
+          "required_addressable": 1,
+          "skipped": 1
+        },
+        "ledger_clients": [
+          "xarray"
+        ],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Canonical labeled multidimensional-array workflow.",
+        "required": true,
+        "status": "non-passing",
+        "tool": "xarray"
+      },
+      {
+        "classification": "supporting-tool",
+        "format": "hdf5-netcdf",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [
+          "fsspec"
+        ],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Transport abstraction supports consumers but is not an independent HDF5 assertion.",
+        "required": false,
+        "status": "not-required",
+        "tool": "fsspec"
+      },
+      {
+        "classification": "optional-consumer",
+        "format": "hdf5-netcdf",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Optional remote HDF5 transport with environment-specific availability.",
+        "required": false,
+        "status": "not-required",
+        "tool": "ROS3"
+      },
+      {
+        "classification": "required-consumer",
+        "format": "zarr",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 1,
+          "required_addressable": 1,
+          "skipped": 1
+        },
+        "ledger_clients": [
+          "zarr"
+        ],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Reference Zarr implementation defines the blocking array-read path.",
+        "required": true,
+        "status": "non-passing",
+        "tool": "zarr"
+      },
+      {
+        "classification": "required-consumer",
+        "format": "zarr",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 1,
+          "required_addressable": 1,
+          "skipped": 1
+        },
+        "ledger_clients": [
+          "xarray"
+        ],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Canonical labeled-array consumer must open the governed store.",
+        "required": true,
+        "status": "non-passing",
+        "tool": "xarray"
+      },
+      {
+        "classification": "required-consumer",
+        "format": "zarr",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 1,
+          "required_addressable": 1,
+          "skipped": 1
+        },
+        "ledger_clients": [
+          "fsspec"
+        ],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Required object-store access path for governed Zarr fixtures.",
+        "required": true,
+        "status": "non-passing",
+        "tool": "fsspec"
+      },
+      {
+        "classification": "required-consumer",
+        "format": "zarr",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 1,
+          "required_addressable": 1,
+          "skipped": 1
+        },
+        "ledger_clients": [
+          "Dask"
+        ],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Required lazy/chunked execution path catches store and chunk-layout defects.",
+        "required": true,
+        "status": "non-passing",
+        "tool": "Dask"
+      },
+      {
+        "classification": "supporting-tool",
+        "format": "zarr",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "S3 transport supports consumers but is not a separate format verdict.",
+        "required": false,
+        "status": "not-required",
+        "tool": "s3fs"
+      },
+      {
+        "classification": "optional-consumer",
+        "format": "zarr",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Azure transport is useful breadth outside the first release denominator.",
+        "required": false,
+        "status": "not-required",
+        "tool": "adlfs"
+      },
+      {
+        "classification": "optional-consumer",
+        "format": "zarr",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "External catalog workflow is informative but not owned release infrastructure.",
+        "required": false,
+        "status": "not-required",
+        "tool": "Planetary-Computer"
+      },
+      {
+        "classification": "not-applicable",
+        "format": "kerchunk",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "roadmap",
+        "owner": "honua-io/honua-server#3378",
+        "rationale": "Kerchunk serving is roadmap and cannot count toward the supported denominator.",
+        "required": false,
+        "status": "not-required",
+        "tool": "kerchunk"
+      },
+      {
+        "classification": "not-applicable",
+        "format": "kerchunk",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "roadmap",
+        "owner": "honua-io/honua-server#3378",
+        "rationale": "Reference-filesystem consumption waits for the roadmap implementation.",
+        "required": false,
+        "status": "not-required",
+        "tool": "fsspec-reference-filesystem"
+      },
+      {
+        "classification": "not-applicable",
+        "format": "kerchunk",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "roadmap",
+        "owner": "honua-io/honua-server#3378",
+        "rationale": "The xarray kerchunk path is not addressable until serving is implemented.",
+        "required": false,
+        "status": "not-required",
+        "tool": "xarray"
+      },
+      {
+        "classification": "supporting-tool",
+        "format": "kerchunk",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "roadmap",
+        "owner": "honua-io/honua-server#3378",
+        "rationale": "Input inspection supports future reference generation, not current API proof.",
+        "required": false,
+        "status": "not-required",
+        "tool": "h5py"
+      },
+      {
+        "classification": "supporting-tool",
+        "format": "kerchunk",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "roadmap",
+        "owner": "honua-io/honua-server#3378",
+        "rationale": "Object-store transport supports the future lane without proving it.",
+        "required": false,
+        "status": "not-required",
+        "tool": "s3fs"
+      },
+      {
+        "classification": "optional-consumer",
+        "format": "kerchunk",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "roadmap",
+        "owner": "honua-io/honua-server#3378",
+        "rationale": "Lazy execution is post-implementation breadth, not a current requirement.",
+        "required": false,
+        "status": "not-required",
+        "tool": "Dask"
+      },
+      {
+        "classification": "supporting-tool",
+        "format": "kerchunk",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "roadmap",
+        "owner": "honua-io/honua-server#3378",
+        "rationale": "Codec support is an implementation dependency rather than a consumer verdict.",
+        "required": false,
+        "status": "not-required",
+        "tool": "imagecodecs"
+      },
+      {
+        "classification": "not-applicable",
+        "format": "copc",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "roadmap",
+        "owner": "honua-io/honua-server#3289",
+        "rationale": "COPC API serving is roadmap; CLI consumption cannot count yet.",
+        "required": false,
+        "status": "not-required",
+        "tool": "PDAL-CLI"
+      },
+      {
+        "classification": "not-applicable",
+        "format": "copc",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "roadmap",
+        "owner": "honua-io/honua-server#3289",
+        "rationale": "COPC API serving is roadmap; Python consumption cannot count yet.",
+        "required": false,
+        "status": "not-required",
+        "tool": "PDAL-Python"
+      },
+      {
+        "classification": "supporting-tool",
+        "format": "copc",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "roadmap",
+        "owner": "honua-io/honua-server#2442",
+        "rationale": "LAS input support is a future producer prerequisite, not COPC API evidence.",
+        "required": false,
+        "status": "not-required",
+        "tool": "readers.las"
+      },
+      {
+        "classification": "not-applicable",
+        "format": "copc",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "roadmap",
+        "owner": "honua-io/honua-server#3289",
+        "rationale": "The roadmap producer is not activated in the current release denominator.",
+        "required": false,
+        "status": "not-required",
+        "tool": "writers.copc"
+      },
+      {
+        "classification": "not-applicable",
+        "format": "copc",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "roadmap",
+        "owner": "honua-io/honua-server#3290",
+        "rationale": "The roadmap reader is not addressable through a supported Honua operation.",
+        "required": false,
+        "status": "not-required",
+        "tool": "readers.copc"
+      },
+      {
+        "classification": "supporting-tool",
+        "format": "copc",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "roadmap",
+        "owner": "honua-io/honua-server#2442",
+        "rationale": "Statistics support future validation but is not an independent consumer.",
+        "required": false,
+        "status": "not-required",
+        "tool": "filters.stats"
+      },
+      {
+        "classification": "required-consumer",
+        "format": "geoparquet",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 1,
+          "required_addressable": 1,
+          "skipped": 1
+        },
+        "ledger_clients": [
+          "GeoPandas"
+        ],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Canonical dataframe workflow must read produced GeoParquet through the API.",
+        "required": true,
+        "status": "non-passing",
+        "tool": "GeoPandas"
+      },
+      {
+        "classification": "required-consumer",
+        "format": "geoparquet",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 1,
+          "required_addressable": 1,
+          "skipped": 1
+        },
+        "ledger_clients": [
+          "PyArrow"
+        ],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Canonical Arrow metadata and columnar-read implementation.",
+        "required": true,
+        "status": "non-passing",
+        "tool": "PyArrow"
+      },
+      {
+        "classification": "required-consumer",
+        "format": "geoparquet",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 1,
+          "required_addressable": 1,
+          "skipped": 1
+        },
+        "ledger_clients": [
+          "GDAL"
+        ],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Cross-language reader verifies interoperability beyond Python dataframes.",
+        "required": true,
+        "status": "non-passing",
+        "tool": "GDAL"
+      },
+      {
+        "classification": "supporting-tool",
+        "format": "geoparquet",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [
+          "fsspec"
+        ],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Remote I/O supports the consumers but does not independently validate GeoParquet.",
+        "required": false,
+        "status": "not-required",
+        "tool": "fsspec"
+      },
+      {
+        "classification": "required-consumer",
+        "format": "flatgeobuf",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 1,
+          "required_addressable": 1,
+          "skipped": 1
+        },
+        "ledger_clients": [
+          "GDAL"
+        ],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Canonical native reader for FlatGeobuf interoperability.",
+        "required": true,
+        "status": "non-passing",
+        "tool": "GDAL"
+      },
+      {
+        "classification": "required-consumer",
+        "format": "flatgeobuf",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 1,
+          "required_addressable": 1,
+          "skipped": 1
+        },
+        "ledger_clients": [
+          "GeoPandas"
+        ],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Canonical analyst dataframe workflow.",
+        "required": true,
+        "status": "non-passing",
+        "tool": "GeoPandas"
+      },
+      {
+        "classification": "required-consumer",
+        "format": "flatgeobuf",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 1,
+          "required_addressable": 1,
+          "skipped": 1
+        },
+        "ledger_clients": [
+          "Pyogrio"
+        ],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Required Python vector I/O engine for range and feature reads.",
+        "required": true,
+        "status": "non-passing",
+        "tool": "Pyogrio"
+      },
+      {
+        "classification": "optional-consumer",
+        "format": "flatgeobuf",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Alternative Python vector stack retained for breadth.",
+        "required": false,
+        "status": "not-required",
+        "tool": "Fiona"
+      },
+      {
+        "classification": "required-consumer",
+        "format": "flatgeobuf",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 1,
+          "required_addressable": 1,
+          "skipped": 1
+        },
+        "ledger_clients": [
+          "flatgeobuf-js"
+        ],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Required browser/runtime implementation verifies JavaScript consumption.",
+        "required": true,
+        "status": "non-passing",
+        "tool": "flatgeobuf-js"
+      },
+      {
+        "classification": "optional-consumer",
+        "format": "flatgeobuf",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Viewer integration is useful breadth after the format readers pass.",
+        "required": false,
+        "status": "not-required",
+        "tool": "Leaflet"
+      },
+      {
+        "classification": "required-consumer",
+        "format": "pmtiles",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 1,
+          "required_addressable": 1,
+          "skipped": 1
+        },
+        "ledger_clients": [
+          "pmtiles"
+        ],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Required non-browser PMTiles reader verifies indexed range access.",
+        "required": true,
+        "status": "non-passing",
+        "tool": "pmtiles-python-reader"
+      },
+      {
+        "classification": "required-consumer",
+        "format": "pmtiles",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 1,
+          "required_addressable": 1,
+          "skipped": 1
+        },
+        "ledger_clients": [
+          "PMTiles-browser-viewer"
+        ],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Required browser viewer proves customer-visible tile consumption.",
+        "required": true,
+        "status": "non-passing",
+        "tool": "PMTiles-browser-viewer"
+      },
+      {
+        "classification": "producer",
+        "format": "pmtiles",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 1,
+          "required_addressable": 1,
+          "skipped": 1
+        },
+        "ledger_clients": [
+          "Tippecanoe"
+        ],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Canonical tile producer validates generated archive compatibility.",
+        "required": true,
+        "status": "non-passing",
+        "tool": "Tippecanoe"
+      },
+      {
+        "classification": "supporting-tool",
+        "format": "pmtiles",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "supported",
+        "owner": "honua-io/honua-server#3377",
+        "rationale": "Payload decoding supports assertions but is not an archive consumer.",
+        "required": false,
+        "status": "not-required",
+        "tool": "mapbox-vector-tile"
+      },
+      {
+        "classification": "not-applicable",
+        "format": "stac-zarr",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "roadmap",
+        "owner": "honua-io/honua-server#3383",
+        "rationale": "Live STAC-to-Zarr assets are not implemented and must not certify.",
+        "required": false,
+        "status": "not-required",
+        "tool": "PySTAC-Client"
+      },
+      {
+        "classification": "not-applicable",
+        "format": "stac-zarr",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "roadmap",
+        "owner": "honua-io/honua-server#3383",
+        "rationale": "The xarray asset path is not addressable until live Zarr assets exist.",
+        "required": false,
+        "status": "not-required",
+        "tool": "xarray"
+      },
+      {
+        "classification": "optional-consumer",
+        "format": "stac-zarr",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "roadmap",
+        "owner": "honua-io/honua-server#3383",
+        "rationale": "Alternative STAC client is post-implementation breadth.",
+        "required": false,
+        "status": "not-required",
+        "tool": "rustac"
+      },
+      {
+        "classification": "optional-consumer",
+        "format": "stac-zarr",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "roadmap",
+        "owner": "honua-io/honua-server#3383",
+        "rationale": "Catalog export workflow is outside the initial live asset path.",
+        "required": false,
+        "status": "not-required",
+        "tool": "stac-geoparquet"
+      },
+      {
+        "classification": "not-applicable",
+        "format": "stac-zarr",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "roadmap",
+        "owner": "honua-io/honua-server#3383",
+        "rationale": "Kerchunk-backed STAC assets depend on the separate roadmap implementation.",
+        "required": false,
+        "status": "not-required",
+        "tool": "kerchunk"
+      },
+      {
+        "classification": "supporting-tool",
+        "format": "stac-zarr",
+        "ledger": {
+          "failed": 0,
+          "not_addressable": 0,
+          "passed": 0,
+          "provenance_complete": 0,
+          "required": 0,
+          "required_addressable": 0,
+          "skipped": 0
+        },
+        "ledger_clients": [],
+        "maturity": "roadmap",
+        "owner": "honua-io/honua-server#3383",
+        "rationale": "Transport support alone cannot prove an unimplemented STAC-Zarr path.",
+        "required": false,
+        "status": "not-required",
+        "tool": "fsspec"
+      }
+    ],
+    "guide_revision": "0fabdf7c04ff135dd8160f39bf7a0fbb2f402f46",
+    "inventory_source": "https://github.com/honua-io/honua-release/blob/32b68decc54c0db88780b4e439ecbcb00504bb36/docs/cloud-native-client-inventory.yaml",
+    "inventory_source_revision": "32b68decc54c0db88780b4e439ecbcb00504bb36",
+    "missing_required_tools": 0,
+    "passing_required_tools": 0,
+    "required_tools": 22
+  },
   "generated_at": "2026-08-24T05:39:45.336583Z",
   "overall": {
     "failed": 4,
