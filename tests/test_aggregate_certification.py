@@ -124,6 +124,31 @@ def observation(
     return value
 
 
+def rebind_receipt(value):
+    """Recompute the content address after a receipt edit, as a producer would."""
+    receipt = value["evidence_receipt"]
+    digest = "sha256:" + hashlib.sha256(
+        json.dumps(receipt, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
+    value["evidence_digest"] = digest
+    value["evidence_uri"] = "https://evidence.honua.io/data/sha256/" + digest[7:]
+    for facet_result in value["facet_results"].values():
+        facet_result["evidence_digest"] = digest
+    return value
+
+
+def as_receipt_v2(value, req, requirements_revision="rev-1"):
+    """Upgrade an executed observation to a producer-bound receipt v2."""
+    receipt = value["evidence_receipt"]
+    receipt["schema"] = "honua.certification-evidence-receipt/v2"
+    receipt["identity"].update({
+        "maturity": req["maturity"],
+        "required_tier": req["required_tier"],
+        "requirements_revision": requirements_revision,
+    })
+    return rebind_receipt(value)
+
+
 def bind_format_payload(value):
     payload = {
         "schema": "honua.format-budget-observations/v1",
@@ -155,6 +180,89 @@ def fragment(producer, observations, generated="2026-08-20T10:06:00Z"):
 
 
 class CertificationAggregationTests(unittest.TestCase):
+    def test_receipt_v2_binding_governed_context_joins_the_ledger(self):
+        req = requirement()
+        for result in ("pass", "fail"):
+            with self.subTest(result=result):
+                observed = as_receipt_v2(observation(req, result=result), req)
+                ledger = module.build_ledger(
+                    "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+                    [(Path("v2.json"), fragment("geospatial-grpc", [observed]))], CANDIDATE,
+                )
+                cell = ledger["cells"][0]
+                self.assertEqual(result, cell["result"])
+                self.assertEqual("honua.certification-evidence-receipt/v2", cell["evidence_receipt"]["schema"])
+                identity = cell["evidence_receipt"]["identity"]
+                self.assertEqual("supported", identity["maturity"])
+                self.assertEqual("nightly", identity["required_tier"])
+                self.assertEqual("rev-1", identity["requirements_revision"])
+                self.assertEqual(observed["evidence_digest"], cell["evidence_digest"])
+
+    def test_receipt_v2_rejects_missing_extra_or_mismatched_context(self):
+        req = requirement()
+
+        def drop(field):
+            def mutate(identity):
+                identity.pop(field)
+            return mutate
+
+        def change(field, value):
+            def mutate(identity):
+                identity[field] = value
+            return mutate
+
+        def extra(identity):
+            identity["release_channel"] = "stable"
+
+        mutations = {
+            "missing maturity": drop("maturity"),
+            "missing required_tier": drop("required_tier"),
+            "missing requirements_revision": drop("requirements_revision"),
+            "maturity replayed after a change": change("maturity", "preview"),
+            "tier replayed after a promotion": change("required_tier", "release"),
+            "stale requirements revision": change("requirements_revision", "rev-0"),
+            "extra identity field": extra,
+        }
+        for name, mutate in mutations.items():
+            with self.subTest(name):
+                observed = as_receipt_v2(observation(req), req)
+                mutate(observed["evidence_receipt"]["identity"])
+                rebind_receipt(observed)
+                self.assertFalse(module._valid_receipt(observed, req, None, "rev-1"))
+                with self.assertRaisesRegex(ValueError, "not semantically bound"):
+                    module.build_ledger(
+                        "rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+                        [(Path("v2.json"), fragment("geospatial-grpc", [observed]))], CANDIDATE,
+                    )
+
+    def test_receipt_v2_is_never_bound_by_the_consumer(self):
+        req = requirement()
+        observed = as_receipt_v2(observation(req), req)
+        # Without the governed requirements revision there is nothing to check
+        # the producer-owned value against, so the receipt is not accepted.
+        self.assertFalse(module._valid_receipt(observed, req))
+        self.assertTrue(module._valid_receipt(observed, req, None, "rev-1"))
+
+        # A v1 receipt cannot smuggle v2 context fields, and an unknown schema
+        # version is rejected rather than treated as v1.
+        v1_with_context = observation(req)
+        v1_with_context["evidence_receipt"]["identity"]["maturity"] = req["maturity"]
+        rebind_receipt(v1_with_context)
+        self.assertFalse(module._valid_receipt(v1_with_context, req, None, "rev-1"))
+        future = as_receipt_v2(observation(req), req)
+        future["evidence_receipt"]["schema"] = "honua.certification-evidence-receipt/v3"
+        rebind_receipt(future)
+        self.assertFalse(module._valid_receipt(future, req, None, "rev-1"))
+
+    def test_canonical_receipt_v2_fixture_is_accepted(self):
+        req = requirement()
+        observed = as_receipt_v2(observation(req), req)
+        fixture = json.loads(
+            (FIXTURES / "unlicensed-receipt.v2.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(fixture, observed["evidence_receipt"])
+        self.assertTrue(module._valid_receipt(observed, req, None, "rev-1"))
+
     def test_real_client_raw_receipt_normalizes_end_to_end_into_candidate_ledger(self):
         fetch_script = SCRIPT.parent / "fetch-certification-producers.py"
         fetch_spec = importlib.util.spec_from_file_location("fetch_for_interop_test", fetch_script)

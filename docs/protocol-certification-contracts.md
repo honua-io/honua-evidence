@@ -134,6 +134,29 @@ policy/target/auth tuple. The canonical examples are
 `tests/fixtures/protocol-certification/licensed-entitlement-receipt.v1.json` and
 `unlicensed-receipt.v1.json`.
 
+### Receipt v2: governed requirement context
+
+`honua.certification-evidence-receipt/v2` is the receipt the honua-release certification gate
+accepts ([`certification/RECEIPT-V2.md`](https://github.com/honua-io/honua-release/blob/trunk/certification/RECEIPT-V2.md)).
+It uses the same envelope as v1, including the licensed `entitlement` rules above. The identity also
+carries three producer-owned fields, and they are part of the hashed receipt bytes:
+
+| Field | Intake check |
+| --- | --- |
+| `maturity` | Must equal the governed requirement's `maturity` for the exact cell. |
+| `required_tier` | Must equal the governed requirement's `required_tier` for the exact cell. |
+| `requirements_revision` | Must equal the `revision` of the requirements document used for this aggregation. |
+
+Intake compares these values with the governed requirement. It never supplies, infers, or repairs
+them. A v2 receipt that omits any of them, adds another identity field, or binds a different
+maturity, tier, or requirements revision is not semantically bound, and its fragment is rejected.
+A v1 receipt that carries any of these fields is rejected the same way, and so is any other schema
+version. The canonical example is `tests/fixtures/protocol-certification/unlicensed-receipt.v2.json`.
+
+Intake still accepts well-formed v1 receipts so that producers that haven't migrated keep
+federating their evidence. v1 isn't a grace window at the release boundary. The release gate
+accepts only v2 for passing required cells, so a v1 receipt can never certify a release.
+
 ## Join rules
 
 - Candidate source SHA, image digest, and cut timestamp form an exact server identity.
