@@ -116,6 +116,12 @@ FORMAT_BUDGET_EXPECTATION_FIELDS = frozenset(
     }
 )
 MAX_FORMAT_RECEIPT_PAYLOAD_BYTES = 64 * 1024
+RECEIPT_SCHEMA_V1 = "honua.certification-evidence-receipt/v1"
+RECEIPT_SCHEMA_V2 = "honua.certification-evidence-receipt/v2"
+# Receipt v2 (honua-release certification/RECEIPT-V2.md) binds the governed
+# requirement context into the receipt identity. The producer owns these values;
+# intake only checks them against the governed requirement and never fills them in.
+RECEIPT_V2_CONTEXT_FIELDS = ("maturity", "required_tier", "requirements_revision")
 
 
 class _DuplicateJsonKey(ValueError):
@@ -266,6 +272,7 @@ def _valid_receipt(
     observation: dict,
     requirement: dict,
     candidate_cut_at: str | None = None,
+    requirements_revision: str | None = None,
 ) -> bool:
     receipt = observation.get("evidence_receipt")
     facet_results = observation.get("facet_results")
@@ -301,10 +308,21 @@ def _valid_receipt(
         expected_identity["test_ids"] = requirement["test_ids"]
     if requirement.get("licensed"):
         expected_identity["entitlement_policy_revision"] = requirement.get("entitlement_policy_revision")
+    schema = receipt.get("schema")
+    if schema == RECEIPT_SCHEMA_V2:
+        # Every context field is mandatory identity. The exact-equality identity
+        # check below rejects a v2 receipt that omits one, adds another, or binds
+        # a maturity, tier, or requirements revision other than the governed one.
+        if not isinstance(requirements_revision, str) or not requirements_revision:
+            return False
+        expected_identity["maturity"] = requirement.get("maturity")
+        expected_identity["required_tier"] = requirement.get("required_tier")
+        expected_identity["requirements_revision"] = requirements_revision
+    elif schema != RECEIPT_SCHEMA_V1:
+        return False
     facets = receipt.get("facets")
     if (
-        receipt.get("schema") != "honua.certification-evidence-receipt/v1"
-        or receipt.get("identity") != expected_identity
+        receipt.get("identity") != expected_identity
         or receipt.get("result") != observation.get("result")
         or not isinstance(facets, dict)
         or set(facets) != set(requirement["scenario_facets"])
@@ -856,6 +874,7 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
                     observation,
                     requirement_by_key[observation_key],
                     fragment_candidate["cut_at"],
+                    requirements_revision,
                 ):
                     raise ValueError(
                         f"{path}: observations[{index}].evidence_receipt is not semantically bound"
