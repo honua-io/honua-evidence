@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-10-06T07:54:56Z",
+  "generatedAt": "2026-10-06T09:33:11Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -28,52 +28,52 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-10-06T07:54:37Z",
+      "fetchedAt": "2026-10-06T09:32:59Z",
       "sourceVersion": "00446adabd48@2026-09-23T23:16:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-06T07:54:37Z",
+      "observedAt": "2026-10-06T09:32:59Z",
       "ageDays": 0,
       "sourceAgeDays": 12,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-10-06T07:54:37Z",
+      "fetchedAt": "2026-10-06T09:32:59Z",
       "sourceVersion": "e98f5b63ad0f@2026-10-06T06:32:33Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-06T07:54:37Z",
+      "observedAt": "2026-10-06T09:32:59Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-10-06T07:54:38Z",
-      "sourceVersion": "18494f45bb86@2026-10-04T17:07:55Z",
+      "fetchedAt": "2026-10-06T09:33:00Z",
+      "sourceVersion": "4f624e060861@2026-10-06T01:21:04Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-06T07:54:38Z",
+      "observedAt": "2026-10-06T09:33:00Z",
       "ageDays": 0,
-      "sourceAgeDays": 1,
+      "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-10-06T07:54:38Z",
+      "fetchedAt": "2026-10-06T09:33:00Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-06T07:54:38Z",
+      "observedAt": "2026-10-06T09:33:00Z",
       "ageDays": 0,
       "sourceAgeDays": 80,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-10-06T07:54:39Z",
+      "fetchedAt": "2026-10-06T09:33:00Z",
       "sourceVersion": "9792cb444e78@2026-10-06T07:53:39Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-06T07:54:39Z",
+      "observedAt": "2026-10-06T09:33:00Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-10-06T07:54:41Z",
+      "fetchedAt": "2026-10-06T09:33:02Z",
       "sourceVersion": "773c2574c39b@2026-09-28T11:45:43Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-28T11:45:43Z",
@@ -82,16 +82,16 @@
       "status": "stale"
     },
     "open-issues": {
-      "fetchedAt": "2026-10-06T07:54:56Z",
+      "fetchedAt": "2026-10-06T09:33:11Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-06T07:54:56Z",
+      "observedAt": "2026-10-06T09:33:11Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-10-06T07:54:41Z",
+      "fetchedAt": "2026-10-06T09:33:02Z",
       "sourceVersion": "34418c01e995@2026-09-22T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-22T00:00:00Z",
@@ -100,7 +100,7 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-10-06T07:54:41Z",
+      "fetchedAt": "2026-10-06T09:33:02Z",
       "sourceVersion": "99e8ff05126c@2026-10-06T06:28:31Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-10-06T06:28:31Z",
