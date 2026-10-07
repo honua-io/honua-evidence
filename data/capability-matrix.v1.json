@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-10-07T06:09:13Z",
+  "generatedAt": "2026-10-07T11:49:24Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -28,70 +28,70 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-10-07T06:09:02Z",
+      "fetchedAt": "2026-10-07T11:49:10Z",
       "sourceVersion": "00446adabd48@2026-09-23T23:16:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-07T06:09:02Z",
+      "observedAt": "2026-10-07T11:49:10Z",
       "ageDays": 0,
       "sourceAgeDays": 13,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-10-07T06:09:02Z",
-      "sourceVersion": "1c1e3e7bb3b1@2026-10-07T06:08:45Z",
+      "fetchedAt": "2026-10-07T11:49:10Z",
+      "sourceVersion": "af450280317d@2026-10-07T11:45:28Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-07T06:09:02Z",
+      "observedAt": "2026-10-07T11:49:10Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-10-07T06:09:02Z",
+      "fetchedAt": "2026-10-07T11:49:11Z",
       "sourceVersion": "4f624e060861@2026-10-06T01:21:04Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-07T06:09:02Z",
+      "observedAt": "2026-10-07T11:49:11Z",
       "ageDays": 0,
       "sourceAgeDays": 1,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-10-07T06:09:03Z",
+      "fetchedAt": "2026-10-07T11:49:12Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-07T06:09:03Z",
+      "observedAt": "2026-10-07T11:49:12Z",
       "ageDays": 0,
       "sourceAgeDays": 81,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-10-07T06:09:03Z",
+      "fetchedAt": "2026-10-07T11:49:12Z",
       "sourceVersion": "9792cb444e78@2026-10-06T07:53:39Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-07T06:09:03Z",
+      "observedAt": "2026-10-07T11:49:12Z",
+      "ageDays": 0,
+      "sourceAgeDays": 1,
+      "status": "fresh"
+    },
+    "samples": {
+      "fetchedAt": "2026-10-07T11:49:13Z",
+      "sourceVersion": "5aacea5b14a3@2026-10-06T12:04:49Z",
+      "freshnessBasis": "observation",
+      "observedAt": "2026-10-06T12:04:49Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
-    "samples": {
-      "fetchedAt": "2026-10-07T06:09:04Z",
-      "sourceVersion": "773c2574c39b@2026-09-28T11:45:43Z",
-      "freshnessBasis": "observation",
-      "observedAt": "2026-09-28T11:45:43Z",
-      "ageDays": 8,
-      "sourceAgeDays": 8,
-      "status": "stale"
-    },
     "open-issues": {
-      "fetchedAt": "2026-10-07T06:09:13Z",
+      "fetchedAt": "2026-10-07T11:49:24Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-07T06:09:13Z",
+      "observedAt": "2026-10-07T11:49:24Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-10-07T06:09:05Z",
+      "fetchedAt": "2026-10-07T11:49:14Z",
       "sourceVersion": "34418c01e995@2026-09-22T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-22T00:00:00Z",
@@ -100,12 +100,12 @@
       "status": "stale"
     },
     "live-canary": {
-      "fetchedAt": "2026-10-07T06:09:05Z",
+      "fetchedAt": "2026-10-07T11:49:14Z",
       "sourceVersion": "99e8ff05126c@2026-10-06T06:28:31Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-10-06T06:28:31Z",
-      "ageDays": 0,
-      "sourceAgeDays": 0,
+      "ageDays": 1,
+      "sourceAgeDays": 1,
       "status": "fresh"
     }
   },
@@ -7892,12 +7892,12 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-09-28T11:45:39.004Z"
+            "at": "2026-10-06T12:04:43.222Z"
           }
         },
         {
           "id": "wms-getmap-check",
-          "title": "WMS GetCapabilities + GetMap check (bash + curl)",
+          "title": "WMS GetCapabilities + GetMap check (Node.js)",
           "url": "https://samples.honua.io/wms-getmap-check",
           "sdks": [
             "rest"
@@ -7906,7 +7906,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-09-28T11:45:39.004Z"
+            "at": "2026-10-06T12:04:43.222Z"
           }
         }
       ],
@@ -15271,7 +15271,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 49,
-      "provingTestCount": 525,
+      "provingTestCount": 529,
       "maturity": {
         "implemented": 49
       },
@@ -17053,7 +17053,35 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-09-28T11:45:39.004Z"
+            "at": "2026-10-06T12:04:43.222Z"
+          }
+        },
+        {
+          "id": "create-honua-app-react-ts",
+          "title": "Your first Honua app: create-honua-app react-ts",
+          "url": "https://samples.honua.io/create-honua-app-react-ts",
+          "sdks": [
+            "js"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.1",
+            "at": "2026-10-06T12:04:43.222Z"
+          }
+        },
+        {
+          "id": "create-honua-app-vanilla-ts",
+          "title": "Your first Honua app: create-honua-app vanilla-ts",
+          "url": "https://samples.honua.io/create-honua-app-vanilla-ts",
+          "sdks": [
+            "js"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.1",
+            "at": "2026-10-06T12:04:43.222Z"
           }
         },
         {
@@ -17067,7 +17095,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-09-28T11:45:39.004Z"
+            "at": "2026-10-06T12:04:43.222Z"
           }
         }
       ],
@@ -21636,7 +21664,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-09-28T11:45:39.004Z"
+            "at": "2026-10-06T12:04:43.222Z"
           }
         }
       ],
@@ -25418,7 +25446,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-09-28T11:45:39.004Z"
+            "at": "2026-10-06T12:04:43.222Z"
           }
         }
       ],
@@ -27764,7 +27792,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-09-28T11:45:39.004Z"
+            "at": "2026-10-06T12:04:43.222Z"
           }
         }
       ],
@@ -31452,7 +31480,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 2,
-      "provingTestCount": 130,
+      "provingTestCount": 131,
       "maturity": {
         "implemented": 2
       },
@@ -33385,7 +33413,7 @@
       "samples": [
         {
           "id": "wms-getmap-check",
-          "title": "WMS GetCapabilities + GetMap check (bash + curl)",
+          "title": "WMS GetCapabilities + GetMap check (Node.js)",
           "url": "https://samples.honua.io/wms-getmap-check",
           "sdks": [
             "rest"
@@ -33394,7 +33422,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-09-28T11:45:39.004Z"
+            "at": "2026-10-06T12:04:43.222Z"
           }
         }
       ],
