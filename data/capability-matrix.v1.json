@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-10-08T13:45:23Z",
+  "generatedAt": "2026-10-09T05:17:47Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -28,52 +28,52 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-10-08T13:45:05Z",
-      "sourceVersion": "00446adabd48@2026-09-23T23:16:43Z",
+      "fetchedAt": "2026-10-09T05:17:37Z",
+      "sourceVersion": "8c21501230f7@2026-10-09T05:17:20Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-08T13:45:05Z",
+      "observedAt": "2026-10-09T05:17:37Z",
       "ageDays": 0,
-      "sourceAgeDays": 14,
+      "sourceAgeDays": 0,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-10-08T13:45:06Z",
-      "sourceVersion": "b67cc1362c61@2026-10-08T02:30:22Z",
+      "fetchedAt": "2026-10-09T05:17:37Z",
+      "sourceVersion": "8c21501230f7@2026-10-09T05:17:20Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-08T13:45:06Z",
+      "observedAt": "2026-10-09T05:17:37Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-10-08T13:45:06Z",
+      "fetchedAt": "2026-10-09T05:17:38Z",
       "sourceVersion": "4f624e060861@2026-10-06T01:21:04Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-08T13:45:06Z",
+      "observedAt": "2026-10-09T05:17:38Z",
       "ageDays": 0,
-      "sourceAgeDays": 2,
+      "sourceAgeDays": 3,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-10-08T13:45:07Z",
+      "fetchedAt": "2026-10-09T05:17:38Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-08T13:45:07Z",
+      "observedAt": "2026-10-09T05:17:38Z",
       "ageDays": 0,
-      "sourceAgeDays": 82,
+      "sourceAgeDays": 83,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-10-08T13:45:07Z",
+      "fetchedAt": "2026-10-09T05:17:38Z",
       "sourceVersion": "9792cb444e78@2026-10-06T07:53:39Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-08T13:45:07Z",
+      "observedAt": "2026-10-09T05:17:38Z",
       "ageDays": 0,
       "sourceAgeDays": 2,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-10-08T13:45:09Z",
+      "fetchedAt": "2026-10-09T05:17:39Z",
       "sourceVersion": "5aacea5b14a3@2026-10-08T12:05:18Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-10-08T12:05:18Z",
@@ -82,25 +82,25 @@
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-10-08T13:45:23Z",
+      "fetchedAt": "2026-10-09T05:17:47Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-08T13:45:23Z",
+      "observedAt": "2026-10-09T05:17:47Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-10-08T13:45:09Z",
+      "fetchedAt": "2026-10-09T05:17:40Z",
       "sourceVersion": "34418c01e995@2026-09-22T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-22T00:00:00Z",
-      "ageDays": 16,
-      "sourceAgeDays": 16,
+      "ageDays": 17,
+      "sourceAgeDays": 17,
       "status": "stale"
     },
     "live-canary": {
-      "fetchedAt": "2026-10-08T13:45:09Z",
+      "fetchedAt": "2026-10-09T05:17:40Z",
       "sourceVersion": "457dd382546c@2026-10-08T13:40:06Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-10-08T13:40:06Z",
@@ -8356,6 +8356,81 @@
         "keyRefs": [],
         "categoryRefs": [],
         "label": "cap/jobs"
+      }
+    },
+    {
+      "key": "operations.proposals",
+      "displayName": "Governed Operation Proposals",
+      "category": "ControlPlane",
+      "edition": "Community",
+      "entryCount": 0,
+      "provingTestCount": 0,
+      "maturity": {},
+      "noSurface": {
+        "capability": "operations.proposals",
+        "category": "ControlPlane",
+        "edition": "Community",
+        "reasonCode": "cross-cutting-gate",
+        "reason": "The proposal/approval control plane is a durable-persistence posture across existing routes (the /api/v1/admin/proposals review routes and the approval-gated admin operations are catalogued against admin.control-plane) rather than a route of its own. It is advertised as operations.proposals on the capability manifest so an agent can learn, before calling a governed honua_admin_* tool, that a Redis-off host refuses it with a typed capability-unavailable receipt."
+      },
+      "cite": [],
+      "parity": [],
+      "esriAssess": [],
+      "interop": [],
+      "geobench": [],
+      "dr": [],
+      "liveCanary": [],
+      "sdks": {
+        "js": {
+          "status": "not-covered"
+        },
+        "dotnet": {
+          "status": "not-covered"
+        },
+        "python": {
+          "status": "not-covered"
+        }
+      },
+      "samples": [],
+      "openIssues": {
+        "count": 3,
+        "refs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 3447,
+            "title": "feat(scene): project one thin asset view over source artifacts, jobs, publications, and endpoints",
+            "url": "https://github.com/honua-io/honua-server/issues/3447"
+          },
+          {
+            "number": 3498,
+            "title": "feat(studio): versioned server-owned contracts for the seven stub package families (query, analysis, report, form, workflow, gp, etl)",
+            "url": "https://github.com/honua-io/honua-server/issues/3498"
+          }
+        ],
+        "categoryLevel": true,
+        "keyRefs": [],
+        "categoryRefs": [
+          {
+            "number": 346,
+            "title": "Multi-tenancy: schema-per-tenant isolation with scoped keys and usage metering",
+            "url": "https://github.com/honua-io/honua-server/issues/346"
+          },
+          {
+            "number": 3447,
+            "title": "feat(scene): project one thin asset view over source artifacts, jobs, publications, and endpoints",
+            "url": "https://github.com/honua-io/honua-server/issues/3447"
+          },
+          {
+            "number": 3498,
+            "title": "feat(studio): versioned server-owned contracts for the seven stub package families (query, analysis, report, form, workflow, gp, etl)",
+            "url": "https://github.com/honua-io/honua-server/issues/3498"
+          }
+        ],
+        "label": "cap/control-plane"
       }
     },
     {
