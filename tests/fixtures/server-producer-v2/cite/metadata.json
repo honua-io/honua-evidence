@@ -1,0 +1,16 @@
+{
+  "scope": "SYNTHETIC TEST FIXTURE ONLY; invented run/candidate/ETS controls, no live execution or qualification",
+  "generatorSource": "cf4aaa89cb20893cef9816d0d80c138e56cf4156",
+  "rows": 9,
+  "results": [
+    "pass",
+    "pass",
+    "pass",
+    "pass",
+    "pass",
+    "pass",
+    "pass",
+    "pass",
+    "pass"
+  ]
+}

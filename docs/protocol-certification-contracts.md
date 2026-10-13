@@ -252,3 +252,24 @@ receipt-bound five-field producer identity to agree with the run title.
 Ordinary trunk admission and each producer's accepted outcomes are unchanged.
 These intake controls do not establish a passing certification result; the
 existing semantic gate still evaluates actual producer observations.
+
+
+The collector and ledger also recognize the exact `Honua server public protocol
+integration harness` / `server-protocol-harness` producer identity. Its in-memory
+HTTP adapter tests have no actual network URL, so an executed observation may
+carry `request_url: null` only for `source-test-host` with no execution image,
+identical candidate/producer source, and profile `source-test-host-http-adapter`.
+The v2 receipt must bind all seven execution metadata fields in `payload.execution`
+and the exact nonempty governed method roster and pass/fail outcomes in
+`payload.test_outcomes`. The profile/version, facets, outcome and original receipt
+digest are verified; TLS claims are not admitted through this exception. Fetch
+checks this self-consistency and the ledger independently supplies authoritative
+requirement context. Every other executed producer still requires an absolute
+HTTP(S) URL. No endpoint is fabricated from an operation template.
+
+The optional five-field producer-run identity is admitted only for the existing
+SDK tuple, the canonical source-host harness tuple, and the nine explicit OGC CITE
+lanes. Server identities require receipt v2 and their exact server workflow.
+Synthetic fixtures emitted by the actual server generators exercise complete
+fetch-to-ledger admission without changing their receipt bytes or claiming live
+execution.

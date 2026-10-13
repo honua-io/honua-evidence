@@ -1,0 +1,14 @@
+{
+  "scope": "Synthetic producer/consumer compatibility fixture only; not executed HTTP or live certification evidence",
+  "candidate_source_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "declared_operations": 51,
+  "governed_observations": 42,
+  "all_receipt_hashes_verified": true,
+  "negative_controls_per_observation": 6,
+  "producer_files_sha256": {
+    "scripts/certification/generate-protocol-harness-fragment.py": "29624fbd32a6eefdc3494ee95c01864c404269297e256d1a7c48beb9c5e6a9f6",
+    "scripts/certification/harness_context.py": "680b1664db388447d9d0a7ea44b9dc1d6f05986225230acd96d7c22e9912e6ee",
+    "scripts/certification/producer_context.py": "e7b3695a50eb2dde1df822406e2674b4b16bf31c87bbcf221d1e5c36c6077cc9"
+  },
+  "consumer_sha256": "6e41b58bdbec404e0e9e37fb13047799fb757839fb0e3971c9c70b1a36b52951"
+}
