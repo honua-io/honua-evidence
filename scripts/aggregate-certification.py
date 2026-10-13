@@ -268,6 +268,20 @@ def _valid_entitlement_assertion(observation: dict, requirement: dict, entitleme
     )
 
 
+PRODUCER_RUN_IDENTITIES = {
+    ("@honua/sdk-js", "sdk-js-certification"):
+        ("honua-io/honua-sdk-js", "integration.yml"),
+    ("Honua server public protocol integration harness", "server-protocol-harness"):
+        ("honua-io/honua-server", "protocol-harness-certification.yml"),
+    **{("OGC CITE", lane): ("honua-io/honua-server", "cite-certification.yml")
+       for lane in (
+           "cite-ogc-api-features-1-0", "cite-ogc-api-tiles-1-0",
+           "cite-wfs-1-0", "cite-wfs-1-1", "cite-wfs-2-0", "cite-wcs-2-0",
+           "cite-wms-1-3", "cite-wmts-1-0", "cite-wps-2-0",
+       )},
+}
+
+
 def _valid_receipt(
     observation: dict,
     requirement: dict,
@@ -300,13 +314,16 @@ def _valid_receipt(
     identity = receipt.get("identity")
     if isinstance(identity, dict) and "producer_run" in identity:
         producer_run = identity["producer_run"]
+        expected_producer = PRODUCER_RUN_IDENTITIES.get(
+            (requirement.get("canonical_client"), requirement.get("client_lane"))
+        )
         if not (
-            requirement.get("canonical_client") == "@honua/sdk-js"
-            and requirement.get("client_lane") == "sdk-js-certification"
+            expected_producer is not None
+            and (expected_producer[0] != "honua-io/honua-server"
+                 or receipt.get("schema") == "honua.certification-evidence-receipt/v2")
             and isinstance(producer_run, dict)
             and set(producer_run) == {"repository", "workflow", "run_id", "run_attempt", "dispatch_id"}
-            and producer_run.get("repository") == "honua-io/honua-sdk-js"
-            and producer_run.get("workflow") == "integration.yml"
+            and (producer_run.get("repository"), producer_run.get("workflow")) == expected_producer
             and all(type(producer_run.get(key)) is int and producer_run[key] > 0
                     for key in ("run_id", "run_attempt"))
             and isinstance(producer_run.get("dispatch_id"), str)
@@ -409,6 +426,67 @@ def _valid_receipt(
         ):
             return False
     return True
+
+
+SOURCE_HOST_EXECUTION_FIELDS = (
+    "client_id", "runner_lane", "protocol_version", "protocol_profile",
+    "performed_by", "request_url", "exercised_capabilities",
+)
+
+
+def _bound_source_host_adapter(observation: dict, requirement: dict, producer: str,
+                               candidate_cut_at: str, requirements_revision: str) -> bool:
+    """In-memory HTTP tests bind executed methods, not a fabricated network URL."""
+    receipt = observation.get("evidence_receipt")
+    test_ids = requirement.get("test_ids")
+    if not (
+        producer == "server-protocol-harness"
+        and requirement.get("canonical_client") == "Honua server public protocol integration harness"
+        and requirement.get("client_lane") == "server-protocol-harness"
+        and observation.get("client_id") == requirement["canonical_client"]
+        and observation.get("performed_by") == requirement["canonical_client"]
+        and observation.get("runner_lane") == requirement["client_lane"]
+        and requirement.get("deployment_target") == "source-test-host"
+        and observation.get("image_digest") is None
+        and observation.get("source_sha") == observation.get("producer_source_sha")
+        and observation.get("request_url") is None
+        and observation.get("protocol_profile") == "source-test-host-http-adapter"
+        and observation.get("contract_revision") == (
+            f"server-protocol-harness@{observation.get('protocol_version')}+{observation.get('producer_source_sha')}"
+        )
+        and "tls" not in requirement.get("scenario_facets", [])
+        and observation.get("exercised_capabilities") == requirement.get("scenario_facets")
+        and isinstance(test_ids, list) and test_ids
+        and all(isinstance(value, str) and value for value in test_ids)
+        and len(set(test_ids)) == len(test_ids)
+        and observation.get("test_ids") == test_ids
+        and isinstance(receipt, dict)
+        and receipt.get("schema") == "honua.certification-evidence-receipt/v2"
+        and isinstance(receipt.get("identity"), dict)
+        and "producer_run" in receipt["identity"]
+        and _valid_receipt(observation, requirement, candidate_cut_at, requirements_revision)
+        and observation.get("evidence_digest") == "sha256:" + hashlib.sha256(_receipt_bytes(receipt)).hexdigest()
+    ):
+        return False
+    try:
+        raw = base64.b64decode(receipt["payload_base64"], validate=True)
+        if len(raw) > 65536:
+            return False
+        payload = json.loads(raw, object_pairs_hook=_unique_json_object)
+    except (ValueError, UnicodeDecodeError, RecursionError):
+        return False
+    if not isinstance(payload, dict) or set(payload) != {"contract_revision", "test_outcomes", "execution"}:
+        return False
+    outcomes = payload["test_outcomes"]
+    return (
+        payload["contract_revision"] == observation["contract_revision"]
+        and isinstance(outcomes, dict) and set(outcomes) == set(test_ids)
+        and all(isinstance(value, str) and value in {"pass", "fail"} for value in outcomes.values())
+        and observation["result"] == ("fail" if "fail" in outcomes.values() else "pass")
+        and _typed_equal(payload["execution"], {
+            field: observation[field] for field in SOURCE_HOST_EXECUTION_FIELDS
+        })
+    )
 
 
 def _result_counts(rows: list[dict]) -> dict[str, int]:
@@ -802,7 +880,12 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
             # A skipped observation performed no request, so it may truthfully
             # carry request_url null; every executed observation must name the
             # absolute endpoint it exercised.
+            source_host_adapter = _bound_source_host_adapter(
+                observation, requirement, producer, fragment["candidate"]["cut_at"], requirements_revision
+            )
             if observation.get("result") == "skip" and request_url is None:
+                pass
+            elif source_host_adapter:
                 pass
             else:
                 parsed_request = urlparse(request_url) if isinstance(request_url, str) else None

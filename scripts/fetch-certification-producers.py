@@ -8,6 +8,7 @@ import base64
 import fnmatch
 import hashlib
 import io
+import importlib.util
 import json
 import os
 import re
@@ -18,6 +19,7 @@ import urllib.error
 from urllib.parse import quote, urlparse
 import zipfile
 from datetime import datetime
+from functools import cache
 from pathlib import Path
 from typing import Any
 
@@ -385,6 +387,36 @@ def trusted_run(run: dict[str, Any], artifact: dict[str, Any], source: dict[str,
     )
 
 
+@cache
+def _source_host_validator():
+    # Share the exact receipt/payload predicate with ledger admission. Fetch
+    # checks self-consistency; aggregation still supplies authoritative policy.
+    path = Path(__file__).with_name("aggregate-certification.py")
+    spec = importlib.util.spec_from_file_location("source_host_ledger_admission", path)
+    assert spec and spec.loader
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module._bound_source_host_adapter
+
+
+def _bound_source_host_fragment(observation: dict, producer: str, candidate: dict) -> bool:
+    receipt = observation.get("evidence_receipt")
+    identity = receipt.get("identity") if isinstance(receipt, dict) else None
+    if not isinstance(identity, dict) or producer != "server-protocol-harness":
+        return False
+    requirement = {key: identity.get(key) for key in (
+        "capability_key", "canonical_client", "deployment_target", "test_ids", "maturity", "required_tier",
+    )}
+    requirement.update(client_lane=observation.get("runner_lane"),
+                       scenario_facets=observation.get("exercised_capabilities"))
+    try:
+        return _source_host_validator()(
+            observation, requirement, producer, candidate.get("cut_at"), identity.get("requirements_revision")
+        )
+    except (KeyError, TypeError):
+        return False
+
+
 def validate_fragment_producer(
     payload: dict[str, Any], expected: str, producer_source_sha: str | None = None,
     repository: str | None = None,
@@ -424,6 +456,8 @@ def validate_fragment_producer(
             )
         request_url = observation["request_url"]
         if observation.get("result") == "skip" and request_url is None:
+            pass
+        elif request_url is None and _bound_source_host_fragment(observation, expected, payload.get("candidate", {})):
             pass
         else:
             parsed_request = urlparse(request_url) if isinstance(request_url, str) else None
