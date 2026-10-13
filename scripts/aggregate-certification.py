@@ -443,6 +443,9 @@ def _bound_source_host_adapter(observation: dict, requirement: dict, producer: s
         producer == "server-protocol-harness"
         and requirement.get("canonical_client") == "Honua server public protocol integration harness"
         and requirement.get("client_lane") == "server-protocol-harness"
+        and observation.get("client_id") == requirement["canonical_client"]
+        and observation.get("performed_by") == requirement["canonical_client"]
+        and observation.get("runner_lane") == requirement["client_lane"]
         and requirement.get("deployment_target") == "source-test-host"
         and observation.get("image_digest") is None
         and observation.get("source_sha") == observation.get("producer_source_sha")
@@ -459,7 +462,10 @@ def _bound_source_host_adapter(observation: dict, requirement: dict, producer: s
         and observation.get("test_ids") == test_ids
         and isinstance(receipt, dict)
         and receipt.get("schema") == "honua.certification-evidence-receipt/v2"
+        and isinstance(receipt.get("identity"), dict)
+        and "producer_run" in receipt["identity"]
         and _valid_receipt(observation, requirement, candidate_cut_at, requirements_revision)
+        and observation.get("evidence_digest") == "sha256:" + hashlib.sha256(_receipt_bytes(receipt)).hexdigest()
     ):
         return False
     try:

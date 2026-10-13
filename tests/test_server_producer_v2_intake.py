@@ -156,3 +156,25 @@ class ServerProducerV2IntakeTests(unittest.TestCase):
                 rebind_receipt(observed)
             with self.subTest(label=label), self.assertRaisesRegex(ValueError, "request_url"):
                 self.fetch_then_aggregate("harness", mutate)
+
+    def test_shared_fetch_predicate_requires_digest_run_and_canonical_actor(self):
+        context, fragment, requirements, source = self.inputs("harness")
+        original = fragment["observations"][0]
+        stale = copy.deepcopy(original)
+        stale["evidence_digest"] = "sha256:" + "0" * 64
+        self.assertFalse(fetch._bound_source_host_fragment(stale, source["producer"], context["candidate"]))
+        missing_run = copy.deepcopy(original)
+        del missing_run["evidence_receipt"]["identity"]["producer_run"]
+        rebind_receipt(missing_run)
+        self.assertFalse(fetch._bound_source_host_fragment(missing_run, source["producer"], context["candidate"]))
+        for field in ("client_id", "performed_by", "runner_lane"):
+            with self.subTest(field=field):
+                changed = copy.deepcopy(original)
+                changed[field] = "unreviewed-actor"
+                receipt = changed["evidence_receipt"]
+                payload = json.loads(base64.b64decode(receipt["payload_base64"]))
+                payload["execution"][field] = changed[field]
+                receipt["payload_base64"] = base64.b64encode(
+                    json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()).decode()
+                rebind_receipt(changed)
+                self.assertFalse(fetch._bound_source_host_fragment(changed, source["producer"], context["candidate"]))
