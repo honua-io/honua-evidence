@@ -298,6 +298,25 @@ def _valid_receipt(
         "sdk-python-ogc",
     }
     identity = receipt.get("identity")
+    if isinstance(identity, dict) and "producer_run" in identity:
+        producer_run = identity["producer_run"]
+        if not (
+            requirement.get("canonical_client") == "@honua/sdk-js"
+            and requirement.get("client_lane") == "sdk-js-certification"
+            and isinstance(producer_run, dict)
+            and set(producer_run) == {"repository", "workflow", "run_id", "run_attempt", "dispatch_id"}
+            and producer_run.get("repository") == "honua-io/honua-sdk-js"
+            and producer_run.get("workflow") == "integration.yml"
+            and all(type(producer_run.get(key)) is int and producer_run[key] > 0
+                    for key in ("run_id", "run_attempt"))
+            and isinstance(producer_run.get("dispatch_id"), str)
+            and len(producer_run["dispatch_id"]) <= 128
+            and re.fullmatch(r"nightly-certification-[1-9][0-9]*-[1-9][0-9]*", producer_run["dispatch_id"])
+        ):
+            return False
+        # Keep the complete producer identity inside the original digest. Fetch
+        # authenticates it against GitHub; release joins it to the expected dispatch.
+        expected_identity["producer_run"] = producer_run
     if requires_candidate_cut or (
         isinstance(identity, dict) and "candidate_cut_at" in identity
     ):
