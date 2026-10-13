@@ -319,3 +319,35 @@ its job.
    deliberately malformed one) and extend `tests/test_aggregate.py`.
 6. Unknown capability keys and malformed envelopes from this new producer must
    warn, not crash — follow the pattern in `join_local_producer`.
+
+## Exact candidate-tag certification intake
+
+A registered producer can explicitly declare `candidate_tag_dispatch_title` to
+admit the release dispatcher's `nightly-candidate/<governed-source-SHA>` tag.
+This does not add tags or arbitrary branches to `trusted_branches`. The initial
+opt-in is the JavaScript SDK integration producer, whose run title is exactly
+`SDK Integration [<dispatch_id>]`.
+
+Intake reads the actual GitHub tag reference and requires a lightweight commit
+reference to the governed source pin. It refuses a same-named branch, another
+repository, workflow, event, source, incomplete run, stale artifact, or a missing
+tag. Permission and network errors never count as proof of an absent branch.
+The run must be a `workflow_dispatch`; the existing accepted-conclusion policy
+still applies. Artifact bytes must match GitHub's SHA-256 archive digest.
+
+Each executed observation's digest-bound receipt must identify the exact
+repository, workflow basename, run ID, run attempt and dispatch ID. The latter
+must match the actual run title. Candidate fields must match the caller's
+requested candidate. Skips remain skips and cannot be the sole authenticated
+receipt. Existing source, client, capability, candidate and semantic receipt
+validation still applies downstream; accepting transport provenance does not
+certify any observation as passing. Ordinary trusted-trunk intake is unchanged.
+
+The JavaScript receipt's optional `identity.producer_run` is also explicitly
+recognized by ledger validation for `@honua/sdk-js` / `sdk-js-certification`.
+Only the five reviewed fields are accepted; the repository and workflow are
+fixed, run IDs/attempts are positive integers, and the dispatch ID is
+`nightly-certification-<positive run ID>-<positive attempt>`. This identity stays
+inside the original receipt bytes and digest when the ledger readdresses it.
+All other identity fields, including v2 governed context, remain exact. The
+release consumer independently joins the recorded run to its expected dispatch.

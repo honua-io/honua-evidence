@@ -14,7 +14,8 @@ import re
 import shutil
 import sys
 import urllib.request
-from urllib.parse import urlparse
+import urllib.error
+from urllib.parse import quote, urlparse
 import zipfile
 from datetime import datetime
 from pathlib import Path
@@ -282,7 +283,72 @@ def request_bytes(url: str, token: str, accept: str) -> bytes:
         return response.read()
 
 
-def trusted_run(run: dict[str, Any], artifact: dict[str, Any], source: dict[str, Any]) -> bool:
+def verified_candidate_tag(run: dict[str, Any], source: dict[str, Any], pin: str, token: str) -> bool:
+    """Authenticate only the release dispatcher's exact lightweight candidate tag."""
+    tag = f"nightly-candidate/{pin}"
+    if not (
+        source.get("candidate_tag_dispatch_title")
+        and SHA_RE.fullmatch(pin)
+        and run.get("head_sha") == pin
+        and run.get("head_branch") == tag
+        and run.get("event") == "workflow_dispatch"
+        and run.get("repository", {}).get("full_name") == source["repository"]
+    ):
+        return False
+    api = f"https://api.github.com/repos/{source['repository']}/git/ref"
+    try:
+        ref = json.loads(request_bytes(f"{api}/tags/{quote(tag, safe='')}", token, "application/vnd.github+json"))
+    except urllib.error.HTTPError as error:
+        if error.code == 404:
+            return False
+        raise
+    if not (
+        ref.get("ref") == f"refs/tags/{tag}"
+        and ref.get("object", {}).get("type") == "commit"
+        and ref["object"].get("sha") == pin
+    ):
+        return False
+    # Actions head_branch alone does not distinguish a tag from a same-named branch.
+    try:
+        request_bytes(f"{api}/heads/{quote(tag, safe='')}", token, "application/vnd.github+json")
+    except urllib.error.HTTPError as error:
+        if error.code == 404:
+            return True
+        raise
+    return False
+
+
+def validate_candidate_tag_fragment(payload: dict[str, Any], run: dict[str, Any],
+                                    source: dict[str, Any], candidate: dict[str, str] | None) -> None:
+    if candidate is None or payload.get("candidate") != candidate:
+        raise ValueError("Candidate-tag fragment does not match the requested candidate.")
+    authenticated = 0
+    for observation in payload["observations"]:
+        if observation.get("result") == "skip" and observation.get("evidence_receipt") is None:
+            continue
+        receipt = observation.get("evidence_receipt")
+        identity = receipt.get("identity", {}) if isinstance(receipt, dict) else {}
+        producer = identity.get("producer_run")
+        dispatch = producer.get("dispatch_id") if isinstance(producer, dict) else None
+        if not isinstance(dispatch, str) or len(dispatch) > 128 or not re.fullmatch(r"nightly-certification-[1-9][0-9]*-[1-9][0-9]*", dispatch):
+            raise ValueError("Candidate-tag receipt has no valid nightly dispatch identity.")
+        expected = {
+            "repository": source["repository"], "workflow": source["workflow_path"].rsplit("/", 1)[-1],
+            "run_id": run["id"], "run_attempt": run["run_attempt"], "dispatch_id": dispatch,
+        }
+        if producer != expected or any(type(producer[key]) is not int for key in ("run_id", "run_attempt")):
+            raise ValueError("Candidate-tag receipt producer run/attempt does not match GitHub.")
+        if run.get("display_title") != f"{source['candidate_tag_dispatch_title']} [{dispatch}]":
+            raise ValueError("Candidate-tag receipt dispatch identity does not match the GitHub run title.")
+        if observation.get("evidence_digest") != _receipt_digest(receipt):
+            raise ValueError("Candidate-tag receipt identity is not bound by its evidence digest.")
+        authenticated += 1
+    if not authenticated:
+        raise ValueError("Candidate-tag fragment has no executed receipt with authenticated producer identity.")
+
+
+def trusted_run(run: dict[str, Any], artifact: dict[str, Any], source: dict[str, Any],
+                *, candidate_tag_verified: bool = False) -> bool:
     repository = source["repository"]
     trusted_events = source.get("trusted_events")
     trusted_branches = source.get("trusted_branches")
@@ -312,7 +378,7 @@ def trusted_run(run: dict[str, Any], artifact: dict[str, Any], source: dict[str,
         and run["run_attempt"] > 0
         and artifact_created_at > run_started_at
         and run.get("event") in source["trusted_events"]
-        and run.get("head_branch") in source["trusted_branches"]
+        and (run.get("head_branch") in source["trusted_branches"] or candidate_tag_verified)
         and isinstance(path, str)
         and path.split("@", 1)[0] == source["workflow_path"]
         and run.get("head_repository", {}).get("full_name") == repository
@@ -506,7 +572,7 @@ def load_registry(path: Path) -> dict[str, Any]:
             "max_candidates", "required", "accepted_conclusions",
             "source_revision_key",
             "implementation_issue",
-            "normalizer", "related_issues",
+            "normalizer", "related_issues", "candidate_tag_dispatch_title",
         }
         unknown_fields = set(source) - allowed_fields
         if unknown_fields:
@@ -554,6 +620,13 @@ def load_registry(path: Path) -> dict[str, Any]:
             )
         if "required" in source and not isinstance(source["required"], bool):
             raise ValueError(f"Producer {producer!r} required must be a boolean.")
+        if "candidate_tag_dispatch_title" in source and not (
+            isinstance(source["candidate_tag_dispatch_title"], str)
+            and re.fullmatch(r"[A-Za-z0-9 ._-]{1,80}", source["candidate_tag_dispatch_title"])
+            and "workflow_dispatch" in source.get("trusted_events", [])
+            and source.get("normalizer") is None
+        ):
+            raise ValueError(f"Producer {producer!r} has invalid candidate tag dispatch admission.")
         accepted_conclusions = source.get("accepted_conclusions", ["success"])
         if (
             not isinstance(accepted_conclusions, list)
@@ -631,6 +704,11 @@ def fetch(registry_path: Path, output: Path, token: str, pins: dict[str, str],
         ):
             if usable_artifact_count >= int(source.get("max_artifacts", 10)):
                 break
+            tag_verified = False
+            if run.get("head_branch") not in source["trusted_branches"]:
+                tag_verified = verified_candidate_tag(run, source, pinned_sha, token)
+                if not tag_verified:
+                    continue
             candidates = select_artifacts(
                 list_run_artifacts(repository, run["id"], token),
                 source["artifact_prefix"],
@@ -640,7 +718,7 @@ def fetch(registry_path: Path, output: Path, token: str, pins: dict[str, str],
             for artifact in candidates:
                 if usable_artifact_count >= int(source.get("max_artifacts", 10)):
                     break
-                if not trusted_run(run, artifact, source):
+                if not trusted_run(run, artifact, source, candidate_tag_verified=tag_verified):
                     continue
                 # Defence in depth: trusted_run already ties the artifact to this
                 # run, and the run was addressed by revision -- never accept a
@@ -650,6 +728,8 @@ def fetch(registry_path: Path, output: Path, token: str, pins: dict[str, str],
                 archive = request_bytes(
                     artifact["archive_download_url"], token, "application/vnd.github+json"
                 )
+                if tag_verified and artifact.get("digest") != "sha256:" + hashlib.sha256(archive).hexdigest():
+                    raise ValueError("Candidate-tag artifact bytes do not match the GitHub archive digest.")
                 if source.get("normalizer") == "client-interop-cert-v1":
                     if requirements is None or candidate is None:
                         raise ValueError(
@@ -667,11 +747,19 @@ def fetch(registry_path: Path, output: Path, token: str, pins: dict[str, str],
                     extracted = extract_fragments(archive, source["fragment_globs"])
                 if not extracted:
                     continue
-                usable_artifact_count += 1
+                artifact_usable = False
                 for member, payload in extracted:
+                    if tag_verified and candidate is None:
+                        raise ValueError("Candidate-tag intake requires an exact requested candidate.")
+                    if tag_verified and payload.get("candidate") != candidate:
+                        # One published SDK may have runs for many server candidates.
+                        # Keep looking; an older candidate cannot consume the usable limit.
+                        continue
                     validate_fragment_producer(
                         payload, source["producer"], run["head_sha"], repository
                     )
+                    if tag_verified:
+                        validate_candidate_tag_fragment(payload, run, source, candidate)
                     destination = (
                         producer_dir / str(artifact["id"]) /
                         fragment_destination_name(member)
@@ -683,11 +771,16 @@ def fetch(registry_path: Path, output: Path, token: str, pins: dict[str, str],
                         "artifact_id": artifact["id"], "artifact_name": artifact["name"],
                         "workflow_run_id": run["id"], "workflow_path": source["workflow_path"],
                         "head_branch": run["head_branch"], "head_sha": run["head_sha"],
+                        "run_attempt": run["run_attempt"],
+                        "candidate_tag_verified": tag_verified,
                         "source_revision_key": revision_key, "pinned_source_sha": pinned_sha,
                         "created_at": artifact.get("created_at"), "member": member,
                         "destination": destination.as_posix(),
                     })
                     producer_fragment_count += 1
+                    artifact_usable = True
+                if artifact_usable:
+                    usable_artifact_count += 1
         if producer_fragment_count == 0:
             # Fail closed. A producer with no evidence AT THE PIN is a gap, and a
             # gap is reported as a gap. Falling back to a newer run would certify
