@@ -238,3 +238,17 @@ It exercises the CLI through stored receipt bytes and summary output, including 
 states, six producer families, every required scenario axis, and source-host null image
 provenance. It is not live protocol or geospatial execution evidence. Exact-candidate
 qualification still uses receipts produced after the candidate is cut.
+
+
+### Exact candidate-tag server producers
+
+CITE (`CITE Certification [<dispatch_id>]`) and the source-host protocol harness
+(`Protocol harness certification [<dispatch_id>]`) opt into the same narrow
+candidate-tag admission as SDK Integration. The collector authenticates the
+lightweight `nightly-candidate/<40-character source SHA>` tag through GitHub,
+refuses a same-named branch, and requires the configured repository/workflow,
+completed run and attempt, artifact archive digest, requested candidate, and
+receipt-bound five-field producer identity to agree with the run title.
+Ordinary trunk admission and each producer's accepted outcomes are unchanged.
+These intake controls do not establish a passing certification result; the
+existing semantic gate still evaluates actual producer observations.

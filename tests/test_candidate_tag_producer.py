@@ -79,7 +79,7 @@ class CandidateTagProducerTests(unittest.TestCase):
             with mock.patch.object(MODULE, "list_runs_at_revision", return_value=[self.run]), \
                  mock.patch.object(MODULE, "list_run_artifacts", return_value=artifacts), \
                  mock.patch.object(MODULE, "request_bytes", side_effect=request):
-                MODULE.fetch(registry, root / "out", "token", {"sdk-js": PINNED_SHA}, candidate=CANDIDATE)
+                MODULE.fetch(registry, root / "out", "token", {self.source["source_revision_key"]: PINNED_SHA}, candidate=CANDIDATE)
             return [json.loads(line) for line in (root / "out/.fetch-manifest.ndjson").read_text().splitlines()]
 
     def test_exact_tag_fetch_preserves_verified_source_and_attempt(self):
@@ -114,7 +114,7 @@ class CandidateTagProducerTests(unittest.TestCase):
             "foreign repo": lambda: self.run.update(repository={"full_name": "other/fork"}),
             "foreign head repo": lambda: self.run.update(head_repository={"full_name": "other/fork"}),
             "wrong workflow": lambda: self.run.update(path=".github/workflows/other.yml"),
-            "failed run": lambda: self.run.update(conclusion="failure"),
+            "unaccepted conclusion": lambda: self.run.update(conclusion="cancelled"),
             "unfinished run": lambda: self.run.update(status="in_progress"),
             "wrong artifact run": lambda: self.artifact["workflow_run"].update(id=78),
             "wrong artifact source": lambda: self.artifact["workflow_run"].update(head_sha=NEWER_SHA),
@@ -122,6 +122,8 @@ class CandidateTagProducerTests(unittest.TestCase):
             "bad archive digest": lambda: setattr(self, "bad_archive", True),
             "wrong candidate": lambda: self.payload["candidate"].update(source_sha=NEWER_SHA),
         }
+        if "failure" not in self.source.get("accepted_conclusions", ["success"]):
+            changes["failed run"] = lambda: self.run.update(conclusion="failure")
         for label, change in changes.items():
             with self.subTest(label=label):
                 self.setUp()
@@ -167,3 +169,48 @@ class CandidateTagProducerTests(unittest.TestCase):
                 registry.write_text(json.dumps({"schema": MODULE.REGISTRY_SCHEMA, "sources": [self.source]}))
                 with self.assertRaisesRegex(ValueError, "candidate tag dispatch"):
                     MODULE.load_registry(registry)
+
+
+class ConfiguredServerCandidateTagTests(CandidateTagProducerTests):
+    # Run the existing API/ref/hash/receipt adversaries against each actual
+    # configured server producer, not a more permissive synthetic registry.
+    producer_name = "honua-server-cite"
+
+    def setUp(self):
+        super().setUp()
+        registry = MODULE.load_registry(Path(__file__).resolve().parents[1] /
+                                        "config/protocol-certification-producers.v1.json")
+        self.source = next(row for row in registry["sources"]
+                           if row["producer"] == self.producer_name)
+        self.source = copy.deepcopy(self.source)
+        # CITE is optional in broad discovery, but this focused fetch requires
+        # its matching fragment so refusal cannot silently pass with zero rows.
+        self.source["required"] = True
+        repository = self.source["repository"]
+        self.run.update(repository={"full_name": repository},
+                        head_repository={"full_name": repository},
+                        path=self.source["workflow_path"],
+                        display_title=f"{self.source['candidate_tag_dispatch_title']} [nightly-certification-55-1]")
+        self.artifact["name"] = self.source["artifact_prefix"] + "77-1"
+        self.payload["producer"] = self.producer_name
+        self.producer.update(repository=repository,
+                             workflow=self.source["workflow_path"].rsplit("/", 1)[-1])
+
+    def test_exact_configured_run_title_is_required(self):
+        self.run["display_title"] = "SDK Integration [nightly-certification-55-1]"
+        with self.assertRaisesRegex(ValueError, "run title"):
+            self.drive()
+
+
+class ConfiguredHarnessCandidateTagTests(ConfiguredServerCandidateTagTests):
+    producer_name = "server-protocol-harness"
+
+    def test_completed_harness_failure_remains_evidentiary(self):
+        self.run["conclusion"] = "failure"
+        observation = self.payload["observations"][0]
+        observation["result"] = "fail"
+        observation["evidence_receipt"]["result"] = "fail"
+        rows = self.drive()
+        self.assertEqual(len(rows), 1)
+        self.assertTrue(rows[0]["candidate_tag_verified"])
+        self.assertEqual(observation["evidence_receipt"]["result"], "fail")
