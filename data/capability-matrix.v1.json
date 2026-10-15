@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-10-14T18:01:46Z",
+  "generatedAt": "2026-10-15T05:52:09Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -28,79 +28,79 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-10-14T18:01:30Z",
+      "fetchedAt": "2026-10-15T05:51:56Z",
       "sourceVersion": "8c21501230f7@2026-10-09T05:17:20Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-14T18:01:30Z",
+      "observedAt": "2026-10-15T05:51:56Z",
       "ageDays": 0,
-      "sourceAgeDays": 5,
+      "sourceAgeDays": 6,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-10-14T18:01:30Z",
+      "fetchedAt": "2026-10-15T05:51:57Z",
       "sourceVersion": "8018b56b2c7a@2026-10-14T17:51:19Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-14T18:01:30Z",
+      "observedAt": "2026-10-15T05:51:57Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-10-14T18:01:31Z",
+      "fetchedAt": "2026-10-15T05:51:57Z",
       "sourceVersion": "d9fb8dbd9218@2026-10-14T15:43:33Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-14T18:01:31Z",
+      "observedAt": "2026-10-15T05:51:57Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-10-14T18:01:31Z",
+      "fetchedAt": "2026-10-15T05:51:58Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-14T18:01:31Z",
+      "observedAt": "2026-10-15T05:51:58Z",
       "ageDays": 0,
-      "sourceAgeDays": 88,
+      "sourceAgeDays": 89,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-10-14T18:01:32Z",
+      "fetchedAt": "2026-10-15T05:51:58Z",
       "sourceVersion": "9792cb444e78@2026-10-06T07:53:39Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-14T18:01:32Z",
+      "observedAt": "2026-10-15T05:51:58Z",
       "ageDays": 0,
       "sourceAgeDays": 8,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-10-14T18:01:33Z",
-      "sourceVersion": "5aacea5b14a3@2026-10-14T10:18:02Z",
+      "fetchedAt": "2026-10-15T05:51:59Z",
+      "sourceVersion": "65253c959a97@2026-10-15T05:51:40Z",
       "freshnessBasis": "observation",
-      "observedAt": "2026-10-14T10:18:02Z",
+      "observedAt": "2026-10-15T05:51:40Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-10-14T18:01:46Z",
+      "fetchedAt": "2026-10-15T05:52:09Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-14T18:01:46Z",
+      "observedAt": "2026-10-15T05:52:09Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-10-14T18:01:34Z",
+      "fetchedAt": "2026-10-15T05:51:59Z",
       "sourceVersion": "34418c01e995@2026-09-22T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-09-22T00:00:00Z",
-      "ageDays": 22,
-      "sourceAgeDays": 22,
+      "ageDays": 23,
+      "sourceAgeDays": 23,
       "status": "stale"
     },
     "live-canary": {
-      "fetchedAt": "2026-10-14T18:01:34Z",
+      "fetchedAt": "2026-10-15T05:51:59Z",
       "sourceVersion": "9988a69640e2@2026-10-14T12:04:18Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-10-14T12:04:18Z",
@@ -120,7 +120,9 @@
     "open-issues: honua-io/honua-server#3101: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#3104: 'Capability Key(s)' field references unknown capability key 'ops' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#3104: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
-    "open-issues: honua-io/honua-server#3105: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored"
+    "open-issues: honua-io/honua-server#3105: 'Capability Key(s)' field references unknown capability key 'raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#6221: 'Capability Key(s)' field references unknown capability key 'control-plane' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#6221: 'Capability Key(s)' field references unknown capability key 'process' (not in honua-server's canonical capability-keys.v1.json) -- ignored"
   ],
   "capabilities": [
     {
@@ -180,7 +182,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 3,
+        "count": 4,
         "refs": [
           {
             "number": 346,
@@ -196,6 +198,11 @@
             "number": 3498,
             "title": "feat(studio): versioned server-owned contracts for the seven stub package families (query, analysis, report, form, workflow, gp, etl)",
             "url": "https://github.com/honua-io/honua-server/issues/3498"
+          },
+          {
+            "number": 6221,
+            "title": "feat(gp): `honua-gp.yaml` descriptor, immutable release lock, `release` command, and admission-time release pinning for Kubernetes Jobs and AWS Batch",
+            "url": "https://github.com/honua-io/honua-server/issues/6221"
           }
         ],
         "categoryLevel": true,
@@ -215,6 +222,11 @@
             "number": 3498,
             "title": "feat(studio): versioned server-owned contracts for the seven stub package families (query, analysis, report, form, workflow, gp, etl)",
             "url": "https://github.com/honua-io/honua-server/issues/3498"
+          },
+          {
+            "number": 6221,
+            "title": "feat(gp): `honua-gp.yaml` descriptor, immutable release lock, `release` command, and admission-time release pinning for Kubernetes Jobs and AWS Batch",
+            "url": "https://github.com/honua-io/honua-server/issues/6221"
           }
         ],
         "label": "cap/control-plane"
@@ -8028,7 +8040,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-14T10:17:54.691Z"
+            "at": "2026-10-15T05:51:31.937Z"
           }
         },
         {
@@ -8042,7 +8054,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-14T10:17:54.691Z"
+            "at": "2026-10-15T05:51:31.937Z"
           }
         }
       ],
@@ -8497,7 +8509,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 3,
+        "count": 4,
         "refs": [
           {
             "number": 346,
@@ -8513,6 +8525,11 @@
             "number": 3498,
             "title": "feat(studio): versioned server-owned contracts for the seven stub package families (query, analysis, report, form, workflow, gp, etl)",
             "url": "https://github.com/honua-io/honua-server/issues/3498"
+          },
+          {
+            "number": 6221,
+            "title": "feat(gp): `honua-gp.yaml` descriptor, immutable release lock, `release` command, and admission-time release pinning for Kubernetes Jobs and AWS Batch",
+            "url": "https://github.com/honua-io/honua-server/issues/6221"
           }
         ],
         "categoryLevel": true,
@@ -8532,6 +8549,11 @@
             "number": 3498,
             "title": "feat(studio): versioned server-owned contracts for the seven stub package families (query, analysis, report, form, workflow, gp, etl)",
             "url": "https://github.com/honua-io/honua-server/issues/3498"
+          },
+          {
+            "number": 6221,
+            "title": "feat(gp): `honua-gp.yaml` descriptor, immutable release lock, `release` command, and admission-time release pinning for Kubernetes Jobs and AWS Batch",
+            "url": "https://github.com/honua-io/honua-server/issues/6221"
           }
         ],
         "label": "cap/control-plane"
@@ -14135,7 +14157,18 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": [
+        {
+          "id": "gp-process-templates",
+          "title": "GP process templates (Python and .NET)",
+          "url": "https://samples.honua.io/gp-process-templates",
+          "sdks": [
+            "python",
+            "dotnet"
+          ],
+          "edition": "community"
+        }
+      ],
       "openIssues": {
         "count": 17,
         "refs": [
@@ -17520,7 +17553,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-14T10:17:54.691Z"
+            "at": "2026-10-15T05:51:31.937Z"
           }
         },
         {
@@ -17534,7 +17567,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-14T10:17:54.691Z"
+            "at": "2026-10-15T05:51:31.937Z"
           }
         },
         {
@@ -17548,7 +17581,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-14T10:17:54.691Z"
+            "at": "2026-10-15T05:51:31.937Z"
           }
         },
         {
@@ -17562,7 +17595,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-14T10:17:54.691Z"
+            "at": "2026-10-15T05:51:31.937Z"
           }
         }
       ],
@@ -22259,7 +22292,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-14T10:17:54.691Z"
+            "at": "2026-10-15T05:51:31.937Z"
           }
         }
       ],
@@ -26169,7 +26202,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-14T10:17:54.691Z"
+            "at": "2026-10-15T05:51:31.937Z"
           }
         }
       ],
@@ -28579,7 +28612,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-14T10:17:54.691Z"
+            "at": "2026-10-15T05:51:31.937Z"
           }
         }
       ],
@@ -34401,7 +34434,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-14T10:17:54.691Z"
+            "at": "2026-10-15T05:51:31.937Z"
           }
         }
       ],
