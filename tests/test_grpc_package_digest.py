@@ -64,6 +64,16 @@ class GrpcPackageDigestTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     self.join(req, observed)
 
+    def test_legacy_grpc_receipt_cannot_use_digest_to_bypass_v2_context(self):
+        req, observed = example("grpc-dotnet")
+        observed["evidence_receipt"]["schema"] = "honua.certification-evidence-receipt/v1"
+        for field in ("maturity", "required_tier", "requirements_revision"):
+            observed["evidence_receipt"]["identity"].pop(field)
+        rebind_receipt(observed)
+        self.assertFalse(module._valid_receipt(observed, req, requirements_revision="fixture-v2"))
+        with self.assertRaises(ValueError):
+            self.join(req, observed)
+
     def test_fetch_refuses_missing_or_different_observed_receipt_digest(self):
         _, observed = example("grpc-typescript")
         for field in ("observation", "receipt"):

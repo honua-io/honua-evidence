@@ -319,6 +319,8 @@ def _valid_receipt(
         for field in RECEIPT_ID_FIELDS
     }
     if str(requirement.get("client_lane", "")).startswith("grpc-"):
+        if receipt.get("schema") != RECEIPT_SCHEMA_V2:
+            return False
         measured = observation.get("client_package_digest")
         if (not _valid_client_package_digest(requirement["client_lane"], measured)
                 or measured != requirement.get("client_package_digest")):

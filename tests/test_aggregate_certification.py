@@ -45,6 +45,8 @@ def requirement(client="Rasterio", addressable=True, test_ids=None):
     }
     if test_ids is not None:
         value["test_ids"] = test_ids
+    if value["client_lane"].startswith("grpc-"):
+        value["client_package_digest"] = "sha256:" + "f" * 64
     return value
 
 
@@ -96,6 +98,9 @@ def observation(
         "facets": facet_values,
         "payload_base64": "dGVzdA==",
     }
+    if "client_package_digest" in req:
+        value["client_package_digest"] = req["client_package_digest"]
+        receipt["identity"]["client_package_digest"] = req["client_package_digest"]
     if "test_ids" in req:
         receipt["identity"]["test_ids"] = req["test_ids"]
     if candidate_cut_at is not None:
@@ -824,7 +829,10 @@ class CertificationAggregationTests(unittest.TestCase):
         ):
             req = requirement(client)
             requirements.append(req)
-            fragments.append((Path(f"{producer}.json"), fragment(producer, [observation(req)])))
+            observed = observation(req)
+            if req["client_lane"].startswith("grpc-"):
+                as_receipt_v2(observed, req, "six-producers")
+            fragments.append((Path(f"{producer}.json"), fragment(producer, [observed])))
         ledger = module.build_ledger("six-producers", REQUIREMENTS_SOURCE_SHA, True, requirements, fragments, CANDIDATE)
         self.assertEqual(6, len(ledger["cells"]))
         for cell, (path, source) in zip(ledger["cells"], fragments):
