@@ -29,7 +29,7 @@ POLICY_FIELDS = (
     "addressability_reason", "scenario_facets", "contract_revision", "auth_policy_revision",
     "fixture_revision", "budget_expectations",
 )
-OPTIONAL_POLICY_FIELDS = ("test_ids",)
+OPTIONAL_POLICY_FIELDS = ("test_ids", "client_package_digest")
 OBSERVATION_FIELDS = (
     "result", "skip_reason", "source_sha", "producer_source_sha", "image_digest", "fixture_revision",
     "contract_revision", "auth_policy_revision", "evidence_uri", "evidence_digest", "evidence_receipt", "facet_results",
@@ -282,6 +282,18 @@ PRODUCER_RUN_IDENTITIES = {
 }
 
 
+def _valid_client_package_digest(lane: str, value: object) -> bool:
+    if lane == "grpc-typescript":
+        if not isinstance(value, str) or not value.startswith("sha512-"):
+            return False
+        try:
+            raw = base64.b64decode(value[7:], validate=True)
+        except ValueError:
+            return False
+        return len(raw) == 64 and value == "sha512-" + base64.b64encode(raw).decode()
+    return isinstance(value, str) and re.fullmatch(r"sha256:[0-9a-f]{64}", value) is not None
+
+
 def _valid_receipt(
     observation: dict,
     requirement: dict,
@@ -306,6 +318,16 @@ def _valid_receipt(
         )
         for field in RECEIPT_ID_FIELDS
     }
+    if str(requirement.get("client_lane", "")).startswith("grpc-"):
+        measured = observation.get("client_package_digest")
+        if (not _valid_client_package_digest(requirement["client_lane"], measured)
+                or measured != requirement.get("client_package_digest")):
+            return False
+        expected_identity["client_package_digest"] = measured
+    elif "client_package_digest" in requirement:
+        if observation.get("client_package_digest") != requirement["client_package_digest"]:
+            return False
+        expected_identity["client_package_digest"] = observation["client_package_digest"]
     requires_candidate_cut = requirement.get("client_lane") in {
         "sdk-python",
         "sdk-python-certification",
@@ -688,6 +710,10 @@ def load_requirements(path: Path) -> tuple[str, bool, list[dict]]:
         missing = [field for field in POLICY_FIELDS if field not in requirement]
         if missing:
             raise ValueError(f"{path}: requirements[{index}] missing {', '.join(missing)}")
+        if str(requirement.get("client_lane", "")).startswith("grpc-") and not _valid_client_package_digest(
+            requirement["client_lane"], requirement.get("client_package_digest")
+        ):
+            raise ValueError(f"{path}: gRPC requirements must bind a canonical published package digest")
         if not isinstance(requirement["addressable_by_client"], bool):
             raise ValueError(f"{path}: requirements[{index}].addressable_by_client must be a boolean")
         licensed = requirement.get("licensed")
@@ -865,6 +891,14 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
                     f"{(observation_key, producer, str(path))}"
                 )
             requirement = requirement_by_key[observation_key]
+            if str(requirement.get("client_lane", "")).startswith("grpc-"):
+                measured = observation.get("client_package_digest")
+                unexecuted = observation.get("result") == "skip" and observation.get("evidence_receipt") is None
+                if (measured is not None or not unexecuted) and (
+                    not _valid_client_package_digest(requirement["client_lane"], measured)
+                    or measured != requirement.get("client_package_digest")
+                ):
+                    raise ValueError(f"{path}: observed gRPC client_package_digest differs from governed published artifact")
             for field in ("client_id", "runner_lane", "protocol_version", "protocol_profile", "performed_by"):
                 if not isinstance(observation.get(field), str) or not observation[field].strip():
                     raise ValueError(f"{path}: observations[{index}].{field} must be a non-empty string")

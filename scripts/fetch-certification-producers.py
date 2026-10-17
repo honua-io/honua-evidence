@@ -417,6 +417,15 @@ def _bound_source_host_fragment(observation: dict, producer: str, candidate: dic
         return False
 
 
+@cache
+def _package_digest_validator():
+    path = Path(__file__).with_name("aggregate-certification.py")
+    spec = importlib.util.spec_from_file_location("grpc_package_digest_admission", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module._valid_client_package_digest
+
+
 def validate_fragment_producer(
     payload: dict[str, Any], expected: str, producer_source_sha: str | None = None,
     repository: str | None = None,
@@ -486,6 +495,15 @@ def validate_fragment_producer(
                 raise ValueError(
                     f"Fragment observation {index} attempts to satisfy reserved lane {value!r}."
                 )
+        if str(observation.get("runner_lane", "")).startswith("grpc-"):
+            receipt = observation.get("evidence_receipt")
+            measured = observation.get("client_package_digest")
+            unexecuted = observation.get("result") == "skip" and receipt is None
+            if not unexecuted or measured is not None:
+                if not _package_digest_validator()(observation["runner_lane"], measured):
+                    raise ValueError("gRPC observed published package digest is missing or invalid")
+                if isinstance(receipt, dict) and receipt.get("identity", {}).get("client_package_digest") != measured:
+                    raise ValueError("gRPC receipt package digest differs from its observed package bytes")
         uri = observation["evidence_uri"]
         parsed = urlparse(uri) if isinstance(uri, str) else None
         trusted_github_path = (
