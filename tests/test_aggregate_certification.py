@@ -423,6 +423,8 @@ class CertificationAggregationTests(unittest.TestCase):
                 req = requirement(client="Honua SDK Python")
                 req["client_lane"] = lane
                 req["contract_revision"] = contract
+                if lane == "sdk-python-certification":
+                    req["client_version"] = "0.1.10"
 
                 unbound = observation(req)
                 with self.assertRaisesRegex(ValueError, "not semantically bound"):
