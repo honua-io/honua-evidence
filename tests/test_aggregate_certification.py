@@ -1259,3 +1259,21 @@ class SharedPythonProducerSeamTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "governed published wheel"):
             module.build_ledger(requirements["revision"], REQUIREMENTS_SOURCE_SHA, True,
                 requirements["requirements"], [(Path("wrong-source.json"), changed)], fragment["candidate"])
+
+
+class SkippedPythonWheelPolicyTests(unittest.TestCase):
+    def test_unexecuted_row_keeps_expected_policy_without_inventing_measured_bytes(self):
+        req = requirement("Honua SDK Python")
+        req.update(client_lane="sdk-python-certification", client_version="0.1.10",
+                   contract_revision="sdk-python-certification@" + "c" * 40)
+        row = observation(req, result="skip")
+        row.update(skip_reason="not executed", request_url=None, exercised_capabilities=[], client_package=None)
+        ledger = module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+            [(Path("unexecuted.json"), fragment("honua-sdk-python", [row]))], CANDIDATE)
+        self.assertEqual("skip", ledger["cells"][0]["result"])
+        self.assertIsNone(ledger["cells"][0]["evidence_receipt"])
+        self.assertEqual(req["client_package"], ledger["cells"][0]["client_package"])
+        row["client_package"] = {**req["client_package"], "sha256": "f" * 64}
+        with self.assertRaisesRegex(ValueError, "governed published wheel"):
+            module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+                [(Path("false-skip-policy.json"), fragment("honua-sdk-python", [row]))], CANDIDATE)

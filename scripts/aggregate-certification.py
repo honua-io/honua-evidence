@@ -925,9 +925,10 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
             if requirement.get("client_lane") == "sdk-python-certification":
                 unexecuted = observation.get("result") == "skip" and observation.get("evidence_receipt") is None
                 wheel = requirement.get("client_package")
-                if not unexecuted and (not _valid_python_wheel(wheel, requirement.get("client_version"))
-                        or observation.get("client_package") != wheel
-                        or requirement.get("contract_revision") != "sdk-python-certification@" + str(observation.get("producer_source_sha"))):
+                if ((observation.get("client_package") is not None or not unexecuted) and (
+                        not _valid_python_wheel(wheel, requirement.get("client_version"))
+                        or observation.get("client_package") != wheel)) or (not unexecuted
+                        and requirement.get("contract_revision") != "sdk-python-certification@" + str(observation.get("producer_source_sha"))):
                     raise ValueError(f"{path}: executed Python observation differs from governed published wheel")
             elif "client_package" in observation or "client_package" in requirement:
                 raise ValueError(f"{path}: wheel identity is only permitted for the Python certification lane")
@@ -1130,7 +1131,7 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
             observation = matches[0][2]
             cell.update({field: observation[field] for field in OBSERVATION_FIELDS})
             cell["budget_observations"] = observation.get("budget_observations")
-            if "client_package" in observation:
+            if observation.get("client_package") is not None:
                 cell["client_package"] = observation["client_package"]
         else:
             cell.update({
