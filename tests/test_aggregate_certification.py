@@ -1295,3 +1295,45 @@ class PythonNightlyRunIdentityTests(unittest.TestCase):
             rebind_receipt(wrong)
             with self.subTest(field=field):
                 self.assertFalse(module._valid_receipt(wrong, requirement, CANDIDATE["cut_at"], "python-v2-seam-test"))
+
+
+class GovernedWheelPolicyWithoutObservationsTests(unittest.TestCase):
+    def test_present_policy_is_validated_before_missing_or_null_skip_observations(self):
+        from copy import deepcopy
+        req = requirement("Honua SDK Python")
+        req.update(client_lane="sdk-python-certification", client_version="0.1.10",
+                   contract_revision="sdk-python-certification@" + "c" * 40)
+        row = observation(req, result="skip")
+        row.update(skip_reason="not executed", request_url=None, exercised_capabilities=[], client_package=None)
+        for wheel in (None, {}, {**req["client_package"], "sha256": "not-a-digest"},
+                      {**req["client_package"], "source": "local"}, {**req["client_package"], "extra": True}):
+            for observations in ([], [row]):
+                changed = deepcopy(req)
+                changed["client_package"] = wheel
+                fragments = [(Path("skip.json"), fragment("honua-sdk-python", observations))] if observations else []
+                with self.subTest(wheel=wheel, observed=bool(observations)), self.assertRaisesRegex(ValueError, "governed published wheel policy"):
+                    module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, True, [changed], fragments, CANDIDATE)
+
+    def test_wrong_lane_policy_is_refused_even_without_observations(self):
+        req = requirement()
+        req["client_package"] = {"filename": "anything.whl"}
+        with self.assertRaisesRegex(ValueError, "only permitted for the Python"):
+            module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, True, [req], [], CANDIDATE)
+
+    def test_absent_legacy_policy_remains_explicit_nonexecuted_skip(self):
+        req = requirement("Honua SDK Python")
+        req.update(client_lane="sdk-python-certification", client_version="0.1.10")
+        ledger = module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, True, [req], [], CANDIDATE)
+        self.assertEqual("skip", ledger["cells"][0]["result"])
+        self.assertIsNone(ledger["cells"][0]["evidence_receipt"])
+        self.assertNotIn("client_package", ledger["cells"][0])
+
+    def test_file_loader_rejects_malformed_policy_without_waiting_for_execution(self):
+        req = requirement("Honua SDK Python")
+        req.update(client_lane="sdk-python-certification", client_version="0.1.10", client_package=None)
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "requirements.json"
+            path.write_text(json.dumps({"schema": module.REQUIREMENTS_SCHEMA, "revision": "rev-1",
+                                        "complete": True, "requirements": [req]}))
+            with self.assertRaisesRegex(ValueError, "governed published wheel policy"):
+                module.load_requirements(path)

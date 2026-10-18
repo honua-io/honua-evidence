@@ -295,6 +295,17 @@ def _valid_python_wheel(value: object, version: object) -> bool:
     )
 
 
+def _validate_governed_wheel_policy(requirement: dict) -> None:
+    # An absent legacy policy may describe an honest skip, never executed proof.
+    # A supplied policy is validated even when no producer observation exists.
+    if "client_package" not in requirement:
+        return
+    if requirement.get("client_lane") != "sdk-python-certification":
+        raise ValueError("wheel identity is only permitted for the Python certification lane")
+    if not _valid_python_wheel(requirement["client_package"], requirement.get("client_version")):
+        raise ValueError("governed published wheel policy is malformed")
+
+
 def _valid_client_package_digest(lane: str, value: object) -> bool:
     if lane == "grpc-typescript":
         if not isinstance(value, str) or not value.startswith("sha512-"):
@@ -735,6 +746,7 @@ def load_requirements(path: Path) -> tuple[str, bool, list[dict]]:
         missing = [field for field in POLICY_FIELDS if field not in requirement]
         if missing:
             raise ValueError(f"{path}: requirements[{index}] missing {', '.join(missing)}")
+        _validate_governed_wheel_policy(requirement)
         if str(requirement.get("client_lane", "")).startswith("grpc-") and not _valid_client_package_digest(
             requirement["client_lane"], requirement.get("client_package_digest")
         ):
@@ -873,6 +885,8 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
         raise ValueError("requirements_source_revision must be a full 40-character SHA")
     now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
     candidate_id = _candidate_identity(candidate)
+    for requirement in requirements:
+        _validate_governed_wheel_policy(requirement)
     requirement_by_key = {_governed_identity(requirement): requirement for requirement in requirements}
     if len(requirement_by_key) != len(requirements):
         raise ValueError("duplicate requirement identity")
