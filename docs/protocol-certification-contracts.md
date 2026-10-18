@@ -273,3 +273,18 @@ lanes. Server identities require receipt v2 and their exact server workflow.
 Synthetic fixtures emitted by the actual server generators exercise complete
 fetch-to-ledger admission without changing their receipt bytes or claiming live
 execution.
+
+### Generated gRPC package bytes
+
+Governed generated-client requirements, producer observations and v2 receipt
+identities bind `client_package_digest`. Intake compares the observed archive
+with the owned requirement before retaining the original receipt; it never
+fills in a missing observed digest from a version or expected package pin.
+NuGet/PyPI retain SHA-256 identities and npm retains its canonical SHA-512 SRI.
+Wrong algorithms, repacked bytes and receipt-only changes fail intake. Original
+receipt bytes and their content address survive normalization unchanged.
+
+Rows without execution stay required skips with no receipt. Their policy names
+the expected archive, which is distinct from a passing observation. This does
+not implement the broader client-interop v2 normalizer under issue 51, change
+any denominator, or certify a candidate from contract fixtures.
