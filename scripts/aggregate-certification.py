@@ -269,6 +269,8 @@ def _valid_entitlement_assertion(observation: dict, requirement: dict, entitleme
 
 
 PRODUCER_RUN_IDENTITIES = {
+    ("Honua SDK Python", "sdk-python-certification"):
+        ("honua-io/honua-sdk-python", "conformance.yml"),
     ("@honua/sdk-js", "sdk-js-certification"):
         ("honua-io/honua-sdk-js", "integration.yml"),
     ("Honua server public protocol integration harness", "server-protocol-harness"):

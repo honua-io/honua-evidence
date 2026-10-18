@@ -1277,3 +1277,21 @@ class SkippedPythonWheelPolicyTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "governed published wheel"):
             module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
                 [(Path("false-skip-policy.json"), fragment("honua-sdk-python", [row]))], CANDIDATE)
+
+
+class PythonNightlyRunIdentityTests(unittest.TestCase):
+    def test_python_run_identity_is_bound_to_exact_repository_and_workflow(self):
+        from copy import deepcopy
+        bundle = json.loads((Path(__file__).parent / "fixtures/python-receipt-v2-seam.json").read_text())
+        row, requirement = bundle["fragment"]["observations"][0], bundle["requirements"]["requirements"][0]
+        row["evidence_receipt"]["identity"]["producer_run"] = {"repository": "honua-io/honua-sdk-python",
+            "workflow": "conformance.yml", "run_id": 456, "run_attempt": 2, "dispatch_id": "nightly-certification-123-1"}
+        rebind_receipt(row)
+        self.assertTrue(module._valid_receipt(row, requirement, CANDIDATE["cut_at"], "python-v2-seam-test"))
+        for field, value in (("repository", "attacker/sdk"), ("workflow", "other.yml"), ("run_id", True),
+                              ("run_attempt", 0), ("dispatch_id", "manual")):
+            wrong = deepcopy(row)
+            wrong["evidence_receipt"]["identity"]["producer_run"][field] = value
+            rebind_receipt(wrong)
+            with self.subTest(field=field):
+                self.assertFalse(module._valid_receipt(wrong, requirement, CANDIDATE["cut_at"], "python-v2-seam-test"))
