@@ -29,7 +29,7 @@ POLICY_FIELDS = (
     "addressability_reason", "scenario_facets", "contract_revision", "auth_policy_revision",
     "fixture_revision", "budget_expectations",
 )
-OPTIONAL_POLICY_FIELDS = ("test_ids", "client_package_digest")
+OPTIONAL_POLICY_FIELDS = ("test_ids", "client_package_digest", "client_package")
 OBSERVATION_FIELDS = (
     "result", "skip_reason", "source_sha", "producer_source_sha", "image_digest", "fixture_revision",
     "contract_revision", "auth_policy_revision", "evidence_uri", "evidence_digest", "evidence_receipt", "facet_results",
@@ -269,6 +269,8 @@ def _valid_entitlement_assertion(observation: dict, requirement: dict, entitleme
 
 
 PRODUCER_RUN_IDENTITIES = {
+    ("Honua SDK Python", "sdk-python-certification"):
+        ("honua-io/honua-sdk-python", "conformance.yml"),
     ("@honua/sdk-js", "sdk-js-certification"):
         ("honua-io/honua-sdk-js", "integration.yml"),
     ("Honua server public protocol integration harness", "server-protocol-harness"):
@@ -280,6 +282,28 @@ PRODUCER_RUN_IDENTITIES = {
            "cite-wms-1-3", "cite-wmts-1-0", "cite-wps-2-0",
        )},
 }
+
+
+def _valid_python_wheel(value: object, version: object) -> bool:
+    """The governed Python SDK publishes this exact universal-wheel profile."""
+    return (
+        isinstance(value, dict) and set(value) == {"filename", "sha256", "source"}
+        and isinstance(version, str) and bool(re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+", version))
+        and value.get("filename") == f"honua_sdk-{version}-py3-none-any.whl"
+        and isinstance(value.get("sha256"), str) and bool(re.fullmatch(r"[0-9a-f]{64}", value["sha256"]))
+        and value.get("source") == "pypi"
+    )
+
+
+def _validate_governed_wheel_policy(requirement: dict) -> None:
+    # An absent legacy policy may describe an honest skip, never executed proof.
+    # A supplied policy is validated even when no producer observation exists.
+    if "client_package" not in requirement:
+        return
+    if requirement.get("client_lane") != "sdk-python-certification":
+        raise ValueError("wheel identity is only permitted for the Python certification lane")
+    if not _valid_python_wheel(requirement["client_package"], requirement.get("client_version")):
+        raise ValueError("governed published wheel policy is malformed")
 
 
 def _valid_client_package_digest(lane: str, value: object) -> bool:
@@ -330,6 +354,16 @@ def _valid_receipt(
         if observation.get("client_package_digest") != requirement["client_package_digest"]:
             return False
         expected_identity["client_package_digest"] = observation["client_package_digest"]
+    if requirement.get("client_lane") == "sdk-python-certification":
+        wheel = requirement.get("client_package")
+        if (receipt.get("schema") != RECEIPT_SCHEMA_V2
+                or not _valid_python_wheel(wheel, requirement.get("client_version"))
+                or observation.get("client_package") != wheel
+                or requirement.get("contract_revision") != "sdk-python-certification@" + str(observation.get("producer_source_sha"))):
+            return False
+        expected_identity["client_package"] = wheel
+    elif "client_package" in requirement or "client_package" in observation:
+        return False
     requires_candidate_cut = requirement.get("client_lane") in {
         "sdk-python",
         "sdk-python-certification",
@@ -712,6 +746,7 @@ def load_requirements(path: Path) -> tuple[str, bool, list[dict]]:
         missing = [field for field in POLICY_FIELDS if field not in requirement]
         if missing:
             raise ValueError(f"{path}: requirements[{index}] missing {', '.join(missing)}")
+        _validate_governed_wheel_policy(requirement)
         if str(requirement.get("client_lane", "")).startswith("grpc-") and not _valid_client_package_digest(
             requirement["client_lane"], requirement.get("client_package_digest")
         ):
@@ -850,6 +885,8 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
         raise ValueError("requirements_source_revision must be a full 40-character SHA")
     now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
     candidate_id = _candidate_identity(candidate)
+    for requirement in requirements:
+        _validate_governed_wheel_policy(requirement)
     requirement_by_key = {_governed_identity(requirement): requirement for requirement in requirements}
     if len(requirement_by_key) != len(requirements):
         raise ValueError("duplicate requirement identity")
@@ -901,6 +938,16 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
                     or measured != requirement.get("client_package_digest")
                 ):
                     raise ValueError(f"{path}: observed gRPC client_package_digest differs from governed published artifact")
+            if requirement.get("client_lane") == "sdk-python-certification":
+                unexecuted = observation.get("result") == "skip" and observation.get("evidence_receipt") is None
+                wheel = requirement.get("client_package")
+                if ((observation.get("client_package") is not None or not unexecuted) and (
+                        not _valid_python_wheel(wheel, requirement.get("client_version"))
+                        or observation.get("client_package") != wheel)) or (not unexecuted
+                        and requirement.get("contract_revision") != "sdk-python-certification@" + str(observation.get("producer_source_sha"))):
+                    raise ValueError(f"{path}: executed Python observation differs from governed published wheel")
+            elif "client_package" in observation or "client_package" in requirement:
+                raise ValueError(f"{path}: wheel identity is only permitted for the Python certification lane")
             for field in ("client_id", "runner_lane", "protocol_version", "protocol_profile", "performed_by"):
                 if not isinstance(observation.get(field), str) or not observation[field].strip():
                     raise ValueError(f"{path}: observations[{index}].{field} must be a non-empty string")
@@ -1100,6 +1147,8 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
             observation = matches[0][2]
             cell.update({field: observation[field] for field in OBSERVATION_FIELDS})
             cell["budget_observations"] = observation.get("budget_observations")
+            if observation.get("client_package") is not None:
+                cell["client_package"] = observation["client_package"]
         else:
             cell.update({
                 "result": "skip",

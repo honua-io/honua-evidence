@@ -56,6 +56,9 @@ def observation(
     completed="2026-08-20T10:05:00Z",
     candidate_cut_at=None,
 ):
+    if req.get("client_lane") == "sdk-python-certification":
+        req.setdefault("client_package", {"filename": f"honua_sdk-{req['client_version']}-py3-none-any.whl",
+                                          "sha256": "e" * 64, "source": "pypi"})
     value = {field: req[field] for field in module.IDENTITY_FIELDS}
     if "test_ids" in req:
         value["test_ids"] = req["test_ids"]
@@ -98,6 +101,11 @@ def observation(
         "facets": facet_values,
         "payload_base64": "dGVzdA==",
     }
+    if "client_package" in req:
+        value["client_package"] = dict(req["client_package"])
+        receipt["identity"]["client_package"] = dict(req["client_package"])
+        receipt["schema"] = module.RECEIPT_SCHEMA_V2
+        receipt["identity"].update({"maturity": req["maturity"], "required_tier": req["required_tier"], "requirements_revision": "rev-1"})
     if "client_package_digest" in req:
         value["client_package_digest"] = req["client_package_digest"]
         receipt["identity"]["client_package_digest"] = req["client_package_digest"]
@@ -415,6 +423,8 @@ class CertificationAggregationTests(unittest.TestCase):
                 req = requirement(client="Honua SDK Python")
                 req["client_lane"] = lane
                 req["contract_revision"] = contract
+                if lane == "sdk-python-certification":
+                    req["client_version"] = "0.1.10"
 
                 unbound = observation(req)
                 with self.assertRaisesRegex(ValueError, "not semantically bound"):
@@ -1203,3 +1213,127 @@ class CertificationAggregationTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class PythonWheelReceiptTests(unittest.TestCase):
+    def test_governed_wheel_is_preserved_and_forged_consistent_identity_is_rejected(self):
+        from copy import deepcopy
+        req = requirement("Honua SDK Python")
+        req.update(client_lane="sdk-python-certification", client_version="0.1.10", contract_revision="sdk-python-certification@" + "c" * 40)
+        row = observation(req, candidate_cut_at=CANDIDATE["cut_at"])
+        ledger = module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+            [(Path("python.json"), fragment("honua-sdk-python", [row]))], CANDIDATE)
+        self.assertEqual(req["client_package"], ledger["cells"][0]["client_package"])
+        for field, value in (("sha256", "f" * 64), ("filename", "other.whl"), ("source", "local"), ("extra", True)):
+            changed = deepcopy(row)
+            changed["client_package"][field] = value
+            changed["evidence_receipt"]["identity"]["client_package"] = dict(changed["client_package"])
+            rebind_receipt(changed)
+            with self.subTest(field=field), self.assertRaisesRegex(ValueError, "governed published wheel"):
+                module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+                    [(Path("forged.json"), fragment("honua-sdk-python", [changed]))], CANDIDATE)
+        missing = deepcopy(req)
+        missing.pop("client_package")
+        with self.assertRaisesRegex(ValueError, "governed published wheel"):
+            module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, True, [missing],
+                [(Path("missing.json"), fragment("honua-sdk-python", [row]))], CANDIDATE)
+
+
+class SharedPythonProducerSeamTests(unittest.TestCase):
+    def test_actual_producer_receipt_survives_intake_without_identity_rewrite(self):
+        bundle = json.loads((Path(__file__).parent / "fixtures/python-receipt-v2-seam.json").read_text())
+        requirements, fragment = bundle["requirements"], bundle["fragment"]
+        ledger = module.build_ledger(requirements["revision"], REQUIREMENTS_SOURCE_SHA, True,
+            requirements["requirements"], [(Path("synthetic-shared.json"), fragment)], fragment["candidate"],
+            now=datetime(2026, 8, 20, 12, tzinfo=timezone.utc))
+        cell = ledger["cells"][0]
+        original = fragment["observations"][0]
+        self.assertEqual(original["evidence_receipt"], cell["evidence_receipt"])
+        self.assertEqual(original["evidence_digest"], cell["evidence_digest"])
+        self.assertEqual(original["client_package"], cell["client_package"])
+        self.assertFalse(fragment["operation_scope"]["complete"])
+        changed = json.loads(json.dumps(fragment))
+        changed["observations"][0]["producer_source_sha"] = "e" * 40
+        changed["observations"][0]["evidence_receipt"]["identity"]["producer_source_sha"] = "e" * 40
+        rebind_receipt(changed["observations"][0])
+        with self.assertRaisesRegex(ValueError, "governed published wheel"):
+            module.build_ledger(requirements["revision"], REQUIREMENTS_SOURCE_SHA, True,
+                requirements["requirements"], [(Path("wrong-source.json"), changed)], fragment["candidate"])
+
+
+class SkippedPythonWheelPolicyTests(unittest.TestCase):
+    def test_unexecuted_row_keeps_expected_policy_without_inventing_measured_bytes(self):
+        req = requirement("Honua SDK Python")
+        req.update(client_lane="sdk-python-certification", client_version="0.1.10",
+                   contract_revision="sdk-python-certification@" + "c" * 40)
+        row = observation(req, result="skip")
+        row.update(skip_reason="not executed", request_url=None, exercised_capabilities=[], client_package=None)
+        ledger = module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+            [(Path("unexecuted.json"), fragment("honua-sdk-python", [row]))], CANDIDATE)
+        self.assertEqual("skip", ledger["cells"][0]["result"])
+        self.assertIsNone(ledger["cells"][0]["evidence_receipt"])
+        self.assertEqual(req["client_package"], ledger["cells"][0]["client_package"])
+        row["client_package"] = {**req["client_package"], "sha256": "f" * 64}
+        with self.assertRaisesRegex(ValueError, "governed published wheel"):
+            module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+                [(Path("false-skip-policy.json"), fragment("honua-sdk-python", [row]))], CANDIDATE)
+
+
+class PythonNightlyRunIdentityTests(unittest.TestCase):
+    def test_python_run_identity_is_bound_to_exact_repository_and_workflow(self):
+        from copy import deepcopy
+        bundle = json.loads((Path(__file__).parent / "fixtures/python-receipt-v2-seam.json").read_text())
+        row, requirement = bundle["fragment"]["observations"][0], bundle["requirements"]["requirements"][0]
+        row["evidence_receipt"]["identity"]["producer_run"] = {"repository": "honua-io/honua-sdk-python",
+            "workflow": "conformance.yml", "run_id": 456, "run_attempt": 2, "dispatch_id": "nightly-certification-123-1"}
+        rebind_receipt(row)
+        self.assertTrue(module._valid_receipt(row, requirement, CANDIDATE["cut_at"], "python-v2-seam-test"))
+        for field, value in (("repository", "attacker/sdk"), ("workflow", "other.yml"), ("run_id", True),
+                              ("run_attempt", 0), ("dispatch_id", "manual")):
+            wrong = deepcopy(row)
+            wrong["evidence_receipt"]["identity"]["producer_run"][field] = value
+            rebind_receipt(wrong)
+            with self.subTest(field=field):
+                self.assertFalse(module._valid_receipt(wrong, requirement, CANDIDATE["cut_at"], "python-v2-seam-test"))
+
+
+class GovernedWheelPolicyWithoutObservationsTests(unittest.TestCase):
+    def test_present_policy_is_validated_before_missing_or_null_skip_observations(self):
+        from copy import deepcopy
+        req = requirement("Honua SDK Python")
+        req.update(client_lane="sdk-python-certification", client_version="0.1.10",
+                   contract_revision="sdk-python-certification@" + "c" * 40)
+        row = observation(req, result="skip")
+        row.update(skip_reason="not executed", request_url=None, exercised_capabilities=[], client_package=None)
+        for wheel in (None, {}, {**req["client_package"], "sha256": "not-a-digest"},
+                      {**req["client_package"], "source": "local"}, {**req["client_package"], "extra": True}):
+            for observations in ([], [row]):
+                changed = deepcopy(req)
+                changed["client_package"] = wheel
+                fragments = [(Path("skip.json"), fragment("honua-sdk-python", observations))] if observations else []
+                with self.subTest(wheel=wheel, observed=bool(observations)), self.assertRaisesRegex(ValueError, "governed published wheel policy"):
+                    module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, True, [changed], fragments, CANDIDATE)
+
+    def test_wrong_lane_policy_is_refused_even_without_observations(self):
+        req = requirement()
+        req["client_package"] = {"filename": "anything.whl"}
+        with self.assertRaisesRegex(ValueError, "only permitted for the Python"):
+            module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, True, [req], [], CANDIDATE)
+
+    def test_absent_legacy_policy_remains_explicit_nonexecuted_skip(self):
+        req = requirement("Honua SDK Python")
+        req.update(client_lane="sdk-python-certification", client_version="0.1.10")
+        ledger = module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, True, [req], [], CANDIDATE)
+        self.assertEqual("skip", ledger["cells"][0]["result"])
+        self.assertIsNone(ledger["cells"][0]["evidence_receipt"])
+        self.assertNotIn("client_package", ledger["cells"][0])
+
+    def test_file_loader_rejects_malformed_policy_without_waiting_for_execution(self):
+        req = requirement("Honua SDK Python")
+        req.update(client_lane="sdk-python-certification", client_version="0.1.10", client_package=None)
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "requirements.json"
+            path.write_text(json.dumps({"schema": module.REQUIREMENTS_SCHEMA, "revision": "rev-1",
+                                        "complete": True, "requirements": [req]}))
+            with self.assertRaisesRegex(ValueError, "governed published wheel policy"):
+                module.load_requirements(path)
