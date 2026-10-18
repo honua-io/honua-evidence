@@ -56,6 +56,9 @@ def observation(
     completed="2026-08-20T10:05:00Z",
     candidate_cut_at=None,
 ):
+    if req.get("client_lane") == "sdk-python-certification":
+        req.setdefault("client_package", {"filename": f"honua_sdk-{req['client_version']}-py3-none-any.whl",
+                                          "sha256": "e" * 64, "source": "pypi"})
     value = {field: req[field] for field in module.IDENTITY_FIELDS}
     if "test_ids" in req:
         value["test_ids"] = req["test_ids"]
@@ -98,6 +101,11 @@ def observation(
         "facets": facet_values,
         "payload_base64": "dGVzdA==",
     }
+    if "client_package" in req:
+        value["client_package"] = dict(req["client_package"])
+        receipt["identity"]["client_package"] = dict(req["client_package"])
+        receipt["schema"] = module.RECEIPT_SCHEMA_V2
+        receipt["identity"].update({"maturity": req["maturity"], "required_tier": req["required_tier"], "requirements_revision": "rev-1"})
     if "client_package_digest" in req:
         value["client_package_digest"] = req["client_package_digest"]
         receipt["identity"]["client_package_digest"] = req["client_package_digest"]
@@ -1203,3 +1211,27 @@ class CertificationAggregationTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class PythonWheelReceiptTests(unittest.TestCase):
+    def test_governed_wheel_is_preserved_and_forged_consistent_identity_is_rejected(self):
+        from copy import deepcopy
+        req = requirement("Honua SDK Python")
+        req.update(client_lane="sdk-python-certification", client_version="0.1.10", contract_revision="sdk-python-certification@" + "c" * 40)
+        row = observation(req, candidate_cut_at=CANDIDATE["cut_at"])
+        ledger = module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+            [(Path("python.json"), fragment("honua-sdk-python", [row]))], CANDIDATE)
+        self.assertEqual(req["client_package"], ledger["cells"][0]["client_package"])
+        for field, value in (("sha256", "f" * 64), ("filename", "other.whl"), ("source", "local"), ("extra", True)):
+            changed = deepcopy(row)
+            changed["client_package"][field] = value
+            changed["evidence_receipt"]["identity"]["client_package"] = dict(changed["client_package"])
+            rebind_receipt(changed)
+            with self.subTest(field=field), self.assertRaisesRegex(ValueError, "governed published wheel"):
+                module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, True, [req],
+                    [(Path("forged.json"), fragment("honua-sdk-python", [changed]))], CANDIDATE)
+        missing = deepcopy(req)
+        missing.pop("client_package")
+        with self.assertRaisesRegex(ValueError, "governed published wheel"):
+            module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, True, [missing],
+                [(Path("missing.json"), fragment("honua-sdk-python", [row]))], CANDIDATE)
