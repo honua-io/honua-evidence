@@ -1237,3 +1237,25 @@ class PythonWheelReceiptTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "governed published wheel"):
             module.build_ledger("rev-1", REQUIREMENTS_SOURCE_SHA, True, [missing],
                 [(Path("missing.json"), fragment("honua-sdk-python", [row]))], CANDIDATE)
+
+
+class SharedPythonProducerSeamTests(unittest.TestCase):
+    def test_actual_producer_receipt_survives_intake_without_identity_rewrite(self):
+        bundle = json.loads((Path(__file__).parent / "fixtures/python-receipt-v2-seam.json").read_text())
+        requirements, fragment = bundle["requirements"], bundle["fragment"]
+        ledger = module.build_ledger(requirements["revision"], REQUIREMENTS_SOURCE_SHA, True,
+            requirements["requirements"], [(Path("synthetic-shared.json"), fragment)], fragment["candidate"],
+            now=datetime(2026, 8, 20, 12, tzinfo=timezone.utc))
+        cell = ledger["cells"][0]
+        original = fragment["observations"][0]
+        self.assertEqual(original["evidence_receipt"], cell["evidence_receipt"])
+        self.assertEqual(original["evidence_digest"], cell["evidence_digest"])
+        self.assertEqual(original["client_package"], cell["client_package"])
+        self.assertFalse(fragment["operation_scope"]["complete"])
+        changed = json.loads(json.dumps(fragment))
+        changed["observations"][0]["producer_source_sha"] = "e" * 40
+        changed["observations"][0]["evidence_receipt"]["identity"]["producer_source_sha"] = "e" * 40
+        rebind_receipt(changed["observations"][0])
+        with self.assertRaisesRegex(ValueError, "governed published wheel"):
+            module.build_ledger(requirements["revision"], REQUIREMENTS_SOURCE_SHA, True,
+                requirements["requirements"], [(Path("wrong-source.json"), changed)], fragment["candidate"])
