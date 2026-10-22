@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-10-22T15:14:47Z",
+  "generatedAt": "2026-10-22T20:49:08Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -28,67 +28,70 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-10-22T15:14:24Z",
+      "fetchedAt": "2026-10-22T20:48:51Z",
       "sourceVersion": "8c21501230f7@2026-10-09T05:17:20Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-22T15:14:24Z",
+      "observedAt": "2026-10-22T20:48:51Z",
       "ageDays": 0,
       "sourceAgeDays": 13,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-10-22T15:14:24Z",
+      "fetchedAt": "2026-10-22T20:48:52Z",
       "sourceVersion": "405198df544f@2026-10-20T16:53:42Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-22T15:14:24Z",
+      "observedAt": "2026-10-22T20:48:52Z",
       "ageDays": 0,
-      "sourceAgeDays": 1,
+      "sourceAgeDays": 2,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-10-22T15:14:25Z",
+      "fetchedAt": "2026-10-22T20:48:52Z",
       "sourceVersion": "7b0e9bbf1552@2026-10-21T06:51:49Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-22T15:14:25Z",
+      "observedAt": "2026-10-22T20:48:52Z",
       "ageDays": 0,
       "sourceAgeDays": 1,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-10-22T15:14:25Z",
+      "fetchedAt": "2026-10-22T20:48:53Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-22T15:14:25Z",
+      "observedAt": "2026-10-22T20:48:53Z",
       "ageDays": 0,
-      "sourceAgeDays": 96,
+      "sourceAgeDays": 97,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-10-22T15:14:26Z",
+      "fetchedAt": "2026-10-22T20:48:53Z",
       "sourceVersion": "9792cb444e78@2026-10-06T07:53:39Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-22T15:14:26Z",
+      "observedAt": "2026-10-22T20:48:53Z",
       "ageDays": 0,
       "sourceAgeDays": 16,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-10-22T15:14:27Z",
-      "sourceVersion": null,
-      "status": "missing",
-      "detail": "no successful run-samples run found on trunk"
+      "fetchedAt": "2026-10-22T20:48:54Z",
+      "sourceVersion": "adab3d070a44@2026-10-22T20:48:31Z",
+      "freshnessBasis": "observation",
+      "observedAt": "2026-10-22T20:48:31Z",
+      "ageDays": 0,
+      "sourceAgeDays": 0,
+      "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-10-22T15:14:47Z",
+      "fetchedAt": "2026-10-22T20:49:08Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-22T15:14:47Z",
+      "observedAt": "2026-10-22T20:49:08Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-10-22T15:14:27Z",
+      "fetchedAt": "2026-10-22T20:48:55Z",
       "sourceVersion": "035ce3d24371@2026-10-22T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-10-22T00:00:00Z",
@@ -97,7 +100,7 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-10-22T15:14:27Z",
+      "fetchedAt": "2026-10-22T20:48:55Z",
       "sourceVersion": "99b45bd54ebb@2026-10-22T12:04:06Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-10-22T12:04:06Z",
@@ -177,7 +180,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 4,
         "refs": [
@@ -258,7 +261,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -313,7 +316,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -368,7 +371,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -407,7 +410,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -455,7 +458,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -499,7 +502,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -542,7 +545,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -590,7 +593,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 8,
         "refs": [
@@ -720,7 +723,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 8,
         "refs": [
@@ -849,7 +852,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 8,
         "refs": [
@@ -979,7 +982,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 8,
         "refs": [
@@ -1100,13 +1103,85 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2437,
+            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
+            "url": "https://github.com/honua-io/honua-server/issues/2437"
+          },
+          {
+            "number": 2453,
+            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
+            "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3470,
+            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
+            "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 3472,
+            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5188,
+            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
+            "url": "https://github.com/honua-io/honua-server/issues/5188"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2437,
+            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
+            "url": "https://github.com/honua-io/honua-server/issues/2437"
+          },
+          {
+            "number": 2453,
+            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
+            "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3470,
+            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
+            "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 3472,
+            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5188,
+            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
+            "url": "https://github.com/honua-io/honua-server/issues/5188"
+          }
+        ],
         "label": "cap/analytics"
       }
     },
@@ -1139,13 +1214,85 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2437,
+            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
+            "url": "https://github.com/honua-io/honua-server/issues/2437"
+          },
+          {
+            "number": 2453,
+            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
+            "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3470,
+            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
+            "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 3472,
+            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5188,
+            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
+            "url": "https://github.com/honua-io/honua-server/issues/5188"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2437,
+            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
+            "url": "https://github.com/honua-io/honua-server/issues/2437"
+          },
+          {
+            "number": 2453,
+            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
+            "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3470,
+            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
+            "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 3472,
+            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5188,
+            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
+            "url": "https://github.com/honua-io/honua-server/issues/5188"
+          }
+        ],
         "label": "cap/analytics"
       }
     },
@@ -1178,13 +1325,85 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2437,
+            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
+            "url": "https://github.com/honua-io/honua-server/issues/2437"
+          },
+          {
+            "number": 2453,
+            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
+            "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3470,
+            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
+            "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 3472,
+            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5188,
+            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
+            "url": "https://github.com/honua-io/honua-server/issues/5188"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2437,
+            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
+            "url": "https://github.com/honua-io/honua-server/issues/2437"
+          },
+          {
+            "number": 2453,
+            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
+            "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3470,
+            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
+            "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 3472,
+            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5188,
+            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
+            "url": "https://github.com/honua-io/honua-server/issues/5188"
+          }
+        ],
         "label": "cap/analytics"
       }
     },
@@ -1217,13 +1436,85 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2437,
+            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
+            "url": "https://github.com/honua-io/honua-server/issues/2437"
+          },
+          {
+            "number": 2453,
+            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
+            "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3470,
+            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
+            "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 3472,
+            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5188,
+            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
+            "url": "https://github.com/honua-io/honua-server/issues/5188"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2437,
+            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
+            "url": "https://github.com/honua-io/honua-server/issues/2437"
+          },
+          {
+            "number": 2453,
+            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
+            "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3470,
+            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
+            "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 3472,
+            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5188,
+            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
+            "url": "https://github.com/honua-io/honua-server/issues/5188"
+          }
+        ],
         "label": "cap/analytics"
       }
     },
@@ -1256,13 +1547,85 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2437,
+            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
+            "url": "https://github.com/honua-io/honua-server/issues/2437"
+          },
+          {
+            "number": 2453,
+            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
+            "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3470,
+            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
+            "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 3472,
+            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5188,
+            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
+            "url": "https://github.com/honua-io/honua-server/issues/5188"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2437,
+            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
+            "url": "https://github.com/honua-io/honua-server/issues/2437"
+          },
+          {
+            "number": 2453,
+            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
+            "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3470,
+            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
+            "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 3472,
+            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5188,
+            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
+            "url": "https://github.com/honua-io/honua-server/issues/5188"
+          }
+        ],
         "label": "cap/analytics"
       }
     },
@@ -1295,13 +1658,85 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2437,
+            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
+            "url": "https://github.com/honua-io/honua-server/issues/2437"
+          },
+          {
+            "number": 2453,
+            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
+            "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3470,
+            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
+            "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 3472,
+            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5188,
+            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
+            "url": "https://github.com/honua-io/honua-server/issues/5188"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2437,
+            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
+            "url": "https://github.com/honua-io/honua-server/issues/2437"
+          },
+          {
+            "number": 2453,
+            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
+            "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3470,
+            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
+            "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 3472,
+            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5188,
+            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
+            "url": "https://github.com/honua-io/honua-server/issues/5188"
+          }
+        ],
         "label": "cap/analytics"
       }
     },
@@ -1340,13 +1775,85 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2437,
+            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
+            "url": "https://github.com/honua-io/honua-server/issues/2437"
+          },
+          {
+            "number": 2453,
+            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
+            "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3470,
+            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
+            "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 3472,
+            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5188,
+            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
+            "url": "https://github.com/honua-io/honua-server/issues/5188"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2437,
+            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
+            "url": "https://github.com/honua-io/honua-server/issues/2437"
+          },
+          {
+            "number": 2453,
+            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
+            "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3470,
+            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
+            "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 3472,
+            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5188,
+            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
+            "url": "https://github.com/honua-io/honua-server/issues/5188"
+          }
+        ],
         "label": "cap/analytics"
       }
     },
@@ -1379,13 +1886,85 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2437,
+            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
+            "url": "https://github.com/honua-io/honua-server/issues/2437"
+          },
+          {
+            "number": 2453,
+            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
+            "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3470,
+            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
+            "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 3472,
+            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5188,
+            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
+            "url": "https://github.com/honua-io/honua-server/issues/5188"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2437,
+            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
+            "url": "https://github.com/honua-io/honua-server/issues/2437"
+          },
+          {
+            "number": 2453,
+            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
+            "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3470,
+            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
+            "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 3472,
+            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5188,
+            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
+            "url": "https://github.com/honua-io/honua-server/issues/5188"
+          }
+        ],
         "label": "cap/analytics"
       }
     },
@@ -1418,13 +1997,85 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2437,
+            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
+            "url": "https://github.com/honua-io/honua-server/issues/2437"
+          },
+          {
+            "number": 2453,
+            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
+            "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3470,
+            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
+            "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 3472,
+            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5188,
+            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
+            "url": "https://github.com/honua-io/honua-server/issues/5188"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2437,
+            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
+            "url": "https://github.com/honua-io/honua-server/issues/2437"
+          },
+          {
+            "number": 2453,
+            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
+            "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3470,
+            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
+            "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 3472,
+            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5188,
+            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
+            "url": "https://github.com/honua-io/honua-server/issues/5188"
+          }
+        ],
         "label": "cap/analytics"
       }
     },
@@ -1457,13 +2108,85 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2437,
+            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
+            "url": "https://github.com/honua-io/honua-server/issues/2437"
+          },
+          {
+            "number": 2453,
+            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
+            "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3470,
+            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
+            "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 3472,
+            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5188,
+            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
+            "url": "https://github.com/honua-io/honua-server/issues/5188"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2437,
+            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
+            "url": "https://github.com/honua-io/honua-server/issues/2437"
+          },
+          {
+            "number": 2453,
+            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
+            "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3470,
+            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
+            "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 3472,
+            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5188,
+            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
+            "url": "https://github.com/honua-io/honua-server/issues/5188"
+          }
+        ],
         "label": "cap/analytics"
       }
     },
@@ -1496,13 +2219,85 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2437,
+            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
+            "url": "https://github.com/honua-io/honua-server/issues/2437"
+          },
+          {
+            "number": 2453,
+            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
+            "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3470,
+            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
+            "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 3472,
+            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5188,
+            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
+            "url": "https://github.com/honua-io/honua-server/issues/5188"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2437,
+            "title": "Operations Dashboard \u2014 real-time indicator/gauge/chart views over live layers",
+            "url": "https://github.com/honua-io/honua-server/issues/2437"
+          },
+          {
+            "number": 2453,
+            "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
+            "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3415,
+            "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
+            "url": "https://github.com/honua-io/honua-server/issues/3415"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3470,
+            "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
+            "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 3472,
+            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
+            "url": "https://github.com/honua-io/honua-server/issues/3472"
+          },
+          {
+            "number": 5188,
+            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
+            "url": "https://github.com/honua-io/honua-server/issues/5188"
+          }
+        ],
         "label": "cap/analytics"
       }
     },
@@ -1539,13 +2334,55 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 4,
+        "refs": [
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3462,
+            "title": "perf(scene): fault and load certify origin cache, range, and revision SLOs",
+            "url": "https://github.com/honua-io/honua-server/issues/3462"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3462,
+            "title": "perf(scene): fault and load certify origin cache, range, and revision SLOs",
+            "url": "https://github.com/honua-io/honua-server/issues/3462"
+          }
+        ],
         "label": "cap/caching"
       }
     },
@@ -1582,13 +2419,55 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 4,
+        "refs": [
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3462,
+            "title": "perf(scene): fault and load certify origin cache, range, and revision SLOs",
+            "url": "https://github.com/honua-io/honua-server/issues/3462"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3462,
+            "title": "perf(scene): fault and load certify origin cache, range, and revision SLOs",
+            "url": "https://github.com/honua-io/honua-server/issues/3462"
+          }
+        ],
         "label": "cap/caching"
       }
     },
@@ -1625,7 +2504,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -1668,7 +2547,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -1711,7 +2590,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -1754,7 +2633,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -1797,7 +2676,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -1840,7 +2719,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -1883,7 +2762,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -1932,7 +2811,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 4,
         "refs": [
@@ -2013,7 +2892,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -3803,7 +4682,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 4,
         "refs": [
@@ -3888,7 +4767,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 2,
         "refs": [
@@ -3953,7 +4832,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 2,
         "refs": [
@@ -4018,7 +4897,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 2,
         "refs": [
@@ -4083,7 +4962,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 2,
         "refs": [
@@ -4150,7 +5029,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 2,
         "refs": [
@@ -4238,7 +5117,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 2,
         "refs": [
@@ -4304,7 +5183,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 2,
         "refs": [
@@ -4375,7 +5254,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -4430,7 +5309,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -4473,7 +5352,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -4517,7 +5396,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 1,
         "refs": [
@@ -4572,7 +5451,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 1,
         "refs": [
@@ -6437,7 +7316,17 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [
+        {
+          "id": "geocode-single-line",
+          "title": "Single-line forward geocode (plain REST)",
+          "url": "https://samples.honua.io/geocode-single-line",
+          "sdks": [
+            "rest"
+          ],
+          "edition": "pro"
+        }
+      ],
       "openIssues": {
         "count": 1,
         "refs": [
@@ -6507,7 +7396,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 1,
         "refs": [
@@ -6562,7 +7451,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 4,
         "refs": [
@@ -6643,7 +7532,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 4,
         "refs": [
@@ -6739,7 +7628,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 4,
         "refs": [
@@ -6829,7 +7718,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 4,
         "refs": [
@@ -6931,7 +7820,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 4,
         "refs": [
@@ -7024,7 +7913,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 4,
         "refs": [
@@ -7105,7 +7994,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 4,
         "refs": [
@@ -7186,7 +8075,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 4,
         "refs": [
@@ -7267,13 +8156,134 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [
+        {
+          "id": "browser-featureserver-query",
+          "title": "Hello FeatureServer (headless browser, plain fetch+DOM)",
+          "url": "https://samples.honua.io/browser-featureserver-query",
+          "sdks": [
+            "rest"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.1",
+            "at": "2026-10-22T20:48:22.529Z"
+          }
+        },
+        {
+          "id": "wms-getmap-check",
+          "title": "WMS GetCapabilities + GetMap check (Node.js)",
+          "url": "https://samples.honua.io/wms-getmap-check",
+          "sdks": [
+            "rest"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.1",
+            "at": "2026-10-22T20:48:22.529Z"
+          }
+        }
+      ],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 9,
+        "refs": [
+          {
+            "number": 1716,
+            "title": "test: live Amazon Redshift integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1716"
+          },
+          {
+            "number": 1717,
+            "title": "test: live Snowflake integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1717"
+          },
+          {
+            "number": 1718,
+            "title": "test: live Databricks integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1718"
+          },
+          {
+            "number": 2436,
+            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2026.2",
+            "url": "https://github.com/honua-io/honua-server/issues/2436"
+          },
+          {
+            "number": 2445,
+            "title": "Drag-and-drop data upload \u2192 instant styled map",
+            "url": "https://github.com/honua-io/honua-server/issues/2445"
+          },
+          {
+            "number": 2452,
+            "title": "feat(bigquery): BigQuery read-only feature-store provider (REST, Metadata-v2 bindable, predicates, statistics, live lane)",
+            "url": "https://github.com/honua-io/honua-server/issues/2452"
+          },
+          {
+            "number": 3099,
+            "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
+            "url": "https://github.com/honua-io/honua-server/issues/3099"
+          },
+          {
+            "number": 3443,
+            "title": "feat(upload): durable resumable asset-upload sessions shared by raster and 3D ingest",
+            "url": "https://github.com/honua-io/honua-server/issues/3443"
+          },
+          {
+            "number": 3444,
+            "title": "feat(scene): safely import existing 3D Tiles archives into an immutable scene revision",
+            "url": "https://github.com/honua-io/honua-server/issues/3444"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 1716,
+            "title": "test: live Amazon Redshift integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1716"
+          },
+          {
+            "number": 1717,
+            "title": "test: live Snowflake integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1717"
+          },
+          {
+            "number": 1718,
+            "title": "test: live Databricks integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1718"
+          },
+          {
+            "number": 2436,
+            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2026.2",
+            "url": "https://github.com/honua-io/honua-server/issues/2436"
+          },
+          {
+            "number": 2445,
+            "title": "Drag-and-drop data upload \u2192 instant styled map",
+            "url": "https://github.com/honua-io/honua-server/issues/2445"
+          },
+          {
+            "number": 2452,
+            "title": "feat(bigquery): BigQuery read-only feature-store provider (REST, Metadata-v2 bindable, predicates, statistics, live lane)",
+            "url": "https://github.com/honua-io/honua-server/issues/2452"
+          },
+          {
+            "number": 3099,
+            "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
+            "url": "https://github.com/honua-io/honua-server/issues/3099"
+          },
+          {
+            "number": 3443,
+            "title": "feat(upload): durable resumable asset-upload sessions shared by raster and 3D ingest",
+            "url": "https://github.com/honua-io/honua-server/issues/3443"
+          },
+          {
+            "number": 3444,
+            "title": "feat(scene): safely import existing 3D Tiles archives into an immutable scene revision",
+            "url": "https://github.com/honua-io/honua-server/issues/3444"
+          }
+        ],
         "label": "cap/import"
       }
     },
@@ -7311,13 +8321,105 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 9,
+        "refs": [
+          {
+            "number": 1716,
+            "title": "test: live Amazon Redshift integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1716"
+          },
+          {
+            "number": 1717,
+            "title": "test: live Snowflake integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1717"
+          },
+          {
+            "number": 1718,
+            "title": "test: live Databricks integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1718"
+          },
+          {
+            "number": 2436,
+            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2026.2",
+            "url": "https://github.com/honua-io/honua-server/issues/2436"
+          },
+          {
+            "number": 2445,
+            "title": "Drag-and-drop data upload \u2192 instant styled map",
+            "url": "https://github.com/honua-io/honua-server/issues/2445"
+          },
+          {
+            "number": 2452,
+            "title": "feat(bigquery): BigQuery read-only feature-store provider (REST, Metadata-v2 bindable, predicates, statistics, live lane)",
+            "url": "https://github.com/honua-io/honua-server/issues/2452"
+          },
+          {
+            "number": 3099,
+            "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
+            "url": "https://github.com/honua-io/honua-server/issues/3099"
+          },
+          {
+            "number": 3443,
+            "title": "feat(upload): durable resumable asset-upload sessions shared by raster and 3D ingest",
+            "url": "https://github.com/honua-io/honua-server/issues/3443"
+          },
+          {
+            "number": 3444,
+            "title": "feat(scene): safely import existing 3D Tiles archives into an immutable scene revision",
+            "url": "https://github.com/honua-io/honua-server/issues/3444"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 1716,
+            "title": "test: live Amazon Redshift integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1716"
+          },
+          {
+            "number": 1717,
+            "title": "test: live Snowflake integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1717"
+          },
+          {
+            "number": 1718,
+            "title": "test: live Databricks integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1718"
+          },
+          {
+            "number": 2436,
+            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2026.2",
+            "url": "https://github.com/honua-io/honua-server/issues/2436"
+          },
+          {
+            "number": 2445,
+            "title": "Drag-and-drop data upload \u2192 instant styled map",
+            "url": "https://github.com/honua-io/honua-server/issues/2445"
+          },
+          {
+            "number": 2452,
+            "title": "feat(bigquery): BigQuery read-only feature-store provider (REST, Metadata-v2 bindable, predicates, statistics, live lane)",
+            "url": "https://github.com/honua-io/honua-server/issues/2452"
+          },
+          {
+            "number": 3099,
+            "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
+            "url": "https://github.com/honua-io/honua-server/issues/3099"
+          },
+          {
+            "number": 3443,
+            "title": "feat(upload): durable resumable asset-upload sessions shared by raster and 3D ingest",
+            "url": "https://github.com/honua-io/honua-server/issues/3443"
+          },
+          {
+            "number": 3444,
+            "title": "feat(scene): safely import existing 3D Tiles archives into an immutable scene revision",
+            "url": "https://github.com/honua-io/honua-server/issues/3444"
+          }
+        ],
         "label": "cap/import"
       }
     },
@@ -7355,13 +8457,105 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 9,
+        "refs": [
+          {
+            "number": 1716,
+            "title": "test: live Amazon Redshift integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1716"
+          },
+          {
+            "number": 1717,
+            "title": "test: live Snowflake integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1717"
+          },
+          {
+            "number": 1718,
+            "title": "test: live Databricks integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1718"
+          },
+          {
+            "number": 2436,
+            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2026.2",
+            "url": "https://github.com/honua-io/honua-server/issues/2436"
+          },
+          {
+            "number": 2445,
+            "title": "Drag-and-drop data upload \u2192 instant styled map",
+            "url": "https://github.com/honua-io/honua-server/issues/2445"
+          },
+          {
+            "number": 2452,
+            "title": "feat(bigquery): BigQuery read-only feature-store provider (REST, Metadata-v2 bindable, predicates, statistics, live lane)",
+            "url": "https://github.com/honua-io/honua-server/issues/2452"
+          },
+          {
+            "number": 3099,
+            "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
+            "url": "https://github.com/honua-io/honua-server/issues/3099"
+          },
+          {
+            "number": 3443,
+            "title": "feat(upload): durable resumable asset-upload sessions shared by raster and 3D ingest",
+            "url": "https://github.com/honua-io/honua-server/issues/3443"
+          },
+          {
+            "number": 3444,
+            "title": "feat(scene): safely import existing 3D Tiles archives into an immutable scene revision",
+            "url": "https://github.com/honua-io/honua-server/issues/3444"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 1716,
+            "title": "test: live Amazon Redshift integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1716"
+          },
+          {
+            "number": 1717,
+            "title": "test: live Snowflake integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1717"
+          },
+          {
+            "number": 1718,
+            "title": "test: live Databricks integration coverage in nightly CI",
+            "url": "https://github.com/honua-io/honua-server/issues/1718"
+          },
+          {
+            "number": 2436,
+            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2026.2",
+            "url": "https://github.com/honua-io/honua-server/issues/2436"
+          },
+          {
+            "number": 2445,
+            "title": "Drag-and-drop data upload \u2192 instant styled map",
+            "url": "https://github.com/honua-io/honua-server/issues/2445"
+          },
+          {
+            "number": 2452,
+            "title": "feat(bigquery): BigQuery read-only feature-store provider (REST, Metadata-v2 bindable, predicates, statistics, live lane)",
+            "url": "https://github.com/honua-io/honua-server/issues/2452"
+          },
+          {
+            "number": 3099,
+            "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
+            "url": "https://github.com/honua-io/honua-server/issues/3099"
+          },
+          {
+            "number": 3443,
+            "title": "feat(upload): durable resumable asset-upload sessions shared by raster and 3D ingest",
+            "url": "https://github.com/honua-io/honua-server/issues/3443"
+          },
+          {
+            "number": 3444,
+            "title": "feat(scene): safely import existing 3D Tiles archives into an immutable scene revision",
+            "url": "https://github.com/honua-io/honua-server/issues/3444"
+          }
+        ],
         "label": "cap/import"
       }
     },
@@ -7398,7 +8592,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -7441,7 +8635,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 4,
         "refs": [
@@ -9319,7 +10513,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 6,
         "refs": [
@@ -13002,7 +14196,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 6,
         "refs": [
@@ -13123,7 +14317,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 1,
         "refs": [
@@ -13178,7 +14372,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -13217,7 +14411,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -13283,11 +14477,27 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [
+        {
+          "id": "gp-process-templates",
+          "title": "GP process templates (Python and .NET)",
+          "url": "https://samples.honua.io/gp-process-templates",
+          "sdks": [
+            "python",
+            "dotnet"
+          ],
+          "edition": "community"
+        }
+      ],
       "openIssues": {
-        "count": 15,
+        "count": 17,
         "refs": [
           {
+            "number": 3098,
+            "title": "raster ingest: move large imports to a durable staged worker pipeline",
+            "url": "https://github.com/honua-io/honua-server/issues/3098"
+          },
+          {
             "number": 3101,
             "title": "raster serving: define request budgets and promote excessive work to durable jobs",
             "url": "https://github.com/honua-io/honua-server/issues/3101"
@@ -13361,11 +14571,21 @@
             "number": 3105,
             "title": "photogrammetry: produce orthomosaics as raster GP artifacts and keep 3D serving separate",
             "url": "https://github.com/honua-io/honua-server/issues/3105"
+          },
+          {
+            "number": 3101,
+            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
+            "url": "https://github.com/honua-io/honua-server/issues/3101"
           }
         ],
         "categoryLevel": false,
         "keyRefs": [
           {
+            "number": 3098,
+            "title": "raster ingest: move large imports to a durable staged worker pipeline",
+            "url": "https://github.com/honua-io/honua-server/issues/3098"
+          },
+          {
             "number": 3101,
             "title": "raster serving: define request budgets and promote excessive work to durable jobs",
             "url": "https://github.com/honua-io/honua-server/issues/3101"
@@ -13439,6 +14659,11 @@
             "number": 3105,
             "title": "photogrammetry: produce orthomosaics as raster GP artifacts and keep 3D serving separate",
             "url": "https://github.com/honua-io/honua-server/issues/3105"
+          },
+          {
+            "number": 3101,
+            "title": "raster serving: define request budgets and promote excessive work to durable jobs",
+            "url": "https://github.com/honua-io/honua-server/issues/3101"
           }
         ],
         "categoryRefs": [
@@ -13499,7 +14724,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 3,
         "refs": [
@@ -13574,7 +14799,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -13617,7 +14842,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -13660,7 +14885,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -13710,9 +14935,9 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 3,
+        "count": 4,
         "refs": [
           {
             "number": 3085,
@@ -13723,6 +14948,11 @@
             "number": 3085,
             "title": "Epic: single-engine raster execution on the isolated GDAL worker (PostGIS as serving/storage plane)",
             "url": "https://github.com/honua-io/honua-server/issues/3085"
+          },
+          {
+            "number": 3102,
+            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
+            "url": "https://github.com/honua-io/honua-server/issues/3102"
           },
           {
             "number": 3102,
@@ -13741,6 +14971,11 @@
             "number": 3085,
             "title": "Epic: single-engine raster execution on the isolated GDAL worker (PostGIS as serving/storage plane)",
             "url": "https://github.com/honua-io/honua-server/issues/3085"
+          },
+          {
+            "number": 3102,
+            "title": "raster(COG): harden the bounded direct-read path and preserve object locality",
+            "url": "https://github.com/honua-io/honua-server/issues/3102"
           },
           {
             "number": 3102,
@@ -13796,7 +15031,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 2,
         "refs": [
@@ -13862,9 +15097,9 @@
           "note": "Read-only: the client can query dimension/variable metadata for an already-registered multidimensional ImageServer via multidimensionalInfo. There is no client surface to register or configure a NetCDF4/HDF5/Zarr multidimensional coverage -- that is server-admin configuration this SDK's control-plane client does not expose."
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
           {
             "number": 3085,
@@ -13880,6 +15115,11 @@
             "number": 3085,
             "title": "Epic: single-engine raster execution on the isolated GDAL worker (PostGIS as serving/storage plane)",
             "url": "https://github.com/honua-io/honua-server/issues/3085"
+          },
+          {
+            "number": 3103,
+            "title": "raster(Zarr): atomic hierarchy publication, GP offload, and deployment conformance",
+            "url": "https://github.com/honua-io/honua-server/issues/3103"
           },
           {
             "number": 3103,
@@ -13903,6 +15143,11 @@
             "number": 3085,
             "title": "Epic: single-engine raster execution on the isolated GDAL worker (PostGIS as serving/storage plane)",
             "url": "https://github.com/honua-io/honua-server/issues/3085"
+          },
+          {
+            "number": 3103,
+            "title": "raster(Zarr): atomic hierarchy publication, GP offload, and deployment conformance",
+            "url": "https://github.com/honua-io/honua-server/issues/3103"
           },
           {
             "number": 3103,
@@ -13965,7 +15210,7 @@
           "note": "mosaic_rule + a single ISO-8601 time instant select a raster temporal mosaic on the ImageServer histogram/statistics/sample analysis operations only. export_image, tile, identify, and query do not accept a typed time/mosaic_rule parameter (only generic extra_params passthrough), so temporal mosaic selection does not extend to raster rendering/export."
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 2,
         "refs": [
@@ -14026,7 +15271,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 2,
         "refs": [
@@ -14108,7 +15353,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 1,
         "refs": [
@@ -14159,7 +15404,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 9,
         "refs": [
@@ -14299,7 +15544,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 9,
         "refs": [
@@ -14430,7 +15675,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 9,
         "refs": [
@@ -14573,13 +15818,85 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -14622,13 +15939,85 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -16536,13 +17925,142 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [
+        {
+          "id": "browser-featureserver-query",
+          "title": "Hello FeatureServer (headless browser, plain fetch+DOM)",
+          "url": "https://samples.honua.io/browser-featureserver-query",
+          "sdks": [
+            "rest"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.1",
+            "at": "2026-10-22T20:48:22.529Z"
+          }
+        },
+        {
+          "id": "create-honua-app-react-ts",
+          "title": "Your first Honua app: create-honua-app react-ts",
+          "url": "https://samples.honua.io/create-honua-app-react-ts",
+          "sdks": [
+            "js"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.1",
+            "at": "2026-10-22T20:48:22.529Z"
+          }
+        },
+        {
+          "id": "create-honua-app-vanilla-ts",
+          "title": "Your first Honua app: create-honua-app vanilla-ts",
+          "url": "https://samples.honua.io/create-honua-app-vanilla-ts",
+          "sdks": [
+            "js"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.1",
+            "at": "2026-10-22T20:48:22.529Z"
+          }
+        },
+        {
+          "id": "hello-featureserver-rest",
+          "title": "Query a public FeatureServer (plain REST)",
+          "url": "https://samples.honua.io/hello-featureserver-rest",
+          "sdks": [
+            "rest"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.1",
+            "at": "2026-10-22T20:48:22.529Z"
+          }
+        }
+      ],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -16585,13 +18103,85 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -16648,13 +18238,85 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -16721,13 +18383,85 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -18621,13 +20355,85 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -18671,13 +20477,85 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -18718,13 +20596,85 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -18761,13 +20711,85 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -18813,13 +20835,85 @@
           "note": "I3S-tagged scene endpoints resolve and fetch as opaque bytes through the same generic scene-endpoint resolution used for 3D Tiles, but there is no I3S-specific scene-layer-package (.slpk) node/resource-tree parsing -- only the 3D Tiles tileset.json walker (enumerate_tileset_contents) is implemented."
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -20698,13 +22792,100 @@
           "note": "Read/query only (service_document, metadata, layers, features, and pagination helpers). No create/update/delete entity-set operations are implemented, so the write half of 'query and edit features through OData v4' is not covered."
         }
       },
-      "samples": null,
+      "samples": [
+        {
+          "id": "odata-query-rest",
+          "title": "Read spatial features with OData v4",
+          "url": "https://samples.honua.io/odata-query-rest",
+          "sdks": [
+            "rest"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.1",
+            "at": "2026-10-22T20:48:22.529Z"
+          }
+        }
+      ],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -20754,9 +22935,9 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
           {
             "number": 3085,
@@ -20772,6 +22953,11 @@
             "number": 3085,
             "title": "Epic: single-engine raster execution on the isolated GDAL worker (PostGIS as serving/storage plane)",
             "url": "https://github.com/honua-io/honua-server/issues/3085"
+          },
+          {
+            "number": 3103,
+            "title": "raster(Zarr): atomic hierarchy publication, GP offload, and deployment conformance",
+            "url": "https://github.com/honua-io/honua-server/issues/3103"
           },
           {
             "number": 3103,
@@ -20800,9 +22986,50 @@
             "number": 3103,
             "title": "raster(Zarr): atomic hierarchy publication, GP offload, and deployment conformance",
             "url": "https://github.com/honua-io/honua-server/issues/3103"
+          },
+          {
+            "number": 3103,
+            "title": "raster(Zarr): atomic hierarchy publication, GP offload, and deployment conformance",
+            "url": "https://github.com/honua-io/honua-server/issues/3103"
           }
         ],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -22628,13 +24855,85 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -24531,13 +26830,100 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [
+        {
+          "id": "ogc-features-python",
+          "title": "Read OGC API Features with Python",
+          "url": "https://samples.honua.io/ogc-features-python",
+          "sdks": [
+            "python"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.1",
+            "at": "2026-10-22T20:48:22.529Z"
+          }
+        }
+      ],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -24604,13 +26990,85 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -24664,13 +27122,85 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -24736,13 +27266,85 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -24775,13 +27377,85 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -26630,13 +29304,100 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [
+        {
+          "id": "stac-search-rest",
+          "title": "Discover a public STAC catalog",
+          "url": "https://samples.honua.io/stac-search-rest",
+          "sdks": [
+            "rest"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.1",
+            "at": "2026-10-22T20:48:22.529Z"
+          }
+        }
+      ],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -28486,13 +31247,85 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -30339,13 +33172,85 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -30451,13 +33356,85 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -32341,13 +35318,100 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [
+        {
+          "id": "wms-getmap-check",
+          "title": "WMS GetCapabilities + GetMap check (Node.js)",
+          "url": "https://samples.honua.io/wms-getmap-check",
+          "sdks": [
+            "rest"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.1",
+            "at": "2026-10-22T20:48:22.529Z"
+          }
+        }
+      ],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -34227,13 +37291,85 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -34274,13 +37410,85 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 7,
+        "refs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2434,
+            "title": "Promote SensorThings (OGC STA) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2434"
+          },
+          {
+            "number": 2435,
+            "title": "Promote Federated Query (cross-source) to GA",
+            "url": "https://github.com/honua-io/honua-server/issues/2435"
+          },
+          {
+            "number": 3445,
+            "title": "perf(scene): serve immutable scene revisions from object storage and CDN without whole-tree hydration",
+            "url": "https://github.com/honua-io/honua-server/issues/3445"
+          },
+          {
+            "number": 3460,
+            "title": "refactor(scene): stream immutable revisions through a bounded object-origin contract",
+            "url": "https://github.com/honua-io/honua-server/issues/3460"
+          },
+          {
+            "number": 3461,
+            "title": "feat(scene): qualify S3/CDN and protected nested-asset delivery",
+            "url": "https://github.com/honua-io/honua-server/issues/3461"
+          },
+          {
+            "number": 3469,
+            "title": "Epic: CARTO SQL API v3 compatibility \u2014 governed PostGIS SQL over HTTP",
+            "url": "https://github.com/honua-io/honua-server/issues/3469"
+          },
+          {
+            "number": 3471,
+            "title": "feat(carto): CARTO v3 synchronous SQL query compatibility adapter",
+            "url": "https://github.com/honua-io/honua-server/issues/3471"
+          }
+        ],
         "label": "cap/serve"
       }
     },
@@ -34317,7 +37525,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -34360,7 +37568,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -34403,7 +37611,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -34458,7 +37666,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 10,
         "refs": [
@@ -34599,7 +37807,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 2,
         "refs": [
@@ -34669,7 +37877,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 2,
         "refs": [
@@ -34750,7 +37958,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 2,
         "refs": [
@@ -34815,7 +38023,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -34854,7 +38062,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -34893,7 +38101,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -34932,7 +38140,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -34975,7 +38183,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
