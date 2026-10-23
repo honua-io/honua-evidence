@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-10-22T22:17:10Z",
+  "generatedAt": "2026-10-23T07:27:31Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -28,79 +28,79 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-10-22T22:16:51Z",
+      "fetchedAt": "2026-10-23T07:27:10Z",
       "sourceVersion": "8c21501230f7@2026-10-09T05:17:20Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-22T22:16:51Z",
+      "observedAt": "2026-10-23T07:27:10Z",
       "ageDays": 0,
-      "sourceAgeDays": 13,
+      "sourceAgeDays": 14,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-10-22T22:16:51Z",
+      "fetchedAt": "2026-10-23T07:27:11Z",
       "sourceVersion": "446c4b3fc66c@2026-10-22T21:24:25Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-22T22:16:51Z",
+      "observedAt": "2026-10-23T07:27:11Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-10-22T22:16:52Z",
+      "fetchedAt": "2026-10-23T07:27:12Z",
       "sourceVersion": "c7d517b0dd12@2026-10-22T21:51:50Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-22T22:16:52Z",
+      "observedAt": "2026-10-23T07:27:12Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-10-22T22:16:52Z",
+      "fetchedAt": "2026-10-23T07:27:12Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-22T22:16:52Z",
+      "observedAt": "2026-10-23T07:27:12Z",
       "ageDays": 0,
       "sourceAgeDays": 97,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-10-22T22:16:53Z",
+      "fetchedAt": "2026-10-23T07:27:13Z",
       "sourceVersion": "9792cb444e78@2026-10-06T07:53:39Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-22T22:16:53Z",
+      "observedAt": "2026-10-23T07:27:13Z",
       "ageDays": 0,
       "sourceAgeDays": 16,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-10-22T22:16:54Z",
-      "sourceVersion": "4322cb5efcd0@2026-10-22T22:16:33Z",
+      "fetchedAt": "2026-10-23T07:27:14Z",
+      "sourceVersion": "a8869d6c89d7@2026-10-23T07:26:48Z",
       "freshnessBasis": "observation",
-      "observedAt": "2026-10-22T22:16:33Z",
+      "observedAt": "2026-10-23T07:26:48Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-10-22T22:17:10Z",
+      "fetchedAt": "2026-10-23T07:27:31Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-22T22:17:10Z",
+      "observedAt": "2026-10-23T07:27:31Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-10-22T22:16:55Z",
+      "fetchedAt": "2026-10-23T07:27:15Z",
       "sourceVersion": "035ce3d24371@2026-10-22T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-10-22T00:00:00Z",
-      "ageDays": 0,
-      "sourceAgeDays": 0,
+      "ageDays": 1,
+      "sourceAgeDays": 1,
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-10-22T22:16:55Z",
+      "fetchedAt": "2026-10-23T07:27:15Z",
       "sourceVersion": "99b45bd54ebb@2026-10-22T12:04:06Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-10-22T12:04:06Z",
@@ -595,7 +595,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 8,
+        "count": 7,
         "refs": [
           {
             "number": 3861,
@@ -606,11 +606,6 @@
             "number": 3863,
             "title": "test(alerts): prove leader handoff, database recovery, and restart persistence with two replicas",
             "url": "https://github.com/honua-io/honua-server/issues/3863"
-          },
-          {
-            "number": 3864,
-            "title": "test(alerts): preserve ordered threshold and geofence transitions during change bursts",
-            "url": "https://github.com/honua-io/honua-server/issues/3864"
           },
           {
             "number": 3868,
@@ -650,11 +645,6 @@
             "number": 3863,
             "title": "test(alerts): prove leader handoff, database recovery, and restart persistence with two replicas",
             "url": "https://github.com/honua-io/honua-server/issues/3863"
-          },
-          {
-            "number": 3864,
-            "title": "test(alerts): preserve ordered threshold and geofence transitions during change bursts",
-            "url": "https://github.com/honua-io/honua-server/issues/3864"
           },
           {
             "number": 3868,
@@ -725,7 +715,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 8,
+        "count": 7,
         "refs": [
           {
             "number": 3861,
@@ -736,11 +726,6 @@
             "number": 3863,
             "title": "test(alerts): prove leader handoff, database recovery, and restart persistence with two replicas",
             "url": "https://github.com/honua-io/honua-server/issues/3863"
-          },
-          {
-            "number": 3864,
-            "title": "test(alerts): preserve ordered threshold and geofence transitions during change bursts",
-            "url": "https://github.com/honua-io/honua-server/issues/3864"
           },
           {
             "number": 3868,
@@ -780,11 +765,6 @@
             "number": 3863,
             "title": "test(alerts): prove leader handoff, database recovery, and restart persistence with two replicas",
             "url": "https://github.com/honua-io/honua-server/issues/3863"
-          },
-          {
-            "number": 3864,
-            "title": "test(alerts): preserve ordered threshold and geofence transitions during change bursts",
-            "url": "https://github.com/honua-io/honua-server/issues/3864"
           },
           {
             "number": 3868,
@@ -854,7 +834,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 8,
+        "count": 7,
         "refs": [
           {
             "number": 3861,
@@ -865,11 +845,6 @@
             "number": 3863,
             "title": "test(alerts): prove leader handoff, database recovery, and restart persistence with two replicas",
             "url": "https://github.com/honua-io/honua-server/issues/3863"
-          },
-          {
-            "number": 3864,
-            "title": "test(alerts): preserve ordered threshold and geofence transitions during change bursts",
-            "url": "https://github.com/honua-io/honua-server/issues/3864"
           },
           {
             "number": 3868,
@@ -909,11 +884,6 @@
             "number": 3863,
             "title": "test(alerts): prove leader handoff, database recovery, and restart persistence with two replicas",
             "url": "https://github.com/honua-io/honua-server/issues/3863"
-          },
-          {
-            "number": 3864,
-            "title": "test(alerts): preserve ordered threshold and geofence transitions during change bursts",
-            "url": "https://github.com/honua-io/honua-server/issues/3864"
           },
           {
             "number": 3868,
@@ -984,7 +954,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 8,
+        "count": 7,
         "refs": [
           {
             "number": 3861,
@@ -995,11 +965,6 @@
             "number": 3863,
             "title": "test(alerts): prove leader handoff, database recovery, and restart persistence with two replicas",
             "url": "https://github.com/honua-io/honua-server/issues/3863"
-          },
-          {
-            "number": 3864,
-            "title": "test(alerts): preserve ordered threshold and geofence transitions during change bursts",
-            "url": "https://github.com/honua-io/honua-server/issues/3864"
           },
           {
             "number": 3868,
@@ -1039,11 +1004,6 @@
             "number": 3863,
             "title": "test(alerts): prove leader handoff, database recovery, and restart persistence with two replicas",
             "url": "https://github.com/honua-io/honua-server/issues/3863"
-          },
-          {
-            "number": 3864,
-            "title": "test(alerts): preserve ordered threshold and geofence transitions during change bursts",
-            "url": "https://github.com/honua-io/honua-server/issues/3864"
           },
           {
             "number": 3868,
@@ -8168,7 +8128,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-22T22:16:26.723Z"
+            "at": "2026-10-23T07:26:41.691Z"
           }
         },
         {
@@ -8182,7 +8142,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-22T22:16:26.723Z"
+            "at": "2026-10-23T07:26:41.691Z"
           }
         }
       ],
@@ -17937,7 +17897,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-22T22:16:26.723Z"
+            "at": "2026-10-23T07:26:41.691Z"
           }
         },
         {
@@ -17951,7 +17911,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-22T22:16:26.723Z"
+            "at": "2026-10-23T07:26:41.691Z"
           }
         },
         {
@@ -17965,7 +17925,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-22T22:16:26.723Z"
+            "at": "2026-10-23T07:26:41.691Z"
           }
         },
         {
@@ -17979,7 +17939,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-22T22:16:26.723Z"
+            "at": "2026-10-23T07:26:41.691Z"
           }
         }
       ],
@@ -22804,7 +22764,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-22T22:16:26.723Z"
+            "at": "2026-10-23T07:26:41.691Z"
           }
         }
       ],
@@ -26842,7 +26802,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-22T22:16:26.723Z"
+            "at": "2026-10-23T07:26:41.691Z"
           }
         }
       ],
@@ -29316,7 +29276,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-22T22:16:26.723Z"
+            "at": "2026-10-23T07:26:41.691Z"
           }
         }
       ],
@@ -35330,7 +35290,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-22T22:16:26.723Z"
+            "at": "2026-10-23T07:26:41.691Z"
           }
         }
       ],
