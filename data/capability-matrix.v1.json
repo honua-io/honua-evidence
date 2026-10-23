@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-10-23T11:51:10Z",
+  "generatedAt": "2026-10-23T16:52:10Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -28,52 +28,52 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-10-23T11:50:58Z",
+      "fetchedAt": "2026-10-23T16:51:55Z",
       "sourceVersion": "8c21501230f7@2026-10-09T05:17:20Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-23T11:50:58Z",
+      "observedAt": "2026-10-23T16:51:55Z",
       "ageDays": 0,
       "sourceAgeDays": 14,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-10-23T11:50:58Z",
-      "sourceVersion": "446c4b3fc66c@2026-10-22T21:24:25Z",
+      "fetchedAt": "2026-10-23T16:51:56Z",
+      "sourceVersion": "3395834aa3e8@2026-10-23T16:51:36Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-23T11:50:58Z",
+      "observedAt": "2026-10-23T16:51:56Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-10-23T11:50:58Z",
+      "fetchedAt": "2026-10-23T16:51:56Z",
       "sourceVersion": "c7d517b0dd12@2026-10-22T21:51:50Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-23T11:50:58Z",
+      "observedAt": "2026-10-23T16:51:56Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-10-23T11:50:58Z",
+      "fetchedAt": "2026-10-23T16:51:57Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-23T11:50:58Z",
+      "observedAt": "2026-10-23T16:51:57Z",
       "ageDays": 0,
       "sourceAgeDays": 97,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-10-23T11:50:59Z",
+      "fetchedAt": "2026-10-23T16:51:57Z",
       "sourceVersion": "9792cb444e78@2026-10-06T07:53:39Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-23T11:50:59Z",
+      "observedAt": "2026-10-23T16:51:57Z",
       "ageDays": 0,
       "sourceAgeDays": 17,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-10-23T11:50:59Z",
+      "fetchedAt": "2026-10-23T16:51:58Z",
       "sourceVersion": "a8869d6c89d7@2026-10-23T10:08:35Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-10-23T10:08:35Z",
@@ -82,16 +82,16 @@
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-10-23T11:51:10Z",
+      "fetchedAt": "2026-10-23T16:52:10Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-23T11:51:10Z",
+      "observedAt": "2026-10-23T16:52:10Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-10-23T11:51:00Z",
+      "fetchedAt": "2026-10-23T16:51:58Z",
       "sourceVersion": "035ce3d24371@2026-10-22T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-10-22T00:00:00Z",
@@ -100,7 +100,7 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-10-23T11:51:00Z",
+      "fetchedAt": "2026-10-23T16:51:58Z",
       "sourceVersion": "e24ca3b6b735@2026-10-23T11:49:31Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-10-23T11:49:31Z",
@@ -131,7 +131,7 @@
       "category": "ControlPlane",
       "edition": "Community",
       "entryCount": 388,
-      "provingTestCount": 1430,
+      "provingTestCount": 1434,
       "maturity": {
         "implemented": 385,
         "preview": 2,
