@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-10-23T16:52:10Z",
+  "generatedAt": "2026-10-24T08:16:21Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -28,79 +28,79 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-10-23T16:51:55Z",
+      "fetchedAt": "2026-10-24T08:16:07Z",
       "sourceVersion": "8c21501230f7@2026-10-09T05:17:20Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-23T16:51:55Z",
+      "observedAt": "2026-10-24T08:16:07Z",
       "ageDays": 0,
-      "sourceAgeDays": 14,
+      "sourceAgeDays": 15,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-10-23T16:51:56Z",
+      "fetchedAt": "2026-10-24T08:16:07Z",
       "sourceVersion": "3395834aa3e8@2026-10-23T16:51:36Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-23T16:51:56Z",
+      "observedAt": "2026-10-24T08:16:07Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-10-23T16:51:56Z",
+      "fetchedAt": "2026-10-24T08:16:08Z",
       "sourceVersion": "c7d517b0dd12@2026-10-22T21:51:50Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-23T16:51:56Z",
+      "observedAt": "2026-10-24T08:16:08Z",
       "ageDays": 0,
-      "sourceAgeDays": 0,
+      "sourceAgeDays": 1,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-10-23T16:51:57Z",
+      "fetchedAt": "2026-10-24T08:16:08Z",
       "sourceVersion": "677372ebfad2@2026-07-17T20:35:43Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-23T16:51:57Z",
+      "observedAt": "2026-10-24T08:16:08Z",
       "ageDays": 0,
-      "sourceAgeDays": 97,
+      "sourceAgeDays": 98,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-10-23T16:51:57Z",
+      "fetchedAt": "2026-10-24T08:16:09Z",
       "sourceVersion": "9792cb444e78@2026-10-06T07:53:39Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-23T16:51:57Z",
+      "observedAt": "2026-10-24T08:16:09Z",
       "ageDays": 0,
-      "sourceAgeDays": 17,
+      "sourceAgeDays": 18,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-10-23T16:51:58Z",
-      "sourceVersion": "a8869d6c89d7@2026-10-23T10:08:35Z",
+      "fetchedAt": "2026-10-24T08:16:10Z",
+      "sourceVersion": "43fd70462578@2026-10-24T08:15:50Z",
       "freshnessBasis": "observation",
-      "observedAt": "2026-10-23T10:08:35Z",
+      "observedAt": "2026-10-24T08:15:50Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-10-23T16:52:10Z",
+      "fetchedAt": "2026-10-24T08:16:21Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-10-23T16:52:10Z",
+      "observedAt": "2026-10-24T08:16:21Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-10-23T16:51:58Z",
+      "fetchedAt": "2026-10-24T08:16:10Z",
       "sourceVersion": "035ce3d24371@2026-10-22T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-10-22T00:00:00Z",
-      "ageDays": 1,
-      "sourceAgeDays": 1,
+      "ageDays": 2,
+      "sourceAgeDays": 2,
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-10-23T16:51:58Z",
+      "fetchedAt": "2026-10-24T08:16:10Z",
       "sourceVersion": "e24ca3b6b735@2026-10-23T11:49:31Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-10-23T11:49:31Z",
@@ -1065,7 +1065,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 2437,
@@ -1096,11 +1096,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5188,
-            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
-            "url": "https://github.com/honua-io/honua-server/issues/5188"
           }
         ],
         "categoryLevel": true,
@@ -1135,11 +1130,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5188,
-            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
-            "url": "https://github.com/honua-io/honua-server/issues/5188"
           }
         ],
         "label": "cap/analytics"
@@ -1176,7 +1166,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 2437,
@@ -1207,11 +1197,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5188,
-            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
-            "url": "https://github.com/honua-io/honua-server/issues/5188"
           }
         ],
         "categoryLevel": true,
@@ -1246,11 +1231,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5188,
-            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
-            "url": "https://github.com/honua-io/honua-server/issues/5188"
           }
         ],
         "label": "cap/analytics"
@@ -1287,7 +1267,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 2437,
@@ -1318,11 +1298,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5188,
-            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
-            "url": "https://github.com/honua-io/honua-server/issues/5188"
           }
         ],
         "categoryLevel": true,
@@ -1357,11 +1332,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5188,
-            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
-            "url": "https://github.com/honua-io/honua-server/issues/5188"
           }
         ],
         "label": "cap/analytics"
@@ -1398,7 +1368,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 2437,
@@ -1429,11 +1399,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5188,
-            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
-            "url": "https://github.com/honua-io/honua-server/issues/5188"
           }
         ],
         "categoryLevel": true,
@@ -1468,11 +1433,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5188,
-            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
-            "url": "https://github.com/honua-io/honua-server/issues/5188"
           }
         ],
         "label": "cap/analytics"
@@ -1509,7 +1469,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 2437,
@@ -1540,11 +1500,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5188,
-            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
-            "url": "https://github.com/honua-io/honua-server/issues/5188"
           }
         ],
         "categoryLevel": true,
@@ -1579,11 +1534,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5188,
-            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
-            "url": "https://github.com/honua-io/honua-server/issues/5188"
           }
         ],
         "label": "cap/analytics"
@@ -1620,7 +1570,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 2437,
@@ -1651,11 +1601,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5188,
-            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
-            "url": "https://github.com/honua-io/honua-server/issues/5188"
           }
         ],
         "categoryLevel": true,
@@ -1690,11 +1635,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5188,
-            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
-            "url": "https://github.com/honua-io/honua-server/issues/5188"
           }
         ],
         "label": "cap/analytics"
@@ -1737,7 +1677,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 2437,
@@ -1768,11 +1708,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5188,
-            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
-            "url": "https://github.com/honua-io/honua-server/issues/5188"
           }
         ],
         "categoryLevel": true,
@@ -1807,11 +1742,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5188,
-            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
-            "url": "https://github.com/honua-io/honua-server/issues/5188"
           }
         ],
         "label": "cap/analytics"
@@ -1848,7 +1778,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 2437,
@@ -1879,11 +1809,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5188,
-            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
-            "url": "https://github.com/honua-io/honua-server/issues/5188"
           }
         ],
         "categoryLevel": true,
@@ -1918,11 +1843,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5188,
-            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
-            "url": "https://github.com/honua-io/honua-server/issues/5188"
           }
         ],
         "label": "cap/analytics"
@@ -1959,7 +1879,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 2437,
@@ -1990,11 +1910,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5188,
-            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
-            "url": "https://github.com/honua-io/honua-server/issues/5188"
           }
         ],
         "categoryLevel": true,
@@ -2029,11 +1944,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5188,
-            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
-            "url": "https://github.com/honua-io/honua-server/issues/5188"
           }
         ],
         "label": "cap/analytics"
@@ -2070,7 +1980,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 2437,
@@ -2101,11 +2011,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5188,
-            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
-            "url": "https://github.com/honua-io/honua-server/issues/5188"
           }
         ],
         "categoryLevel": true,
@@ -2140,11 +2045,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5188,
-            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
-            "url": "https://github.com/honua-io/honua-server/issues/5188"
           }
         ],
         "label": "cap/analytics"
@@ -2181,7 +2081,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 6,
         "refs": [
           {
             "number": 2437,
@@ -2212,11 +2112,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5188,
-            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
-            "url": "https://github.com/honua-io/honua-server/issues/5188"
           }
         ],
         "categoryLevel": true,
@@ -2251,11 +2146,6 @@
             "number": 3472,
             "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
             "url": "https://github.com/honua-io/honua-server/issues/3472"
-          },
-          {
-            "number": 5188,
-            "title": "chore: measure buffer-aggregate and wide-extent clusters on the ground",
-            "url": "https://github.com/honua-io/honua-server/issues/5188"
           }
         ],
         "label": "cap/analytics"
@@ -2782,7 +2672,7 @@
           },
           {
             "number": 1278,
-            "title": "Studio Map multiplayer collaboration API: presence + live cursors + collaborative markup + feature-pinned comments + activity feed",
+            "title": "Epic: qualify Studio collaboration in the shared Console workspace",
             "url": "https://github.com/honua-io/honua-server/issues/1278"
           },
           {
@@ -2806,7 +2696,7 @@
           },
           {
             "number": 1278,
-            "title": "Studio Map multiplayer collaboration API: presence + live cursors + collaborative markup + feature-pinned comments + activity feed",
+            "title": "Epic: qualify Studio collaboration in the shared Console workspace",
             "url": "https://github.com/honua-io/honua-server/issues/1278"
           },
           {
@@ -8135,7 +8025,7 @@
       "samples": [
         {
           "id": "browser-featureserver-query",
-          "title": "Hello FeatureServer (headless browser, plain fetch+DOM)",
+          "title": "Query three FeatureServer features from a browser page",
           "url": "https://samples.honua.io/browser-featureserver-query",
           "sdks": [
             "rest"
@@ -8144,7 +8034,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-23T10:08:26.582Z"
+            "at": "2026-10-24T08:15:43.233Z"
           }
         },
         {
@@ -8158,7 +8048,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-23T10:08:26.582Z"
+            "at": "2026-10-24T08:15:43.233Z"
           }
         }
       ],
@@ -17936,7 +17826,7 @@
       "samples": [
         {
           "id": "browser-featureserver-query",
-          "title": "Hello FeatureServer (headless browser, plain fetch+DOM)",
+          "title": "Query three FeatureServer features from a browser page",
           "url": "https://samples.honua.io/browser-featureserver-query",
           "sdks": [
             "rest"
@@ -17945,7 +17835,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-23T10:08:26.582Z"
+            "at": "2026-10-24T08:15:43.233Z"
           }
         },
         {
@@ -17959,7 +17849,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-23T10:08:26.582Z"
+            "at": "2026-10-24T08:15:43.233Z"
           }
         },
         {
@@ -17973,7 +17863,21 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-23T10:08:26.582Z"
+            "at": "2026-10-24T08:15:43.233Z"
+          }
+        },
+        {
+          "id": "esri-leaflet-featurelayer",
+          "title": "Stock esri-leaflet FeatureLayer on Honua",
+          "url": "https://samples.honua.io/esri-leaflet-featurelayer",
+          "sdks": [
+            "rest"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.1",
+            "at": "2026-10-24T08:15:43.233Z"
           }
         },
         {
@@ -17987,7 +17891,21 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-23T10:08:26.582Z"
+            "at": "2026-10-24T08:15:43.233Z"
+          }
+        },
+        {
+          "id": "maplibre-featureserver-layer",
+          "title": "FeatureServer layer in MapLibre GL JS",
+          "url": "https://samples.honua.io/maplibre-featureserver-layer",
+          "sdks": [
+            "rest"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.1",
+            "at": "2026-10-24T08:15:43.233Z"
           }
         }
       ],
@@ -22828,7 +22746,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-23T10:08:26.582Z"
+            "at": "2026-10-24T08:15:43.233Z"
           }
         }
       ],
@@ -26864,6 +26782,20 @@
       },
       "samples": [
         {
+          "id": "maplibre-category-style-legend",
+          "title": "Category style and legend from OGC API Features",
+          "url": "https://samples.honua.io/maplibre-category-style-legend",
+          "sdks": [
+            "rest"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.1",
+            "at": "2026-10-24T08:15:43.233Z"
+          }
+        },
+        {
           "id": "ogc-features-python",
           "title": "Read OGC API Features with Python",
           "url": "https://samples.honua.io/ogc-features-python",
@@ -26874,7 +26806,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-23T10:08:26.582Z"
+            "at": "2026-10-24T08:15:43.233Z"
           }
         }
       ],
@@ -27298,7 +27230,22 @@
           ]
         }
       },
-      "samples": [],
+      "samples": [
+        {
+          "id": "maplibre-ogc-tiles-mvt",
+          "title": "OGC API Tiles vector tiles in MapLibre GL JS",
+          "url": "https://samples.honua.io/maplibre-ogc-tiles-mvt",
+          "sdks": [
+            "rest"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.1",
+            "at": "2026-10-24T08:15:43.233Z"
+          }
+        }
+      ],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -29356,7 +29303,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-23T10:08:26.582Z"
+            "at": "2026-10-24T08:15:43.233Z"
           }
         }
       ],
@@ -35394,7 +35341,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-10-23T10:08:26.582Z"
+            "at": "2026-10-24T08:15:43.233Z"
           }
         }
       ],
