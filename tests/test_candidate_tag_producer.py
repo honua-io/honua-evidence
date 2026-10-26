@@ -214,3 +214,29 @@ class ConfiguredHarnessCandidateTagTests(ConfiguredServerCandidateTagTests):
         self.assertEqual(len(rows), 1)
         self.assertTrue(rows[0]["candidate_tag_verified"])
         self.assertEqual(observation["evidence_receipt"]["result"], "fail")
+
+
+class NightlyCandidateTagRegistrationTests(unittest.TestCase):
+    """Every producer the nightly dispatches lands on refs/tags/nightly-candidate/<pin> whenever its
+    pin is not its trunk head, so each opts in with the exact run-name title its workflow sets."""
+
+    EXPECTED = {
+        "honua-server-cng": "Cloud-Native-Geospatial Conformance",
+        "honua-server-cite": "CITE Certification",
+        "server-protocol-harness": "Protocol harness certification",
+        "geospatial-grpc": "gRPC protocol certification",
+        "geospatial-mcp": "MCP Protocol Certification",
+        "honua-sdk-js": "SDK Integration",
+        "honua-sdk-python": "Python SDK Conformance",
+        "honua-sdk-dotnet": ".NET SDK Protocol Certification",
+        "honua-esri-compat": "Esri SDK Certification",
+    }
+
+    def test_nightly_producers_register_their_dispatch_title(self):
+        path = Path(__file__).resolve().parents[1] / "config/protocol-certification-producers.v1.json"
+        registry = MODULE.load_registry(path)
+        titles = {source["producer"]: source.get("candidate_tag_dispatch_title") for source in registry["sources"]}
+        for producer, title in self.EXPECTED.items():
+            with self.subTest(producer=producer):
+                self.assertEqual(titles[producer], title)
+        self.assertIsNone(titles["honua-server-client-interop"])
