@@ -347,6 +347,7 @@ def _validate_governed_wheel_policy(requirement: dict) -> None:
 NUGET_SDK_LANE = "sdk-dotnet-certification"
 NUGET_SDK_PACKAGE = "Honua.Sdk"
 NUGET_IDENTITY_FIELDS = ("client_package", "client_package_digest")
+SDK_HARNESS_LANES = frozenset({NUGET_SDK_LANE, "sdk-python-certification"})
 
 
 def _nuget_identity_problem(observation: dict, expected: dict | None = None) -> str | None:
@@ -476,12 +477,28 @@ def _valid_receipt(
             return False
     elif "client_package" in requirement or "client_package" in observation:
         return False
+    identity = receipt.get("identity")
+    if isinstance(identity, dict) and requirement.get("client_lane") in SDK_HARNESS_LANES:
+        # Ruling sdk-harness-trunk-pinned-package-2026-10-27: the SDK harness runs from trunk
+        # against the pinned published package. Its exact commit is optional identity, kept
+        # inside the digest; fetch binds it to the GitHub run head.
+        if "harness_commit" in identity:
+            if not isinstance(identity["harness_commit"], str) or not SHA_RE.fullmatch(identity["harness_commit"]):
+                return False
+            expected_identity["harness_commit"] = identity["harness_commit"]
+        # The .NET receipt may also bind the observed NuGet identity, which _nuget_identity_problem
+        # has already checked (and against the manifest pin when one is supplied). Both or neither.
+        if requirement.get("client_lane") == NUGET_SDK_LANE and any(
+                field in identity for field in NUGET_IDENTITY_FIELDS):
+            if any(field not in observation for field in NUGET_IDENTITY_FIELDS):
+                return False
+            for field in NUGET_IDENTITY_FIELDS:
+                expected_identity[field] = observation[field]
     requires_candidate_cut = requirement.get("client_lane") in {
         "sdk-python",
         "sdk-python-certification",
         "sdk-python-ogc",
     }
-    identity = receipt.get("identity")
     if isinstance(identity, dict) and "producer_run" in identity:
         producer_run = identity["producer_run"]
         expected_producer = PRODUCER_RUN_IDENTITIES.get(
