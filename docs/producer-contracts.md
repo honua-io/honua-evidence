@@ -356,9 +356,13 @@ Every producer honua-release's nightly dispatches now opts in, because the night
 dispatches each producer on its candidate tag whenever the producer's pin is not
 its trunk head. The registered titles are the producers' `run-name` titles: `CITE
 Certification`, `Protocol harness certification`, `SDK Integration`,
-`Cloud-Native-Geospatial Conformance`, `gRPC protocol certification`, `MCP Protocol
+`gRPC protocol certification`, `MCP Protocol
 Certification`, `Python SDK Conformance`, `.NET SDK Protocol Certification` and `Esri
-SDK Certification`. Ledger validation recognizes `identity.producer_run` for the
+SDK Certification`. The cloud-native geospatial producer (`honua-server-cng`) is not
+registered while honua-release ruling `cng-preview-producer-2026-10-27` declares it Preview
+evidence: it emits no receipts until honua-server#3753, so a candidate-tag cng fragment could only
+refuse the whole aggregate. Its tag runs stay an untrusted gap; register
+`Cloud-Native-Geospatial Conformance` when its receipts land. Ledger validation recognizes `identity.producer_run` for the
 (canonical client, lane) pairs the release catalog assigns to each of them, naming
 only that producer's repository and workflow; honua-server receipts must be v2.
 

@@ -221,7 +221,6 @@ class NightlyCandidateTagRegistrationTests(unittest.TestCase):
     pin is not its trunk head, so each opts in with the exact run-name title its workflow sets."""
 
     EXPECTED = {
-        "honua-server-cng": "Cloud-Native-Geospatial Conformance",
         "honua-server-cite": "CITE Certification",
         "server-protocol-harness": "Protocol harness certification",
         "geospatial-grpc": "gRPC protocol certification",
@@ -240,3 +239,7 @@ class NightlyCandidateTagRegistrationTests(unittest.TestCase):
             with self.subTest(producer=producer):
                 self.assertEqual(titles[producer], title)
         self.assertIsNone(titles["honua-server-client-interop"])
+        # cng-preview-producer-2026-10-27: cng emits no receipts until honua-server#3753, so a
+        # candidate-tag cng fragment could only refuse the whole aggregate. Its tag runs stay
+        # untrusted (a gap) while it is declared Preview; register its title when receipts land.
+        self.assertIsNone(titles["honua-server-cng"])
