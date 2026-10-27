@@ -351,3 +351,25 @@ fixed, run IDs/attempts are positive integers, and the dispatch ID is
 inside the original receipt bytes and digest when the ledger readdresses it.
 All other identity fields, including v2 governed context, remain exact. The
 release consumer independently joins the recorded run to its expected dispatch.
+
+Every producer honua-release's nightly dispatches now opts in, because the nightly
+dispatches each producer on its candidate tag whenever the producer's pin is not
+its trunk head. The registered titles are the producers' `run-name` titles: `CITE
+Certification`, `Protocol harness certification`, `SDK Integration`,
+`Cloud-Native-Geospatial Conformance`, `gRPC protocol certification`, `MCP Protocol
+Certification`, `Python SDK Conformance`, `.NET SDK Protocol Certification` and `Esri
+SDK Certification`. Ledger validation recognizes `identity.producer_run` for the
+(canonical client, lane) pairs the release catalog assigns to each of them, naming
+only that producer's repository and workflow; honua-server receipts must be v2.
+
+## .NET installed package identity
+
+Founder decision D7 (honua-evidence#64, honua-release#975): an
+`sdk-dotnet-certification` observation may carry `client_package` and
+`client_package_digest`. A cell that carries either carries both, the package id is
+`Honua.Sdk`, and the digest is lowercase `sha256:<hex>`; `null` is refused. When
+aggregation is given the honua-release `platform-manifest.yaml` at the requirements
+revision (`--sdk-dotnet-pin-manifest`, which `aggregate.yml` always passes), package,
+version and digest must equal `clientArtifacts.honua-sdk-dotnet`. Both fields reach
+the ledger cell. Governed rows cannot carry them, the receipt identity stays closed,
+and every other lane keeps the existing refusal.

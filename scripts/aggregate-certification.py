@@ -268,6 +268,10 @@ def _valid_entitlement_assertion(observation: dict, requirement: dict, entitleme
     )
 
 
+ESRI_SERVICES = (
+    "feature-server", "geocode-server", "geometry-service", "geoservices-catalog", "gp-server",
+    "image-server", "map-server", "na-server", "portal-sharing", "version-management-server",
+)
 PRODUCER_RUN_IDENTITIES = {
     ("Honua SDK Python", "sdk-python-certification"):
         ("honua-io/honua-sdk-python", "conformance.yml"),
@@ -281,6 +285,37 @@ PRODUCER_RUN_IDENTITIES = {
            "cite-wfs-1-0", "cite-wfs-1-1", "cite-wfs-2-0", "cite-wcs-2-0",
            "cite-wms-1-3", "cite-wmts-1-0", "cite-wps-2-0",
        )},
+    # Nightly protocol producers that record identity.producer_run (honua-release
+    # RECEIPT-V2.md "Nightly producer run identity"). Keys are the governed
+    # (canonical_client, client_lane) the release catalog assigns to each producer.
+    **{(client, lane): ("honua-io/honua-server", "cng-conformance.yml")
+       for client, lane in (
+           ("Dask", "dask-zarr"), ("GDAL", "gdal-cog"), ("GDAL", "gdal-flatgeobuf"),
+           ("GDAL", "gdal-geoparquet"), ("GeoPandas", "geopandas-flatgeobuf"),
+           ("GeoPandas", "geopandas-geoparquet"), ("PMTiles-browser-viewer", "node-pmtiles"),
+           ("PyArrow", "pyarrow-geoparquet"), ("Pyogrio", "pyogrio-flatgeobuf"),
+           ("Rasterio", "rasterio-cog"), ("Tippecanoe", "tippecanoe-pmtiles"),
+           ("flatgeobuf-js", "node-flatgeobuf"), ("fsspec", "fsspec-zarr"), ("h5dump", "h5dump"),
+           ("h5py", "h5py"), ("h5repack", "h5repack"), ("h5stat", "h5stat"),
+           ("pmtiles", "python-pmtiles"), ("rio-cogeo", "rio-cogeo"), ("xarray", "xarray-netcdf"),
+           ("xarray", "xarray-zarr"), ("zarr", "zarr-python"),
+       )},
+    **{(f"Generated gRPC {language} client", f"grpc-{lane}"):
+       ("honua-io/geospatial-grpc", "protocol-certification.yml")
+       for language, lane in ((".NET", "dotnet"), ("Python", "python"), ("TypeScript", "typescript"))},
+    ("MCP Inspector", "mcp-inspector"): ("honua-io/geospatial-mcp", "protocol-certification.yml"),
+    ("Official MCP TypeScript SDK", "mcp-typescript-sdk"):
+        ("honua-io/geospatial-mcp", "protocol-certification.yml"),
+    ("Honua SDK .NET", "sdk-dotnet-certification"):
+        ("honua-io/honua-sdk-dotnet", "sdk-certification.yml"),
+    **{(client, f"{prefix}-{service}"): ("honua-io/honua-esri-compat", "esri-sdk-certification.yml")
+       for client, prefix, services in (
+           ("ArcGIS REST protocol client", "raw-geoservices", ESRI_SERVICES),
+           ("ArcGIS API for Python", "arcgis-python", ESRI_SERVICES),
+           ("ArcGIS Maps SDK for .NET", "esri-dotnet", ESRI_SERVICES),
+           ("ArcGIS Pro", "desktop-arcpy", (*ESRI_SERVICES, "ogc")),
+       )
+       for service in services if not (prefix == "desktop-arcpy" and service == "geometry-service")},
 }
 
 
@@ -304,6 +339,80 @@ def _validate_governed_wheel_policy(requirement: dict) -> None:
         raise ValueError("wheel identity is only permitted for the Python certification lane")
     if not _valid_python_wheel(requirement["client_package"], requirement.get("client_version")):
         raise ValueError("governed published wheel policy is malformed")
+
+
+# Founder decision D7 (2026-10-26, honua-evidence#64; honua-release#975): the .NET certification
+# producer records the installed NuGet package on each observation. The fields are observed
+# identity only: governed rows cannot carry them and the receipt identity stays closed.
+NUGET_SDK_LANE = "sdk-dotnet-certification"
+NUGET_SDK_PACKAGE = "Honua.Sdk"
+NUGET_IDENTITY_FIELDS = ("client_package", "client_package_digest")
+
+
+def _nuget_identity_problem(observation: dict, expected: dict | None = None) -> str | None:
+    """None when a .NET certification observation carries no package identity or a valid one.
+
+    A cell that carries either field carries both: the Honua.Sdk package id and a canonical
+    SHA-256 of the nupkg, equal to the pinned artifact (package, version, digest) when known.
+    `null` is not absent. This is the honua-release check_protocol_certification rule."""
+    carried = [field for field in NUGET_IDENTITY_FIELDS if field in observation]
+    if not carried:
+        return None
+    package, digest = observation.get("client_package"), observation.get("client_package_digest")
+    if (len(carried) != len(NUGET_IDENTITY_FIELDS) or package != NUGET_SDK_PACKAGE
+            or not isinstance(digest, str) or DIGEST_RE.fullmatch(digest) is None):
+        return (f"a .NET certification observation that carries NuGet package identity must carry both "
+                f"the {NUGET_SDK_PACKAGE} package id and a canonical sha256 nupkg digest")
+    if expected is not None and (
+            package != expected.get("package") or digest != expected.get("digest")
+            or observation.get("client_version") != expected.get("version")):
+        return (f"observed .NET package {package!r} {observation.get('client_version')!r} {digest!r} differs "
+                f"from the pinned NuGet artifact {expected.get('package')!r} {expected.get('version')!r} "
+                f"{expected.get('digest')!r}")
+    return None
+
+
+_MANIFEST_SCALAR_RE = re.compile(r'^    (package|version|digest): "([^"\\]*)"\s*$')
+
+
+def load_sdk_dotnet_pin(path: Path) -> dict | None:
+    """clientArtifacts.honua-sdk-dotnet {package, version, digest} from a honua-release
+    platform-manifest.yaml, or None when the manifest pins no .NET artifact.
+
+    The manifest is read without a YAML dependency, so only the block's own quoted scalar
+    package/version/digest lines are accepted; anything ambiguous refuses."""
+    lines = path.read_text(encoding="utf-8").splitlines()
+    try:
+        top = lines.index("clientArtifacts:")
+    except ValueError:
+        return None
+    block: list[str] | None = None
+    for line in lines[top + 1:]:
+        if line and not line.startswith(" ") and not line.startswith("#"):
+            break
+        if re.fullmatch(r"  [^ #][^:]*:\s*", line):
+            if block is not None:
+                break
+            if line.strip() == "honua-sdk-dotnet:":
+                block = []
+            continue
+        if block is not None:
+            block.append(line)
+    if block is None:
+        return None
+    pin: dict[str, str] = {}
+    for line in block:
+        match = _MANIFEST_SCALAR_RE.fullmatch(line)
+        if match is None:
+            if re.match(r"^\s*(package|version|digest)\s*:", line):
+                raise ValueError(f"clientArtifacts.honua-sdk-dotnet has an unreadable pin line: {line!r}")
+            continue
+        if match.group(1) in pin:
+            raise ValueError(f"clientArtifacts.honua-sdk-dotnet repeats {match.group(1)}")
+        pin[match.group(1)] = match.group(2)
+    if set(pin) != {"package", "version", "digest"} or DIGEST_RE.fullmatch(pin["digest"]) is None:
+        raise ValueError("clientArtifacts.honua-sdk-dotnet must pin package, version and a canonical sha256 digest")
+    return pin
 
 
 def _valid_client_package_digest(lane: str, value: object) -> bool:
@@ -362,6 +471,9 @@ def _valid_receipt(
                 or requirement.get("contract_revision") != "sdk-python-certification@" + str(observation.get("producer_source_sha"))):
             return False
         expected_identity["client_package"] = wheel
+    elif requirement.get("client_lane") == NUGET_SDK_LANE and "client_package" not in requirement:
+        if _nuget_identity_problem(observation) is not None:
+            return False
     elif "client_package" in requirement or "client_package" in observation:
         return False
     requires_candidate_cut = requirement.get("client_lane") in {
@@ -880,13 +992,16 @@ def choose_candidate(fragments: list[tuple[Path, dict]], expected: tuple[str | N
 
 
 def build_ledger(requirements_revision: str, requirements_source_revision: str, requirements_complete: bool, requirements: list[dict], fragments: list[tuple[Path, dict]],
-                 candidate: dict, now: datetime | None = None) -> dict:
+                 candidate: dict, now: datetime | None = None, expected_sdk_dotnet: dict | None = None) -> dict:
     if not isinstance(requirements_source_revision, str) or not SHA_RE.fullmatch(requirements_source_revision):
         raise ValueError("requirements_source_revision must be a full 40-character SHA")
     now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
     candidate_id = _candidate_identity(candidate)
     for requirement in requirements:
         _validate_governed_wheel_policy(requirement)
+        if requirement.get("client_lane") == NUGET_SDK_LANE and any(
+                field in requirement for field in NUGET_IDENTITY_FIELDS):
+            raise ValueError("governed .NET certification rows cannot carry observed NuGet package identity")
     requirement_by_key = {_governed_identity(requirement): requirement for requirement in requirements}
     if len(requirement_by_key) != len(requirements):
         raise ValueError("duplicate requirement identity")
@@ -946,6 +1061,10 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
                         or observation.get("client_package") != wheel)) or (not unexecuted
                         and requirement.get("contract_revision") != "sdk-python-certification@" + str(observation.get("producer_source_sha"))):
                     raise ValueError(f"{path}: executed Python observation differs from governed published wheel")
+            elif requirement.get("client_lane") == NUGET_SDK_LANE:
+                problem = _nuget_identity_problem(observation, expected_sdk_dotnet)
+                if problem is not None:
+                    raise ValueError(f"{path}: observations[{index}]: {problem}")
             elif "client_package" in observation or "client_package" in requirement:
                 raise ValueError(f"{path}: wheel identity is only permitted for the Python certification lane")
             for field in ("client_id", "runner_lane", "protocol_version", "protocol_profile", "performed_by"):
@@ -1149,6 +1268,8 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
             cell["budget_observations"] = observation.get("budget_observations")
             if observation.get("client_package") is not None:
                 cell["client_package"] = observation["client_package"]
+            if requirement.get("client_lane") == NUGET_SDK_LANE and "client_package_digest" in observation:
+                cell["client_package_digest"] = observation["client_package_digest"]
         else:
             cell.update({
                 "result": "skip",
@@ -1197,6 +1318,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--candidate-source-sha", required=True)
     parser.add_argument("--candidate-image-digest", required=True)
     parser.add_argument("--candidate-cut-at", required=True)
+    parser.add_argument(
+        "--sdk-dotnet-pin-manifest", type=Path,
+        help="honua-release platform-manifest.yaml at the requirements revision; its "
+             "clientArtifacts.honua-sdk-dotnet pin verifies carried .NET package identity",
+    )
     args = parser.parse_args(argv)
 
     if not all((args.candidate_source_sha, args.candidate_image_digest, args.candidate_cut_at)):
@@ -1207,7 +1333,9 @@ def main(argv: list[str] | None = None) -> int:
     candidate = choose_candidate(fragments, (
         args.candidate_source_sha, args.candidate_image_digest, args.candidate_cut_at,
     ))
-    ledger = build_ledger(revision, args.requirements_source_revision, complete, requirements, fragments, candidate)
+    expected_sdk_dotnet = load_sdk_dotnet_pin(args.sdk_dotnet_pin_manifest) if args.sdk_dotnet_pin_manifest else None
+    ledger = build_ledger(revision, args.requirements_source_revision, complete, requirements, fragments, candidate,
+                          expected_sdk_dotnet=expected_sdk_dotnet)
     for cell in ledger["cells"]:
         receipt = _receipt_bytes(cell.get("evidence_receipt"))
         digest = cell.get("evidence_digest")

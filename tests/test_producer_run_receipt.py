@@ -65,3 +65,55 @@ class ProducerRunReceiptTests(unittest.TestCase):
         observed["evidence_receipt"]["identity"]["producer_run"] = self.identity
         rebind_receipt(observed)
         self.assertFalse(module._valid_receipt(observed, other))
+
+
+class NightlyProducerRunIdentityTests(unittest.TestCase):
+    """Every producer the nightly dispatches records its run (honua-release RECEIPT-V2.md)."""
+
+    PRODUCERS = [
+        ("Generated gRPC .NET client", "grpc-dotnet", "honua-io/geospatial-grpc", "protocol-certification.yml"),
+        ("MCP Inspector", "mcp-inspector", "honua-io/geospatial-mcp", "protocol-certification.yml"),
+        ("Official MCP TypeScript SDK", "mcp-typescript-sdk", "honua-io/geospatial-mcp", "protocol-certification.yml"),
+        ("Honua SDK .NET", "sdk-dotnet-certification", "honua-io/honua-sdk-dotnet", "sdk-certification.yml"),
+        ("ArcGIS REST protocol client", "raw-geoservices-feature-server", "honua-io/honua-esri-compat",
+         "esri-sdk-certification.yml"),
+        ("ArcGIS API for Python", "arcgis-python-image-server", "honua-io/honua-esri-compat",
+         "esri-sdk-certification.yml"),
+        ("ArcGIS Maps SDK for .NET", "esri-dotnet-map-server", "honua-io/honua-esri-compat",
+         "esri-sdk-certification.yml"),
+        ("ArcGIS Pro", "desktop-arcpy-ogc", "honua-io/honua-esri-compat", "esri-sdk-certification.yml"),
+        ("GDAL", "gdal-cog", "honua-io/honua-server", "cng-conformance.yml"),
+        ("zarr", "zarr-python", "honua-io/honua-server", "cng-conformance.yml"),
+    ]
+
+    def _observed(self, client, lane, repository, workflow, v2):
+        req = requirement(client=client)
+        req["client_lane"] = lane
+        if lane.startswith("grpc-"):
+            req["client_package_digest"] = "sha256:" + "f" * 64
+        observed = observation(req)
+        if lane.startswith("grpc-"):
+            observed["client_package_digest"] = req["client_package_digest"]
+        observed["evidence_receipt"]["identity"]["producer_run"] = {
+            "repository": repository, "workflow": workflow, "run_id": 9, "run_attempt": 1,
+            "dispatch_id": "nightly-certification-40367649673-1"}
+        rebind_receipt(observed)
+        if v2:
+            observed = as_receipt_v2(observed, req)
+        return req, observed
+
+    def test_dispatched_producers_record_their_run(self):
+        for client, lane, repository, workflow in self.PRODUCERS:
+            with self.subTest(lane=lane):
+                req, observed = self._observed(client, lane, repository, workflow, True)
+                self.assertTrue(module._valid_receipt(observed, req, None, "rev-1"))
+
+    def test_run_must_name_the_producer_that_owns_the_lane(self):
+        for client, lane, repository, workflow in self.PRODUCERS:
+            with self.subTest(lane=lane):
+                req, observed = self._observed(client, lane, "honua-io/honua-sdk-js", "integration.yml", True)
+                self.assertFalse(module._valid_receipt(observed, req, None, "rev-1"))
+
+    def test_server_cng_run_identity_requires_receipt_v2(self):
+        req, observed = self._observed("GDAL", "gdal-cog", "honua-io/honua-server", "cng-conformance.yml", False)
+        self.assertFalse(module._valid_receipt(observed, req))

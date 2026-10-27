@@ -240,9 +240,24 @@ jobs:
             --candidate-image-digest "$CANDIDATE_IMAGE_DIGEST"
             --candidate-cut-at "$CANDIDATE_CUT_AT"
           )
+          # D7 (honua-evidence#64): the .NET producer's carried NuGet identity is verified
+          # against clientArtifacts.honua-sdk-dotnet in the manifest at the same immutable
+          # revision whose catalog generated the .NET rows.
+          MANIFEST_HTTP_STATUS="$(curl --silent --show-error --location \
+            "https://raw.githubusercontent.com/honua-io/honua-release/$REQUIREMENTS_SHA/platform-manifest.yaml" \
+            --output .aggregate-cache/platform-manifest.yaml \
+            --write-out '%{http_code}')" || {
+              echo "::error::Could not fetch the platform manifest for the .NET package pin."
+              exit 1
+            }
+          if [[ "$MANIFEST_HTTP_STATUS" != "200" ]]; then
+            echo "::error::Platform manifest fetch returned HTTP $MANIFEST_HTTP_STATUS."
+            exit 1
+          fi
           python3 scripts/aggregate-certification.py \
             --requirements .aggregate-cache/protocol-certification-requirements.v1.json \
             --requirements-source-revision "$REQUIREMENTS_SHA" \
+            --sdk-dotnet-pin-manifest .aggregate-cache/platform-manifest.yaml \
             "${candidate_args[@]}"
 
       - name: Commit refreshed protocol certification ledger if changed
