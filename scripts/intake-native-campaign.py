@@ -89,7 +89,8 @@ def intake(fragment_path, requirements_path, destination, *, driver, source_key,
         for digest, data in blobs.items():
             (root / 'data' / 'sha256' / digest).write_bytes(data)
         (root / 'intake.json').write_text(json.dumps({'schema': 'honua.native-reviewed-intake/v1',
-            'driver': driver, 'producer': producer, 'source_key': source_key, 'source_commit': source['commit'],
+            'driver': driver, 'producer': producer, 'provenance_status': 'local-review-unverified',
+            'source_key': source_key, 'source_commit': source['commit'],
             'requirements_source_revision': requirements_source_revision, 'fragment_sha256': fragment_sha256},
             sort_keys=True, indent=2) + '\n', encoding='utf-8')
         root.rename(destination)
