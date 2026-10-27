@@ -29,7 +29,7 @@ POLICY_FIELDS = (
     "addressability_reason", "scenario_facets", "contract_revision", "auth_policy_revision",
     "fixture_revision", "budget_expectations",
 )
-OPTIONAL_POLICY_FIELDS = ("test_ids", "client_package_digest", "client_package")
+OPTIONAL_POLICY_FIELDS = ("test_ids", "client_package_digest", "client_package", "client_driver", "release_bucket")
 OBSERVATION_FIELDS = (
     "result", "skip_reason", "source_sha", "producer_source_sha", "image_digest", "fixture_revision",
     "contract_revision", "auth_policy_revision", "evidence_uri", "evidence_digest", "evidence_receipt", "facet_results",
@@ -318,6 +318,16 @@ def _valid_client_package_digest(lane: str, value: object) -> bool:
     return isinstance(value, str) and re.fullmatch(r"sha256:[0-9a-f]{64}", value) is not None
 
 
+def _client_version_satisfies(required: object, observed: object) -> bool:
+    if not isinstance(required, str) or not isinstance(observed, str):
+        return False
+    line = re.fullmatch(r"(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.x", required)
+    if line is None:
+        return observed == required
+    exact = re.fullmatch(r"(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z][0-9A-Za-z.-]*)?", observed)
+    return exact is not None and exact.group(1, 2) == line.group(1, 2)
+
+
 def _valid_receipt(
     observation: dict,
     requirement: dict,
@@ -398,6 +408,14 @@ def _valid_receipt(
         if _timestamp(candidate_cut_at) is None:
             return False
         expected_identity["candidate_cut_at"] = candidate_cut_at
+    for field in ("client_driver", "client_version_observed"):
+        if field in observation:
+            expected_identity[field] = observation[field]
+    if "client_driver" in requirement and observation.get("client_driver") != requirement["client_driver"]:
+        return False
+    if "client_version_observed" in observation and not _client_version_satisfies(
+            requirement.get("client_version"), observation["client_version_observed"]):
+        return False
     if "test_ids" in requirement:
         expected_identity["test_ids"] = requirement["test_ids"]
     if requirement.get("licensed"):
@@ -930,6 +948,15 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
                     f"{(observation_key, producer, str(path))}"
                 )
             requirement = requirement_by_key[observation_key]
+            if "client_driver" in requirement and observation.get("client_driver") != requirement["client_driver"]:
+                raise ValueError(f"{path}: observation client_driver differs from governed requirement")
+            if "client_driver" in observation and observation.get("client_driver") != requirement.get("client_driver"):
+                raise ValueError(f"{path}: observation client_driver differs from governed requirement")
+            observed_version = observation.get("client_version_observed")
+            if observed_version is not None and not _client_version_satisfies(requirement["client_version"], observed_version):
+                raise ValueError(f"{path}: observed client version does not satisfy requirement")
+            if (observation.get("result") != "skip" and re.fullmatch(r"(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.x", requirement["client_version"]) and observed_version is None):
+                raise ValueError(f"{path}: release-line client version requires observed version")
             if str(requirement.get("client_lane", "")).startswith("grpc-"):
                 measured = observation.get("client_package_digest")
                 unexecuted = observation.get("result") == "skip" and observation.get("evidence_receipt") is None
@@ -1147,6 +1174,8 @@ def build_ledger(requirements_revision: str, requirements_source_revision: str, 
             observation = matches[0][2]
             cell.update({field: observation[field] for field in OBSERVATION_FIELDS})
             cell["budget_observations"] = observation.get("budget_observations")
+            if "client_version_observed" in observation:
+                cell["client_version_observed"] = observation["client_version_observed"]
             if observation.get("client_package") is not None:
                 cell["client_package"] = observation["client_package"]
         else:
