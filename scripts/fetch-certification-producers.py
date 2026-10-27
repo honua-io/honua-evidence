@@ -349,6 +349,31 @@ def validate_candidate_tag_fragment(payload: dict[str, Any], run: dict[str, Any]
         raise ValueError("Candidate-tag fragment has no executed receipt with authenticated producer identity.")
 
 
+def validate_harness_binding(payload: dict[str, Any], run: dict[str, Any]) -> None:
+    """Ruling sdk-harness-trunk-pinned-package-2026-10-27: the run is the trunk HARNESS.
+
+    The fragment's producer_source_sha stays the published package source pin (checked by
+    validate_fragment_producer); every executed receipt must also name, inside its evidence
+    digest, the exact harness commit GitHub ran."""
+    head = run.get("head_sha")
+    if not isinstance(head, str) or not SHA_RE.fullmatch(head):
+        raise ValueError("Harness run has no exact head_sha.")
+    for index, observation in enumerate(payload.get("observations", [])):
+        receipt = observation.get("evidence_receipt")
+        if receipt is None and observation.get("result") == "skip":
+            continue
+        identity = receipt.get("identity") if isinstance(receipt, dict) else None
+        if not isinstance(identity, dict):
+            raise ValueError(
+                f"Harness-bound observation {index} is executed but carries no receipt identity."
+            )
+        if identity.get("harness_commit") != head:
+            raise ValueError(
+                f"Harness-bound observation {index} receipt harness_commit "
+                f"{identity.get('harness_commit')!r} does not match the run head {head}."
+            )
+
+
 def trusted_run(run: dict[str, Any], artifact: dict[str, Any], source: dict[str, Any],
                 *, candidate_tag_verified: bool = False) -> bool:
     repository = source["repository"]
@@ -622,7 +647,7 @@ def load_registry(path: Path) -> dict[str, Any]:
             "artifact_name_regex", "fragment_globs", "trusted_branches",
             "trusted_events", "max_artifacts",
             "max_candidates", "required", "accepted_conclusions",
-            "source_revision_key",
+            "source_revision_key", "harness_revision_key",
             "implementation_issue",
             "normalizer", "related_issues", "candidate_tag_dispatch_title",
         }
@@ -703,6 +728,18 @@ def load_registry(path: Path) -> dict[str, Any]:
                 f"Producer {producer!r} must declare source_revision_key so its harvest is "
                 f"pinned to the governed denominator."
             )
+        if "harness_revision_key" in source:
+            harness_revision_key = source["harness_revision_key"]
+            if not (
+                isinstance(harness_revision_key, str)
+                and harness_revision_key
+                and harness_revision_key != source_revision_key
+                and source.get("normalizer") is None
+            ):
+                raise ValueError(
+                    f"Producer {producer!r} has invalid harness_revision_key: it must name a governed "
+                    f"source revision other than source_revision_key, without a normalizer."
+                )
         implementation_issue = source.get("implementation_issue")
         if implementation_issue is not None and not (
             isinstance(implementation_issue, str)
@@ -748,17 +785,28 @@ def fetch(registry_path: Path, output: Path, token: str, pins: dict[str, str],
                 f"which the governed denominator does not define."
             )
         pinned_sha = pins[revision_key]
+        # The run is looked up at the harness pin when the producer and the catalog both declare
+        # one. A catalog that predates the harness pin keeps the published-pin lookup unchanged.
+        harness_key = source.get("harness_revision_key")
+        harness_sha = pins.get(harness_key) if harness_key is not None else None
+        if harness_key is not None and harness_sha is None:
+            print(
+                f"::notice::Certification producer {source['producer']!r} declares harness_revision_key "
+                f"{harness_key!r}, which the governed denominator does not define; harvesting at the "
+                f"published {revision_key} pin."
+            )
+        run_sha = harness_sha or pinned_sha
         producer_fragment_count = 0
         usable_artifact_count = 0
         producer_dir = output / safe_name(source["producer"])
         for run in list_runs_at_revision(
-            repository, source["workflow_path"], pinned_sha, token
+            repository, source["workflow_path"], run_sha, token
         ):
             if usable_artifact_count >= int(source.get("max_artifacts", 10)):
                 break
             tag_verified = False
             if run.get("head_branch") not in source["trusted_branches"]:
-                tag_verified = verified_candidate_tag(run, source, pinned_sha, token)
+                tag_verified = verified_candidate_tag(run, source, run_sha, token)
                 if not tag_verified:
                     continue
             candidates = select_artifacts(
@@ -774,8 +822,8 @@ def fetch(registry_path: Path, output: Path, token: str, pins: dict[str, str],
                     continue
                 # Defence in depth: trusted_run already ties the artifact to this
                 # run, and the run was addressed by revision -- never accept a
-                # fragment whose provenance is not the pin.
-                if run.get("head_sha") != pinned_sha:
+                # fragment whose provenance is not the pin (the harness pin when bound).
+                if run.get("head_sha") != run_sha:
                     continue
                 archive = request_bytes(
                     artifact["archive_download_url"], token, "application/vnd.github+json"
@@ -808,8 +856,11 @@ def fetch(registry_path: Path, output: Path, token: str, pins: dict[str, str],
                         # Keep looking; an older candidate cannot consume the usable limit.
                         continue
                     validate_fragment_producer(
-                        payload, source["producer"], run["head_sha"], repository
+                        payload, source["producer"],
+                        pinned_sha if harness_sha else run["head_sha"], repository,
                     )
+                    if harness_sha:
+                        validate_harness_binding(payload, run)
                     if tag_verified:
                         validate_candidate_tag_fragment(payload, run, source, candidate)
                     destination = (
@@ -829,6 +880,8 @@ def fetch(registry_path: Path, output: Path, token: str, pins: dict[str, str],
                         "created_at": artifact.get("created_at"), "member": member,
                         "destination": destination.as_posix(),
                     })
+                    if harness_sha:
+                        manifest[-1].update(harness_revision_key=harness_key, harness_source_sha=harness_sha)
                     producer_fragment_count += 1
                     artifact_usable = True
                 if artifact_usable:
@@ -840,7 +893,8 @@ def fetch(registry_path: Path, output: Path, token: str, pins: dict[str, str],
             if source.get("required", False):
                 raise ValueError(
                     f"Required certification producer {source['producer']!r} has no normalized "
-                    f"fragments at pinned {revision_key} revision {pinned_sha}."
+                    f"fragments at pinned {revision_key} revision {pinned_sha}"
+                    + (f" (harness {harness_key} revision {harness_sha})." if harness_sha else ".")
                 )
             gaps.append({
                 "producer": source["producer"], "repository": repository,
@@ -848,6 +902,8 @@ def fetch(registry_path: Path, output: Path, token: str, pins: dict[str, str],
                 "source_revision_key": revision_key, "pinned_source_sha": pinned_sha,
                 "reason": "no trusted producer run with normalized fragments at the pinned revision",
             })
+            if harness_sha:
+                gaps[-1].update(harness_revision_key=harness_key, harness_source_sha=harness_sha)
             print(
                 f"::warning::Certification producer {source['producer']!r} has no evidence at pinned "
                 f"{revision_key} revision {pinned_sha}; recording a gap."

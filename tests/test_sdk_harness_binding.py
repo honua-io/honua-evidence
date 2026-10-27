@@ -21,7 +21,7 @@ from test_aggregate_certification import (
 )
 from test_dotnet_package_identity import DIGEST as NUPKG_DIGEST, PIN, dotnet_observation, dotnet_requirement, ledger
 
-HARNESS_SHA = "9" * 40
+HARNESS_SHA = "9abcdef0" * 5
 REGISTRY = Path(__file__).resolve().parents[1] / "config/protocol-certification-producers.v1.json"
 
 
@@ -49,9 +49,10 @@ class HarnessRegistryTests(unittest.TestCase):
                     MODULE.load_registry(registry)
         with tempfile.TemporaryDirectory() as directory:
             registry = Path(directory) / "registry.json"
-            registry.write_text(json.dumps({"schema": MODULE.REGISTRY_SCHEMA, "sources": [
-                {**base, "normalizer": "client-interop-cert-v1", "candidate_tag_dispatch_title": None}]}))
-            with self.assertRaises(ValueError):
+            interop = {**base, "normalizer": "client-interop-cert-v1"}
+            interop.pop("candidate_tag_dispatch_title")
+            registry.write_text(json.dumps({"schema": MODULE.REGISTRY_SCHEMA, "sources": [interop]}))
+            with self.assertRaisesRegex(ValueError, "harness_revision_key"):
                 MODULE.load_registry(registry)
 
 
@@ -146,7 +147,7 @@ class HarnessFetchTests(unittest.TestCase):
 
     def test_executed_observation_without_receipt_is_refused(self):
         self.payload["observations"][0]["evidence_receipt"] = None
-        with self.assertRaisesRegex(ValueError, "harness"):
+        with self.assertRaisesRegex(ValueError, "(?i)harness"):
             self.drive()
 
     def test_run_or_tag_off_the_harness_pin_is_refused(self):
