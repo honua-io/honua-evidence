@@ -3,76 +3,20 @@
     "@honua/sdk-js": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 45,
-      "required": 157,
-      "required_addressable": 157,
-      "skipped": 112
-    },
-    "ArcGIS API for Python": {
-      "failed": 0,
-      "not_addressable": 0,
       "passed": 0,
-      "required": 255,
-      "required_addressable": 255,
-      "skipped": 255
-    },
-    "ArcGIS Maps SDK for .NET": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 255,
-      "required_addressable": 255,
-      "skipped": 255
-    },
-    "ArcGIS Pro": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 2,
-      "required_addressable": 2,
-      "skipped": 2
-    },
-    "ArcGIS Pro/arcpy": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 255,
-      "required_addressable": 255,
-      "skipped": 255
-    },
-    "ArcGIS REST contract client": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 2,
-      "required_addressable": 2,
-      "skipped": 2
-    },
-    "ArcGIS REST protocol client": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 255,
-      "required_addressable": 255,
-      "skipped": 255
+      "required": 130,
+      "required_addressable": 130,
+      "skipped": 130
     },
     "CesiumJS": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 5,
-      "required_addressable": 5,
-      "skipped": 5
+      "required": 4,
+      "required_addressable": 4,
+      "skipped": 4
     },
     "Dask": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
-    },
-    "FROST-Client": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
@@ -84,41 +28,41 @@
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 8,
-      "required_addressable": 8,
-      "skipped": 8
+      "required": 7,
+      "required_addressable": 7,
+      "skipped": 7
     },
     "GDAL/OGR": {
       "failed": 0,
-      "not_addressable": 0,
+      "not_addressable": 2,
       "passed": 0,
       "required": 11,
-      "required_addressable": 11,
-      "skipped": 11
+      "required_addressable": 9,
+      "skipped": 9
     },
     "Generated gRPC .NET client": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 80,
-      "required_addressable": 80,
-      "skipped": 80
+      "required": 14,
+      "required_addressable": 14,
+      "skipped": 14
     },
     "Generated gRPC Python client": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 80,
-      "required_addressable": 80,
-      "skipped": 80
+      "required": 14,
+      "required_addressable": 14,
+      "skipped": 14
     },
     "Generated gRPC TypeScript client": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 80,
-      "required_addressable": 80,
-      "skipped": 80
+      "required": 14,
+      "required_addressable": 14,
+      "skipped": 14
     },
     "GeoPandas": {
       "failed": 0,
@@ -127,6 +71,22 @@
       "required": 2,
       "required_addressable": 2,
       "skipped": 2
+    },
+    "GeoServices REST contract client": {
+      "failed": 0,
+      "not_addressable": 0,
+      "passed": 0,
+      "required": 2,
+      "required_addressable": 2,
+      "skipped": 2
+    },
+    "GeoServices REST protocol client": {
+      "failed": 0,
+      "not_addressable": 0,
+      "passed": 0,
+      "required": 255,
+      "required_addressable": 255,
+      "skipped": 255
     },
     "Honua CLI": {
       "failed": 0,
@@ -137,46 +97,30 @@
       "skipped": 5
     },
     "Honua SDK .NET": {
-      "failed": 4,
+      "failed": 0,
       "not_addressable": 0,
-      "passed": 18,
-      "required": 349,
-      "required_addressable": 349,
-      "skipped": 327
+      "passed": 0,
+      "required": 356,
+      "required_addressable": 356,
+      "skipped": 356
     },
     "Honua SDK JavaScript": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 8,
-      "required_addressable": 8,
-      "skipped": 8
+      "required": 7,
+      "required_addressable": 7,
+      "skipped": 7
     },
     "Honua SDK Python": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 10,
-      "required": 84,
-      "required_addressable": 84,
-      "skipped": 74
+      "passed": 0,
+      "required": 71,
+      "required_addressable": 71,
+      "skipped": 71
     },
     "Honua server public protocol integration harness": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 32,
-      "required_addressable": 32,
-      "skipped": 32
-    },
-    "IfcOpenShell": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
-    },
-    "MCP Inspector": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
@@ -184,13 +128,21 @@
       "required_addressable": 42,
       "skipped": 42
     },
+    "MCP Inspector": {
+      "failed": 0,
+      "not_addressable": 0,
+      "passed": 0,
+      "required": 41,
+      "required_addressable": 41,
+      "skipped": 41
+    },
     "MapLibre GL JS": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 10,
-      "required_addressable": 10,
-      "skipped": 10
+      "required": 9,
+      "required_addressable": 9,
+      "skipped": 9
     },
     "Microsoft Excel": {
       "failed": 0,
@@ -220,25 +172,25 @@
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 36,
-      "required_addressable": 36,
-      "skipped": 36
+      "required": 32,
+      "required_addressable": 32,
+      "skipped": 32
     },
     "OWSLib": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 6,
-      "required_addressable": 6,
-      "skipped": 6
+      "required": 4,
+      "required_addressable": 4,
+      "skipped": 4
     },
     "Official MCP TypeScript SDK": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 42,
-      "required_addressable": 42,
-      "skipped": 42
+      "required": 41,
+      "required_addressable": 41,
+      "skipped": 41
     },
     "OpenID Foundation Conformance Suite": {
       "failed": 0,
@@ -260,9 +212,9 @@
       "failed": 0,
       "not_addressable": 1,
       "passed": 0,
-      "required": 2,
-      "required_addressable": 1,
-      "skipped": 1
+      "required": 1,
+      "required_addressable": 0,
+      "skipped": 0
     },
     "PMTiles-browser-viewer": {
       "failed": 0,
@@ -316,9 +268,25 @@
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 23,
-      "required_addressable": 23,
-      "skipped": 23
+      "required": 22,
+      "required_addressable": 22,
+      "skipped": 22
+    },
+    "QGIS/pyqgis": {
+      "failed": 0,
+      "not_addressable": 389,
+      "passed": 0,
+      "required": 725,
+      "required_addressable": 336,
+      "skipped": 336
+    },
+    "QGIS/qgis-ui": {
+      "failed": 0,
+      "not_addressable": 0,
+      "passed": 0,
+      "required": 55,
+      "required_addressable": 55,
+      "skipped": 55
     },
     "Rasterio": {
       "failed": 0,
@@ -451,28 +419,28 @@
   },
   "by_required_tier": {
     "nightly": {
-      "failed": 4,
-      "not_addressable": 0,
-      "passed": 50,
-      "required": 2091,
-      "required_addressable": 2091,
-      "skipped": 2037
+      "failed": 0,
+      "not_addressable": 326,
+      "passed": 0,
+      "required": 1768,
+      "required_addressable": 1442,
+      "skipped": 1442
     },
     "pr": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 23,
-      "required": 23,
-      "required_addressable": 23,
-      "skipped": 0
+      "passed": 0,
+      "required": 22,
+      "required_addressable": 22,
+      "skipped": 22
     },
     "release": {
       "failed": 0,
-      "not_addressable": 3,
+      "not_addressable": 68,
       "passed": 0,
-      "required": 5,
-      "required_addressable": 2,
-      "skipped": 2
+      "required": 105,
+      "required_addressable": 37,
+      "skipped": 37
     }
   },
   "by_surface": {
@@ -487,18 +455,18 @@
     "abstractions": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 1,
-      "required": 25,
-      "required_addressable": 25,
-      "skipped": 24
+      "passed": 0,
+      "required": 26,
+      "required_addressable": 26,
+      "skipped": 26
     },
     "admin": {
-      "failed": 2,
+      "failed": 0,
       "not_addressable": 0,
-      "passed": 2,
-      "required": 100,
-      "required_addressable": 100,
-      "skipped": 96
+      "passed": 0,
+      "required": 113,
+      "required_addressable": 113,
+      "skipped": 113
     },
     "admin-api": {
       "failed": 0,
@@ -508,6 +476,14 @@
       "required_addressable": 1,
       "skipped": 1
     },
+    "admin-discovery": {
+      "failed": 0,
+      "not_addressable": 16,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 0,
+      "skipped": 0
+    },
     "analysis-content": {
       "failed": 0,
       "not_addressable": 0,
@@ -515,6 +491,46 @@
       "required": 6,
       "required_addressable": 6,
       "skipped": 6
+    },
+    "attachment-edit": {
+      "failed": 0,
+      "not_addressable": 1,
+      "passed": 0,
+      "required": 1,
+      "required_addressable": 0,
+      "skipped": 0
+    },
+    "auth": {
+      "failed": 0,
+      "not_addressable": 0,
+      "passed": 0,
+      "required": 3,
+      "required_addressable": 3,
+      "skipped": 3
+    },
+    "auth-api-key": {
+      "failed": 0,
+      "not_addressable": 14,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 2,
+      "skipped": 2
+    },
+    "auth-oauth2": {
+      "failed": 0,
+      "not_addressable": 14,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 2,
+      "skipped": 2
+    },
+    "auth-token": {
+      "failed": 0,
+      "not_addressable": 14,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 2,
+      "skipped": 2
     },
     "catalogs": {
       "failed": 0,
@@ -532,6 +548,14 @@
       "required_addressable": 3,
       "skipped": 3
     },
+    "cog-range": {
+      "failed": 0,
+      "not_addressable": 2,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 14,
+      "skipped": 14
+    },
     "consoleshare": {
       "failed": 0,
       "not_addressable": 0,
@@ -544,9 +568,9 @@
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 3,
-      "required_addressable": 3,
-      "skipped": 3
+      "required": 2,
+      "required_addressable": 2,
+      "skipped": 2
     },
     "copc": {
       "failed": 0,
@@ -568,17 +592,17 @@
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 259,
-      "required_addressable": 259,
-      "skipped": 259
+      "required": 83,
+      "required_addressable": 83,
+      "skipped": 83
     },
     "featureserver": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 4,
-      "required": 13,
-      "required_addressable": 13,
-      "skipped": 9
+      "passed": 0,
+      "required": 12,
+      "required_addressable": 12,
+      "skipped": 12
     },
     "flatgeobuf": {
       "failed": 0,
@@ -588,13 +612,53 @@
       "required_addressable": 4,
       "skipped": 4
     },
+    "fs-attachments": {
+      "failed": 0,
+      "not_addressable": 4,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 12,
+      "skipped": 12
+    },
+    "fs-edit": {
+      "failed": 0,
+      "not_addressable": 3,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 13,
+      "skipped": 13
+    },
+    "fs-metadata": {
+      "failed": 0,
+      "not_addressable": 3,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 13,
+      "skipped": 13
+    },
+    "fs-query": {
+      "failed": 0,
+      "not_addressable": 2,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 14,
+      "skipped": 14
+    },
+    "fs-replica-sync": {
+      "failed": 0,
+      "not_addressable": 16,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 0,
+      "skipped": 0
+    },
     "geocode-server": {
       "failed": 0,
-      "not_addressable": 0,
+      "not_addressable": 16,
       "passed": 0,
-      "required": 80,
-      "required_addressable": 80,
-      "skipped": 80
+      "required": 36,
+      "required_addressable": 20,
+      "skipped": 20
     },
     "geocoding": {
       "failed": 0,
@@ -606,19 +670,19 @@
     },
     "geometry-service": {
       "failed": 0,
-      "not_addressable": 0,
+      "not_addressable": 16,
       "passed": 0,
-      "required": 124,
-      "required_addressable": 124,
-      "skipped": 124
+      "required": 47,
+      "required_addressable": 31,
+      "skipped": 31
     },
     "geometryserver": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 2,
+      "passed": 0,
       "required": 2,
       "required_addressable": 2,
-      "skipped": 0
+      "skipped": 2
     },
     "geoparquet": {
       "failed": 0,
@@ -628,45 +692,77 @@
       "required_addressable": 3,
       "skipped": 3
     },
+    "geoprocessing": {
+      "failed": 0,
+      "not_addressable": 1,
+      "passed": 0,
+      "required": 1,
+      "required_addressable": 0,
+      "skipped": 0
+    },
     "geoservices": {
-      "failed": 2,
+      "failed": 0,
       "not_addressable": 0,
-      "passed": 5,
-      "required": 30,
-      "required_addressable": 30,
-      "skipped": 23
+      "passed": 0,
+      "required": 34,
+      "required_addressable": 34,
+      "skipped": 34
     },
     "geoservices-catalog": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 4,
-      "required_addressable": 4,
-      "skipped": 4
+      "required": 1,
+      "required_addressable": 1,
+      "skipped": 1
     },
     "geoservices-featureserver": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 6,
-      "required": 6,
-      "required_addressable": 6,
-      "skipped": 0
+      "passed": 0,
+      "required": 7,
+      "required_addressable": 7,
+      "skipped": 7
     },
     "geoservices-root": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 1,
+      "passed": 0,
       "required": 1,
       "required_addressable": 1,
+      "skipped": 1
+    },
+    "gp-printing": {
+      "failed": 0,
+      "not_addressable": 16,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 0,
+      "skipped": 0
+    },
+    "gp-rest": {
+      "failed": 0,
+      "not_addressable": 16,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 0,
       "skipped": 0
     },
     "gp-server": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 56,
-      "required_addressable": 56,
-      "skipped": 56
+      "required": 14,
+      "required_addressable": 14,
+      "skipped": 14
+    },
+    "gp-soap": {
+      "failed": 0,
+      "not_addressable": 16,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 0,
+      "skipped": 0
     },
     "gpserver": {
       "failed": 0,
@@ -679,20 +775,60 @@
     "grpc": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 1,
-      "required": 251,
-      "required_addressable": 251,
-      "skipped": 250
+      "passed": 0,
+      "required": 53,
+      "required_addressable": 53,
+      "skipped": 53
+    },
+    "grpc-feature-service": {
+      "failed": 0,
+      "not_addressable": 0,
+      "passed": 0,
+      "required": 2,
+      "required_addressable": 2,
+      "skipped": 2
     },
     "grpc-web": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 4,
+      "passed": 0,
       "required": 4,
       "required_addressable": 4,
+      "skipped": 4
+    },
+    "gs-rest-catalog": {
+      "failed": 0,
+      "not_addressable": 9,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 7,
+      "skipped": 7
+    },
+    "gs-soap-catalog": {
+      "failed": 0,
+      "not_addressable": 16,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 0,
       "skipped": 0
     },
     "hdf5-netcdf": {
+      "failed": 0,
+      "not_addressable": 0,
+      "passed": 0,
+      "required": 5,
+      "required_addressable": 5,
+      "skipped": 5
+    },
+    "honua-native-other": {
+      "failed": 0,
+      "not_addressable": 16,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 0,
+      "skipped": 0
+    },
+    "i3s": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
@@ -728,17 +864,9 @@
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 284,
-      "required_addressable": 284,
-      "skipped": 284
-    },
-    "imageserver": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 2,
-      "required": 2,
-      "required_addressable": 2,
-      "skipped": 0
+      "required": 71,
+      "required_addressable": 71,
+      "skipped": 71
     },
     "kerchunk": {
       "failed": 0,
@@ -752,25 +880,65 @@
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 116,
-      "required_addressable": 116,
-      "skipped": 116
+      "required": 34,
+      "required_addressable": 34,
+      "skipped": 34
     },
     "mapserver": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 4,
-      "required": 8,
-      "required_addressable": 8,
-      "skipped": 4
+      "passed": 0,
+      "required": 7,
+      "required_addressable": 7,
+      "skipped": 7
     },
     "mcp": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 84,
-      "required_addressable": 84,
-      "skipped": 84
+      "required": 82,
+      "required_addressable": 82,
+      "skipped": 82
+    },
+    "ms-export": {
+      "failed": 0,
+      "not_addressable": 3,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 13,
+      "skipped": 13
+    },
+    "ms-identify-find-query": {
+      "failed": 0,
+      "not_addressable": 2,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 14,
+      "skipped": 14
+    },
+    "ms-legend": {
+      "failed": 0,
+      "not_addressable": 3,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 13,
+      "skipped": 13
+    },
+    "ms-metadata": {
+      "failed": 0,
+      "not_addressable": 3,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 13,
+      "skipped": 13
+    },
+    "ms-tiles": {
+      "failed": 0,
+      "not_addressable": 3,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 13,
+      "skipped": 13
     },
     "mvt": {
       "failed": 0,
@@ -784,49 +952,49 @@
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 28,
-      "required_addressable": 28,
-      "skipped": 28
+      "required": 7,
+      "required_addressable": 7,
+      "skipped": 7
+    },
+    "na-solve": {
+      "failed": 0,
+      "not_addressable": 16,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 0,
+      "skipped": 0
     },
     "odata": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 2,
+      "passed": 0,
       "required": 6,
       "required_addressable": 6,
-      "skipped": 4
+      "skipped": 6
+    },
+    "odata-v4": {
+      "failed": 0,
+      "not_addressable": 16,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 0,
+      "skipped": 0
     },
     "ogc": {
       "failed": 0,
-      "not_addressable": 0,
+      "not_addressable": 2,
       "passed": 0,
-      "required": 44,
+      "required": 46,
       "required_addressable": 44,
       "skipped": 44
-    },
-    "ogc-api-coverages": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 3,
-      "required_addressable": 3,
-      "skipped": 3
-    },
-    "ogc-api-edr": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 8,
-      "required_addressable": 8,
-      "skipped": 8
     },
     "ogc-api-features": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 2,
-      "required": 5,
-      "required_addressable": 5,
-      "skipped": 3
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 16,
+      "skipped": 16
     },
     "ogc-api-features-1-0": {
       "failed": 0,
@@ -840,17 +1008,17 @@
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 3,
-      "required_addressable": 3,
-      "skipped": 3
+      "required": 8,
+      "required_addressable": 8,
+      "skipped": 8
     },
     "ogc-api-processes": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 1,
+      "passed": 0,
       "required": 3,
       "required_addressable": 3,
-      "skipped": 2
+      "skipped": 3
     },
     "ogc-api-records": {
       "failed": 0,
@@ -872,9 +1040,9 @@
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 3,
-      "required_addressable": 3,
-      "skipped": 3
+      "required": 8,
+      "required_addressable": 8,
+      "skipped": 8
     },
     "ogc-api-tiles-1-0": {
       "failed": 0,
@@ -884,61 +1052,157 @@
       "required_addressable": 1,
       "skipped": 1
     },
-    "ogc-coverages": {
+    "ogc-csw": {
       "failed": 0,
-      "not_addressable": 0,
+      "not_addressable": 16,
       "passed": 0,
-      "required": 3,
-      "required_addressable": 3,
-      "skipped": 3
+      "required": 16,
+      "required_addressable": 0,
+      "skipped": 0
     },
     "ogc-features": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 4,
+      "passed": 0,
       "required": 8,
       "required_addressable": 8,
-      "skipped": 4
+      "skipped": 8
     },
     "ogc-maps": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 3,
+      "passed": 0,
       "required": 5,
       "required_addressable": 5,
-      "skipped": 2
+      "skipped": 5
     },
     "ogc-processes": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 3,
+      "passed": 0,
       "required": 4,
       "required_addressable": 4,
-      "skipped": 1
+      "skipped": 4
     },
     "ogc-records": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 5,
+      "passed": 0,
       "required": 5,
       "required_addressable": 5,
-      "skipped": 0
+      "skipped": 5
     },
     "ogc-tiles": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 5,
+      "passed": 0,
       "required": 6,
       "required_addressable": 6,
-      "skipped": 1
+      "skipped": 6
+    },
+    "ogc-wcs": {
+      "failed": 0,
+      "not_addressable": 2,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 14,
+      "skipped": 14
+    },
+    "ogc-wfs-read": {
+      "failed": 0,
+      "not_addressable": 2,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 14,
+      "skipped": 14
+    },
+    "ogc-wfs-t": {
+      "failed": 0,
+      "not_addressable": 3,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 13,
+      "skipped": 13
+    },
+    "ogc-wms": {
+      "failed": 0,
+      "not_addressable": 3,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 13,
+      "skipped": 13
+    },
+    "ogc-wps": {
+      "failed": 0,
+      "not_addressable": 16,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 0,
+      "skipped": 0
+    },
+    "ogcapi-features-read": {
+      "failed": 0,
+      "not_addressable": 2,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 14,
+      "skipped": 14
+    },
+    "ogcapi-features-transactions": {
+      "failed": 0,
+      "not_addressable": 3,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 13,
+      "skipped": 13
+    },
+    "ogcapi-maps": {
+      "failed": 0,
+      "not_addressable": 3,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 13,
+      "skipped": 13
+    },
+    "ogcapi-processes": {
+      "failed": 0,
+      "not_addressable": 16,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 0,
+      "skipped": 0
+    },
+    "ogcapi-records": {
+      "failed": 0,
+      "not_addressable": 2,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 14,
+      "skipped": 14
+    },
+    "ogcapi-styles": {
+      "failed": 0,
+      "not_addressable": 16,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 0,
+      "skipped": 0
+    },
+    "ogcapi-tiles": {
+      "failed": 0,
+      "not_addressable": 3,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 13,
+      "skipped": 13
     },
     "ogcfeatures": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 9,
+      "passed": 0,
       "required": 25,
       "required_addressable": 25,
-      "skipped": 16
+      "skipped": 25
     },
     "ops-health": {
       "failed": 0,
@@ -964,13 +1228,29 @@
       "required_addressable": 3,
       "skipped": 3
     },
+    "portal-content": {
+      "failed": 0,
+      "not_addressable": 8,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 8,
+      "skipped": 8
+    },
+    "portal-self": {
+      "failed": 0,
+      "not_addressable": 10,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 6,
+      "skipped": 6
+    },
     "portal-sharing": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 48,
-      "required_addressable": 48,
-      "skipped": 48
+      "required": 12,
+      "required_addressable": 12,
+      "skipped": 12
     },
     "printing-tools": {
       "failed": 0,
@@ -1028,21 +1308,13 @@
       "required_addressable": 1,
       "skipped": 1
     },
-    "scene-bim-ingest": {
+    "scene-i3s": {
       "failed": 0,
-      "not_addressable": 0,
+      "not_addressable": 16,
       "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
-    },
-    "scene-pointcloud-ingest": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
+      "required": 16,
+      "required_addressable": 0,
+      "skipped": 0
     },
     "sdk-dotnet:admin-control-plane": {
       "failed": 0,
@@ -1061,30 +1333,6 @@
       "skipped": 2
     },
     "sdk-dotnet:ai-spec-artifacts": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
-    },
-    "sdk-dotnet:alerts-dwell": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
-    },
-    "sdk-dotnet:alerts-enter-exit": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
-    },
-    "sdk-dotnet:alerts-threshold": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
@@ -1132,14 +1380,6 @@
       "required_addressable": 5,
       "skipped": 5
     },
-    "sdk-dotnet:fieldops-offline-sync": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 3,
-      "required_addressable": 3,
-      "skipped": 3
-    },
     "sdk-dotnet:geocoding-batch": {
       "failed": 0,
       "not_addressable": 0,
@@ -1165,14 +1405,6 @@
       "skipped": 1
     },
     "sdk-dotnet:identity-oidc": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 2,
-      "required_addressable": 2,
-      "skipped": 2
-    },
-    "sdk-dotnet:identity-oidc-multi-provider": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
@@ -1220,14 +1452,6 @@
       "required_addressable": 1,
       "skipped": 1
     },
-    "sdk-dotnet:plugin-sdk": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
-    },
     "sdk-dotnet:process-geoprocessing": {
       "failed": 0,
       "not_addressable": 0,
@@ -1245,22 +1469,6 @@
       "skipped": 1
     },
     "sdk-dotnet:routing-solve": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
-    },
-    "sdk-dotnet:scene-catalog": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
-    },
-    "sdk-dotnet:serve-3d-tiles-scene": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
@@ -1299,14 +1507,6 @@
       "required": 1,
       "required_addressable": 1,
       "skipped": 1
-    },
-    "sdk-dotnet:serve-geoservices-imageserver": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 2,
-      "required_addressable": 2,
-      "skipped": 2
     },
     "sdk-dotnet:serve-i3s-scene": {
       "failed": 0,
@@ -1356,14 +1556,6 @@
       "required_addressable": 2,
       "skipped": 2
     },
-    "sdk-dotnet:styling-defaults": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
-    },
     "sdk-dotnet:styling-ogc-api-styles": {
       "failed": 0,
       "not_addressable": 0,
@@ -1371,22 +1563,6 @@
       "required": 1,
       "required_addressable": 1,
       "skipped": 1
-    },
-    "sdk-js:ai-agent-operations": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 3,
-      "required_addressable": 3,
-      "skipped": 3
-    },
-    "sdk-js:ai-approval-workflows": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 4,
-      "required_addressable": 4,
-      "skipped": 4
     },
     "sdk-js:ai-mcp-discovery": {
       "failed": 0,
@@ -1419,14 +1595,6 @@
       "required": 4,
       "required_addressable": 4,
       "skipped": 4
-    },
-    "sdk-js:fieldops-offline-sync": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 2,
-      "required_addressable": 2,
-      "skipped": 2
     },
     "sdk-js:geocoding-forward": {
       "failed": 0,
@@ -1476,21 +1644,13 @@
       "required_addressable": 1,
       "skipped": 1
     },
-    "sdk-js:plugin-sdk": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 3,
-      "required_addressable": 3,
-      "skipped": 3
-    },
     "sdk-js:process-geoprocessing": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 1,
-      "required_addressable": 1,
-      "skipped": 1
+      "required": 4,
+      "required_addressable": 4,
+      "skipped": 4
     },
     "sdk-js:raster-cloud-cog-serving": {
       "failed": 0,
@@ -1524,14 +1684,6 @@
       "required_addressable": 1,
       "skipped": 1
     },
-    "sdk-js:serve-geoservices-imageserver": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 5,
-      "required_addressable": 5,
-      "skipped": 5
-    },
     "sdk-js:serve-geoservices-mapserver": {
       "failed": 0,
       "not_addressable": 0,
@@ -1541,14 +1693,6 @@
       "skipped": 3
     },
     "sdk-js:serve-odata": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 3,
-      "required_addressable": 3,
-      "skipped": 3
-    },
-    "sdk-js:serve-ogc-api-coverages": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
@@ -1627,14 +1771,6 @@
       "required": 4,
       "required_addressable": 4,
       "skipped": 4
-    },
-    "sdk-js:serve-wmts": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 3,
-      "required_addressable": 3,
-      "skipped": 3
     },
     "sdk-js:streaming-feature-subscriptions": {
       "failed": 0,
@@ -1716,30 +1852,6 @@
       "required_addressable": 1,
       "skipped": 1
     },
-    "sdk-python:raster-temporal-mosaic": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 3,
-      "required_addressable": 3,
-      "skipped": 3
-    },
-    "sdk-python:scene-catalog": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 2,
-      "required_addressable": 2,
-      "skipped": 2
-    },
-    "sdk-python:serve-3d-tiles-scene": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 4,
-      "required_addressable": 4,
-      "skipped": 4
-    },
     "sdk-python:serve-elevation": {
       "failed": 0,
       "not_addressable": 0,
@@ -1757,14 +1869,6 @@
       "skipped": 3
     },
     "sdk-python:serve-geoservices-geometry-service": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 3,
-      "required_addressable": 3,
-      "skipped": 3
-    },
-    "sdk-python:serve-geoservices-imageserver": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
@@ -1797,14 +1901,6 @@
       "skipped": 2
     },
     "sdk-python:serve-odata": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 2,
-      "required_addressable": 2,
-      "skipped": 2
-    },
-    "sdk-python:serve-ogc-api-coverages": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
@@ -1868,14 +1964,6 @@
       "required_addressable": 2,
       "skipped": 2
     },
-    "sdk-python:serve-wmts": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 2,
-      "required_addressable": 2,
-      "skipped": 2
-    },
     "sdk-python:styling-ogc-api-styles": {
       "failed": 0,
       "not_addressable": 0,
@@ -1883,22 +1971,6 @@
       "required": 4,
       "required_addressable": 4,
       "skipped": 4
-    },
-    "sensorthings": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 2,
-      "required_addressable": 2,
-      "skipped": 2
-    },
-    "sensorthings-1.1": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 2,
-      "required_addressable": 2,
-      "skipped": 2
     },
     "spec": {
       "failed": 0,
@@ -1919,10 +1991,18 @@
     "stac": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 4,
+      "passed": 0,
       "required": 5,
       "required_addressable": 5,
-      "skipped": 1
+      "skipped": 5
+    },
+    "stac-api": {
+      "failed": 0,
+      "not_addressable": 2,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 14,
+      "skipped": 14
     },
     "stac-zarr": {
       "failed": 0,
@@ -1936,33 +2016,57 @@
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 17,
-      "required_addressable": 17,
-      "skipped": 17
+      "required": 20,
+      "required_addressable": 20,
+      "skipped": 20
+    },
+    "terrain-rgb": {
+      "failed": 0,
+      "not_addressable": 2,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 14,
+      "skipped": 14
     },
     "vector-tile-server": {
       "failed": 0,
-      "not_addressable": 0,
+      "not_addressable": 3,
       "passed": 0,
-      "required": 2,
-      "required_addressable": 2,
-      "skipped": 2
+      "required": 18,
+      "required_addressable": 15,
+      "skipped": 15
     },
-    "version-management-server": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 28,
-      "required_addressable": 28,
-      "skipped": 28
-    },
-    "wcs": {
+    "vector-tiles": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
       "required": 5,
       "required_addressable": 5,
       "skipped": 5
+    },
+    "version-management-server": {
+      "failed": 0,
+      "not_addressable": 0,
+      "passed": 0,
+      "required": 7,
+      "required_addressable": 7,
+      "skipped": 7
+    },
+    "versioned-edit": {
+      "failed": 0,
+      "not_addressable": 1,
+      "passed": 0,
+      "required": 1,
+      "required_addressable": 0,
+      "skipped": 0
+    },
+    "wcs": {
+      "failed": 0,
+      "not_addressable": 0,
+      "passed": 0,
+      "required": 10,
+      "required_addressable": 10,
+      "skipped": 10
     },
     "wcs-2-0": {
       "failed": 0,
@@ -1976,9 +2080,9 @@
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 7,
-      "required_addressable": 7,
-      "skipped": 7
+      "required": 13,
+      "required_addressable": 13,
+      "skipped": 13
     },
     "wfs-1-0": {
       "failed": 0,
@@ -2004,13 +2108,21 @@
       "required_addressable": 1,
       "skipped": 1
     },
+    "wfs-2.0": {
+      "failed": 0,
+      "not_addressable": 0,
+      "passed": 0,
+      "required": 1,
+      "required_addressable": 1,
+      "skipped": 1
+    },
     "wms": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 1,
-      "required": 7,
-      "required_addressable": 7,
-      "skipped": 6
+      "passed": 0,
+      "required": 12,
+      "required_addressable": 12,
+      "skipped": 12
     },
     "wms-1-3": {
       "failed": 0,
@@ -2020,21 +2132,29 @@
       "required_addressable": 1,
       "skipped": 1
     },
-    "wmts": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 2,
-      "required": 7,
-      "required_addressable": 7,
-      "skipped": 5
-    },
-    "wmts-1-0": {
+    "wps-2-0": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
       "required": 1,
       "required_addressable": 1,
       "skipped": 1
+    },
+    "wps-2.0.2": {
+      "failed": 0,
+      "not_addressable": 0,
+      "passed": 0,
+      "required": 5,
+      "required_addressable": 5,
+      "skipped": 5
+    },
+    "xyz-mvt": {
+      "failed": 0,
+      "not_addressable": 3,
+      "passed": 0,
+      "required": 16,
+      "required_addressable": 13,
+      "skipped": 13
     },
     "zarr": {
       "failed": 0,
@@ -2055,36 +2175,20 @@
       "skipped": 2
     },
     "local-docker": {
-      "failed": 4,
-      "not_addressable": 3,
-      "passed": 73,
-      "required": 1575,
-      "required_addressable": 1572,
-      "skipped": 1495
+      "failed": 0,
+      "not_addressable": 394,
+      "passed": 0,
+      "required": 1851,
+      "required_addressable": 1457,
+      "skipped": 1457
     },
     "source-test-host": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 32,
-      "required_addressable": 32,
-      "skipped": 32
-    },
-    "windows": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 255,
-      "required_addressable": 255,
-      "skipped": 255
-    },
-    "windows-licensed": {
-      "failed": 0,
-      "not_addressable": 0,
-      "passed": 0,
-      "required": 255,
-      "required_addressable": 255,
-      "skipped": 255
+      "required": 42,
+      "required_addressable": 42,
+      "skipped": 42
     }
   },
   "candidate": {
@@ -2094,48 +2198,20 @@
   },
   "canonical_client_operation_depth": {
     "@honua/sdk-js": {
-      "passed_operations": 45,
-      "required_operations": 157
-    },
-    "ArcGIS API for Python": {
       "passed_operations": 0,
-      "required_operations": 255
-    },
-    "ArcGIS Maps SDK for .NET": {
-      "passed_operations": 0,
-      "required_operations": 255
-    },
-    "ArcGIS Pro": {
-      "passed_operations": 0,
-      "required_operations": 2
-    },
-    "ArcGIS Pro/arcpy": {
-      "passed_operations": 0,
-      "required_operations": 255
-    },
-    "ArcGIS REST contract client": {
-      "passed_operations": 0,
-      "required_operations": 2
-    },
-    "ArcGIS REST protocol client": {
-      "passed_operations": 0,
-      "required_operations": 255
+      "required_operations": 130
     },
     "CesiumJS": {
       "passed_operations": 0,
-      "required_operations": 5
+      "required_operations": 4
     },
     "Dask": {
       "passed_operations": 0,
       "required_operations": 1
     },
-    "FROST-Client": {
-      "passed_operations": 0,
-      "required_operations": 1
-    },
     "GDAL": {
       "passed_operations": 0,
-      "required_operations": 8
+      "required_operations": 7
     },
     "GDAL/OGR": {
       "passed_operations": 0,
@@ -2143,51 +2219,55 @@
     },
     "Generated gRPC .NET client": {
       "passed_operations": 0,
-      "required_operations": 80
+      "required_operations": 14
     },
     "Generated gRPC Python client": {
       "passed_operations": 0,
-      "required_operations": 80
+      "required_operations": 14
     },
     "Generated gRPC TypeScript client": {
       "passed_operations": 0,
-      "required_operations": 80
+      "required_operations": 14
     },
     "GeoPandas": {
       "passed_operations": 0,
       "required_operations": 2
+    },
+    "GeoServices REST contract client": {
+      "passed_operations": 0,
+      "required_operations": 2
+    },
+    "GeoServices REST protocol client": {
+      "passed_operations": 0,
+      "required_operations": 255
     },
     "Honua CLI": {
       "passed_operations": 0,
       "required_operations": 5
     },
     "Honua SDK .NET": {
-      "passed_operations": 18,
-      "required_operations": 349
+      "passed_operations": 0,
+      "required_operations": 356
     },
     "Honua SDK JavaScript": {
       "passed_operations": 0,
-      "required_operations": 8
+      "required_operations": 7
     },
     "Honua SDK Python": {
-      "passed_operations": 10,
-      "required_operations": 84
+      "passed_operations": 0,
+      "required_operations": 71
     },
     "Honua server public protocol integration harness": {
       "passed_operations": 0,
-      "required_operations": 32
-    },
-    "IfcOpenShell": {
-      "passed_operations": 0,
-      "required_operations": 1
+      "required_operations": 42
     },
     "MCP Inspector": {
       "passed_operations": 0,
-      "required_operations": 42
+      "required_operations": 41
     },
     "MapLibre GL JS": {
       "passed_operations": 0,
-      "required_operations": 10
+      "required_operations": 9
     },
     "Microsoft Excel": {
       "passed_operations": 0,
@@ -2203,15 +2283,15 @@
     },
     "OGC CITE": {
       "passed_operations": 0,
-      "required_operations": 36
+      "required_operations": 32
     },
     "OWSLib": {
       "passed_operations": 0,
-      "required_operations": 6
+      "required_operations": 4
     },
     "Official MCP TypeScript SDK": {
       "passed_operations": 0,
-      "required_operations": 42
+      "required_operations": 41
     },
     "OpenID Foundation Conformance Suite": {
       "passed_operations": 0,
@@ -2223,7 +2303,7 @@
     },
     "PDAL": {
       "passed_operations": 0,
-      "required_operations": 2
+      "required_operations": 1
     },
     "PMTiles-browser-viewer": {
       "passed_operations": 0,
@@ -2251,7 +2331,15 @@
     },
     "QGIS": {
       "passed_operations": 0,
-      "required_operations": 23
+      "required_operations": 22
+    },
+    "QGIS/pyqgis": {
+      "passed_operations": 0,
+      "required_operations": 725
+    },
+    "QGIS/qgis-ui": {
+      "passed_operations": 0,
+      "required_operations": 55
     },
     "Rasterio": {
       "passed_operations": 0,
@@ -3443,98 +3531,106 @@
     "passing_required_tools": 0,
     "required_tools": 22
   },
-  "generated_at": "2026-08-24T05:39:45.336583Z",
+  "generated_at": "2026-10-31T23:08:43.795315Z",
   "overall": {
-    "failed": 4,
-    "not_addressable": 3,
-    "passed": 73,
-    "required": 2119,
-    "required_addressable": 2116,
-    "skipped": 2039
+    "failed": 0,
+    "not_addressable": 394,
+    "passed": 0,
+    "required": 1895,
+    "required_addressable": 1501,
+    "skipped": 1501
   },
   "requirements_complete": true,
-  "requirements_revision": "2026-08-21-complete.10",
-  "requirements_source_revision": "47ec70604bb0db43b03f32dac1b114f1154bc2ca",
+  "requirements_revision": "2026-10-31.1",
+  "requirements_source_revision": "4cc31863b62d3b20071628e0800dc908bbde366f",
   "scenario_facets": {
     "auth": {
       "failed": 0,
-      "not_addressable": 1,
-      "passed": 1,
-      "required": 1112,
-      "required_addressable": 1111,
-      "skipped": 1110
+      "not_addressable": 3,
+      "passed": 0,
+      "required": 809,
+      "required_addressable": 806,
+      "skipped": 806
     },
     "boundary": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 1,
-      "required": 14,
-      "required_addressable": 14,
-      "skipped": 13
+      "passed": 0,
+      "required": 9,
+      "required_addressable": 9,
+      "skipped": 9
     },
     "crs-axis": {
       "failed": 0,
-      "not_addressable": 0,
+      "not_addressable": 2,
       "passed": 0,
-      "required": 176,
-      "required_addressable": 176,
-      "skipped": 176
+      "required": 146,
+      "required_addressable": 144,
+      "skipped": 144
     },
     "limit": {
       "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 99,
-      "required_addressable": 99,
-      "skipped": 99
+      "required": 31,
+      "required_addressable": 31,
+      "skipped": 31
     },
     "media-schema": {
       "failed": 0,
-      "not_addressable": 0,
-      "passed": 48,
-      "required": 1804,
-      "required_addressable": 1804,
-      "skipped": 1756
+      "not_addressable": 2,
+      "passed": 0,
+      "required": 1022,
+      "required_addressable": 1020,
+      "skipped": 1020
     },
     "metadata": {
       "failed": 0,
       "not_addressable": 2,
-      "passed": 24,
-      "required": 90,
-      "required_addressable": 88,
-      "skipped": 64
+      "passed": 0,
+      "required": 79,
+      "required_addressable": 77,
+      "skipped": 77
     },
     "mutation": {
-      "failed": 2,
+      "failed": 0,
       "not_addressable": 0,
       "passed": 0,
-      "required": 90,
-      "required_addressable": 90,
-      "skipped": 88
+      "required": 106,
+      "required_addressable": 106,
+      "skipped": 106
     },
     "negative": {
       "failed": 0,
-      "not_addressable": 2,
-      "passed": 2,
-      "required": 426,
-      "required_addressable": 424,
-      "skipped": 422
+      "not_addressable": 4,
+      "passed": 0,
+      "required": 227,
+      "required_addressable": 223,
+      "skipped": 223
+    },
+    "not-client-addressable": {
+      "failed": 0,
+      "not_addressable": 389,
+      "passed": 0,
+      "required": 389,
+      "required_addressable": 0,
+      "skipped": 0
     },
     "pagination": {
       "failed": 0,
       "not_addressable": 0,
-      "passed": 9,
-      "required": 116,
-      "required_addressable": 116,
-      "skipped": 107
+      "passed": 0,
+      "required": 48,
+      "required_addressable": 48,
+      "skipped": 48
     },
     "positive": {
-      "failed": 2,
-      "not_addressable": 3,
-      "passed": 72,
-      "required": 2028,
-      "required_addressable": 2025,
-      "skipped": 1951
+      "failed": 0,
+      "not_addressable": 5,
+      "passed": 0,
+      "required": 1264,
+      "required_addressable": 1259,
+      "skipped": 1259
     },
     "range-efficiency": {
       "failed": 0,
@@ -3555,8 +3651,8 @@
   },
   "schema": "honua.protocol-certification-summary/v1",
   "supported_operation_coverage": {
-    "passed": 73,
-    "percent": 4.61,
-    "required": 1582
+    "passed": 0,
+    "percent": 0.0,
+    "required": 1330
   }
 }
