@@ -405,7 +405,6 @@ def test_every_registered_producer_declares_a_denominator_pin() -> None:
         "server-protocol-harness": "server-certification",
         "honua-server-client-interop": "server-certification",
         "honua-server-cite": "server-certification",
-        "honua-esri-compat": "esri-compat",
         "geospatial-grpc": "geospatial-grpc",
         "geospatial-mcp": "geospatial-mcp",
     }

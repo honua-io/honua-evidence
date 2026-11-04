@@ -75,13 +75,6 @@ class NightlyProducerRunIdentityTests(unittest.TestCase):
         ("MCP Inspector", "mcp-inspector", "honua-io/geospatial-mcp", "protocol-certification.yml"),
         ("Official MCP TypeScript SDK", "mcp-typescript-sdk", "honua-io/geospatial-mcp", "protocol-certification.yml"),
         ("Honua SDK .NET", "sdk-dotnet-certification", "honua-io/honua-sdk-dotnet", "sdk-certification.yml"),
-        ("ArcGIS REST protocol client", "raw-geoservices-feature-server", "honua-io/honua-esri-compat",
-         "esri-sdk-certification.yml"),
-        ("ArcGIS API for Python", "arcgis-python-image-server", "honua-io/honua-esri-compat",
-         "esri-sdk-certification.yml"),
-        ("ArcGIS Maps SDK for .NET", "esri-dotnet-map-server", "honua-io/honua-esri-compat",
-         "esri-sdk-certification.yml"),
-        ("ArcGIS Pro", "desktop-arcpy-ogc", "honua-io/honua-esri-compat", "esri-sdk-certification.yml"),
         ("GDAL", "gdal-cog", "honua-io/honua-server", "cng-conformance.yml"),
         ("zarr", "zarr-python", "honua-io/honua-server", "cng-conformance.yml"),
     ]
