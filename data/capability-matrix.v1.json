@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-11-04T16:56:15Z",
+  "generatedAt": "2026-11-04T18:31:31Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -28,52 +28,52 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-11-04T16:55:56Z",
+      "fetchedAt": "2026-11-04T18:31:08Z",
       "sourceVersion": "f2df08e118ad@2026-11-04T08:42:49Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-04T16:55:56Z",
+      "observedAt": "2026-11-04T18:31:08Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-11-04T16:55:57Z",
+      "fetchedAt": "2026-11-04T18:31:09Z",
       "sourceVersion": "f2df08e118ad@2026-11-04T08:42:49Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-04T16:55:57Z",
+      "observedAt": "2026-11-04T18:31:09Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-11-04T16:55:57Z",
-      "sourceVersion": "64173dd6a510@2026-10-24T17:09:44Z",
+      "fetchedAt": "2026-11-04T18:31:10Z",
+      "sourceVersion": "77aa010d0d71@2026-11-04T18:30:45Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-04T16:55:57Z",
+      "observedAt": "2026-11-04T18:31:10Z",
       "ageDays": 0,
-      "sourceAgeDays": 10,
+      "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-11-04T16:55:58Z",
+      "fetchedAt": "2026-11-04T18:31:11Z",
       "sourceVersion": "59b8be4ddb70@2026-10-30T20:47:14Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-04T16:55:58Z",
+      "observedAt": "2026-11-04T18:31:11Z",
       "ageDays": 0,
       "sourceAgeDays": 4,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-11-04T16:55:58Z",
+      "fetchedAt": "2026-11-04T18:31:11Z",
       "sourceVersion": "9792cb444e78@2026-10-06T07:53:39Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-04T16:55:58Z",
+      "observedAt": "2026-11-04T18:31:11Z",
       "ageDays": 0,
       "sourceAgeDays": 29,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-11-04T16:56:00Z",
+      "fetchedAt": "2026-11-04T18:31:13Z",
       "sourceVersion": "dfd9a694642a@2026-11-04T16:55:32Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-11-04T16:55:32Z",
@@ -82,16 +82,16 @@
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-11-04T16:56:15Z",
+      "fetchedAt": "2026-11-04T18:31:31Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-04T16:56:15Z",
+      "observedAt": "2026-11-04T18:31:31Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-11-04T16:56:01Z",
+      "fetchedAt": "2026-11-04T18:31:14Z",
       "sourceVersion": "035ce3d24371@2026-10-22T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-10-22T00:00:00Z",
@@ -100,7 +100,7 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-11-04T16:56:01Z",
+      "fetchedAt": "2026-11-04T18:31:14Z",
       "sourceVersion": "f004172903f8@2026-11-04T14:42:17Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-11-04T14:42:17Z",
@@ -7781,7 +7781,7 @@
           "status": "covered",
           "sinceVersion": "0.1.0-beta.0",
           "entrypoints": [
-            "PortalCompat.getItem (src/esri-compat/portal.ts)",
+            "PortalCompat.getItem (src/client-compat/portal.ts)",
             "PortalCompat.search"
           ],
           "evidence": [
@@ -7875,7 +7875,7 @@
           "status": "covered",
           "sinceVersion": "0.1.0-beta.0",
           "entrypoints": [
-            "PortalCompat.generateToken (src/esri-compat/portal.ts)"
+            "PortalCompat.generateToken (src/client-compat/portal.ts)"
           ],
           "evidence": [
             "test/portal-compat.test.ts"
