@@ -1,0 +1,15 @@
+{
+  "roots": [
+    ".github/",
+    ".gitignore",
+    "AGENTS.md",
+    "LICENSE",
+    "README.md",
+    "config/",
+    "data/",
+    "docs/",
+    "scripts/",
+    "tests/"
+  ],
+  "gate_inputs": {}
+}
