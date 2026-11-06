@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-11-06T00:29:11Z",
+  "generatedAt": "2026-11-06T13:10:19Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -28,70 +28,70 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-11-06T00:28:51Z",
+      "fetchedAt": "2026-11-06T13:10:00Z",
       "sourceVersion": "d2ab05fbfb98@2026-11-04T19:24:24Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-06T00:28:51Z",
+      "observedAt": "2026-11-06T13:10:00Z",
       "ageDays": 0,
       "sourceAgeDays": 1,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-11-06T00:28:52Z",
+      "fetchedAt": "2026-11-06T13:10:00Z",
       "sourceVersion": "f1b472433ea1@2026-11-06T00:28:27Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-06T00:28:52Z",
+      "observedAt": "2026-11-06T13:10:00Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-11-06T00:28:53Z",
+      "fetchedAt": "2026-11-06T13:10:01Z",
       "sourceVersion": "6848b481ce36@2026-11-05T11:52:16Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-06T00:28:53Z",
+      "observedAt": "2026-11-06T13:10:01Z",
       "ageDays": 0,
-      "sourceAgeDays": 0,
+      "sourceAgeDays": 1,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-11-06T00:28:54Z",
+      "fetchedAt": "2026-11-06T13:10:02Z",
       "sourceVersion": "59b8be4ddb70@2026-10-30T20:47:14Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-06T00:28:54Z",
+      "observedAt": "2026-11-06T13:10:02Z",
       "ageDays": 0,
       "sourceAgeDays": 6,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-11-06T00:28:54Z",
+      "fetchedAt": "2026-11-06T13:10:02Z",
       "sourceVersion": "9792cb444e78@2026-10-06T07:53:39Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-06T00:28:54Z",
+      "observedAt": "2026-11-06T13:10:02Z",
       "ageDays": 0,
-      "sourceAgeDays": 30,
+      "sourceAgeDays": 31,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-11-06T00:28:56Z",
-      "sourceVersion": "fc85902be2b8@2026-11-05T13:17:44Z",
+      "fetchedAt": "2026-11-06T13:10:03Z",
+      "sourceVersion": "fc85902be2b8@2026-11-06T13:09:41Z",
       "freshnessBasis": "observation",
-      "observedAt": "2026-11-05T13:17:44Z",
+      "observedAt": "2026-11-06T13:09:41Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-11-06T00:29:11Z",
+      "fetchedAt": "2026-11-06T13:10:19Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-06T00:29:11Z",
+      "observedAt": "2026-11-06T13:10:19Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-11-06T00:28:56Z",
+      "fetchedAt": "2026-11-06T13:10:05Z",
       "sourceVersion": "035ce3d24371@2026-10-22T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-10-22T00:00:00Z",
@@ -100,7 +100,7 @@
       "status": "stale"
     },
     "live-canary": {
-      "fetchedAt": "2026-11-06T00:28:56Z",
+      "fetchedAt": "2026-11-06T13:10:05Z",
       "sourceVersion": "8d698b336392@2026-11-05T14:47:14Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-11-05T14:47:14Z",
@@ -126,9 +126,17 @@
     "open-issues: honua-io/honua-server#6913: 'Capability Key(s)' field references unknown capability key 'cap/discovery' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#6913: 'Capability Key(s)' field references unknown capability key 'cap/raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#6978: 'Capability Key(s)' field references unknown capability key 'cap/caching' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
-    "open-issues: honua-io/honua-server#6979: 'Capability Key(s)' field references unknown capability key 'cap/control-plane' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#6980: 'Capability Key(s)' field references unknown capability key 'cap/control-plane' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
-    "open-issues: honua-io/honua-server#6984: 'Capability Key(s)' field references unknown capability key 'cap/ops' (not in honua-server's canonical capability-keys.v1.json) -- ignored"
+    "open-issues: honua-io/honua-server#6984: 'Capability Key(s)' field references unknown capability key 'cap/ops' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#7003: 'Capability Key(s)' field references unknown capability key 'cap/serve' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#7003: 'Capability Key(s)' field references unknown capability key 'cap/static-map' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#7006: 'Capability Key(s)' field references unknown capability key 'cap/caching' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#7010: 'Capability Key(s)' field references unknown capability key 'cap/editing' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#7013: 'Capability Key(s)' field references unknown capability key 'cap/ops' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#7014: 'Capability Key(s)' field references unknown capability key 'cap/identity' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#7017: 'Capability Key(s)' field references unknown capability key 'cap/control-plane' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#7019: 'Capability Key(s)' field references unknown capability key 'cap/extensibility' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#7021: 'Capability Key(s)' field references unknown capability key 'cap/ai' (not in honua-server's canonical capability-keys.v1.json) -- ignored"
   ],
   "capabilities": [
     {
@@ -211,14 +219,14 @@
             "url": "https://github.com/honua-io/honua-server/issues/6221"
           },
           {
-            "number": 6979,
-            "title": "feat(admin): page and search the service and layer lists",
-            "url": "https://github.com/honua-io/honua-server/issues/6979"
-          },
-          {
             "number": 6980,
             "title": "feat(limits): persist rate-limit policies and share counters across tasks",
             "url": "https://github.com/honua-io/honua-server/issues/6980"
+          },
+          {
+            "number": 7017,
+            "title": "feat(catalog): export the catalog and register a custom CRS",
+            "url": "https://github.com/honua-io/honua-server/issues/7017"
           }
         ],
         "categoryLevel": true,
@@ -245,14 +253,14 @@
             "url": "https://github.com/honua-io/honua-server/issues/6221"
           },
           {
-            "number": 6979,
-            "title": "feat(admin): page and search the service and layer lists",
-            "url": "https://github.com/honua-io/honua-server/issues/6979"
-          },
-          {
             "number": 6980,
             "title": "feat(limits): persist rate-limit policies and share counters across tasks",
             "url": "https://github.com/honua-io/honua-server/issues/6980"
+          },
+          {
+            "number": 7017,
+            "title": "feat(catalog): export the catalog and register a custom CRS",
+            "url": "https://github.com/honua-io/honua-server/issues/7017"
           }
         ],
         "label": "cap/control-plane"
@@ -344,11 +352,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 7021,
+            "title": "decision: should Community and Pro require approval for agent-initiated changes?",
+            "url": "https://github.com/honua-io/honua-server/issues/7021"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 7021,
+            "title": "decision: should Community and Pro require approval for agent-initiated changes?",
+            "url": "https://github.com/honua-io/honua-server/issues/7021"
+          }
+        ],
         "label": "cap/ai"
       }
     },
@@ -399,11 +419,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 7021,
+            "title": "decision: should Community and Pro require approval for agent-initiated changes?",
+            "url": "https://github.com/honua-io/honua-server/issues/7021"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 7021,
+            "title": "decision: should Community and Pro require approval for agent-initiated changes?",
+            "url": "https://github.com/honua-io/honua-server/issues/7021"
+          }
+        ],
         "label": "cap/ai"
       }
     },
@@ -438,11 +470,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 7021,
+            "title": "decision: should Community and Pro require approval for agent-initiated changes?",
+            "url": "https://github.com/honua-io/honua-server/issues/7021"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 7021,
+            "title": "decision: should Community and Pro require approval for agent-initiated changes?",
+            "url": "https://github.com/honua-io/honua-server/issues/7021"
+          }
+        ],
         "label": "cap/ai"
       }
     },
@@ -486,11 +530,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 7021,
+            "title": "decision: should Community and Pro require approval for agent-initiated changes?",
+            "url": "https://github.com/honua-io/honua-server/issues/7021"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 7021,
+            "title": "decision: should Community and Pro require approval for agent-initiated changes?",
+            "url": "https://github.com/honua-io/honua-server/issues/7021"
+          }
+        ],
         "label": "cap/ai"
       }
     },
@@ -530,11 +586,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 7021,
+            "title": "decision: should Community and Pro require approval for agent-initiated changes?",
+            "url": "https://github.com/honua-io/honua-server/issues/7021"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 7021,
+            "title": "decision: should Community and Pro require approval for agent-initiated changes?",
+            "url": "https://github.com/honua-io/honua-server/issues/7021"
+          }
+        ],
         "label": "cap/ai"
       }
     },
@@ -573,11 +641,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 7021,
+            "title": "decision: should Community and Pro require approval for agent-initiated changes?",
+            "url": "https://github.com/honua-io/honua-server/issues/7021"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 7021,
+            "title": "decision: should Community and Pro require approval for agent-initiated changes?",
+            "url": "https://github.com/honua-io/honua-server/issues/7021"
+          }
+        ],
         "label": "cap/ai"
       }
     },
@@ -2132,7 +2212,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 6,
         "refs": [
           {
             "number": 3445,
@@ -2158,6 +2238,11 @@
             "number": 6978,
             "title": "feat(tiles): make the tile-cache byte cap an operator control",
             "url": "https://github.com/honua-io/honua-server/issues/6978"
+          },
+          {
+            "number": 7006,
+            "title": "feat(tiles): cache classic WMTS and make seed write the tiles it renders",
+            "url": "https://github.com/honua-io/honua-server/issues/7006"
           }
         ],
         "categoryLevel": true,
@@ -2187,6 +2272,11 @@
             "number": 6978,
             "title": "feat(tiles): make the tile-cache byte cap an operator control",
             "url": "https://github.com/honua-io/honua-server/issues/6978"
+          },
+          {
+            "number": 7006,
+            "title": "feat(tiles): cache classic WMTS and make seed write the tiles it renders",
+            "url": "https://github.com/honua-io/honua-server/issues/7006"
           }
         ],
         "label": "cap/caching"
@@ -2227,7 +2317,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 6,
         "refs": [
           {
             "number": 3445,
@@ -2253,6 +2343,11 @@
             "number": 6978,
             "title": "feat(tiles): make the tile-cache byte cap an operator control",
             "url": "https://github.com/honua-io/honua-server/issues/6978"
+          },
+          {
+            "number": 7006,
+            "title": "feat(tiles): cache classic WMTS and make seed write the tiles it renders",
+            "url": "https://github.com/honua-io/honua-server/issues/7006"
           }
         ],
         "categoryLevel": true,
@@ -2282,6 +2377,11 @@
             "number": 6978,
             "title": "feat(tiles): make the tile-cache byte cap an operator control",
             "url": "https://github.com/honua-io/honua-server/issues/6978"
+          },
+          {
+            "number": 7006,
+            "title": "feat(tiles): cache classic WMTS and make seed write the tiles it renders",
+            "url": "https://github.com/honua-io/honua-server/issues/7006"
           }
         ],
         "label": "cap/caching"
@@ -4957,7 +5057,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
+        "count": 3,
         "refs": [
           {
             "number": 1726,
@@ -4968,6 +5068,11 @@
             "number": 4440,
             "title": "backlog: free Apache-2.0 Excel OData editing add-in in a dedicated repository",
             "url": "https://github.com/honua-io/honua-server/issues/4440"
+          },
+          {
+            "number": 7010,
+            "title": "feat(wfs): implement LockFeature and GetFeatureWithLock",
+            "url": "https://github.com/honua-io/honua-server/issues/7010"
           }
         ],
         "categoryLevel": true,
@@ -4982,6 +5087,11 @@
             "number": 4440,
             "title": "backlog: free Apache-2.0 Excel OData editing add-in in a dedicated repository",
             "url": "https://github.com/honua-io/honua-server/issues/4440"
+          },
+          {
+            "number": 7010,
+            "title": "feat(wfs): implement LockFeature and GetFeatureWithLock",
+            "url": "https://github.com/honua-io/honua-server/issues/7010"
           }
         ],
         "label": "cap/editing"
@@ -5043,7 +5153,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
+        "count": 3,
         "refs": [
           {
             "number": 1726,
@@ -5054,6 +5164,11 @@
             "number": 4440,
             "title": "backlog: free Apache-2.0 Excel OData editing add-in in a dedicated repository",
             "url": "https://github.com/honua-io/honua-server/issues/4440"
+          },
+          {
+            "number": 7010,
+            "title": "feat(wfs): implement LockFeature and GetFeatureWithLock",
+            "url": "https://github.com/honua-io/honua-server/issues/7010"
           }
         ],
         "categoryLevel": true,
@@ -5068,6 +5183,11 @@
             "number": 4440,
             "title": "backlog: free Apache-2.0 Excel OData editing add-in in a dedicated repository",
             "url": "https://github.com/honua-io/honua-server/issues/4440"
+          },
+          {
+            "number": 7010,
+            "title": "feat(wfs): implement LockFeature and GetFeatureWithLock",
+            "url": "https://github.com/honua-io/honua-server/issues/7010"
           }
         ],
         "label": "cap/editing"
@@ -7485,7 +7605,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
           {
             "number": 346,
@@ -7506,6 +7626,11 @@
             "number": 3454,
             "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
             "url": "https://github.com/honua-io/honua-server/issues/3454"
+          },
+          {
+            "number": 7014,
+            "title": "feat(auth): accept a directory login and a trusted proxy header",
+            "url": "https://github.com/honua-io/honua-server/issues/7014"
           }
         ],
         "categoryLevel": true,
@@ -7530,6 +7655,11 @@
             "number": 3454,
             "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
             "url": "https://github.com/honua-io/honua-server/issues/3454"
+          },
+          {
+            "number": 7014,
+            "title": "feat(auth): accept a directory login and a trusted proxy header",
+            "url": "https://github.com/honua-io/honua-server/issues/7014"
           }
         ],
         "label": "cap/identity"
@@ -7566,7 +7696,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
           {
             "number": 346,
@@ -7587,6 +7717,11 @@
             "number": 3454,
             "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
             "url": "https://github.com/honua-io/honua-server/issues/3454"
+          },
+          {
+            "number": 7014,
+            "title": "feat(auth): accept a directory login and a trusted proxy header",
+            "url": "https://github.com/honua-io/honua-server/issues/7014"
           }
         ],
         "categoryLevel": true,
@@ -7611,6 +7746,11 @@
             "number": 3454,
             "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
             "url": "https://github.com/honua-io/honua-server/issues/3454"
+          },
+          {
+            "number": 7014,
+            "title": "feat(auth): accept a directory login and a trusted proxy header",
+            "url": "https://github.com/honua-io/honua-server/issues/7014"
           }
         ],
         "label": "cap/identity"
@@ -7662,7 +7802,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
           {
             "number": 346,
@@ -7683,6 +7823,11 @@
             "number": 3454,
             "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
             "url": "https://github.com/honua-io/honua-server/issues/3454"
+          },
+          {
+            "number": 7014,
+            "title": "feat(auth): accept a directory login and a trusted proxy header",
+            "url": "https://github.com/honua-io/honua-server/issues/7014"
           }
         ],
         "categoryLevel": true,
@@ -7707,6 +7852,11 @@
             "number": 3454,
             "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
             "url": "https://github.com/honua-io/honua-server/issues/3454"
+          },
+          {
+            "number": 7014,
+            "title": "feat(auth): accept a directory login and a trusted proxy header",
+            "url": "https://github.com/honua-io/honua-server/issues/7014"
           }
         ],
         "label": "cap/identity"
@@ -7752,7 +7902,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
           {
             "number": 346,
@@ -7773,6 +7923,11 @@
             "number": 3454,
             "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
             "url": "https://github.com/honua-io/honua-server/issues/3454"
+          },
+          {
+            "number": 7014,
+            "title": "feat(auth): accept a directory login and a trusted proxy header",
+            "url": "https://github.com/honua-io/honua-server/issues/7014"
           }
         ],
         "categoryLevel": true,
@@ -7797,6 +7952,11 @@
             "number": 3454,
             "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
             "url": "https://github.com/honua-io/honua-server/issues/3454"
+          },
+          {
+            "number": 7014,
+            "title": "feat(auth): accept a directory login and a trusted proxy header",
+            "url": "https://github.com/honua-io/honua-server/issues/7014"
           }
         ],
         "label": "cap/identity"
@@ -7852,7 +8012,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
           {
             "number": 346,
@@ -7873,6 +8033,11 @@
             "number": 3454,
             "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
             "url": "https://github.com/honua-io/honua-server/issues/3454"
+          },
+          {
+            "number": 7014,
+            "title": "feat(auth): accept a directory login and a trusted proxy header",
+            "url": "https://github.com/honua-io/honua-server/issues/7014"
           }
         ],
         "categoryLevel": true,
@@ -7897,6 +8062,11 @@
             "number": 3454,
             "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
             "url": "https://github.com/honua-io/honua-server/issues/3454"
+          },
+          {
+            "number": 7014,
+            "title": "feat(auth): accept a directory login and a trusted proxy header",
+            "url": "https://github.com/honua-io/honua-server/issues/7014"
           }
         ],
         "label": "cap/identity"
@@ -7945,7 +8115,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
           {
             "number": 346,
@@ -7966,6 +8136,11 @@
             "number": 3454,
             "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
             "url": "https://github.com/honua-io/honua-server/issues/3454"
+          },
+          {
+            "number": 7014,
+            "title": "feat(auth): accept a directory login and a trusted proxy header",
+            "url": "https://github.com/honua-io/honua-server/issues/7014"
           }
         ],
         "categoryLevel": true,
@@ -7990,6 +8165,11 @@
             "number": 3454,
             "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
             "url": "https://github.com/honua-io/honua-server/issues/3454"
+          },
+          {
+            "number": 7014,
+            "title": "feat(auth): accept a directory login and a trusted proxy header",
+            "url": "https://github.com/honua-io/honua-server/issues/7014"
           }
         ],
         "label": "cap/identity"
@@ -8026,7 +8206,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
           {
             "number": 346,
@@ -8047,6 +8227,11 @@
             "number": 3454,
             "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
             "url": "https://github.com/honua-io/honua-server/issues/3454"
+          },
+          {
+            "number": 7014,
+            "title": "feat(auth): accept a directory login and a trusted proxy header",
+            "url": "https://github.com/honua-io/honua-server/issues/7014"
           }
         ],
         "categoryLevel": true,
@@ -8071,6 +8256,11 @@
             "number": 3454,
             "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
             "url": "https://github.com/honua-io/honua-server/issues/3454"
+          },
+          {
+            "number": 7014,
+            "title": "feat(auth): accept a directory login and a trusted proxy header",
+            "url": "https://github.com/honua-io/honua-server/issues/7014"
           }
         ],
         "label": "cap/identity"
@@ -8107,7 +8297,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
           {
             "number": 346,
@@ -8128,6 +8318,11 @@
             "number": 3454,
             "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
             "url": "https://github.com/honua-io/honua-server/issues/3454"
+          },
+          {
+            "number": 7014,
+            "title": "feat(auth): accept a directory login and a trusted proxy header",
+            "url": "https://github.com/honua-io/honua-server/issues/7014"
           }
         ],
         "categoryLevel": true,
@@ -8152,6 +8347,11 @@
             "number": 3454,
             "title": "feat(identity): application-scoped scene grants, origin restrictions, and per-grant usage",
             "url": "https://github.com/honua-io/honua-server/issues/3454"
+          },
+          {
+            "number": 7014,
+            "title": "feat(auth): accept a directory login and a trusted proxy header",
+            "url": "https://github.com/honua-io/honua-server/issues/7014"
           }
         ],
         "label": "cap/identity"
@@ -8198,7 +8398,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-11-05T13:17:34.758Z"
+            "at": "2026-11-06T13:09:30.725Z"
           }
         },
         {
@@ -8212,7 +8412,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-11-05T13:17:34.758Z"
+            "at": "2026-11-06T13:09:30.725Z"
           }
         }
       ],
@@ -8690,14 +8890,14 @@
             "url": "https://github.com/honua-io/honua-server/issues/6221"
           },
           {
-            "number": 6979,
-            "title": "feat(admin): page and search the service and layer lists",
-            "url": "https://github.com/honua-io/honua-server/issues/6979"
-          },
-          {
             "number": 6980,
             "title": "feat(limits): persist rate-limit policies and share counters across tasks",
             "url": "https://github.com/honua-io/honua-server/issues/6980"
+          },
+          {
+            "number": 7017,
+            "title": "feat(catalog): export the catalog and register a custom CRS",
+            "url": "https://github.com/honua-io/honua-server/issues/7017"
           }
         ],
         "categoryLevel": true,
@@ -8724,14 +8924,14 @@
             "url": "https://github.com/honua-io/honua-server/issues/6221"
           },
           {
-            "number": 6979,
-            "title": "feat(admin): page and search the service and layer lists",
-            "url": "https://github.com/honua-io/honua-server/issues/6979"
-          },
-          {
             "number": 6980,
             "title": "feat(limits): persist rate-limit policies and share counters across tasks",
             "url": "https://github.com/honua-io/honua-server/issues/6980"
+          },
+          {
+            "number": 7017,
+            "title": "feat(catalog): export the catalog and register a custom CRS",
+            "url": "https://github.com/honua-io/honua-server/issues/7017"
           }
         ],
         "label": "cap/control-plane"
@@ -10677,7 +10877,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 8,
         "refs": [
           {
             "number": 3099,
@@ -10713,6 +10913,11 @@
             "number": 6984,
             "title": "feat(ops): add a time-boxed log-level override",
             "url": "https://github.com/honua-io/honua-server/issues/6984"
+          },
+          {
+            "number": 7013,
+            "title": "feat(ops): record a sampled request log with the layer and the caller",
+            "url": "https://github.com/honua-io/honua-server/issues/7013"
           }
         ],
         "categoryLevel": true,
@@ -10752,6 +10957,11 @@
             "number": 6984,
             "title": "feat(ops): add a time-boxed log-level override",
             "url": "https://github.com/honua-io/honua-server/issues/6984"
+          },
+          {
+            "number": 7013,
+            "title": "feat(ops): record a sampled request log with the layer and the caller",
+            "url": "https://github.com/honua-io/honua-server/issues/7013"
           }
         ],
         "label": "cap/ops"
@@ -14594,7 +14804,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 7,
+        "count": 8,
         "refs": [
           {
             "number": 3099,
@@ -14630,6 +14840,11 @@
             "number": 6984,
             "title": "feat(ops): add a time-boxed log-level override",
             "url": "https://github.com/honua-io/honua-server/issues/6984"
+          },
+          {
+            "number": 7013,
+            "title": "feat(ops): record a sampled request log with the layer and the caller",
+            "url": "https://github.com/honua-io/honua-server/issues/7013"
           }
         ],
         "categoryLevel": true,
@@ -14669,6 +14884,11 @@
             "number": 6984,
             "title": "feat(ops): add a time-boxed log-level override",
             "url": "https://github.com/honua-io/honua-server/issues/6984"
+          },
+          {
+            "number": 7013,
+            "title": "feat(ops): record a sampled request log with the layer and the caller",
+            "url": "https://github.com/honua-io/honua-server/issues/7013"
           }
         ],
         "label": "cap/ops"
@@ -14725,12 +14945,17 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 1,
+        "count": 2,
         "refs": [
           {
             "number": 1562,
             "title": "Plugin/extension SDK \u2014 phase 2: computed fields, custom endpoints, background services, manifest/security hardening",
             "url": "https://github.com/honua-io/honua-server/issues/1562"
+          },
+          {
+            "number": 7019,
+            "title": "feat(plugins): add a process plugin and correct the plugin.sdk capability page",
+            "url": "https://github.com/honua-io/honua-server/issues/7019"
           }
         ],
         "categoryLevel": true,
@@ -14740,6 +14965,11 @@
             "number": 1562,
             "title": "Plugin/extension SDK \u2014 phase 2: computed fields, custom endpoints, background services, manifest/security hardening",
             "url": "https://github.com/honua-io/honua-server/issues/1562"
+          },
+          {
+            "number": 7019,
+            "title": "feat(plugins): add a process plugin and correct the plugin.sdk capability page",
+            "url": "https://github.com/honua-io/honua-server/issues/7019"
           }
         ],
         "label": "cap/extensibility"
@@ -18461,7 +18691,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-11-05T13:17:34.758Z"
+            "at": "2026-11-06T13:09:30.725Z"
           }
         },
         {
@@ -18475,7 +18705,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-11-05T13:17:34.758Z"
+            "at": "2026-11-06T13:09:30.725Z"
           }
         },
         {
@@ -18489,7 +18719,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-11-05T13:17:34.758Z"
+            "at": "2026-11-06T13:09:30.725Z"
           }
         },
         {
@@ -18503,7 +18733,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-11-05T13:17:34.758Z"
+            "at": "2026-11-06T13:09:30.725Z"
           }
         },
         {
@@ -18517,7 +18747,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-11-05T13:17:34.758Z"
+            "at": "2026-11-06T13:09:30.725Z"
           }
         },
         {
@@ -18531,7 +18761,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-11-05T13:17:34.758Z"
+            "at": "2026-11-06T13:09:30.725Z"
           }
         },
         {
@@ -18545,7 +18775,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-11-05T13:17:34.758Z"
+            "at": "2026-11-06T13:09:30.725Z"
           }
         }
       ],
@@ -18681,7 +18911,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-11-05T13:17:34.758Z"
+            "at": "2026-11-06T13:09:30.725Z"
           }
         }
       ],
@@ -23602,7 +23832,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-11-05T13:17:34.758Z"
+            "at": "2026-11-06T13:09:30.725Z"
           }
         }
       ],
@@ -27752,7 +27982,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-11-05T13:17:34.758Z"
+            "at": "2026-11-06T13:09:30.725Z"
           }
         },
         {
@@ -27766,7 +27996,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-11-05T13:17:34.758Z"
+            "at": "2026-11-06T13:09:30.725Z"
           }
         }
       ],
@@ -28206,7 +28436,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-11-05T13:17:34.758Z"
+            "at": "2026-11-06T13:09:30.725Z"
           }
         }
       ],
@@ -30371,7 +30601,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-11-05T13:17:34.758Z"
+            "at": "2026-11-06T13:09:30.725Z"
           }
         }
       ],
@@ -32426,7 +32656,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-11-05T13:17:34.758Z"
+            "at": "2026-11-06T13:09:30.725Z"
           }
         }
       ],
@@ -36736,7 +36966,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.1",
-            "at": "2026-11-05T13:17:34.758Z"
+            "at": "2026-11-06T13:09:30.725Z"
           }
         }
       ],
@@ -39045,11 +39275,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 7003,
+            "title": "feat(wms): draw labels and icons on GetMap",
+            "url": "https://github.com/honua-io/honua-server/issues/7003"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 7003,
+            "title": "feat(wms): draw labels and icons on GetMap",
+            "url": "https://github.com/honua-io/honua-server/issues/7003"
+          }
+        ],
         "label": "cap/static-map"
       }
     },
@@ -39088,11 +39330,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 7003,
+            "title": "feat(wms): draw labels and icons on GetMap",
+            "url": "https://github.com/honua-io/honua-server/issues/7003"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 7003,
+            "title": "feat(wms): draw labels and icons on GetMap",
+            "url": "https://github.com/honua-io/honua-server/issues/7003"
+          }
+        ],
         "label": "cap/static-map"
       }
     },
@@ -39131,11 +39385,23 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 1,
+        "refs": [
+          {
+            "number": 7003,
+            "title": "feat(wms): draw labels and icons on GetMap",
+            "url": "https://github.com/honua-io/honua-server/issues/7003"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 7003,
+            "title": "feat(wms): draw labels and icons on GetMap",
+            "url": "https://github.com/honua-io/honua-server/issues/7003"
+          }
+        ],
         "label": "cap/static-map"
       }
     },
