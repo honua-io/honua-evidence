@@ -216,8 +216,17 @@ class HarnessReceiptAggregationTests(unittest.TestCase):
                 rebind_receipt(wrong)
                 self.assertFalse(AGG._valid_receipt(wrong, req, AGG_CANDIDATE["cut_at"], "python-v2-seam-test"))
 
-    def test_harness_commit_outside_the_digest_is_refused(self):
+    def test_dotnet_harness_receipt_requires_package_identity(self):
         req, observed = self.dotnet(harness_commit=HARNESS_SHA)
+        self.assertFalse(AGG._valid_receipt(observed, req))
+        for pin in (None, PIN):
+            with self.subTest(pin=pin):
+                with self.assertRaisesRegex(ValueError, "not semantically bound"):
+                    ledger(req, copy.deepcopy(observed), pin)
+
+    def test_harness_commit_outside_the_digest_is_refused(self):
+        req, observed = self.dotnet(harness_commit=HARNESS_SHA, client_package="Honua.Sdk",
+                                    client_package_digest=NUPKG_DIGEST)
         observed["evidence_receipt"]["identity"]["harness_commit"] = NEWER_SHA
         with self.assertRaisesRegex(ValueError, "do not match evidence_digest"):
             ledger(req, observed)

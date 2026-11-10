@@ -467,18 +467,19 @@ def _valid_receipt(
         return False
     identity = receipt.get("identity")
     if isinstance(identity, dict) and requirement.get("client_lane") in SDK_HARNESS_LANES:
-        # Ruling sdk-harness-trunk-pinned-package-2026-10-27: the SDK harness runs from trunk
-        # against the pinned published package. Its exact commit is optional identity, kept
+        # The SDK harness runs from trunk against the pinned published package.
+        # Its exact commit is optional identity, kept
         # inside the digest; fetch binds it to the GitHub run head.
         if "harness_commit" in identity:
             if not isinstance(identity["harness_commit"], str) or not SHA_RE.fullmatch(identity["harness_commit"]):
                 return False
             expected_identity["harness_commit"] = identity["harness_commit"]
-        # The .NET receipt may also bind the observed NuGet identity, which _nuget_identity_problem
-        # has already checked (and against the manifest pin when one is supplied). Both or neither.
-        if requirement.get("client_lane") == NUGET_SDK_LANE and any(
-                field in identity for field in NUGET_IDENTITY_FIELDS):
-            if any(field not in observation for field in NUGET_IDENTITY_FIELDS):
+        # A trunk .NET harness must bind the exact observed NuGet package as well.
+        # Legacy receipts without a harness identity may omit both package fields.
+        if requirement.get("client_lane") == NUGET_SDK_LANE and (
+                "harness_commit" in identity
+                or any(field in identity for field in NUGET_IDENTITY_FIELDS)):
+            if any(field not in observation or field not in identity for field in NUGET_IDENTITY_FIELDS):
                 return False
             for field in NUGET_IDENTITY_FIELDS:
                 expected_identity[field] = observation[field]
