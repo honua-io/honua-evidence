@@ -1,0 +1,132 @@
+{
+  "schema": "honua-evidence.live-canary-envelope/v1",
+  "manifestId": "demo-canary-2026-10-28T13:10:01Z",
+  "targetEnvironment": "demo.honua.io",
+  "targetUrl": "https://demo.honua.io",
+  "runAt": "2026-10-28T13:10:01Z",
+  "overallStatus": "red",
+  "sourceRepo": "honua-io/honua-release",
+  "sourceRef": "66cbd591c0efdcd6c12a136f99583e81d15653a1",
+  "sourceRunUrl": "https://github.com/honua-io/honua-release/actions/runs/40693786173",
+  "candidateServerSha": "574c804176d969550a8e3002e0ebcc5b12df6893",
+  "probes": [
+    {
+      "probeName": "capability-manifest",
+      "capabilityKeys": [
+        "discovery.capability-manifest"
+      ],
+      "status": "red",
+      "lastGreenAt": "",
+      "detail": "expected-GA ids not available=true when authenticated: ['import.background']"
+    },
+    {
+      "probeName": "health-live-ready",
+      "capabilityKeys": [
+        "ops.health"
+      ],
+      "status": "green",
+      "lastGreenAt": "2026-10-28T13:10:01Z",
+      "detail": "/healthz/live + /healthz/ready -> 200"
+    },
+    {
+      "probeName": "metrics-gated",
+      "capabilityKeys": [
+        "ops.observability"
+      ],
+      "status": "green",
+      "lastGreenAt": "2026-10-28T13:10:01Z",
+      "detail": "/metrics: 401 without a key, 200 + honua_lambda_* with one"
+    },
+    {
+      "probeName": "admin-metrics-health",
+      "capabilityKeys": [
+        "ops.observability"
+      ],
+      "status": "green",
+      "lastGreenAt": "2026-10-28T13:10:01Z",
+      "detail": "/api/v1/metrics/health -> 200"
+    },
+    {
+      "probeName": "render-query-smoke",
+      "capabilityKeys": [
+        "serve.geoservices-mapserver",
+        "serve.geoservices-featureserver"
+      ],
+      "status": "green",
+      "lastGreenAt": "2026-10-28T13:10:01Z",
+      "detail": "maui-roads/3: MapServer export 200 PNG + FeatureServer count query ok"
+    },
+    {
+      "probeName": "stac-collections",
+      "capabilityKeys": [
+        "serve.stac"
+      ],
+      "status": "green",
+      "lastGreenAt": "2026-10-28T13:10:01Z",
+      "detail": "3 STAC collection(s)"
+    },
+    {
+      "probeName": "ogc-wms-capabilities",
+      "capabilityKeys": [
+        "serve.wms"
+      ],
+      "status": "green",
+      "lastGreenAt": "2026-10-28T13:10:01Z",
+      "detail": "maui-roads/wms GetCapabilities -> 200"
+    },
+    {
+      "probeName": "ogc-wmts-capabilities",
+      "capabilityKeys": [
+        "serve.wmts"
+      ],
+      "status": "green",
+      "lastGreenAt": "2026-10-28T13:10:01Z",
+      "detail": "maui-roads/wmts GetCapabilities -> 200"
+    },
+    {
+      "probeName": "ogc-wcs-capabilities",
+      "capabilityKeys": [
+        "serve.wcs"
+      ],
+      "status": "green",
+      "lastGreenAt": "2026-10-28T13:10:01Z",
+      "detail": "maui-roads/wcs GetCapabilities -> 200"
+    },
+    {
+      "probeName": "odata-service-document",
+      "capabilityKeys": [
+        "serve.odata"
+      ],
+      "status": "green",
+      "lastGreenAt": "2026-10-28T13:10:01Z",
+      "detail": "GET /odata -> 200 + service document"
+    },
+    {
+      "probeName": "ogc-features-collections",
+      "capabilityKeys": [
+        "serve.ogc-api-features"
+      ],
+      "status": "green",
+      "lastGreenAt": "2026-10-28T13:10:01Z",
+      "detail": "12 OGC API Features collection(s)"
+    },
+    {
+      "probeName": "tiles-tilejson",
+      "capabilityKeys": [
+        "serve.vector-tiles"
+      ],
+      "status": "green",
+      "lastGreenAt": "2026-10-28T13:10:01Z",
+      "detail": "layer 3: tile.json -> 200"
+    },
+    {
+      "probeName": "geocoding-latency",
+      "capabilityKeys": [
+        "geocoding.forward"
+      ],
+      "status": "green",
+      "lastGreenAt": "2026-10-28T13:10:01Z",
+      "detail": "geocoding responded in 231ms (budget 3000ms)"
+    }
+  ]
+}

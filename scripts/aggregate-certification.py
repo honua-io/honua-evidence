@@ -268,10 +268,6 @@ def _valid_entitlement_assertion(observation: dict, requirement: dict, entitleme
     )
 
 
-ESRI_SERVICES = (
-    "feature-server", "geocode-server", "geometry-service", "geoservices-catalog", "gp-server",
-    "image-server", "map-server", "na-server", "portal-sharing", "version-management-server",
-)
 PRODUCER_RUN_IDENTITIES = {
     ("Honua SDK Python", "sdk-python-certification"):
         ("honua-io/honua-sdk-python", "conformance.yml"),
@@ -308,14 +304,6 @@ PRODUCER_RUN_IDENTITIES = {
         ("honua-io/geospatial-mcp", "protocol-certification.yml"),
     ("Honua SDK .NET", "sdk-dotnet-certification"):
         ("honua-io/honua-sdk-dotnet", "sdk-certification.yml"),
-    **{(client, f"{prefix}-{service}"): ("honua-io/honua-esri-compat", "esri-sdk-certification.yml")
-       for client, prefix, services in (
-           ("ArcGIS REST protocol client", "raw-geoservices", ESRI_SERVICES),
-           ("ArcGIS API for Python", "arcgis-python", ESRI_SERVICES),
-           ("ArcGIS Maps SDK for .NET", "esri-dotnet", ESRI_SERVICES),
-           ("ArcGIS Pro", "desktop-arcpy", (*ESRI_SERVICES, "ogc")),
-       )
-       for service in services if not (prefix == "desktop-arcpy" and service == "geometry-service")},
 }
 
 

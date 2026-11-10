@@ -228,7 +228,6 @@ class NightlyCandidateTagRegistrationTests(unittest.TestCase):
         "honua-sdk-js": "SDK Integration",
         "honua-sdk-python": "Python SDK Conformance",
         "honua-sdk-dotnet": ".NET SDK Protocol Certification",
-        "honua-esri-compat": "Esri SDK Certification",
     }
 
     def test_nightly_producers_register_their_dispatch_title(self):

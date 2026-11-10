@@ -10,7 +10,7 @@ workflows are intentionally optional: until their linked issue lands at the
 registered path and emits a normalized fragment at the pinned revision, the
 fetch records a gap and cannot manufacture a pass.
 
-The registry covers CNG, CITE, Esri compatibility, generated gRPC, MCP, the
+The registry covers CNG, CITE, generated gRPC, MCP, the
 three official SDKs, the shared server protocol harness, and honua-server's
 real-client interop matrix. The interop entry is linked to
 [server#3481](https://github.com/honua-io/honua-server/issues/3481) and the
