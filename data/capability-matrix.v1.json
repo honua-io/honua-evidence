@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-11-13T14:44:31Z",
+  "generatedAt": "2026-11-13T14:57:44Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -28,70 +28,70 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-11-13T14:44:13Z",
+      "fetchedAt": "2026-11-13T14:57:25Z",
       "sourceVersion": "9aaa4823837f@2026-11-10T22:23:56Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-13T14:44:13Z",
+      "observedAt": "2026-11-13T14:57:25Z",
       "ageDays": 0,
       "sourceAgeDays": 2,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-11-13T14:44:13Z",
+      "fetchedAt": "2026-11-13T14:57:26Z",
       "sourceVersion": "ae263de74346@2026-11-13T11:39:11Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-13T14:44:13Z",
+      "observedAt": "2026-11-13T14:57:26Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-11-13T14:44:14Z",
+      "fetchedAt": "2026-11-13T14:57:26Z",
       "sourceVersion": "a794ee07adc6@2026-11-13T14:09:22Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-13T14:44:14Z",
+      "observedAt": "2026-11-13T14:57:26Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-11-13T14:44:14Z",
+      "fetchedAt": "2026-11-13T14:57:27Z",
       "sourceVersion": "59b8be4ddb70@2026-10-30T20:47:14Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-13T14:44:14Z",
+      "observedAt": "2026-11-13T14:57:27Z",
       "ageDays": 0,
       "sourceAgeDays": 13,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-11-13T14:44:15Z",
+      "fetchedAt": "2026-11-13T14:57:28Z",
       "sourceVersion": "9792cb444e78@2026-10-06T07:53:39Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-13T14:44:15Z",
+      "observedAt": "2026-11-13T14:57:28Z",
       "ageDays": 0,
       "sourceAgeDays": 38,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-11-13T14:44:16Z",
-      "sourceVersion": "2822f306216e@2026-11-13T13:22:57Z",
+      "fetchedAt": "2026-11-13T14:57:29Z",
+      "sourceVersion": "24b5fc47f5c1@2026-11-13T14:57:04Z",
       "freshnessBasis": "observation",
-      "observedAt": "2026-11-13T13:22:57Z",
+      "observedAt": "2026-11-13T14:57:04Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-11-13T14:44:31Z",
+      "fetchedAt": "2026-11-13T14:57:44Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-13T14:44:31Z",
+      "observedAt": "2026-11-13T14:57:44Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-11-13T14:44:17Z",
+      "fetchedAt": "2026-11-13T14:57:30Z",
       "sourceVersion": "dbfdd793d70a@2026-11-06T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-11-06T00:00:00Z",
@@ -100,7 +100,7 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-11-13T14:44:17Z",
+      "fetchedAt": "2026-11-13T14:57:30Z",
       "sourceVersion": "7b7007b9dc53@2026-11-13T14:43:14Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-11-13T14:43:14Z",
@@ -967,7 +967,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 5,
         "refs": [
           {
             "number": 2437,
@@ -993,11 +993,6 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
           }
         ],
         "categoryLevel": true,
@@ -1027,11 +1022,6 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
           }
         ],
         "label": "cap/analytics"
@@ -1068,7 +1058,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 5,
         "refs": [
           {
             "number": 2437,
@@ -1094,11 +1084,6 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
           }
         ],
         "categoryLevel": true,
@@ -1128,11 +1113,6 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
           }
         ],
         "label": "cap/analytics"
@@ -1169,7 +1149,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 5,
         "refs": [
           {
             "number": 2437,
@@ -1195,11 +1175,6 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
           }
         ],
         "categoryLevel": true,
@@ -1229,11 +1204,6 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
           }
         ],
         "label": "cap/analytics"
@@ -1270,7 +1240,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 5,
         "refs": [
           {
             "number": 2437,
@@ -1296,11 +1266,6 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
           }
         ],
         "categoryLevel": true,
@@ -1330,11 +1295,6 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
           }
         ],
         "label": "cap/analytics"
@@ -1371,7 +1331,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 5,
         "refs": [
           {
             "number": 2437,
@@ -1397,11 +1357,6 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
           }
         ],
         "categoryLevel": true,
@@ -1431,11 +1386,6 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
           }
         ],
         "label": "cap/analytics"
@@ -1472,7 +1422,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 5,
         "refs": [
           {
             "number": 2437,
@@ -1498,11 +1448,6 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
           }
         ],
         "categoryLevel": true,
@@ -1532,11 +1477,6 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
           }
         ],
         "label": "cap/analytics"
@@ -1579,7 +1519,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 5,
         "refs": [
           {
             "number": 2437,
@@ -1605,11 +1545,6 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
           }
         ],
         "categoryLevel": true,
@@ -1639,11 +1574,6 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
           }
         ],
         "label": "cap/analytics"
@@ -1680,7 +1610,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 5,
         "refs": [
           {
             "number": 2437,
@@ -1706,11 +1636,6 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
           }
         ],
         "categoryLevel": true,
@@ -1740,11 +1665,6 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
           }
         ],
         "label": "cap/analytics"
@@ -1781,7 +1701,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 5,
         "refs": [
           {
             "number": 2437,
@@ -1807,11 +1727,6 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
           }
         ],
         "categoryLevel": true,
@@ -1841,11 +1756,6 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
           }
         ],
         "label": "cap/analytics"
@@ -1882,7 +1792,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 5,
         "refs": [
           {
             "number": 2437,
@@ -1908,11 +1818,6 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
           }
         ],
         "categoryLevel": true,
@@ -1942,11 +1847,6 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
           }
         ],
         "label": "cap/analytics"
@@ -1983,7 +1883,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 5,
         "refs": [
           {
             "number": 2437,
@@ -2009,11 +1909,6 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
           }
         ],
         "categoryLevel": true,
@@ -2043,11 +1938,6 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
-          },
-          {
-            "number": 3472,
-            "title": "feat(carto): asynchronous SQL jobs, usage controls, and compatibility certification",
-            "url": "https://github.com/honua-io/honua-server/issues/3472"
           }
         ],
         "label": "cap/analytics"
@@ -4747,33 +4637,11 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 3876,
-            "title": "test(realtime): qualify multi-node proxy routing and Redis failover snapshot recovery",
-            "url": "https://github.com/honua-io/honua-server/issues/3876"
-          },
-          {
-            "number": 4677,
-            "title": "feat(dr): scope disaster recovery as an opt-in managed Enterprise capability (2026.2)",
-            "url": "https://github.com/honua-io/honua-server/issues/4677"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 3876,
-            "title": "test(realtime): qualify multi-node proxy routing and Redis failover snapshot recovery",
-            "url": "https://github.com/honua-io/honua-server/issues/3876"
-          },
-          {
-            "number": 4677,
-            "title": "feat(dr): scope disaster recovery as an opt-in managed Enterprise capability (2026.2)",
-            "url": "https://github.com/honua-io/honua-server/issues/4677"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/disaster-recovery"
       }
     },
@@ -4812,33 +4680,11 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 3876,
-            "title": "test(realtime): qualify multi-node proxy routing and Redis failover snapshot recovery",
-            "url": "https://github.com/honua-io/honua-server/issues/3876"
-          },
-          {
-            "number": 4677,
-            "title": "feat(dr): scope disaster recovery as an opt-in managed Enterprise capability (2026.2)",
-            "url": "https://github.com/honua-io/honua-server/issues/4677"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 3876,
-            "title": "test(realtime): qualify multi-node proxy routing and Redis failover snapshot recovery",
-            "url": "https://github.com/honua-io/honua-server/issues/3876"
-          },
-          {
-            "number": 4677,
-            "title": "feat(dr): scope disaster recovery as an opt-in managed Enterprise capability (2026.2)",
-            "url": "https://github.com/honua-io/honua-server/issues/4677"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/disaster-recovery"
       }
     },
@@ -4877,33 +4723,11 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 3876,
-            "title": "test(realtime): qualify multi-node proxy routing and Redis failover snapshot recovery",
-            "url": "https://github.com/honua-io/honua-server/issues/3876"
-          },
-          {
-            "number": 4677,
-            "title": "feat(dr): scope disaster recovery as an opt-in managed Enterprise capability (2026.2)",
-            "url": "https://github.com/honua-io/honua-server/issues/4677"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 3876,
-            "title": "test(realtime): qualify multi-node proxy routing and Redis failover snapshot recovery",
-            "url": "https://github.com/honua-io/honua-server/issues/3876"
-          },
-          {
-            "number": 4677,
-            "title": "feat(dr): scope disaster recovery as an opt-in managed Enterprise capability (2026.2)",
-            "url": "https://github.com/honua-io/honua-server/issues/4677"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/disaster-recovery"
       }
     },
@@ -4942,33 +4766,11 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
-        "refs": [
-          {
-            "number": 3876,
-            "title": "test(realtime): qualify multi-node proxy routing and Redis failover snapshot recovery",
-            "url": "https://github.com/honua-io/honua-server/issues/3876"
-          },
-          {
-            "number": 4677,
-            "title": "feat(dr): scope disaster recovery as an opt-in managed Enterprise capability (2026.2)",
-            "url": "https://github.com/honua-io/honua-server/issues/4677"
-          }
-        ],
+        "count": 0,
+        "refs": [],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [
-          {
-            "number": 3876,
-            "title": "test(realtime): qualify multi-node proxy routing and Redis failover snapshot recovery",
-            "url": "https://github.com/honua-io/honua-server/issues/3876"
-          },
-          {
-            "number": 4677,
-            "title": "feat(dr): scope disaster recovery as an opt-in managed Enterprise capability (2026.2)",
-            "url": "https://github.com/honua-io/honua-server/issues/4677"
-          }
-        ],
+        "categoryRefs": [],
         "label": "cap/disaster-recovery"
       }
     },
@@ -8336,7 +8138,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-13T13:22:49.233Z"
+            "at": "2026-11-13T14:56:57.330Z"
           }
         },
         {
@@ -8350,7 +8152,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-13T13:22:49.233Z"
+            "at": "2026-11-13T14:56:57.330Z"
           }
         },
         {
@@ -8366,7 +8168,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-13T13:22:49.233Z"
+            "at": "2026-11-13T14:56:57.330Z"
           }
         },
         {
@@ -8382,7 +8184,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-13T13:22:49.233Z"
+            "at": "2026-11-13T14:56:57.330Z"
           }
         },
         {
@@ -8396,7 +8198,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-13T13:22:49.233Z"
+            "at": "2026-11-13T14:56:57.330Z"
           }
         },
         {
@@ -8410,7 +8212,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-13T13:22:49.233Z"
+            "at": "2026-11-13T14:56:57.330Z"
           }
         }
       ],
@@ -8434,7 +8236,7 @@
           },
           {
             "number": 2436,
-            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2026.2",
+            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2027.1",
             "url": "https://github.com/honua-io/honua-server/issues/2436"
           },
           {
@@ -8483,7 +8285,7 @@
           },
           {
             "number": 2436,
-            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2026.2",
+            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2027.1",
             "url": "https://github.com/honua-io/honua-server/issues/2436"
           },
           {
@@ -8570,7 +8372,7 @@
           },
           {
             "number": 2436,
-            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2026.2",
+            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2027.1",
             "url": "https://github.com/honua-io/honua-server/issues/2436"
           },
           {
@@ -8619,7 +8421,7 @@
           },
           {
             "number": 2436,
-            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2026.2",
+            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2027.1",
             "url": "https://github.com/honua-io/honua-server/issues/2436"
           },
           {
@@ -8706,7 +8508,7 @@
           },
           {
             "number": 2436,
-            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2026.2",
+            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2027.1",
             "url": "https://github.com/honua-io/honua-server/issues/2436"
           },
           {
@@ -8755,7 +8557,7 @@
           },
           {
             "number": 2436,
-            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2026.2",
+            "title": "Decision record: warehouse providers stay experimental in 2026.1; GA bar for 2027.1",
             "url": "https://github.com/honua-io/honua-server/issues/2436"
           },
           {
@@ -18924,7 +18726,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-13T13:22:49.233Z"
+            "at": "2026-11-13T14:56:57.330Z"
           }
         },
         {
@@ -18938,7 +18740,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-13T13:22:49.233Z"
+            "at": "2026-11-13T14:56:57.330Z"
           }
         },
         {
@@ -18952,7 +18754,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-13T13:22:49.233Z"
+            "at": "2026-11-13T14:56:57.330Z"
           }
         },
         {
@@ -18966,7 +18768,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-13T13:22:49.233Z"
+            "at": "2026-11-13T14:56:57.330Z"
           }
         },
         {
@@ -18980,7 +18782,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-13T13:22:49.233Z"
+            "at": "2026-11-13T14:56:57.330Z"
           }
         },
         {
@@ -18996,7 +18798,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-13T13:22:49.233Z"
+            "at": "2026-11-13T14:56:57.330Z"
           }
         },
         {
@@ -19012,7 +18814,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-13T13:22:49.233Z"
+            "at": "2026-11-13T14:56:57.330Z"
           }
         },
         {
@@ -19028,7 +18830,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-13T13:22:49.233Z"
+            "at": "2026-11-13T14:56:57.330Z"
           }
         },
         {
@@ -19042,7 +18844,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-13T13:22:49.233Z"
+            "at": "2026-11-13T14:56:57.330Z"
           }
         }
       ],
@@ -19178,7 +18980,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-13T13:22:49.233Z"
+            "at": "2026-11-13T14:56:57.330Z"
           }
         }
       ],
@@ -24227,7 +24029,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-13T13:22:49.233Z"
+            "at": "2026-11-13T14:56:57.330Z"
           }
         }
       ],
@@ -28441,7 +28243,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-13T13:22:49.233Z"
+            "at": "2026-11-13T14:56:57.330Z"
           }
         },
         {
@@ -28455,7 +28257,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-13T13:22:49.233Z"
+            "at": "2026-11-13T14:56:57.330Z"
           }
         }
       ],
@@ -28895,7 +28697,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-13T13:22:49.233Z"
+            "at": "2026-11-13T14:56:57.330Z"
           }
         }
       ],
@@ -31124,7 +30926,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-13T13:22:49.233Z"
+            "at": "2026-11-13T14:56:57.330Z"
           }
         }
       ],
@@ -33243,7 +33045,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-13T13:22:49.233Z"
+            "at": "2026-11-13T14:56:57.330Z"
           }
         }
       ],
@@ -37681,7 +37483,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-13T13:22:49.233Z"
+            "at": "2026-11-13T14:56:57.330Z"
           }
         }
       ],
@@ -40248,19 +40050,9 @@
             "url": "https://github.com/honua-io/honua-server/issues/3033"
           },
           {
-            "number": 3874,
-            "title": "test(realtime): qualify ordered at-least-once delivery and duplicate behavior per transport",
-            "url": "https://github.com/honua-io/honua-server/issues/3874"
-          },
-          {
             "number": 3875,
             "title": "test(realtime): qualify cursor resume, typed gaps, and partition recovery end to end",
             "url": "https://github.com/honua-io/honua-server/issues/3875"
-          },
-          {
-            "number": 3876,
-            "title": "test(realtime): qualify multi-node proxy routing and Redis failover snapshot recovery",
-            "url": "https://github.com/honua-io/honua-server/issues/3876"
           },
           {
             "number": 3877,
@@ -40268,19 +40060,29 @@
             "url": "https://github.com/honua-io/honua-server/issues/3877"
           },
           {
-            "number": 3878,
-            "title": "test(sensorthings): qualify observation-stream loss and recovery semantics independently",
-            "url": "https://github.com/honua-io/honua-server/issues/3878"
-          },
-          {
             "number": 3879,
             "title": "test(realtime): qualify Kafka and NATS sink outage recovery with live brokers",
             "url": "https://github.com/honua-io/honua-server/issues/3879"
           },
           {
-            "number": 3880,
-            "title": "test(realtime): add a 24\u201372 hour distributed transport soak with frozen SLOs",
-            "url": "https://github.com/honua-io/honua-server/issues/3880"
+            "number": 3881,
+            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
+            "url": "https://github.com/honua-io/honua-server/issues/3881"
+          },
+          {
+            "number": 7339,
+            "title": "Epic: cross-node realtime on a PostgreSQL event log (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7339"
+          },
+          {
+            "number": 7340,
+            "title": "feat(realtime): PostgreSQL realtime event log, append function and retention (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7340"
+          },
+          {
+            "number": 7341,
+            "title": "feat(realtime): one fan-out provider with in-process and PostgreSQL implementations (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7341"
           }
         ],
         "categoryLevel": true,
@@ -40302,19 +40104,9 @@
             "url": "https://github.com/honua-io/honua-server/issues/3033"
           },
           {
-            "number": 3874,
-            "title": "test(realtime): qualify ordered at-least-once delivery and duplicate behavior per transport",
-            "url": "https://github.com/honua-io/honua-server/issues/3874"
-          },
-          {
             "number": 3875,
             "title": "test(realtime): qualify cursor resume, typed gaps, and partition recovery end to end",
             "url": "https://github.com/honua-io/honua-server/issues/3875"
-          },
-          {
-            "number": 3876,
-            "title": "test(realtime): qualify multi-node proxy routing and Redis failover snapshot recovery",
-            "url": "https://github.com/honua-io/honua-server/issues/3876"
           },
           {
             "number": 3877,
@@ -40322,19 +40114,29 @@
             "url": "https://github.com/honua-io/honua-server/issues/3877"
           },
           {
-            "number": 3878,
-            "title": "test(sensorthings): qualify observation-stream loss and recovery semantics independently",
-            "url": "https://github.com/honua-io/honua-server/issues/3878"
-          },
-          {
             "number": 3879,
             "title": "test(realtime): qualify Kafka and NATS sink outage recovery with live brokers",
             "url": "https://github.com/honua-io/honua-server/issues/3879"
           },
           {
-            "number": 3880,
-            "title": "test(realtime): add a 24\u201372 hour distributed transport soak with frozen SLOs",
-            "url": "https://github.com/honua-io/honua-server/issues/3880"
+            "number": 3881,
+            "title": "test(alerts): qualify mutation-to-stream-to-alert handoff with checkpoint failover",
+            "url": "https://github.com/honua-io/honua-server/issues/3881"
+          },
+          {
+            "number": 7339,
+            "title": "Epic: cross-node realtime on a PostgreSQL event log (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7339"
+          },
+          {
+            "number": 7340,
+            "title": "feat(realtime): PostgreSQL realtime event log, append function and retention (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7340"
+          },
+          {
+            "number": 7341,
+            "title": "feat(realtime): one fan-out provider with in-process and PostgreSQL implementations (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7341"
           }
         ],
         "label": "cap/streaming"
