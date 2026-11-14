@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-11-14T13:41:15Z",
+  "generatedAt": "2026-11-14T17:18:06Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -28,52 +28,52 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-11-14T13:40:59Z",
+      "fetchedAt": "2026-11-14T17:17:50Z",
       "sourceVersion": "9aaa4823837f@2026-11-10T22:23:56Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-14T13:40:59Z",
+      "observedAt": "2026-11-14T17:17:50Z",
       "ageDays": 0,
       "sourceAgeDays": 3,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-11-14T13:40:59Z",
-      "sourceVersion": "229a443ac46c@2026-11-14T12:21:39Z",
+      "fetchedAt": "2026-11-14T17:17:50Z",
+      "sourceVersion": "fa9045c27e77@2026-11-14T16:47:00Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-14T13:40:59Z",
+      "observedAt": "2026-11-14T17:17:50Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-11-14T13:41:00Z",
+      "fetchedAt": "2026-11-14T17:17:51Z",
       "sourceVersion": "3d4fe3e432fc@2026-11-14T11:43:35Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-14T13:41:00Z",
+      "observedAt": "2026-11-14T17:17:51Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-11-14T13:41:00Z",
+      "fetchedAt": "2026-11-14T17:17:51Z",
       "sourceVersion": "59b8be4ddb70@2026-10-30T20:47:14Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-14T13:41:00Z",
+      "observedAt": "2026-11-14T17:17:51Z",
       "ageDays": 0,
       "sourceAgeDays": 14,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-11-14T13:41:01Z",
+      "fetchedAt": "2026-11-14T17:17:52Z",
       "sourceVersion": "9792cb444e78@2026-10-06T07:53:39Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-14T13:41:01Z",
+      "observedAt": "2026-11-14T17:17:52Z",
       "ageDays": 0,
       "sourceAgeDays": 39,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-11-14T13:41:02Z",
+      "fetchedAt": "2026-11-14T17:17:53Z",
       "sourceVersion": "b1c2fde22da1@2026-11-14T12:20:05Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-11-14T12:20:05Z",
@@ -82,16 +82,16 @@
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-11-14T13:41:15Z",
+      "fetchedAt": "2026-11-14T17:18:06Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-14T13:41:15Z",
+      "observedAt": "2026-11-14T17:18:06Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-11-14T13:41:02Z",
+      "fetchedAt": "2026-11-14T17:17:54Z",
       "sourceVersion": "dbfdd793d70a@2026-11-06T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-11-06T00:00:00Z",
@@ -100,7 +100,7 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-11-14T13:41:02Z",
+      "fetchedAt": "2026-11-14T17:17:54Z",
       "sourceVersion": "3ca5952426de@2026-11-14T13:40:04Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-11-14T13:40:04Z",
@@ -35333,7 +35333,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 2,
-      "provingTestCount": 151,
+      "provingTestCount": 155,
       "maturity": {
         "implemented": 2
       },
@@ -40187,14 +40187,14 @@
             "url": "https://github.com/honua-io/honua-server/issues/7339"
           },
           {
-            "number": 7341,
-            "title": "feat(realtime): one fan-out provider with in-process and PostgreSQL implementations (rc.3)",
-            "url": "https://github.com/honua-io/honua-server/issues/7341"
-          },
-          {
             "number": 7342,
             "title": "feat(streaming): feature-change streams across tasks from the feature change log (rc.3)",
             "url": "https://github.com/honua-io/honua-server/issues/7342"
+          },
+          {
+            "number": 7343,
+            "title": "feat(realtime): per-subscriber authorization and event-driven revocation (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7343"
           }
         ],
         "categoryLevel": true,
@@ -40241,14 +40241,14 @@
             "url": "https://github.com/honua-io/honua-server/issues/7339"
           },
           {
-            "number": 7341,
-            "title": "feat(realtime): one fan-out provider with in-process and PostgreSQL implementations (rc.3)",
-            "url": "https://github.com/honua-io/honua-server/issues/7341"
-          },
-          {
             "number": 7342,
             "title": "feat(streaming): feature-change streams across tasks from the feature change log (rc.3)",
             "url": "https://github.com/honua-io/honua-server/issues/7342"
+          },
+          {
+            "number": 7343,
+            "title": "feat(realtime): per-subscriber authorization and event-driven revocation (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7343"
           }
         ],
         "label": "cap/streaming"
