@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-11-14T21:26:37Z",
+  "generatedAt": "2026-11-14T21:49:56Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -28,70 +28,67 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-11-14T21:26:25Z",
+      "fetchedAt": "2026-11-14T21:49:46Z",
       "sourceVersion": "9aaa4823837f@2026-11-10T22:23:56Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-14T21:26:25Z",
+      "observedAt": "2026-11-14T21:49:46Z",
       "ageDays": 0,
       "sourceAgeDays": 3,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-11-14T21:26:26Z",
+      "fetchedAt": "2026-11-14T21:49:46Z",
       "sourceVersion": "058c6ee447fa@2026-11-14T20:13:19Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-14T21:26:26Z",
+      "observedAt": "2026-11-14T21:49:46Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-11-14T21:26:26Z",
+      "fetchedAt": "2026-11-14T21:49:47Z",
       "sourceVersion": "3d4fe3e432fc@2026-11-14T11:43:35Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-14T21:26:26Z",
+      "observedAt": "2026-11-14T21:49:47Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-11-14T21:26:27Z",
+      "fetchedAt": "2026-11-14T21:49:47Z",
       "sourceVersion": "59b8be4ddb70@2026-10-30T20:47:14Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-14T21:26:27Z",
+      "observedAt": "2026-11-14T21:49:47Z",
       "ageDays": 0,
       "sourceAgeDays": 15,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-11-14T21:26:27Z",
+      "fetchedAt": "2026-11-14T21:49:47Z",
       "sourceVersion": "9792cb444e78@2026-10-06T07:53:39Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-14T21:26:27Z",
+      "observedAt": "2026-11-14T21:49:47Z",
       "ageDays": 0,
       "sourceAgeDays": 39,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-11-14T21:26:28Z",
-      "sourceVersion": "4e31692dccae@2026-11-14T21:04:01Z",
-      "freshnessBasis": "observation",
-      "observedAt": "2026-11-14T21:04:01Z",
-      "ageDays": 0,
-      "sourceAgeDays": 0,
-      "status": "fresh"
+      "fetchedAt": "2026-11-14T21:49:48Z",
+      "sourceVersion": null,
+      "status": "missing",
+      "detail": "run 43641924968 has no samples-coverage artifact"
     },
     "open-issues": {
-      "fetchedAt": "2026-11-14T21:26:37Z",
+      "fetchedAt": "2026-11-14T21:49:56Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-14T21:26:37Z",
+      "observedAt": "2026-11-14T21:49:56Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-11-14T21:26:28Z",
+      "fetchedAt": "2026-11-14T21:49:48Z",
       "sourceVersion": "dbfdd793d70a@2026-11-06T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-11-06T00:00:00Z",
@@ -100,7 +97,7 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-11-14T21:26:28Z",
+      "fetchedAt": "2026-11-14T21:49:48Z",
       "sourceVersion": "3ca5952426de@2026-11-14T13:40:04Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-11-14T13:40:04Z",
@@ -192,7 +189,7 @@
           ]
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 5,
         "refs": [
@@ -283,7 +280,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -338,7 +335,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -393,7 +390,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -432,7 +429,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -480,7 +477,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -524,7 +521,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -567,7 +564,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -615,7 +612,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 4,
         "refs": [
@@ -705,7 +702,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 4,
         "refs": [
@@ -794,7 +791,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 4,
         "refs": [
@@ -884,7 +881,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 4,
         "refs": [
@@ -965,7 +962,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 5,
         "refs": [
@@ -1056,7 +1053,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 5,
         "refs": [
@@ -1147,7 +1144,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 5,
         "refs": [
@@ -1238,7 +1235,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 5,
         "refs": [
@@ -1329,7 +1326,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 5,
         "refs": [
@@ -1420,7 +1417,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 5,
         "refs": [
@@ -1517,7 +1514,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 5,
         "refs": [
@@ -1608,7 +1605,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 5,
         "refs": [
@@ -1699,7 +1696,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 5,
         "refs": [
@@ -1790,7 +1787,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 5,
         "refs": [
@@ -1881,7 +1878,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 5,
         "refs": [
@@ -1976,7 +1973,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 6,
         "refs": [
@@ -2081,7 +2078,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 6,
         "refs": [
@@ -2186,7 +2183,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -2229,7 +2226,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -2272,7 +2269,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -2315,7 +2312,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -2358,7 +2355,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -2401,7 +2398,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -2444,7 +2441,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -2491,7 +2488,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 4,
         "refs": [
@@ -2572,7 +2569,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 1,
         "refs": [
@@ -4558,7 +4555,7 @@
           ]
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 4,
         "refs": [
@@ -4643,7 +4640,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -4686,7 +4683,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -4729,7 +4726,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -4772,7 +4769,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -4817,7 +4814,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 3,
         "refs": [
@@ -4913,7 +4910,7 @@
           ]
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 3,
         "refs": [
@@ -4989,7 +4986,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 2,
         "refs": [
@@ -5058,7 +5055,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -5113,7 +5110,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -5156,7 +5153,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -5200,7 +5197,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 1,
         "refs": [
@@ -5255,7 +5252,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 1,
         "refs": [
@@ -7302,17 +7299,7 @@
           ]
         }
       },
-      "samples": [
-        {
-          "id": "geocode-single-line",
-          "title": "Single-line forward geocode (plain REST)",
-          "url": "https://samples.honua.io/geocode-single-line",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "pro"
-        }
-      ],
+      "samples": null,
       "openIssues": {
         "count": 1,
         "refs": [
@@ -7382,7 +7369,7 @@
           ]
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 1,
         "refs": [
@@ -7437,7 +7424,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 4,
         "refs": [
@@ -7518,7 +7505,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 4,
         "refs": [
@@ -7614,7 +7601,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 4,
         "refs": [
@@ -7704,7 +7691,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 4,
         "refs": [
@@ -7804,7 +7791,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 4,
         "refs": [
@@ -7897,7 +7884,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 4,
         "refs": [
@@ -7978,7 +7965,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 4,
         "refs": [
@@ -8059,7 +8046,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 4,
         "refs": [
@@ -8140,98 +8127,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [
-        {
-          "id": "maui-311",
-          "title": "Maui 311 exercise dashboard",
-          "url": "https://samples.honua.io/maui-311",
-          "sdks": [
-            "js",
-            "python",
-            "dotnet"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-14T21:03:52.955Z"
-          }
-        },
-        {
-          "id": "maui-data-pipeline",
-          "title": "Maui County department data pipeline",
-          "url": "https://samples.honua.io/maui-data-pipeline",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-14T21:03:52.955Z"
-          }
-        },
-        {
-          "id": "maui-emergency",
-          "title": "Maui emergency preparedness exercise",
-          "url": "https://samples.honua.io/maui-emergency",
-          "sdks": [
-            "js",
-            "python",
-            "dotnet"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-14T21:03:52.955Z"
-          }
-        },
-        {
-          "id": "maui-public-works",
-          "title": "Maui roadway assets and maintenance",
-          "url": "https://samples.honua.io/maui-public-works",
-          "sdks": [
-            "js",
-            "python",
-            "dotnet"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-14T21:03:52.955Z"
-          }
-        },
-        {
-          "id": "maui-workbench",
-          "title": "Maui linked analysis Workbench",
-          "url": "https://samples.honua.io/maui-workbench",
-          "sdks": [
-            "js"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-14T21:03:52.955Z"
-          }
-        },
-        {
-          "id": "wms-getmap-check",
-          "title": "WMS GetCapabilities + GetMap check (Node.js)",
-          "url": "https://samples.honua.io/wms-getmap-check",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-14T21:03:52.955Z"
-          }
-        }
-      ],
+      "samples": null,
       "openIssues": {
         "count": 9,
         "refs": [
@@ -8367,7 +8263,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 9,
         "refs": [
@@ -8503,7 +8399,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 9,
         "refs": [
@@ -8638,7 +8534,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -8681,7 +8577,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 5,
         "refs": [
@@ -10753,7 +10649,7 @@
           ]
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 8,
         "refs": [
@@ -14824,7 +14720,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 8,
         "refs": [
@@ -14965,7 +14861,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 2,
         "refs": [
@@ -15030,7 +14926,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -15069,7 +14965,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -15133,7 +15029,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 17,
         "refs": [
@@ -15369,7 +15265,7 @@
           ]
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 3,
         "refs": [
@@ -15444,7 +15340,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -15487,7 +15383,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -15530,7 +15426,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -15580,7 +15476,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 5,
         "refs": [
@@ -15686,7 +15582,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 2,
         "refs": [
@@ -15752,7 +15648,7 @@
           "note": "Read-only: the client can query dimension/variable metadata for an already-registered multidimensional ImageServer via multidimensionalInfo. There is no client surface to register or configure a NetCDF4/HDF5/Zarr multidimensional coverage -- that is server-admin configuration this SDK's control-plane client does not expose."
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 5,
         "refs": [
@@ -15865,7 +15761,7 @@
           "note": "mosaic_rule + a single ISO-8601 time instant select a raster temporal mosaic on the ImageServer histogram/statistics/sample analysis operations only. export_image, tile, identify, and query do not accept a typed time/mosaic_rule parameter (only generic extra_params passthrough), so temporal mosaic selection does not extend to raster rendering/export."
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 2,
         "refs": [
@@ -15926,7 +15822,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 2,
         "refs": [
@@ -16008,7 +15904,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 1,
         "refs": [
@@ -16059,7 +15955,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 9,
         "refs": [
@@ -16199,7 +16095,7 @@
           ]
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 9,
         "refs": [
@@ -16330,7 +16226,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 9,
         "refs": [
@@ -16473,7 +16369,7 @@
           ]
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 7,
         "refs": [
@@ -16594,7 +16490,7 @@
           ]
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 7,
         "refs": [
@@ -18762,140 +18658,7 @@
           ]
         }
       },
-      "samples": [
-        {
-          "id": "county-parcel-viewer",
-          "title": "County parcel viewer",
-          "url": "https://samples.honua.io/county-parcel-viewer",
-          "sdks": [
-            "js"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-14T21:03:52.955Z"
-          }
-        },
-        {
-          "id": "create-honua-app-react-ts",
-          "title": "Your first Honua app: create-honua-app react-ts",
-          "url": "https://samples.honua.io/create-honua-app-react-ts",
-          "sdks": [
-            "js"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-14T21:03:52.955Z"
-          }
-        },
-        {
-          "id": "create-honua-app-vanilla-ts",
-          "title": "Your first Honua app: create-honua-app vanilla-ts",
-          "url": "https://samples.honua.io/create-honua-app-vanilla-ts",
-          "sdks": [
-            "js"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-14T21:03:52.955Z"
-          }
-        },
-        {
-          "id": "hello-featureserver-rest",
-          "title": "Query a public FeatureServer (plain REST)",
-          "url": "https://samples.honua.io/hello-featureserver-rest",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-14T21:03:52.955Z"
-          }
-        },
-        {
-          "id": "maplibre-featureserver-layer",
-          "title": "FeatureServer layer in MapLibre GL JS",
-          "url": "https://samples.honua.io/maplibre-featureserver-layer",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-14T21:03:52.955Z"
-          }
-        },
-        {
-          "id": "maui-311",
-          "title": "Maui 311 exercise dashboard",
-          "url": "https://samples.honua.io/maui-311",
-          "sdks": [
-            "js",
-            "python",
-            "dotnet"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-14T21:03:52.955Z"
-          }
-        },
-        {
-          "id": "maui-emergency",
-          "title": "Maui emergency preparedness exercise",
-          "url": "https://samples.honua.io/maui-emergency",
-          "sdks": [
-            "js",
-            "python",
-            "dotnet"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-14T21:03:52.955Z"
-          }
-        },
-        {
-          "id": "maui-public-works",
-          "title": "Maui roadway assets and maintenance",
-          "url": "https://samples.honua.io/maui-public-works",
-          "sdks": [
-            "js",
-            "python",
-            "dotnet"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-14T21:03:52.955Z"
-          }
-        },
-        {
-          "id": "maui-workbench",
-          "title": "Maui linked analysis Workbench",
-          "url": "https://samples.honua.io/maui-workbench",
-          "sdks": [
-            "js"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-14T21:03:52.955Z"
-          }
-        }
-      ],
+      "samples": null,
       "openIssues": {
         "count": 7,
         "refs": [
@@ -19016,22 +18779,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [
-        {
-          "id": "county-parcel-viewer",
-          "title": "County parcel viewer",
-          "url": "https://samples.honua.io/county-parcel-viewer",
-          "sdks": [
-            "js"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-14T21:03:52.955Z"
-          }
-        }
-      ],
+      "samples": null,
       "openIssues": {
         "count": 7,
         "refs": [
@@ -19166,7 +18914,7 @@
           ]
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 7,
         "refs": [
@@ -19310,7 +19058,7 @@
           ]
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 7,
         "refs": [
@@ -21464,7 +21212,7 @@
           ]
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 7,
         "refs": [
@@ -21586,7 +21334,7 @@
           ]
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 7,
         "refs": [
@@ -21703,7 +21451,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 7,
         "refs": [
@@ -21818,7 +21566,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 7,
         "refs": [
@@ -21940,7 +21688,7 @@
           "note": "I3S-tagged scene endpoints resolve and fetch as opaque bytes through the same generic scene-endpoint resolution used for 3D Tiles, but there is no I3S-specific scene-layer-package (.slpk) node/resource-tree parsing -- only the 3D Tiles tileset.json walker (enumerate_tileset_contents) is implemented."
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 7,
         "refs": [
@@ -24081,22 +23829,7 @@
           "note": "Read/query only (service_document, metadata, layers, features, and pagination helpers). No create/update/delete entity-set operations are implemented, so the write half of 'query and edit features through OData v4' is not covered."
         }
       },
-      "samples": [
-        {
-          "id": "odata-query-rest",
-          "title": "Read spatial features with OData v4",
-          "url": "https://samples.honua.io/odata-query-rest",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-14T21:03:52.955Z"
-          }
-        }
-      ],
+      "samples": null,
       "openIssues": {
         "count": 7,
         "refs": [
@@ -24224,7 +23957,7 @@
           ]
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 5,
         "refs": [
@@ -26144,7 +25877,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 7,
         "refs": [
@@ -28303,36 +28036,7 @@
           ]
         }
       },
-      "samples": [
-        {
-          "id": "maplibre-category-style-legend",
-          "title": "Category style and legend from OGC API Features",
-          "url": "https://samples.honua.io/maplibre-category-style-legend",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-14T21:03:52.955Z"
-          }
-        },
-        {
-          "id": "ogc-features-python",
-          "title": "Read OGC API Features with Python",
-          "url": "https://samples.honua.io/ogc-features-python",
-          "sdks": [
-            "python"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-14T21:03:52.955Z"
-          }
-        }
-      ],
+      "samples": null,
       "openIssues": {
         "count": 7,
         "refs": [
@@ -28477,7 +28181,7 @@
           ]
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 7,
         "refs": [
@@ -28609,7 +28313,7 @@
           ]
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 7,
         "refs": [
@@ -28757,22 +28461,7 @@
           ]
         }
       },
-      "samples": [
-        {
-          "id": "maplibre-ogc-tiles-mvt",
-          "title": "OGC API Tiles vector tiles in MapLibre GL JS",
-          "url": "https://samples.honua.io/maplibre-ogc-tiles-mvt",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-14T21:03:52.955Z"
-          }
-        }
-      ],
+      "samples": null,
       "openIssues": {
         "count": 7,
         "refs": [
@@ -28883,7 +28572,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 7,
         "refs": [
@@ -30994,22 +30683,7 @@
           ]
         }
       },
-      "samples": [
-        {
-          "id": "stac-search-rest",
-          "title": "Discover a public STAC catalog",
-          "url": "https://samples.honua.io/stac-search-rest",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-14T21:03:52.955Z"
-          }
-        }
-      ],
+      "samples": null,
       "openIssues": {
         "count": 7,
         "refs": [
@@ -33121,22 +32795,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [
-        {
-          "id": "county-parcel-viewer",
-          "title": "County parcel viewer",
-          "url": "https://samples.honua.io/county-parcel-viewer",
-          "sdks": [
-            "js"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-14T21:03:52.955Z"
-          }
-        }
-      ],
+      "samples": null,
       "openIssues": {
         "count": 7,
         "refs": [
@@ -35245,7 +34904,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 7,
         "refs": [
@@ -35429,7 +35088,7 @@
           ]
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 7,
         "refs": [
@@ -37575,22 +37234,7 @@
           ]
         }
       },
-      "samples": [
-        {
-          "id": "wms-getmap-check",
-          "title": "WMS GetCapabilities + GetMap check (Node.js)",
-          "url": "https://samples.honua.io/wms-getmap-check",
-          "sdks": [
-            "rest"
-          ],
-          "edition": "community",
-          "lastRun": {
-            "outcome": "pass",
-            "serverVersion": "2026.1.0-nightly.g9d2169c+9d2169c",
-            "at": "2026-11-14T21:03:52.955Z"
-          }
-        }
-      ],
+      "samples": null,
       "openIssues": {
         "count": 7,
         "refs": [
@@ -39732,7 +39376,7 @@
           ]
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 7,
         "refs": [
@@ -39851,7 +39495,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 7,
         "refs": [
@@ -39966,7 +39610,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 1,
         "refs": [
@@ -40021,7 +39665,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 1,
         "refs": [
@@ -40076,7 +39720,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 1,
         "refs": [
@@ -40142,7 +39786,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 10,
         "refs": [
@@ -40283,7 +39927,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 2,
         "refs": [
@@ -40353,7 +39997,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 2,
         "refs": [
@@ -40434,7 +40078,7 @@
           ]
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 2,
         "refs": [
@@ -40499,7 +40143,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -40538,7 +40182,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -40577,7 +40221,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -40616,7 +40260,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -40659,7 +40303,7 @@
           "status": "not-covered"
         }
       },
-      "samples": [],
+      "samples": null,
       "openIssues": {
         "count": 0,
         "refs": [],
