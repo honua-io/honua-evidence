@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-11-20T18:12:56Z",
+  "generatedAt": "2026-11-20T18:52:51Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -28,70 +28,70 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-11-20T18:12:35Z",
+      "fetchedAt": "2026-11-20T18:52:37Z",
       "sourceVersion": "789ea170c088@2026-11-17T22:37:04Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-20T18:12:35Z",
+      "observedAt": "2026-11-20T18:52:37Z",
       "ageDays": 0,
       "sourceAgeDays": 2,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-11-20T18:12:36Z",
-      "sourceVersion": "007bf4bd2411@2026-11-20T09:38:27Z",
+      "fetchedAt": "2026-11-20T18:52:38Z",
+      "sourceVersion": "28ec78d7a3fa@2026-11-20T18:52:17Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-20T18:12:36Z",
+      "observedAt": "2026-11-20T18:52:38Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-11-20T18:12:37Z",
+      "fetchedAt": "2026-11-20T18:52:38Z",
       "sourceVersion": "3d4fe3e432fc@2026-11-14T11:43:35Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-20T18:12:37Z",
+      "observedAt": "2026-11-20T18:52:38Z",
       "ageDays": 0,
       "sourceAgeDays": 6,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-11-20T18:12:37Z",
+      "fetchedAt": "2026-11-20T18:52:38Z",
       "sourceVersion": "6630054f356b@2026-11-14T23:07:17Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-20T18:12:37Z",
+      "observedAt": "2026-11-20T18:52:38Z",
       "ageDays": 0,
       "sourceAgeDays": 5,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-11-20T18:12:38Z",
+      "fetchedAt": "2026-11-20T18:52:39Z",
       "sourceVersion": "afe1d6e315ed@2026-11-15T01:29:36Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-20T18:12:38Z",
+      "observedAt": "2026-11-20T18:52:39Z",
       "ageDays": 0,
       "sourceAgeDays": 5,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-11-20T18:12:40Z",
-      "sourceVersion": "6ef2c41c7095@2026-11-20T18:00:31Z",
+      "fetchedAt": "2026-11-20T18:52:40Z",
+      "sourceVersion": "9ce4ae759a47@2026-11-20T18:12:18Z",
       "freshnessBasis": "observation",
-      "observedAt": "2026-11-20T18:00:31Z",
+      "observedAt": "2026-11-20T18:12:18Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-11-20T18:12:56Z",
+      "fetchedAt": "2026-11-20T18:52:51Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-20T18:12:56Z",
+      "observedAt": "2026-11-20T18:52:51Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-11-20T18:12:40Z",
+      "fetchedAt": "2026-11-20T18:52:40Z",
       "sourceVersion": "bbd805166257@2026-11-20T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-11-20T00:00:00Z",
@@ -100,7 +100,7 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-11-20T18:12:40Z",
+      "fetchedAt": "2026-11-20T18:52:40Z",
       "sourceVersion": "64a7e581ad40@2026-11-20T15:36:40Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-11-20T15:36:40Z",
@@ -144,7 +144,7 @@
       "category": "ControlPlane",
       "edition": "Community",
       "entryCount": 433,
-      "provingTestCount": 1993,
+      "provingTestCount": 1998,
       "maturity": {
         "implemented": 430,
         "experimental": 3
@@ -1306,7 +1306,7 @@
       "category": "Analytics",
       "edition": "Pro",
       "entryCount": 4,
-      "provingTestCount": 35,
+      "provingTestCount": 36,
       "maturity": {
         "implemented": 4
       },
@@ -8133,7 +8133,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-20T18:00:24.433Z"
+            "at": "2026-11-20T18:12:10.983Z"
           }
         },
         {
@@ -8147,7 +8147,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-20T18:00:24.433Z"
+            "at": "2026-11-20T18:12:10.983Z"
           }
         },
         {
@@ -8163,7 +8163,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-20T18:00:24.433Z"
+            "at": "2026-11-20T18:12:10.983Z"
           }
         },
         {
@@ -8179,7 +8179,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-20T18:00:24.433Z"
+            "at": "2026-11-20T18:12:10.983Z"
           }
         },
         {
@@ -8193,7 +8193,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-20T18:00:24.433Z"
+            "at": "2026-11-20T18:12:10.983Z"
           }
         },
         {
@@ -8207,7 +8207,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-20T18:00:24.433Z"
+            "at": "2026-11-20T18:12:10.983Z"
           }
         }
       ],
@@ -15460,7 +15460,7 @@
       "category": "Process",
       "edition": "Community",
       "entryCount": 10,
-      "provingTestCount": 199,
+      "provingTestCount": 202,
       "maturity": {
         "preview": 10
       },
@@ -16805,7 +16805,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 49,
-      "provingTestCount": 617,
+      "provingTestCount": 624,
       "maturity": {
         "implemented": 49
       },
@@ -18945,7 +18945,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-20T18:00:24.433Z"
+            "at": "2026-11-20T18:12:10.983Z"
           }
         },
         {
@@ -18959,7 +18959,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-20T18:00:24.433Z"
+            "at": "2026-11-20T18:12:10.983Z"
           }
         },
         {
@@ -18973,7 +18973,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-20T18:00:24.433Z"
+            "at": "2026-11-20T18:12:10.983Z"
           }
         },
         {
@@ -18987,7 +18987,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-20T18:00:24.433Z"
+            "at": "2026-11-20T18:12:10.983Z"
           }
         },
         {
@@ -19001,7 +19001,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-20T18:00:24.433Z"
+            "at": "2026-11-20T18:12:10.983Z"
           }
         },
         {
@@ -19017,7 +19017,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-20T18:00:24.433Z"
+            "at": "2026-11-20T18:12:10.983Z"
           }
         },
         {
@@ -19033,7 +19033,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-20T18:00:24.433Z"
+            "at": "2026-11-20T18:12:10.983Z"
           }
         },
         {
@@ -19049,7 +19049,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-20T18:00:24.433Z"
+            "at": "2026-11-20T18:12:10.983Z"
           }
         },
         {
@@ -19063,7 +19063,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-20T18:00:24.433Z"
+            "at": "2026-11-20T18:12:10.983Z"
           }
         }
       ],
@@ -19199,7 +19199,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-20T18:00:24.433Z"
+            "at": "2026-11-20T18:12:10.983Z"
           }
         }
       ],
@@ -24360,7 +24360,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-20T18:00:24.433Z"
+            "at": "2026-11-20T18:12:10.983Z"
           }
         }
       ],
@@ -26499,7 +26499,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 19,
-      "provingTestCount": 373,
+      "provingTestCount": 376,
       "maturity": {
         "implemented": 19
       },
@@ -28630,7 +28630,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-20T18:00:24.433Z"
+            "at": "2026-11-20T18:12:10.983Z"
           }
         },
         {
@@ -28644,7 +28644,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-20T18:00:24.433Z"
+            "at": "2026-11-20T18:12:10.983Z"
           }
         }
       ],
@@ -28880,7 +28880,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 7,
-      "provingTestCount": 60,
+      "provingTestCount": 67,
       "maturity": {
         "implemented": 7
       },
@@ -29084,7 +29084,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-20T18:00:24.433Z"
+            "at": "2026-11-20T18:12:10.983Z"
           }
         }
       ],
@@ -31369,7 +31369,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-20T18:00:24.433Z"
+            "at": "2026-11-20T18:12:10.983Z"
           }
         }
       ],
@@ -33544,7 +33544,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-20T18:00:24.433Z"
+            "at": "2026-11-20T18:12:10.983Z"
           }
         }
       ],
@@ -38094,7 +38094,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-20T18:00:24.433Z"
+            "at": "2026-11-20T18:12:10.983Z"
           }
         }
       ],
@@ -40946,7 +40946,7 @@
       "category": "Styling",
       "edition": "Community",
       "entryCount": 8,
-      "provingTestCount": 74,
+      "provingTestCount": 76,
       "maturity": {
         "implemented": 8
       },
