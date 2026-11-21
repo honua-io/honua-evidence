@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-11-21T16:56:57Z",
+  "generatedAt": "2026-11-21T20:51:05Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -28,70 +28,70 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-11-21T16:56:46Z",
+      "fetchedAt": "2026-11-21T20:50:50Z",
       "sourceVersion": "789ea170c088@2026-11-17T22:37:04Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-21T16:56:46Z",
+      "observedAt": "2026-11-21T20:50:50Z",
       "ageDays": 0,
       "sourceAgeDays": 3,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-11-21T16:56:46Z",
+      "fetchedAt": "2026-11-21T20:50:51Z",
       "sourceVersion": "28ec78d7a3fa@2026-11-20T18:52:17Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-21T16:56:46Z",
+      "observedAt": "2026-11-21T20:50:51Z",
       "ageDays": 0,
-      "sourceAgeDays": 0,
+      "sourceAgeDays": 1,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-11-21T16:56:47Z",
+      "fetchedAt": "2026-11-21T20:50:51Z",
       "sourceVersion": "3d4fe3e432fc@2026-11-14T11:43:35Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-21T16:56:47Z",
+      "observedAt": "2026-11-21T20:50:51Z",
       "ageDays": 0,
       "sourceAgeDays": 7,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-11-21T16:56:47Z",
+      "fetchedAt": "2026-11-21T20:50:52Z",
       "sourceVersion": "6630054f356b@2026-11-14T23:07:17Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-21T16:56:47Z",
+      "observedAt": "2026-11-21T20:50:52Z",
       "ageDays": 0,
       "sourceAgeDays": 6,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-11-21T16:56:47Z",
+      "fetchedAt": "2026-11-21T20:50:52Z",
       "sourceVersion": "afe1d6e315ed@2026-11-15T01:29:36Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-21T16:56:47Z",
+      "observedAt": "2026-11-21T20:50:52Z",
       "ageDays": 0,
       "sourceAgeDays": 6,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-11-21T16:56:48Z",
-      "sourceVersion": "e6f071bc15bc@2026-11-21T16:56:26Z",
+      "fetchedAt": "2026-11-21T20:50:53Z",
+      "sourceVersion": "3b5a3b3d22f4@2026-11-21T20:49:36Z",
       "freshnessBasis": "observation",
-      "observedAt": "2026-11-21T16:56:26Z",
+      "observedAt": "2026-11-21T20:49:36Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-11-21T16:56:57Z",
+      "fetchedAt": "2026-11-21T20:51:05Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-21T16:56:57Z",
+      "observedAt": "2026-11-21T20:51:05Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-11-21T16:56:48Z",
+      "fetchedAt": "2026-11-21T20:50:54Z",
       "sourceVersion": "bbd805166257@2026-11-20T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-11-20T00:00:00Z",
@@ -100,7 +100,7 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-11-21T16:56:48Z",
+      "fetchedAt": "2026-11-21T20:50:54Z",
       "sourceVersion": "7e07423aebd8@2026-11-21T14:46:59Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-11-21T14:46:59Z",
@@ -127,15 +127,28 @@
     "open-issues: honua-io/honua-server#6913: 'Capability Key(s)' field references unknown capability key 'cap/raster' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#6978: 'Capability Key(s)' field references unknown capability key 'cap/caching' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#6980: 'Capability Key(s)' field references unknown capability key 'cap/control-plane' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
-    "open-issues: honua-io/honua-server#6984: 'Capability Key(s)' field references unknown capability key 'cap/ops' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#7003: 'Capability Key(s)' field references unknown capability key 'cap/serve' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#7003: 'Capability Key(s)' field references unknown capability key 'cap/static-map' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#7006: 'Capability Key(s)' field references unknown capability key 'cap/caching' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#7010: 'Capability Key(s)' field references unknown capability key 'cap/editing' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
-    "open-issues: honua-io/honua-server#7013: 'Capability Key(s)' field references unknown capability key 'cap/ops' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#7014: 'Capability Key(s)' field references unknown capability key 'cap/identity' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#7017: 'Capability Key(s)' field references unknown capability key 'cap/control-plane' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
-    "open-issues: honua-io/honua-server#7019: 'Capability Key(s)' field references unknown capability key 'cap/extensibility' (not in honua-server's canonical capability-keys.v1.json) -- ignored"
+    "open-issues: honua-io/honua-server#7019: 'Capability Key(s)' field references unknown capability key 'cap/extensibility' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#7424: 'Capability Key(s)' field references unknown capability key 'assets' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#7424: 'Capability Key(s)' field references unknown capability key 'tasks' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#7425: 'Capability Key(s)' field references unknown capability key 'assets' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#7425: 'Capability Key(s)' field references unknown capability key 'tasks' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#7426: 'Capability Key(s)' field references unknown capability key 'assets' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#7426: 'Capability Key(s)' field references unknown capability key 'tasks' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#7432: 'Capability Key(s)' field references unknown capability key 'assets' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#7432: 'Capability Key(s)' field references unknown capability key 'tasks' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#8715: 'Capability Key(s)' field references unknown capability key 'serve-geoservices' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#8715: 'Capability Key(s)' field references unknown capability key 'serve-ogc' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#8715: 'Capability Key(s)' field references unknown capability key 'spatial-analytics' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#8726: 'Capability Key(s)' field references unknown capability key 'geocoding' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#8726: 'Capability Key(s)' field references unknown capability key 'routing' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#8726: 'Capability Key(s)' field references unknown capability key 'serve-3d' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
+    "open-issues: honua-io/honua-server#8726: 'Capability Key(s)' field references unknown capability key 'serve-geoservices' (not in honua-server's canonical capability-keys.v1.json) -- ignored"
   ],
   "capabilities": [
     {
@@ -194,7 +207,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 10,
         "refs": [
           {
             "number": 3447,
@@ -212,6 +225,26 @@
             "url": "https://github.com/honua-io/honua-server/issues/6221"
           },
           {
+            "number": 6927,
+            "title": "feat(admin): author layer extrusion and lifecycle status",
+            "url": "https://github.com/honua-io/honua-server/issues/6927"
+          },
+          {
+            "number": 6928,
+            "title": "feat(admin): author layer subtypes and attribute rules",
+            "url": "https://github.com/honua-io/honua-server/issues/6928"
+          },
+          {
+            "number": 6931,
+            "title": "feat(admin): read and author publication overrides",
+            "url": "https://github.com/honua-io/honua-server/issues/6931"
+          },
+          {
+            "number": 6932,
+            "title": "feat(admin): read and set service settings caps",
+            "url": "https://github.com/honua-io/honua-server/issues/6932"
+          },
+          {
             "number": 6980,
             "title": "feat(limits): persist rate-limit policies and share counters across tasks",
             "url": "https://github.com/honua-io/honua-server/issues/6980"
@@ -220,6 +253,11 @@
             "number": 7017,
             "title": "feat(catalog): export the catalog and register a custom CRS",
             "url": "https://github.com/honua-io/honua-server/issues/7017"
+          },
+          {
+            "number": 7106,
+            "title": "Admin view of layers omitted from capabilities documents",
+            "url": "https://github.com/honua-io/honua-server/issues/7106"
           }
         ],
         "categoryLevel": true,
@@ -241,6 +279,26 @@
             "url": "https://github.com/honua-io/honua-server/issues/6221"
           },
           {
+            "number": 6927,
+            "title": "feat(admin): author layer extrusion and lifecycle status",
+            "url": "https://github.com/honua-io/honua-server/issues/6927"
+          },
+          {
+            "number": 6928,
+            "title": "feat(admin): author layer subtypes and attribute rules",
+            "url": "https://github.com/honua-io/honua-server/issues/6928"
+          },
+          {
+            "number": 6931,
+            "title": "feat(admin): read and author publication overrides",
+            "url": "https://github.com/honua-io/honua-server/issues/6931"
+          },
+          {
+            "number": 6932,
+            "title": "feat(admin): read and set service settings caps",
+            "url": "https://github.com/honua-io/honua-server/issues/6932"
+          },
+          {
             "number": 6980,
             "title": "feat(limits): persist rate-limit policies and share counters across tasks",
             "url": "https://github.com/honua-io/honua-server/issues/6980"
@@ -249,6 +307,11 @@
             "number": 7017,
             "title": "feat(catalog): export the catalog and register a custom CRS",
             "url": "https://github.com/honua-io/honua-server/issues/7017"
+          },
+          {
+            "number": 7106,
+            "title": "Admin view of layers omitted from capabilities documents",
+            "url": "https://github.com/honua-io/honua-server/issues/7106"
           }
         ],
         "label": "cap/control-plane"
@@ -340,11 +403,113 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 10,
+        "refs": [
+          {
+            "number": 2457,
+            "title": "Epic: Operate slice 2 \u2014 ask\u2013explain\u2013fix on the paved path (serving-plane findings, LLM seat, truthful rollback, self-operating demo)",
+            "url": "https://github.com/honua-io/honua-server/issues/2457"
+          },
+          {
+            "number": 4715,
+            "title": "agents: per-layer and per-operation agent notes generated from the catalog (AGENTS.md-equivalent)",
+            "url": "https://github.com/honua-io/honua-server/issues/4715"
+          },
+          {
+            "number": 4716,
+            "title": "mcp: every tool answer carries provenance (candidate digest, layer versions, replayable requests, receipt id)",
+            "url": "https://github.com/honua-io/honua-server/issues/4716"
+          },
+          {
+            "number": 4717,
+            "title": "operate: per-layer and per-tool agent usage and refusal telemetry",
+            "url": "https://github.com/honua-io/honua-server/issues/4717"
+          },
+          {
+            "number": 6297,
+            "title": "Epic: unified Honua agent workspace from bootstrap to published GIS",
+            "url": "https://github.com/honua-io/honua-server/issues/6297"
+          },
+          {
+            "number": 6454,
+            "title": "fix(agent): preserve registered native EKS endpoint identity pins",
+            "url": "https://github.com/honua-io/honua-server/issues/6454"
+          },
+          {
+            "number": 6532,
+            "title": "feat(studio): let an agent propose restoration of an existing saved version",
+            "url": "https://github.com/honua-io/honua-server/issues/6532"
+          },
+          {
+            "number": 6533,
+            "title": "feat(agent): admit scoped human authors and expose original turn authorship",
+            "url": "https://github.com/honua-io/honua-server/issues/6533"
+          },
+          {
+            "number": 6538,
+            "title": "feat(agent): execute Console turns through the external worker with durable visible progress",
+            "url": "https://github.com/honua-io/honua-server/issues/6538"
+          },
+          {
+            "number": 6921,
+            "title": "feat(agents): ship Honua operating skills alongside AGENTS.md (install, ops, services, Studio maps, tuning)",
+            "url": "https://github.com/honua-io/honua-server/issues/6921"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2457,
+            "title": "Epic: Operate slice 2 \u2014 ask\u2013explain\u2013fix on the paved path (serving-plane findings, LLM seat, truthful rollback, self-operating demo)",
+            "url": "https://github.com/honua-io/honua-server/issues/2457"
+          },
+          {
+            "number": 4715,
+            "title": "agents: per-layer and per-operation agent notes generated from the catalog (AGENTS.md-equivalent)",
+            "url": "https://github.com/honua-io/honua-server/issues/4715"
+          },
+          {
+            "number": 4716,
+            "title": "mcp: every tool answer carries provenance (candidate digest, layer versions, replayable requests, receipt id)",
+            "url": "https://github.com/honua-io/honua-server/issues/4716"
+          },
+          {
+            "number": 4717,
+            "title": "operate: per-layer and per-tool agent usage and refusal telemetry",
+            "url": "https://github.com/honua-io/honua-server/issues/4717"
+          },
+          {
+            "number": 6297,
+            "title": "Epic: unified Honua agent workspace from bootstrap to published GIS",
+            "url": "https://github.com/honua-io/honua-server/issues/6297"
+          },
+          {
+            "number": 6454,
+            "title": "fix(agent): preserve registered native EKS endpoint identity pins",
+            "url": "https://github.com/honua-io/honua-server/issues/6454"
+          },
+          {
+            "number": 6532,
+            "title": "feat(studio): let an agent propose restoration of an existing saved version",
+            "url": "https://github.com/honua-io/honua-server/issues/6532"
+          },
+          {
+            "number": 6533,
+            "title": "feat(agent): admit scoped human authors and expose original turn authorship",
+            "url": "https://github.com/honua-io/honua-server/issues/6533"
+          },
+          {
+            "number": 6538,
+            "title": "feat(agent): execute Console turns through the external worker with durable visible progress",
+            "url": "https://github.com/honua-io/honua-server/issues/6538"
+          },
+          {
+            "number": 6921,
+            "title": "feat(agents): ship Honua operating skills alongside AGENTS.md (install, ops, services, Studio maps, tuning)",
+            "url": "https://github.com/honua-io/honua-server/issues/6921"
+          }
+        ],
         "label": "cap/ai"
       }
     },
@@ -395,11 +560,113 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 10,
+        "refs": [
+          {
+            "number": 2457,
+            "title": "Epic: Operate slice 2 \u2014 ask\u2013explain\u2013fix on the paved path (serving-plane findings, LLM seat, truthful rollback, self-operating demo)",
+            "url": "https://github.com/honua-io/honua-server/issues/2457"
+          },
+          {
+            "number": 4715,
+            "title": "agents: per-layer and per-operation agent notes generated from the catalog (AGENTS.md-equivalent)",
+            "url": "https://github.com/honua-io/honua-server/issues/4715"
+          },
+          {
+            "number": 4716,
+            "title": "mcp: every tool answer carries provenance (candidate digest, layer versions, replayable requests, receipt id)",
+            "url": "https://github.com/honua-io/honua-server/issues/4716"
+          },
+          {
+            "number": 4717,
+            "title": "operate: per-layer and per-tool agent usage and refusal telemetry",
+            "url": "https://github.com/honua-io/honua-server/issues/4717"
+          },
+          {
+            "number": 6297,
+            "title": "Epic: unified Honua agent workspace from bootstrap to published GIS",
+            "url": "https://github.com/honua-io/honua-server/issues/6297"
+          },
+          {
+            "number": 6454,
+            "title": "fix(agent): preserve registered native EKS endpoint identity pins",
+            "url": "https://github.com/honua-io/honua-server/issues/6454"
+          },
+          {
+            "number": 6532,
+            "title": "feat(studio): let an agent propose restoration of an existing saved version",
+            "url": "https://github.com/honua-io/honua-server/issues/6532"
+          },
+          {
+            "number": 6533,
+            "title": "feat(agent): admit scoped human authors and expose original turn authorship",
+            "url": "https://github.com/honua-io/honua-server/issues/6533"
+          },
+          {
+            "number": 6538,
+            "title": "feat(agent): execute Console turns through the external worker with durable visible progress",
+            "url": "https://github.com/honua-io/honua-server/issues/6538"
+          },
+          {
+            "number": 6921,
+            "title": "feat(agents): ship Honua operating skills alongside AGENTS.md (install, ops, services, Studio maps, tuning)",
+            "url": "https://github.com/honua-io/honua-server/issues/6921"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2457,
+            "title": "Epic: Operate slice 2 \u2014 ask\u2013explain\u2013fix on the paved path (serving-plane findings, LLM seat, truthful rollback, self-operating demo)",
+            "url": "https://github.com/honua-io/honua-server/issues/2457"
+          },
+          {
+            "number": 4715,
+            "title": "agents: per-layer and per-operation agent notes generated from the catalog (AGENTS.md-equivalent)",
+            "url": "https://github.com/honua-io/honua-server/issues/4715"
+          },
+          {
+            "number": 4716,
+            "title": "mcp: every tool answer carries provenance (candidate digest, layer versions, replayable requests, receipt id)",
+            "url": "https://github.com/honua-io/honua-server/issues/4716"
+          },
+          {
+            "number": 4717,
+            "title": "operate: per-layer and per-tool agent usage and refusal telemetry",
+            "url": "https://github.com/honua-io/honua-server/issues/4717"
+          },
+          {
+            "number": 6297,
+            "title": "Epic: unified Honua agent workspace from bootstrap to published GIS",
+            "url": "https://github.com/honua-io/honua-server/issues/6297"
+          },
+          {
+            "number": 6454,
+            "title": "fix(agent): preserve registered native EKS endpoint identity pins",
+            "url": "https://github.com/honua-io/honua-server/issues/6454"
+          },
+          {
+            "number": 6532,
+            "title": "feat(studio): let an agent propose restoration of an existing saved version",
+            "url": "https://github.com/honua-io/honua-server/issues/6532"
+          },
+          {
+            "number": 6533,
+            "title": "feat(agent): admit scoped human authors and expose original turn authorship",
+            "url": "https://github.com/honua-io/honua-server/issues/6533"
+          },
+          {
+            "number": 6538,
+            "title": "feat(agent): execute Console turns through the external worker with durable visible progress",
+            "url": "https://github.com/honua-io/honua-server/issues/6538"
+          },
+          {
+            "number": 6921,
+            "title": "feat(agents): ship Honua operating skills alongside AGENTS.md (install, ops, services, Studio maps, tuning)",
+            "url": "https://github.com/honua-io/honua-server/issues/6921"
+          }
+        ],
         "label": "cap/ai"
       }
     },
@@ -434,11 +701,113 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 10,
+        "refs": [
+          {
+            "number": 2457,
+            "title": "Epic: Operate slice 2 \u2014 ask\u2013explain\u2013fix on the paved path (serving-plane findings, LLM seat, truthful rollback, self-operating demo)",
+            "url": "https://github.com/honua-io/honua-server/issues/2457"
+          },
+          {
+            "number": 4715,
+            "title": "agents: per-layer and per-operation agent notes generated from the catalog (AGENTS.md-equivalent)",
+            "url": "https://github.com/honua-io/honua-server/issues/4715"
+          },
+          {
+            "number": 4716,
+            "title": "mcp: every tool answer carries provenance (candidate digest, layer versions, replayable requests, receipt id)",
+            "url": "https://github.com/honua-io/honua-server/issues/4716"
+          },
+          {
+            "number": 4717,
+            "title": "operate: per-layer and per-tool agent usage and refusal telemetry",
+            "url": "https://github.com/honua-io/honua-server/issues/4717"
+          },
+          {
+            "number": 6297,
+            "title": "Epic: unified Honua agent workspace from bootstrap to published GIS",
+            "url": "https://github.com/honua-io/honua-server/issues/6297"
+          },
+          {
+            "number": 6454,
+            "title": "fix(agent): preserve registered native EKS endpoint identity pins",
+            "url": "https://github.com/honua-io/honua-server/issues/6454"
+          },
+          {
+            "number": 6532,
+            "title": "feat(studio): let an agent propose restoration of an existing saved version",
+            "url": "https://github.com/honua-io/honua-server/issues/6532"
+          },
+          {
+            "number": 6533,
+            "title": "feat(agent): admit scoped human authors and expose original turn authorship",
+            "url": "https://github.com/honua-io/honua-server/issues/6533"
+          },
+          {
+            "number": 6538,
+            "title": "feat(agent): execute Console turns through the external worker with durable visible progress",
+            "url": "https://github.com/honua-io/honua-server/issues/6538"
+          },
+          {
+            "number": 6921,
+            "title": "feat(agents): ship Honua operating skills alongside AGENTS.md (install, ops, services, Studio maps, tuning)",
+            "url": "https://github.com/honua-io/honua-server/issues/6921"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2457,
+            "title": "Epic: Operate slice 2 \u2014 ask\u2013explain\u2013fix on the paved path (serving-plane findings, LLM seat, truthful rollback, self-operating demo)",
+            "url": "https://github.com/honua-io/honua-server/issues/2457"
+          },
+          {
+            "number": 4715,
+            "title": "agents: per-layer and per-operation agent notes generated from the catalog (AGENTS.md-equivalent)",
+            "url": "https://github.com/honua-io/honua-server/issues/4715"
+          },
+          {
+            "number": 4716,
+            "title": "mcp: every tool answer carries provenance (candidate digest, layer versions, replayable requests, receipt id)",
+            "url": "https://github.com/honua-io/honua-server/issues/4716"
+          },
+          {
+            "number": 4717,
+            "title": "operate: per-layer and per-tool agent usage and refusal telemetry",
+            "url": "https://github.com/honua-io/honua-server/issues/4717"
+          },
+          {
+            "number": 6297,
+            "title": "Epic: unified Honua agent workspace from bootstrap to published GIS",
+            "url": "https://github.com/honua-io/honua-server/issues/6297"
+          },
+          {
+            "number": 6454,
+            "title": "fix(agent): preserve registered native EKS endpoint identity pins",
+            "url": "https://github.com/honua-io/honua-server/issues/6454"
+          },
+          {
+            "number": 6532,
+            "title": "feat(studio): let an agent propose restoration of an existing saved version",
+            "url": "https://github.com/honua-io/honua-server/issues/6532"
+          },
+          {
+            "number": 6533,
+            "title": "feat(agent): admit scoped human authors and expose original turn authorship",
+            "url": "https://github.com/honua-io/honua-server/issues/6533"
+          },
+          {
+            "number": 6538,
+            "title": "feat(agent): execute Console turns through the external worker with durable visible progress",
+            "url": "https://github.com/honua-io/honua-server/issues/6538"
+          },
+          {
+            "number": 6921,
+            "title": "feat(agents): ship Honua operating skills alongside AGENTS.md (install, ops, services, Studio maps, tuning)",
+            "url": "https://github.com/honua-io/honua-server/issues/6921"
+          }
+        ],
         "label": "cap/ai"
       }
     },
@@ -482,11 +851,113 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 10,
+        "refs": [
+          {
+            "number": 2457,
+            "title": "Epic: Operate slice 2 \u2014 ask\u2013explain\u2013fix on the paved path (serving-plane findings, LLM seat, truthful rollback, self-operating demo)",
+            "url": "https://github.com/honua-io/honua-server/issues/2457"
+          },
+          {
+            "number": 4715,
+            "title": "agents: per-layer and per-operation agent notes generated from the catalog (AGENTS.md-equivalent)",
+            "url": "https://github.com/honua-io/honua-server/issues/4715"
+          },
+          {
+            "number": 4716,
+            "title": "mcp: every tool answer carries provenance (candidate digest, layer versions, replayable requests, receipt id)",
+            "url": "https://github.com/honua-io/honua-server/issues/4716"
+          },
+          {
+            "number": 4717,
+            "title": "operate: per-layer and per-tool agent usage and refusal telemetry",
+            "url": "https://github.com/honua-io/honua-server/issues/4717"
+          },
+          {
+            "number": 6297,
+            "title": "Epic: unified Honua agent workspace from bootstrap to published GIS",
+            "url": "https://github.com/honua-io/honua-server/issues/6297"
+          },
+          {
+            "number": 6454,
+            "title": "fix(agent): preserve registered native EKS endpoint identity pins",
+            "url": "https://github.com/honua-io/honua-server/issues/6454"
+          },
+          {
+            "number": 6532,
+            "title": "feat(studio): let an agent propose restoration of an existing saved version",
+            "url": "https://github.com/honua-io/honua-server/issues/6532"
+          },
+          {
+            "number": 6533,
+            "title": "feat(agent): admit scoped human authors and expose original turn authorship",
+            "url": "https://github.com/honua-io/honua-server/issues/6533"
+          },
+          {
+            "number": 6538,
+            "title": "feat(agent): execute Console turns through the external worker with durable visible progress",
+            "url": "https://github.com/honua-io/honua-server/issues/6538"
+          },
+          {
+            "number": 6921,
+            "title": "feat(agents): ship Honua operating skills alongside AGENTS.md (install, ops, services, Studio maps, tuning)",
+            "url": "https://github.com/honua-io/honua-server/issues/6921"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2457,
+            "title": "Epic: Operate slice 2 \u2014 ask\u2013explain\u2013fix on the paved path (serving-plane findings, LLM seat, truthful rollback, self-operating demo)",
+            "url": "https://github.com/honua-io/honua-server/issues/2457"
+          },
+          {
+            "number": 4715,
+            "title": "agents: per-layer and per-operation agent notes generated from the catalog (AGENTS.md-equivalent)",
+            "url": "https://github.com/honua-io/honua-server/issues/4715"
+          },
+          {
+            "number": 4716,
+            "title": "mcp: every tool answer carries provenance (candidate digest, layer versions, replayable requests, receipt id)",
+            "url": "https://github.com/honua-io/honua-server/issues/4716"
+          },
+          {
+            "number": 4717,
+            "title": "operate: per-layer and per-tool agent usage and refusal telemetry",
+            "url": "https://github.com/honua-io/honua-server/issues/4717"
+          },
+          {
+            "number": 6297,
+            "title": "Epic: unified Honua agent workspace from bootstrap to published GIS",
+            "url": "https://github.com/honua-io/honua-server/issues/6297"
+          },
+          {
+            "number": 6454,
+            "title": "fix(agent): preserve registered native EKS endpoint identity pins",
+            "url": "https://github.com/honua-io/honua-server/issues/6454"
+          },
+          {
+            "number": 6532,
+            "title": "feat(studio): let an agent propose restoration of an existing saved version",
+            "url": "https://github.com/honua-io/honua-server/issues/6532"
+          },
+          {
+            "number": 6533,
+            "title": "feat(agent): admit scoped human authors and expose original turn authorship",
+            "url": "https://github.com/honua-io/honua-server/issues/6533"
+          },
+          {
+            "number": 6538,
+            "title": "feat(agent): execute Console turns through the external worker with durable visible progress",
+            "url": "https://github.com/honua-io/honua-server/issues/6538"
+          },
+          {
+            "number": 6921,
+            "title": "feat(agents): ship Honua operating skills alongside AGENTS.md (install, ops, services, Studio maps, tuning)",
+            "url": "https://github.com/honua-io/honua-server/issues/6921"
+          }
+        ],
         "label": "cap/ai"
       }
     },
@@ -526,11 +997,113 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 10,
+        "refs": [
+          {
+            "number": 2457,
+            "title": "Epic: Operate slice 2 \u2014 ask\u2013explain\u2013fix on the paved path (serving-plane findings, LLM seat, truthful rollback, self-operating demo)",
+            "url": "https://github.com/honua-io/honua-server/issues/2457"
+          },
+          {
+            "number": 4715,
+            "title": "agents: per-layer and per-operation agent notes generated from the catalog (AGENTS.md-equivalent)",
+            "url": "https://github.com/honua-io/honua-server/issues/4715"
+          },
+          {
+            "number": 4716,
+            "title": "mcp: every tool answer carries provenance (candidate digest, layer versions, replayable requests, receipt id)",
+            "url": "https://github.com/honua-io/honua-server/issues/4716"
+          },
+          {
+            "number": 4717,
+            "title": "operate: per-layer and per-tool agent usage and refusal telemetry",
+            "url": "https://github.com/honua-io/honua-server/issues/4717"
+          },
+          {
+            "number": 6297,
+            "title": "Epic: unified Honua agent workspace from bootstrap to published GIS",
+            "url": "https://github.com/honua-io/honua-server/issues/6297"
+          },
+          {
+            "number": 6454,
+            "title": "fix(agent): preserve registered native EKS endpoint identity pins",
+            "url": "https://github.com/honua-io/honua-server/issues/6454"
+          },
+          {
+            "number": 6532,
+            "title": "feat(studio): let an agent propose restoration of an existing saved version",
+            "url": "https://github.com/honua-io/honua-server/issues/6532"
+          },
+          {
+            "number": 6533,
+            "title": "feat(agent): admit scoped human authors and expose original turn authorship",
+            "url": "https://github.com/honua-io/honua-server/issues/6533"
+          },
+          {
+            "number": 6538,
+            "title": "feat(agent): execute Console turns through the external worker with durable visible progress",
+            "url": "https://github.com/honua-io/honua-server/issues/6538"
+          },
+          {
+            "number": 6921,
+            "title": "feat(agents): ship Honua operating skills alongside AGENTS.md (install, ops, services, Studio maps, tuning)",
+            "url": "https://github.com/honua-io/honua-server/issues/6921"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2457,
+            "title": "Epic: Operate slice 2 \u2014 ask\u2013explain\u2013fix on the paved path (serving-plane findings, LLM seat, truthful rollback, self-operating demo)",
+            "url": "https://github.com/honua-io/honua-server/issues/2457"
+          },
+          {
+            "number": 4715,
+            "title": "agents: per-layer and per-operation agent notes generated from the catalog (AGENTS.md-equivalent)",
+            "url": "https://github.com/honua-io/honua-server/issues/4715"
+          },
+          {
+            "number": 4716,
+            "title": "mcp: every tool answer carries provenance (candidate digest, layer versions, replayable requests, receipt id)",
+            "url": "https://github.com/honua-io/honua-server/issues/4716"
+          },
+          {
+            "number": 4717,
+            "title": "operate: per-layer and per-tool agent usage and refusal telemetry",
+            "url": "https://github.com/honua-io/honua-server/issues/4717"
+          },
+          {
+            "number": 6297,
+            "title": "Epic: unified Honua agent workspace from bootstrap to published GIS",
+            "url": "https://github.com/honua-io/honua-server/issues/6297"
+          },
+          {
+            "number": 6454,
+            "title": "fix(agent): preserve registered native EKS endpoint identity pins",
+            "url": "https://github.com/honua-io/honua-server/issues/6454"
+          },
+          {
+            "number": 6532,
+            "title": "feat(studio): let an agent propose restoration of an existing saved version",
+            "url": "https://github.com/honua-io/honua-server/issues/6532"
+          },
+          {
+            "number": 6533,
+            "title": "feat(agent): admit scoped human authors and expose original turn authorship",
+            "url": "https://github.com/honua-io/honua-server/issues/6533"
+          },
+          {
+            "number": 6538,
+            "title": "feat(agent): execute Console turns through the external worker with durable visible progress",
+            "url": "https://github.com/honua-io/honua-server/issues/6538"
+          },
+          {
+            "number": 6921,
+            "title": "feat(agents): ship Honua operating skills alongside AGENTS.md (install, ops, services, Studio maps, tuning)",
+            "url": "https://github.com/honua-io/honua-server/issues/6921"
+          }
+        ],
         "label": "cap/ai"
       }
     },
@@ -569,11 +1142,113 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 10,
+        "refs": [
+          {
+            "number": 2457,
+            "title": "Epic: Operate slice 2 \u2014 ask\u2013explain\u2013fix on the paved path (serving-plane findings, LLM seat, truthful rollback, self-operating demo)",
+            "url": "https://github.com/honua-io/honua-server/issues/2457"
+          },
+          {
+            "number": 4715,
+            "title": "agents: per-layer and per-operation agent notes generated from the catalog (AGENTS.md-equivalent)",
+            "url": "https://github.com/honua-io/honua-server/issues/4715"
+          },
+          {
+            "number": 4716,
+            "title": "mcp: every tool answer carries provenance (candidate digest, layer versions, replayable requests, receipt id)",
+            "url": "https://github.com/honua-io/honua-server/issues/4716"
+          },
+          {
+            "number": 4717,
+            "title": "operate: per-layer and per-tool agent usage and refusal telemetry",
+            "url": "https://github.com/honua-io/honua-server/issues/4717"
+          },
+          {
+            "number": 6297,
+            "title": "Epic: unified Honua agent workspace from bootstrap to published GIS",
+            "url": "https://github.com/honua-io/honua-server/issues/6297"
+          },
+          {
+            "number": 6454,
+            "title": "fix(agent): preserve registered native EKS endpoint identity pins",
+            "url": "https://github.com/honua-io/honua-server/issues/6454"
+          },
+          {
+            "number": 6532,
+            "title": "feat(studio): let an agent propose restoration of an existing saved version",
+            "url": "https://github.com/honua-io/honua-server/issues/6532"
+          },
+          {
+            "number": 6533,
+            "title": "feat(agent): admit scoped human authors and expose original turn authorship",
+            "url": "https://github.com/honua-io/honua-server/issues/6533"
+          },
+          {
+            "number": 6538,
+            "title": "feat(agent): execute Console turns through the external worker with durable visible progress",
+            "url": "https://github.com/honua-io/honua-server/issues/6538"
+          },
+          {
+            "number": 6921,
+            "title": "feat(agents): ship Honua operating skills alongside AGENTS.md (install, ops, services, Studio maps, tuning)",
+            "url": "https://github.com/honua-io/honua-server/issues/6921"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 2457,
+            "title": "Epic: Operate slice 2 \u2014 ask\u2013explain\u2013fix on the paved path (serving-plane findings, LLM seat, truthful rollback, self-operating demo)",
+            "url": "https://github.com/honua-io/honua-server/issues/2457"
+          },
+          {
+            "number": 4715,
+            "title": "agents: per-layer and per-operation agent notes generated from the catalog (AGENTS.md-equivalent)",
+            "url": "https://github.com/honua-io/honua-server/issues/4715"
+          },
+          {
+            "number": 4716,
+            "title": "mcp: every tool answer carries provenance (candidate digest, layer versions, replayable requests, receipt id)",
+            "url": "https://github.com/honua-io/honua-server/issues/4716"
+          },
+          {
+            "number": 4717,
+            "title": "operate: per-layer and per-tool agent usage and refusal telemetry",
+            "url": "https://github.com/honua-io/honua-server/issues/4717"
+          },
+          {
+            "number": 6297,
+            "title": "Epic: unified Honua agent workspace from bootstrap to published GIS",
+            "url": "https://github.com/honua-io/honua-server/issues/6297"
+          },
+          {
+            "number": 6454,
+            "title": "fix(agent): preserve registered native EKS endpoint identity pins",
+            "url": "https://github.com/honua-io/honua-server/issues/6454"
+          },
+          {
+            "number": 6532,
+            "title": "feat(studio): let an agent propose restoration of an existing saved version",
+            "url": "https://github.com/honua-io/honua-server/issues/6532"
+          },
+          {
+            "number": 6533,
+            "title": "feat(agent): admit scoped human authors and expose original turn authorship",
+            "url": "https://github.com/honua-io/honua-server/issues/6533"
+          },
+          {
+            "number": 6538,
+            "title": "feat(agent): execute Console turns through the external worker with durable visible progress",
+            "url": "https://github.com/honua-io/honua-server/issues/6538"
+          },
+          {
+            "number": 6921,
+            "title": "feat(agents): ship Honua operating skills alongside AGENTS.md (install, ops, services, Studio maps, tuning)",
+            "url": "https://github.com/honua-io/honua-server/issues/6921"
+          }
+        ],
         "label": "cap/ai"
       }
     },
@@ -617,8 +1292,13 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
+          {
+            "number": 3811,
+            "title": "qualification lane: alerting conditional GA (engine+admin+webhook) with enabled candidate lane",
+            "url": "https://github.com/honua-io/honua-server/issues/3811"
+          },
           {
             "number": 3861,
             "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
@@ -643,6 +1323,11 @@
         "categoryLevel": true,
         "keyRefs": [],
         "categoryRefs": [
+          {
+            "number": 3811,
+            "title": "qualification lane: alerting conditional GA (engine+admin+webhook) with enabled candidate lane",
+            "url": "https://github.com/honua-io/honua-server/issues/3811"
+          },
           {
             "number": 3861,
             "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
@@ -707,8 +1392,13 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
+          {
+            "number": 3811,
+            "title": "qualification lane: alerting conditional GA (engine+admin+webhook) with enabled candidate lane",
+            "url": "https://github.com/honua-io/honua-server/issues/3811"
+          },
           {
             "number": 3861,
             "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
@@ -733,6 +1423,11 @@
         "categoryLevel": true,
         "keyRefs": [],
         "categoryRefs": [
+          {
+            "number": 3811,
+            "title": "qualification lane: alerting conditional GA (engine+admin+webhook) with enabled candidate lane",
+            "url": "https://github.com/honua-io/honua-server/issues/3811"
+          },
           {
             "number": 3861,
             "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
@@ -796,8 +1491,13 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
+          {
+            "number": 3811,
+            "title": "qualification lane: alerting conditional GA (engine+admin+webhook) with enabled candidate lane",
+            "url": "https://github.com/honua-io/honua-server/issues/3811"
+          },
           {
             "number": 3861,
             "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
@@ -822,6 +1522,11 @@
         "categoryLevel": true,
         "keyRefs": [],
         "categoryRefs": [
+          {
+            "number": 3811,
+            "title": "qualification lane: alerting conditional GA (engine+admin+webhook) with enabled candidate lane",
+            "url": "https://github.com/honua-io/honua-server/issues/3811"
+          },
           {
             "number": 3861,
             "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
@@ -886,8 +1591,13 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
+          {
+            "number": 3811,
+            "title": "qualification lane: alerting conditional GA (engine+admin+webhook) with enabled candidate lane",
+            "url": "https://github.com/honua-io/honua-server/issues/3811"
+          },
           {
             "number": 3861,
             "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
@@ -912,6 +1622,11 @@
         "categoryLevel": true,
         "keyRefs": [],
         "categoryRefs": [
+          {
+            "number": 3811,
+            "title": "qualification lane: alerting conditional GA (engine+admin+webhook) with enabled candidate lane",
+            "url": "https://github.com/honua-io/honua-server/issues/3811"
+          },
           {
             "number": 3861,
             "title": "test(alerts): prove the real condition-to-audit chain through hosted APIs",
@@ -967,7 +1682,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 7,
         "refs": [
           {
             "number": 2437,
@@ -978,6 +1693,11 @@
             "number": 2453,
             "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3250,
+            "title": "Epic: Warehouse providers \u2014 evidence to GA (2026.2); experimental truth-only posture in 2026.1",
+            "url": "https://github.com/honua-io/honua-server/issues/3250"
           },
           {
             "number": 3415,
@@ -993,6 +1713,11 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 8715,
+            "title": "bug: PostGIS spatial join DWithin, EnsureMeters distortion, H3 holed polygons, filter AST, and tile grid math",
+            "url": "https://github.com/honua-io/honua-server/issues/8715"
           }
         ],
         "categoryLevel": true,
@@ -1009,6 +1734,11 @@
             "url": "https://github.com/honua-io/honua-server/issues/2453"
           },
           {
+            "number": 3250,
+            "title": "Epic: Warehouse providers \u2014 evidence to GA (2026.2); experimental truth-only posture in 2026.1",
+            "url": "https://github.com/honua-io/honua-server/issues/3250"
+          },
+          {
             "number": 3415,
             "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
             "url": "https://github.com/honua-io/honua-server/issues/3415"
@@ -1022,6 +1752,11 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 8715,
+            "title": "bug: PostGIS spatial join DWithin, EnsureMeters distortion, H3 holed polygons, filter AST, and tile grid math",
+            "url": "https://github.com/honua-io/honua-server/issues/8715"
           }
         ],
         "label": "cap/analytics"
@@ -1058,7 +1793,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 7,
         "refs": [
           {
             "number": 2437,
@@ -1069,6 +1804,11 @@
             "number": 2453,
             "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3250,
+            "title": "Epic: Warehouse providers \u2014 evidence to GA (2026.2); experimental truth-only posture in 2026.1",
+            "url": "https://github.com/honua-io/honua-server/issues/3250"
           },
           {
             "number": 3415,
@@ -1084,6 +1824,11 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 8715,
+            "title": "bug: PostGIS spatial join DWithin, EnsureMeters distortion, H3 holed polygons, filter AST, and tile grid math",
+            "url": "https://github.com/honua-io/honua-server/issues/8715"
           }
         ],
         "categoryLevel": true,
@@ -1100,6 +1845,11 @@
             "url": "https://github.com/honua-io/honua-server/issues/2453"
           },
           {
+            "number": 3250,
+            "title": "Epic: Warehouse providers \u2014 evidence to GA (2026.2); experimental truth-only posture in 2026.1",
+            "url": "https://github.com/honua-io/honua-server/issues/3250"
+          },
+          {
             "number": 3415,
             "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
             "url": "https://github.com/honua-io/honua-server/issues/3415"
@@ -1113,6 +1863,11 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 8715,
+            "title": "bug: PostGIS spatial join DWithin, EnsureMeters distortion, H3 holed polygons, filter AST, and tile grid math",
+            "url": "https://github.com/honua-io/honua-server/issues/8715"
           }
         ],
         "label": "cap/analytics"
@@ -1149,7 +1904,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 7,
         "refs": [
           {
             "number": 2437,
@@ -1160,6 +1915,11 @@
             "number": 2453,
             "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3250,
+            "title": "Epic: Warehouse providers \u2014 evidence to GA (2026.2); experimental truth-only posture in 2026.1",
+            "url": "https://github.com/honua-io/honua-server/issues/3250"
           },
           {
             "number": 3415,
@@ -1175,6 +1935,11 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 8715,
+            "title": "bug: PostGIS spatial join DWithin, EnsureMeters distortion, H3 holed polygons, filter AST, and tile grid math",
+            "url": "https://github.com/honua-io/honua-server/issues/8715"
           }
         ],
         "categoryLevel": true,
@@ -1191,6 +1956,11 @@
             "url": "https://github.com/honua-io/honua-server/issues/2453"
           },
           {
+            "number": 3250,
+            "title": "Epic: Warehouse providers \u2014 evidence to GA (2026.2); experimental truth-only posture in 2026.1",
+            "url": "https://github.com/honua-io/honua-server/issues/3250"
+          },
+          {
             "number": 3415,
             "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
             "url": "https://github.com/honua-io/honua-server/issues/3415"
@@ -1204,6 +1974,11 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 8715,
+            "title": "bug: PostGIS spatial join DWithin, EnsureMeters distortion, H3 holed polygons, filter AST, and tile grid math",
+            "url": "https://github.com/honua-io/honua-server/issues/8715"
           }
         ],
         "label": "cap/analytics"
@@ -1240,7 +2015,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 7,
         "refs": [
           {
             "number": 2437,
@@ -1251,6 +2026,11 @@
             "number": 2453,
             "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3250,
+            "title": "Epic: Warehouse providers \u2014 evidence to GA (2026.2); experimental truth-only posture in 2026.1",
+            "url": "https://github.com/honua-io/honua-server/issues/3250"
           },
           {
             "number": 3415,
@@ -1266,6 +2046,11 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 8715,
+            "title": "bug: PostGIS spatial join DWithin, EnsureMeters distortion, H3 holed polygons, filter AST, and tile grid math",
+            "url": "https://github.com/honua-io/honua-server/issues/8715"
           }
         ],
         "categoryLevel": true,
@@ -1282,6 +2067,11 @@
             "url": "https://github.com/honua-io/honua-server/issues/2453"
           },
           {
+            "number": 3250,
+            "title": "Epic: Warehouse providers \u2014 evidence to GA (2026.2); experimental truth-only posture in 2026.1",
+            "url": "https://github.com/honua-io/honua-server/issues/3250"
+          },
+          {
             "number": 3415,
             "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
             "url": "https://github.com/honua-io/honua-server/issues/3415"
@@ -1295,6 +2085,11 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 8715,
+            "title": "bug: PostGIS spatial join DWithin, EnsureMeters distortion, H3 holed polygons, filter AST, and tile grid math",
+            "url": "https://github.com/honua-io/honua-server/issues/8715"
           }
         ],
         "label": "cap/analytics"
@@ -1331,7 +2126,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 7,
         "refs": [
           {
             "number": 2437,
@@ -1342,6 +2137,11 @@
             "number": 2453,
             "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3250,
+            "title": "Epic: Warehouse providers \u2014 evidence to GA (2026.2); experimental truth-only posture in 2026.1",
+            "url": "https://github.com/honua-io/honua-server/issues/3250"
           },
           {
             "number": 3415,
@@ -1357,6 +2157,11 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 8715,
+            "title": "bug: PostGIS spatial join DWithin, EnsureMeters distortion, H3 holed polygons, filter AST, and tile grid math",
+            "url": "https://github.com/honua-io/honua-server/issues/8715"
           }
         ],
         "categoryLevel": true,
@@ -1373,6 +2178,11 @@
             "url": "https://github.com/honua-io/honua-server/issues/2453"
           },
           {
+            "number": 3250,
+            "title": "Epic: Warehouse providers \u2014 evidence to GA (2026.2); experimental truth-only posture in 2026.1",
+            "url": "https://github.com/honua-io/honua-server/issues/3250"
+          },
+          {
             "number": 3415,
             "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
             "url": "https://github.com/honua-io/honua-server/issues/3415"
@@ -1386,6 +2196,11 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 8715,
+            "title": "bug: PostGIS spatial join DWithin, EnsureMeters distortion, H3 holed polygons, filter AST, and tile grid math",
+            "url": "https://github.com/honua-io/honua-server/issues/8715"
           }
         ],
         "label": "cap/analytics"
@@ -1422,7 +2237,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 7,
         "refs": [
           {
             "number": 2437,
@@ -1433,6 +2248,11 @@
             "number": 2453,
             "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3250,
+            "title": "Epic: Warehouse providers \u2014 evidence to GA (2026.2); experimental truth-only posture in 2026.1",
+            "url": "https://github.com/honua-io/honua-server/issues/3250"
           },
           {
             "number": 3415,
@@ -1448,6 +2268,11 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 8715,
+            "title": "bug: PostGIS spatial join DWithin, EnsureMeters distortion, H3 holed polygons, filter AST, and tile grid math",
+            "url": "https://github.com/honua-io/honua-server/issues/8715"
           }
         ],
         "categoryLevel": true,
@@ -1464,6 +2289,11 @@
             "url": "https://github.com/honua-io/honua-server/issues/2453"
           },
           {
+            "number": 3250,
+            "title": "Epic: Warehouse providers \u2014 evidence to GA (2026.2); experimental truth-only posture in 2026.1",
+            "url": "https://github.com/honua-io/honua-server/issues/3250"
+          },
+          {
             "number": 3415,
             "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
             "url": "https://github.com/honua-io/honua-server/issues/3415"
@@ -1477,6 +2307,11 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 8715,
+            "title": "bug: PostGIS spatial join DWithin, EnsureMeters distortion, H3 holed polygons, filter AST, and tile grid math",
+            "url": "https://github.com/honua-io/honua-server/issues/8715"
           }
         ],
         "label": "cap/analytics"
@@ -1519,7 +2354,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 7,
         "refs": [
           {
             "number": 2437,
@@ -1530,6 +2365,11 @@
             "number": 2453,
             "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3250,
+            "title": "Epic: Warehouse providers \u2014 evidence to GA (2026.2); experimental truth-only posture in 2026.1",
+            "url": "https://github.com/honua-io/honua-server/issues/3250"
           },
           {
             "number": 3415,
@@ -1545,6 +2385,11 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 8715,
+            "title": "bug: PostGIS spatial join DWithin, EnsureMeters distortion, H3 holed polygons, filter AST, and tile grid math",
+            "url": "https://github.com/honua-io/honua-server/issues/8715"
           }
         ],
         "categoryLevel": true,
@@ -1561,6 +2406,11 @@
             "url": "https://github.com/honua-io/honua-server/issues/2453"
           },
           {
+            "number": 3250,
+            "title": "Epic: Warehouse providers \u2014 evidence to GA (2026.2); experimental truth-only posture in 2026.1",
+            "url": "https://github.com/honua-io/honua-server/issues/3250"
+          },
+          {
             "number": 3415,
             "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
             "url": "https://github.com/honua-io/honua-server/issues/3415"
@@ -1574,6 +2424,11 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 8715,
+            "title": "bug: PostGIS spatial join DWithin, EnsureMeters distortion, H3 holed polygons, filter AST, and tile grid math",
+            "url": "https://github.com/honua-io/honua-server/issues/8715"
           }
         ],
         "label": "cap/analytics"
@@ -1610,7 +2465,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 7,
         "refs": [
           {
             "number": 2437,
@@ -1621,6 +2476,11 @@
             "number": 2453,
             "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3250,
+            "title": "Epic: Warehouse providers \u2014 evidence to GA (2026.2); experimental truth-only posture in 2026.1",
+            "url": "https://github.com/honua-io/honua-server/issues/3250"
           },
           {
             "number": 3415,
@@ -1636,6 +2496,11 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 8715,
+            "title": "bug: PostGIS spatial join DWithin, EnsureMeters distortion, H3 holed polygons, filter AST, and tile grid math",
+            "url": "https://github.com/honua-io/honua-server/issues/8715"
           }
         ],
         "categoryLevel": true,
@@ -1652,6 +2517,11 @@
             "url": "https://github.com/honua-io/honua-server/issues/2453"
           },
           {
+            "number": 3250,
+            "title": "Epic: Warehouse providers \u2014 evidence to GA (2026.2); experimental truth-only posture in 2026.1",
+            "url": "https://github.com/honua-io/honua-server/issues/3250"
+          },
+          {
             "number": 3415,
             "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
             "url": "https://github.com/honua-io/honua-server/issues/3415"
@@ -1665,6 +2535,11 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 8715,
+            "title": "bug: PostGIS spatial join DWithin, EnsureMeters distortion, H3 holed polygons, filter AST, and tile grid math",
+            "url": "https://github.com/honua-io/honua-server/issues/8715"
           }
         ],
         "label": "cap/analytics"
@@ -1701,7 +2576,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 7,
         "refs": [
           {
             "number": 2437,
@@ -1712,6 +2587,11 @@
             "number": 2453,
             "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3250,
+            "title": "Epic: Warehouse providers \u2014 evidence to GA (2026.2); experimental truth-only posture in 2026.1",
+            "url": "https://github.com/honua-io/honua-server/issues/3250"
           },
           {
             "number": 3415,
@@ -1727,6 +2607,11 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 8715,
+            "title": "bug: PostGIS spatial join DWithin, EnsureMeters distortion, H3 holed polygons, filter AST, and tile grid math",
+            "url": "https://github.com/honua-io/honua-server/issues/8715"
           }
         ],
         "categoryLevel": true,
@@ -1743,6 +2628,11 @@
             "url": "https://github.com/honua-io/honua-server/issues/2453"
           },
           {
+            "number": 3250,
+            "title": "Epic: Warehouse providers \u2014 evidence to GA (2026.2); experimental truth-only posture in 2026.1",
+            "url": "https://github.com/honua-io/honua-server/issues/3250"
+          },
+          {
             "number": 3415,
             "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
             "url": "https://github.com/honua-io/honua-server/issues/3415"
@@ -1756,6 +2646,11 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 8715,
+            "title": "bug: PostGIS spatial join DWithin, EnsureMeters distortion, H3 holed polygons, filter AST, and tile grid math",
+            "url": "https://github.com/honua-io/honua-server/issues/8715"
           }
         ],
         "label": "cap/analytics"
@@ -1792,7 +2687,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 7,
         "refs": [
           {
             "number": 2437,
@@ -1803,6 +2698,11 @@
             "number": 2453,
             "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3250,
+            "title": "Epic: Warehouse providers \u2014 evidence to GA (2026.2); experimental truth-only posture in 2026.1",
+            "url": "https://github.com/honua-io/honua-server/issues/3250"
           },
           {
             "number": 3415,
@@ -1818,6 +2718,11 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 8715,
+            "title": "bug: PostGIS spatial join DWithin, EnsureMeters distortion, H3 holed polygons, filter AST, and tile grid math",
+            "url": "https://github.com/honua-io/honua-server/issues/8715"
           }
         ],
         "categoryLevel": true,
@@ -1834,6 +2739,11 @@
             "url": "https://github.com/honua-io/honua-server/issues/2453"
           },
           {
+            "number": 3250,
+            "title": "Epic: Warehouse providers \u2014 evidence to GA (2026.2); experimental truth-only posture in 2026.1",
+            "url": "https://github.com/honua-io/honua-server/issues/3250"
+          },
+          {
             "number": 3415,
             "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
             "url": "https://github.com/honua-io/honua-server/issues/3415"
@@ -1847,6 +2757,11 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 8715,
+            "title": "bug: PostGIS spatial join DWithin, EnsureMeters distortion, H3 holed polygons, filter AST, and tile grid math",
+            "url": "https://github.com/honua-io/honua-server/issues/8715"
           }
         ],
         "label": "cap/analytics"
@@ -1883,7 +2798,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 7,
         "refs": [
           {
             "number": 2437,
@@ -1894,6 +2809,11 @@
             "number": 2453,
             "title": "Epic: warehouse-pushed spatial analytics \u2014 DuckDB GeoParquet-on-S3, H3/density pushdown, and query tiles",
             "url": "https://github.com/honua-io/honua-server/issues/2453"
+          },
+          {
+            "number": 3250,
+            "title": "Epic: Warehouse providers \u2014 evidence to GA (2026.2); experimental truth-only posture in 2026.1",
+            "url": "https://github.com/honua-io/honua-server/issues/3250"
           },
           {
             "number": 3415,
@@ -1909,6 +2829,11 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 8715,
+            "title": "bug: PostGIS spatial join DWithin, EnsureMeters distortion, H3 holed polygons, filter AST, and tile grid math",
+            "url": "https://github.com/honua-io/honua-server/issues/8715"
           }
         ],
         "categoryLevel": true,
@@ -1925,6 +2850,11 @@
             "url": "https://github.com/honua-io/honua-server/issues/2453"
           },
           {
+            "number": 3250,
+            "title": "Epic: Warehouse providers \u2014 evidence to GA (2026.2); experimental truth-only posture in 2026.1",
+            "url": "https://github.com/honua-io/honua-server/issues/3250"
+          },
+          {
             "number": 3415,
             "title": "feat(warehouse): server-authored execution plan and explain contract for governed sources",
             "url": "https://github.com/honua-io/honua-server/issues/3415"
@@ -1938,6 +2868,11 @@
             "number": 3470,
             "title": "feat(sql-api): governed read-only SQL execution core for Metadata-v2 PostGIS connections",
             "url": "https://github.com/honua-io/honua-server/issues/3470"
+          },
+          {
+            "number": 8715,
+            "title": "bug: PostGIS spatial join DWithin, EnsureMeters distortion, H3 holed polygons, filter AST, and tile grid math",
+            "url": "https://github.com/honua-io/honua-server/issues/8715"
           }
         ],
         "label": "cap/analytics"
@@ -1978,7 +2913,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 6,
+        "count": 10,
         "refs": [
           {
             "number": 3445,
@@ -2009,6 +2944,26 @@
             "number": 7006,
             "title": "feat(tiles): cache classic WMTS and make seed write the tiles it renders",
             "url": "https://github.com/honua-io/honua-server/issues/7006"
+          },
+          {
+            "number": 7247,
+            "title": "CDN correctness: cache headers on every response and stored object, generation-addressed tiles, and invalidation on rollout and publish",
+            "url": "https://github.com/honua-io/honua-server/issues/7247"
+          },
+          {
+            "number": 7251,
+            "title": "CDN: purge by cache tag, coalesced and budgeted, with edge key normalisation",
+            "url": "https://github.com/honua-io/honua-server/issues/7251"
+          },
+          {
+            "number": 7252,
+            "title": "CDN for general availability: outside-edit detection, region-scoped purge, warming and operator surface",
+            "url": "https://github.com/honua-io/honua-server/issues/7252"
+          },
+          {
+            "number": 7394,
+            "title": "Epic: observable, self-correcting cache (telemetry, detectors, proposed and approved fixes)",
+            "url": "https://github.com/honua-io/honua-server/issues/7394"
           }
         ],
         "categoryLevel": true,
@@ -2043,6 +2998,26 @@
             "number": 7006,
             "title": "feat(tiles): cache classic WMTS and make seed write the tiles it renders",
             "url": "https://github.com/honua-io/honua-server/issues/7006"
+          },
+          {
+            "number": 7247,
+            "title": "CDN correctness: cache headers on every response and stored object, generation-addressed tiles, and invalidation on rollout and publish",
+            "url": "https://github.com/honua-io/honua-server/issues/7247"
+          },
+          {
+            "number": 7251,
+            "title": "CDN: purge by cache tag, coalesced and budgeted, with edge key normalisation",
+            "url": "https://github.com/honua-io/honua-server/issues/7251"
+          },
+          {
+            "number": 7252,
+            "title": "CDN for general availability: outside-edit detection, region-scoped purge, warming and operator surface",
+            "url": "https://github.com/honua-io/honua-server/issues/7252"
+          },
+          {
+            "number": 7394,
+            "title": "Epic: observable, self-correcting cache (telemetry, detectors, proposed and approved fixes)",
+            "url": "https://github.com/honua-io/honua-server/issues/7394"
           }
         ],
         "label": "cap/caching"
@@ -4499,7 +5474,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 7,
         "refs": [
           {
             "number": 2451,
@@ -4520,6 +5495,21 @@
             "number": 3447,
             "title": "feat(scene): project one thin asset view over source artifacts, jobs, publications, and endpoints",
             "url": "https://github.com/honua-io/honua-server/issues/3447"
+          },
+          {
+            "number": 6937,
+            "title": "feat(console): project published layers and services into the catalog from the metadata-v2 graph",
+            "url": "https://github.com/honua-io/honua-server/issues/6937"
+          },
+          {
+            "number": 7091,
+            "title": "Public catalog API for services, layers and apps (front door)",
+            "url": "https://github.com/honua-io/honua-server/issues/7091"
+          },
+          {
+            "number": 7327,
+            "title": "Add scoped cross-type catalog search for folders, services, layers and styles",
+            "url": "https://github.com/honua-io/honua-server/issues/7327"
           }
         ],
         "categoryLevel": true,
@@ -4544,6 +5534,21 @@
             "number": 3447,
             "title": "feat(scene): project one thin asset view over source artifacts, jobs, publications, and endpoints",
             "url": "https://github.com/honua-io/honua-server/issues/3447"
+          },
+          {
+            "number": 6937,
+            "title": "feat(console): project published layers and services into the catalog from the metadata-v2 graph",
+            "url": "https://github.com/honua-io/honua-server/issues/6937"
+          },
+          {
+            "number": 7091,
+            "title": "Public catalog API for services, layers and apps (front door)",
+            "url": "https://github.com/honua-io/honua-server/issues/7091"
+          },
+          {
+            "number": 7327,
+            "title": "Add scoped cross-type catalog search for folders, services, layers and styles",
+            "url": "https://github.com/honua-io/honua-server/issues/7327"
           }
         ],
         "label": "cap/discovery"
@@ -4758,7 +5763,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
           {
             "number": 1726,
@@ -4774,6 +5779,11 @@
             "number": 7010,
             "title": "feat(wfs): implement LockFeature and GetFeatureWithLock",
             "url": "https://github.com/honua-io/honua-server/issues/7010"
+          },
+          {
+            "number": 8726,
+            "title": "bug: GeoServices REST FeatureServer edits/topFeatures/bins/sync, ImageServer, GPServer, NAServer, GeocodeServer, I3S, and gRPC conformance fixes",
+            "url": "https://github.com/honua-io/honua-server/issues/8726"
           },
           {
             "number": 8897,
@@ -4798,6 +5808,11 @@
             "number": 7010,
             "title": "feat(wfs): implement LockFeature and GetFeatureWithLock",
             "url": "https://github.com/honua-io/honua-server/issues/7010"
+          },
+          {
+            "number": 8726,
+            "title": "bug: GeoServices REST FeatureServer edits/topFeatures/bins/sync, ImageServer, GPServer, NAServer, GeocodeServer, I3S, and gRPC conformance fixes",
+            "url": "https://github.com/honua-io/honua-server/issues/8726"
           },
           {
             "number": 8897,
@@ -4864,7 +5879,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
           {
             "number": 1726,
@@ -4880,6 +5895,11 @@
             "number": 7010,
             "title": "feat(wfs): implement LockFeature and GetFeatureWithLock",
             "url": "https://github.com/honua-io/honua-server/issues/7010"
+          },
+          {
+            "number": 8726,
+            "title": "bug: GeoServices REST FeatureServer edits/topFeatures/bins/sync, ImageServer, GPServer, NAServer, GeocodeServer, I3S, and gRPC conformance fixes",
+            "url": "https://github.com/honua-io/honua-server/issues/8726"
           },
           {
             "number": 8897,
@@ -4904,6 +5924,11 @@
             "number": 7010,
             "title": "feat(wfs): implement LockFeature and GetFeatureWithLock",
             "url": "https://github.com/honua-io/honua-server/issues/7010"
+          },
+          {
+            "number": 8726,
+            "title": "bug: GeoServices REST FeatureServer edits/topFeatures/bins/sync, ImageServer, GPServer, NAServer, GeocodeServer, I3S, and gRPC conformance fixes",
+            "url": "https://github.com/honua-io/honua-server/issues/8726"
           },
           {
             "number": 8897,
@@ -5019,11 +6044,113 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 10,
+        "refs": [
+          {
+            "number": 7300,
+            "title": "Epic: task-first asset management for small governments (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7300"
+          },
+          {
+            "number": 7301,
+            "title": "feat: asset profiles, task contracts and recurring programmes (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7301"
+          },
+          {
+            "number": 7302,
+            "title": "test: integrated asset management demo and evaluation scenario (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7302"
+          },
+          {
+            "number": 7333,
+            "title": "feat: Open311 GeoReport v2 API for public service requests (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7333"
+          },
+          {
+            "number": 7424,
+            "title": "feat: asset profile domain service and REST API (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7424"
+          },
+          {
+            "number": 7425,
+            "title": "feat: task commands with compare-and-set, immutable history and durable receipts (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7425"
+          },
+          {
+            "number": 7426,
+            "title": "feat: atomic task completion with inspection/service record and asset summary watermarks (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7426"
+          },
+          {
+            "number": 7432,
+            "title": "feat: completion writes mapped asset columns, outbox intent and attachments (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7432"
+          },
+          {
+            "number": 7545,
+            "title": "scoped change feed for field devices",
+            "url": "https://github.com/honua-io/honua-server/issues/7545"
+          },
+          {
+            "number": 7546,
+            "title": "offline field package for a work area",
+            "url": "https://github.com/honua-io/honua-server/issues/7546"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 7300,
+            "title": "Epic: task-first asset management for small governments (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7300"
+          },
+          {
+            "number": 7301,
+            "title": "feat: asset profiles, task contracts and recurring programmes (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7301"
+          },
+          {
+            "number": 7302,
+            "title": "test: integrated asset management demo and evaluation scenario (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7302"
+          },
+          {
+            "number": 7333,
+            "title": "feat: Open311 GeoReport v2 API for public service requests (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7333"
+          },
+          {
+            "number": 7424,
+            "title": "feat: asset profile domain service and REST API (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7424"
+          },
+          {
+            "number": 7425,
+            "title": "feat: task commands with compare-and-set, immutable history and durable receipts (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7425"
+          },
+          {
+            "number": 7426,
+            "title": "feat: atomic task completion with inspection/service record and asset summary watermarks (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7426"
+          },
+          {
+            "number": 7432,
+            "title": "feat: completion writes mapped asset columns, outbox intent and attachments (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7432"
+          },
+          {
+            "number": 7545,
+            "title": "scoped change feed for field devices",
+            "url": "https://github.com/honua-io/honua-server/issues/7545"
+          },
+          {
+            "number": 7546,
+            "title": "offline field package for a work area",
+            "url": "https://github.com/honua-io/honua-server/issues/7546"
+          }
+        ],
         "label": "cap/field-ops"
       }
     },
@@ -5074,11 +6201,113 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 0,
-        "refs": [],
+        "count": 10,
+        "refs": [
+          {
+            "number": 7300,
+            "title": "Epic: task-first asset management for small governments (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7300"
+          },
+          {
+            "number": 7301,
+            "title": "feat: asset profiles, task contracts and recurring programmes (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7301"
+          },
+          {
+            "number": 7302,
+            "title": "test: integrated asset management demo and evaluation scenario (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7302"
+          },
+          {
+            "number": 7333,
+            "title": "feat: Open311 GeoReport v2 API for public service requests (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7333"
+          },
+          {
+            "number": 7424,
+            "title": "feat: asset profile domain service and REST API (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7424"
+          },
+          {
+            "number": 7425,
+            "title": "feat: task commands with compare-and-set, immutable history and durable receipts (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7425"
+          },
+          {
+            "number": 7426,
+            "title": "feat: atomic task completion with inspection/service record and asset summary watermarks (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7426"
+          },
+          {
+            "number": 7432,
+            "title": "feat: completion writes mapped asset columns, outbox intent and attachments (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7432"
+          },
+          {
+            "number": 7545,
+            "title": "scoped change feed for field devices",
+            "url": "https://github.com/honua-io/honua-server/issues/7545"
+          },
+          {
+            "number": 7546,
+            "title": "offline field package for a work area",
+            "url": "https://github.com/honua-io/honua-server/issues/7546"
+          }
+        ],
         "categoryLevel": true,
         "keyRefs": [],
-        "categoryRefs": [],
+        "categoryRefs": [
+          {
+            "number": 7300,
+            "title": "Epic: task-first asset management for small governments (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7300"
+          },
+          {
+            "number": 7301,
+            "title": "feat: asset profiles, task contracts and recurring programmes (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7301"
+          },
+          {
+            "number": 7302,
+            "title": "test: integrated asset management demo and evaluation scenario (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7302"
+          },
+          {
+            "number": 7333,
+            "title": "feat: Open311 GeoReport v2 API for public service requests (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7333"
+          },
+          {
+            "number": 7424,
+            "title": "feat: asset profile domain service and REST API (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7424"
+          },
+          {
+            "number": 7425,
+            "title": "feat: task commands with compare-and-set, immutable history and durable receipts (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7425"
+          },
+          {
+            "number": 7426,
+            "title": "feat: atomic task completion with inspection/service record and asset summary watermarks (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7426"
+          },
+          {
+            "number": 7432,
+            "title": "feat: completion writes mapped asset columns, outbox intent and attachments (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7432"
+          },
+          {
+            "number": 7545,
+            "title": "scoped change feed for field devices",
+            "url": "https://github.com/honua-io/honua-server/issues/7545"
+          },
+          {
+            "number": 7546,
+            "title": "offline field package for a work area",
+            "url": "https://github.com/honua-io/honua-server/issues/7546"
+          }
+        ],
         "label": "cap/field-ops"
       }
     },
@@ -5161,12 +6390,22 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 1,
+        "count": 3,
         "refs": [
           {
             "number": 1263,
             "title": "Epic: geocoding GeocodeServer compat + third-party locator import",
             "url": "https://github.com/honua-io/honua-server/issues/1263"
+          },
+          {
+            "number": 7134,
+            "title": "docs: document geocoder and router build-job configuration",
+            "url": "https://github.com/honua-io/honua-server/issues/7134"
+          },
+          {
+            "number": 7166,
+            "title": "Self-hosted open-data geocoding provider (OpenGeocode)",
+            "url": "https://github.com/honua-io/honua-server/issues/7166"
           }
         ],
         "categoryLevel": true,
@@ -5176,6 +6415,16 @@
             "number": 1263,
             "title": "Epic: geocoding GeocodeServer compat + third-party locator import",
             "url": "https://github.com/honua-io/honua-server/issues/1263"
+          },
+          {
+            "number": 7134,
+            "title": "docs: document geocoder and router build-job configuration",
+            "url": "https://github.com/honua-io/honua-server/issues/7134"
+          },
+          {
+            "number": 7166,
+            "title": "Self-hosted open-data geocoding provider (OpenGeocode)",
+            "url": "https://github.com/honua-io/honua-server/issues/7166"
           }
         ],
         "label": "cap/geocoding"
@@ -5216,12 +6465,22 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 1,
+        "count": 3,
         "refs": [
           {
             "number": 1263,
             "title": "Epic: geocoding GeocodeServer compat + third-party locator import",
             "url": "https://github.com/honua-io/honua-server/issues/1263"
+          },
+          {
+            "number": 7134,
+            "title": "docs: document geocoder and router build-job configuration",
+            "url": "https://github.com/honua-io/honua-server/issues/7134"
+          },
+          {
+            "number": 7166,
+            "title": "Self-hosted open-data geocoding provider (OpenGeocode)",
+            "url": "https://github.com/honua-io/honua-server/issues/7166"
           }
         ],
         "categoryLevel": true,
@@ -5231,6 +6490,16 @@
             "number": 1263,
             "title": "Epic: geocoding GeocodeServer compat + third-party locator import",
             "url": "https://github.com/honua-io/honua-server/issues/1263"
+          },
+          {
+            "number": 7134,
+            "title": "docs: document geocoder and router build-job configuration",
+            "url": "https://github.com/honua-io/honua-server/issues/7134"
+          },
+          {
+            "number": 7166,
+            "title": "Self-hosted open-data geocoding provider (OpenGeocode)",
+            "url": "https://github.com/honua-io/honua-server/issues/7166"
           }
         ],
         "label": "cap/geocoding"
@@ -7329,12 +8598,22 @@
         }
       ],
       "openIssues": {
-        "count": 1,
+        "count": 3,
         "refs": [
           {
             "number": 1263,
             "title": "Epic: geocoding GeocodeServer compat + third-party locator import",
             "url": "https://github.com/honua-io/honua-server/issues/1263"
+          },
+          {
+            "number": 7134,
+            "title": "docs: document geocoder and router build-job configuration",
+            "url": "https://github.com/honua-io/honua-server/issues/7134"
+          },
+          {
+            "number": 7166,
+            "title": "Self-hosted open-data geocoding provider (OpenGeocode)",
+            "url": "https://github.com/honua-io/honua-server/issues/7166"
           }
         ],
         "categoryLevel": true,
@@ -7344,6 +8623,16 @@
             "number": 1263,
             "title": "Epic: geocoding GeocodeServer compat + third-party locator import",
             "url": "https://github.com/honua-io/honua-server/issues/1263"
+          },
+          {
+            "number": 7134,
+            "title": "docs: document geocoder and router build-job configuration",
+            "url": "https://github.com/honua-io/honua-server/issues/7134"
+          },
+          {
+            "number": 7166,
+            "title": "Self-hosted open-data geocoding provider (OpenGeocode)",
+            "url": "https://github.com/honua-io/honua-server/issues/7166"
           }
         ],
         "label": "cap/geocoding"
@@ -7399,12 +8688,22 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 1,
+        "count": 3,
         "refs": [
           {
             "number": 1263,
             "title": "Epic: geocoding GeocodeServer compat + third-party locator import",
             "url": "https://github.com/honua-io/honua-server/issues/1263"
+          },
+          {
+            "number": 7134,
+            "title": "docs: document geocoder and router build-job configuration",
+            "url": "https://github.com/honua-io/honua-server/issues/7134"
+          },
+          {
+            "number": 7166,
+            "title": "Self-hosted open-data geocoding provider (OpenGeocode)",
+            "url": "https://github.com/honua-io/honua-server/issues/7166"
           }
         ],
         "categoryLevel": true,
@@ -7414,6 +8713,16 @@
             "number": 1263,
             "title": "Epic: geocoding GeocodeServer compat + third-party locator import",
             "url": "https://github.com/honua-io/honua-server/issues/1263"
+          },
+          {
+            "number": 7134,
+            "title": "docs: document geocoder and router build-job configuration",
+            "url": "https://github.com/honua-io/honua-server/issues/7134"
+          },
+          {
+            "number": 7166,
+            "title": "Self-hosted open-data geocoding provider (OpenGeocode)",
+            "url": "https://github.com/honua-io/honua-server/issues/7166"
           }
         ],
         "label": "cap/geocoding"
@@ -7454,7 +8763,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
           {
             "number": 1273,
@@ -7475,6 +8784,11 @@
             "number": 7014,
             "title": "feat(auth): accept a directory login and a trusted proxy header",
             "url": "https://github.com/honua-io/honua-server/issues/7014"
+          },
+          {
+            "number": 7277,
+            "title": "feat: browser administrator session sign-in and CSRF protection",
+            "url": "https://github.com/honua-io/honua-server/issues/7277"
           }
         ],
         "categoryLevel": true,
@@ -7499,6 +8813,11 @@
             "number": 7014,
             "title": "feat(auth): accept a directory login and a trusted proxy header",
             "url": "https://github.com/honua-io/honua-server/issues/7014"
+          },
+          {
+            "number": 7277,
+            "title": "feat: browser administrator session sign-in and CSRF protection",
+            "url": "https://github.com/honua-io/honua-server/issues/7277"
           }
         ],
         "label": "cap/identity"
@@ -7535,7 +8854,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
           {
             "number": 1273,
@@ -7556,6 +8875,11 @@
             "number": 7014,
             "title": "feat(auth): accept a directory login and a trusted proxy header",
             "url": "https://github.com/honua-io/honua-server/issues/7014"
+          },
+          {
+            "number": 7277,
+            "title": "feat: browser administrator session sign-in and CSRF protection",
+            "url": "https://github.com/honua-io/honua-server/issues/7277"
           }
         ],
         "categoryLevel": true,
@@ -7580,6 +8904,11 @@
             "number": 7014,
             "title": "feat(auth): accept a directory login and a trusted proxy header",
             "url": "https://github.com/honua-io/honua-server/issues/7014"
+          },
+          {
+            "number": 7277,
+            "title": "feat: browser administrator session sign-in and CSRF protection",
+            "url": "https://github.com/honua-io/honua-server/issues/7277"
           }
         ],
         "label": "cap/identity"
@@ -7631,7 +8960,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
           {
             "number": 1273,
@@ -7652,6 +8981,11 @@
             "number": 7014,
             "title": "feat(auth): accept a directory login and a trusted proxy header",
             "url": "https://github.com/honua-io/honua-server/issues/7014"
+          },
+          {
+            "number": 7277,
+            "title": "feat: browser administrator session sign-in and CSRF protection",
+            "url": "https://github.com/honua-io/honua-server/issues/7277"
           }
         ],
         "categoryLevel": true,
@@ -7676,6 +9010,11 @@
             "number": 7014,
             "title": "feat(auth): accept a directory login and a trusted proxy header",
             "url": "https://github.com/honua-io/honua-server/issues/7014"
+          },
+          {
+            "number": 7277,
+            "title": "feat: browser administrator session sign-in and CSRF protection",
+            "url": "https://github.com/honua-io/honua-server/issues/7277"
           }
         ],
         "label": "cap/identity"
@@ -7721,7 +9060,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
           {
             "number": 1273,
@@ -7742,6 +9081,11 @@
             "number": 7014,
             "title": "feat(auth): accept a directory login and a trusted proxy header",
             "url": "https://github.com/honua-io/honua-server/issues/7014"
+          },
+          {
+            "number": 7277,
+            "title": "feat: browser administrator session sign-in and CSRF protection",
+            "url": "https://github.com/honua-io/honua-server/issues/7277"
           }
         ],
         "categoryLevel": true,
@@ -7766,6 +9110,11 @@
             "number": 7014,
             "title": "feat(auth): accept a directory login and a trusted proxy header",
             "url": "https://github.com/honua-io/honua-server/issues/7014"
+          },
+          {
+            "number": 7277,
+            "title": "feat: browser administrator session sign-in and CSRF protection",
+            "url": "https://github.com/honua-io/honua-server/issues/7277"
           }
         ],
         "label": "cap/identity"
@@ -7821,7 +9170,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
           {
             "number": 1273,
@@ -7842,6 +9191,11 @@
             "number": 7014,
             "title": "feat(auth): accept a directory login and a trusted proxy header",
             "url": "https://github.com/honua-io/honua-server/issues/7014"
+          },
+          {
+            "number": 7277,
+            "title": "feat: browser administrator session sign-in and CSRF protection",
+            "url": "https://github.com/honua-io/honua-server/issues/7277"
           }
         ],
         "categoryLevel": true,
@@ -7866,6 +9220,11 @@
             "number": 7014,
             "title": "feat(auth): accept a directory login and a trusted proxy header",
             "url": "https://github.com/honua-io/honua-server/issues/7014"
+          },
+          {
+            "number": 7277,
+            "title": "feat: browser administrator session sign-in and CSRF protection",
+            "url": "https://github.com/honua-io/honua-server/issues/7277"
           }
         ],
         "label": "cap/identity"
@@ -7914,7 +9273,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
           {
             "number": 1273,
@@ -7935,6 +9294,11 @@
             "number": 7014,
             "title": "feat(auth): accept a directory login and a trusted proxy header",
             "url": "https://github.com/honua-io/honua-server/issues/7014"
+          },
+          {
+            "number": 7277,
+            "title": "feat: browser administrator session sign-in and CSRF protection",
+            "url": "https://github.com/honua-io/honua-server/issues/7277"
           }
         ],
         "categoryLevel": true,
@@ -7959,6 +9323,11 @@
             "number": 7014,
             "title": "feat(auth): accept a directory login and a trusted proxy header",
             "url": "https://github.com/honua-io/honua-server/issues/7014"
+          },
+          {
+            "number": 7277,
+            "title": "feat: browser administrator session sign-in and CSRF protection",
+            "url": "https://github.com/honua-io/honua-server/issues/7277"
           }
         ],
         "label": "cap/identity"
@@ -7995,7 +9364,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
           {
             "number": 1273,
@@ -8016,6 +9385,11 @@
             "number": 7014,
             "title": "feat(auth): accept a directory login and a trusted proxy header",
             "url": "https://github.com/honua-io/honua-server/issues/7014"
+          },
+          {
+            "number": 7277,
+            "title": "feat: browser administrator session sign-in and CSRF protection",
+            "url": "https://github.com/honua-io/honua-server/issues/7277"
           }
         ],
         "categoryLevel": true,
@@ -8040,6 +9414,11 @@
             "number": 7014,
             "title": "feat(auth): accept a directory login and a trusted proxy header",
             "url": "https://github.com/honua-io/honua-server/issues/7014"
+          },
+          {
+            "number": 7277,
+            "title": "feat: browser administrator session sign-in and CSRF protection",
+            "url": "https://github.com/honua-io/honua-server/issues/7277"
           }
         ],
         "label": "cap/identity"
@@ -8076,7 +9455,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 4,
+        "count": 5,
         "refs": [
           {
             "number": 1273,
@@ -8097,6 +9476,11 @@
             "number": 7014,
             "title": "feat(auth): accept a directory login and a trusted proxy header",
             "url": "https://github.com/honua-io/honua-server/issues/7014"
+          },
+          {
+            "number": 7277,
+            "title": "feat: browser administrator session sign-in and CSRF protection",
+            "url": "https://github.com/honua-io/honua-server/issues/7277"
           }
         ],
         "categoryLevel": true,
@@ -8121,6 +9505,11 @@
             "number": 7014,
             "title": "feat(auth): accept a directory login and a trusted proxy header",
             "url": "https://github.com/honua-io/honua-server/issues/7014"
+          },
+          {
+            "number": 7277,
+            "title": "feat: browser administrator session sign-in and CSRF protection",
+            "url": "https://github.com/honua-io/honua-server/issues/7277"
           }
         ],
         "label": "cap/identity"
@@ -8169,7 +9558,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-21T16:56:19.541Z"
+            "at": "2026-11-21T20:49:30.780Z"
           }
         },
         {
@@ -8183,7 +9572,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-21T16:56:19.541Z"
+            "at": "2026-11-21T20:49:30.780Z"
           }
         },
         {
@@ -8199,7 +9588,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-21T16:56:19.541Z"
+            "at": "2026-11-21T20:49:30.780Z"
           }
         },
         {
@@ -8215,7 +9604,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-21T16:56:19.541Z"
+            "at": "2026-11-21T20:49:30.780Z"
           }
         },
         {
@@ -8229,7 +9618,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-21T16:56:19.541Z"
+            "at": "2026-11-21T20:49:30.780Z"
           }
         },
         {
@@ -8243,7 +9632,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-21T16:56:19.541Z"
+            "at": "2026-11-21T20:49:30.780Z"
           }
         }
       ],
@@ -8698,7 +10087,7 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 5,
+        "count": 10,
         "refs": [
           {
             "number": 3447,
@@ -8716,6 +10105,26 @@
             "url": "https://github.com/honua-io/honua-server/issues/6221"
           },
           {
+            "number": 6927,
+            "title": "feat(admin): author layer extrusion and lifecycle status",
+            "url": "https://github.com/honua-io/honua-server/issues/6927"
+          },
+          {
+            "number": 6928,
+            "title": "feat(admin): author layer subtypes and attribute rules",
+            "url": "https://github.com/honua-io/honua-server/issues/6928"
+          },
+          {
+            "number": 6931,
+            "title": "feat(admin): read and author publication overrides",
+            "url": "https://github.com/honua-io/honua-server/issues/6931"
+          },
+          {
+            "number": 6932,
+            "title": "feat(admin): read and set service settings caps",
+            "url": "https://github.com/honua-io/honua-server/issues/6932"
+          },
+          {
             "number": 6980,
             "title": "feat(limits): persist rate-limit policies and share counters across tasks",
             "url": "https://github.com/honua-io/honua-server/issues/6980"
@@ -8724,6 +10133,11 @@
             "number": 7017,
             "title": "feat(catalog): export the catalog and register a custom CRS",
             "url": "https://github.com/honua-io/honua-server/issues/7017"
+          },
+          {
+            "number": 7106,
+            "title": "Admin view of layers omitted from capabilities documents",
+            "url": "https://github.com/honua-io/honua-server/issues/7106"
           }
         ],
         "categoryLevel": true,
@@ -8745,6 +10159,26 @@
             "url": "https://github.com/honua-io/honua-server/issues/6221"
           },
           {
+            "number": 6927,
+            "title": "feat(admin): author layer extrusion and lifecycle status",
+            "url": "https://github.com/honua-io/honua-server/issues/6927"
+          },
+          {
+            "number": 6928,
+            "title": "feat(admin): author layer subtypes and attribute rules",
+            "url": "https://github.com/honua-io/honua-server/issues/6928"
+          },
+          {
+            "number": 6931,
+            "title": "feat(admin): read and author publication overrides",
+            "url": "https://github.com/honua-io/honua-server/issues/6931"
+          },
+          {
+            "number": 6932,
+            "title": "feat(admin): read and set service settings caps",
+            "url": "https://github.com/honua-io/honua-server/issues/6932"
+          },
+          {
             "number": 6980,
             "title": "feat(limits): persist rate-limit policies and share counters across tasks",
             "url": "https://github.com/honua-io/honua-server/issues/6980"
@@ -8753,6 +10187,11 @@
             "number": 7017,
             "title": "feat(catalog): export the catalog and register a custom CRS",
             "url": "https://github.com/honua-io/honua-server/issues/7017"
+          },
+          {
+            "number": 7106,
+            "title": "Admin view of layers omitted from capabilities documents",
+            "url": "https://github.com/honua-io/honua-server/issues/7106"
           }
         ],
         "label": "cap/control-plane"
@@ -10829,9 +12268,19 @@
         "count": 8,
         "refs": [
           {
+            "number": 2457,
+            "title": "Epic: Operate slice 2 \u2014 ask\u2013explain\u2013fix on the paved path (serving-plane findings, LLM seat, truthful rollback, self-operating demo)",
+            "url": "https://github.com/honua-io/honua-server/issues/2457"
+          },
+          {
             "number": 3099,
             "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
             "url": "https://github.com/honua-io/honua-server/issues/3099"
+          },
+          {
+            "number": 3300,
+            "title": "feat(operate): serving-plane findings v3 \u2014 per-service latency/error, tile-cache hit-rate & seed backlog, pool saturation, slow-query hotspot",
+            "url": "https://github.com/honua-io/honua-server/issues/3300"
           },
           {
             "number": 3445,
@@ -10857,25 +12306,25 @@
             "number": 3462,
             "title": "perf(scene): fault and load certify origin cache, range, and revision SLOs",
             "url": "https://github.com/honua-io/honua-server/issues/3462"
-          },
-          {
-            "number": 6984,
-            "title": "feat(ops): add a time-boxed log-level override",
-            "url": "https://github.com/honua-io/honua-server/issues/6984"
-          },
-          {
-            "number": 7013,
-            "title": "feat(ops): record a sampled request log with the layer and the caller",
-            "url": "https://github.com/honua-io/honua-server/issues/7013"
           }
         ],
         "categoryLevel": true,
         "keyRefs": [],
         "categoryRefs": [
           {
+            "number": 2457,
+            "title": "Epic: Operate slice 2 \u2014 ask\u2013explain\u2013fix on the paved path (serving-plane findings, LLM seat, truthful rollback, self-operating demo)",
+            "url": "https://github.com/honua-io/honua-server/issues/2457"
+          },
+          {
             "number": 3099,
             "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
             "url": "https://github.com/honua-io/honua-server/issues/3099"
+          },
+          {
+            "number": 3300,
+            "title": "feat(operate): serving-plane findings v3 \u2014 per-service latency/error, tile-cache hit-rate & seed backlog, pool saturation, slow-query hotspot",
+            "url": "https://github.com/honua-io/honua-server/issues/3300"
           },
           {
             "number": 3445,
@@ -10901,16 +12350,6 @@
             "number": 3462,
             "title": "perf(scene): fault and load certify origin cache, range, and revision SLOs",
             "url": "https://github.com/honua-io/honua-server/issues/3462"
-          },
-          {
-            "number": 6984,
-            "title": "feat(ops): add a time-boxed log-level override",
-            "url": "https://github.com/honua-io/honua-server/issues/6984"
-          },
-          {
-            "number": 7013,
-            "title": "feat(ops): record a sampled request log with the layer and the caller",
-            "url": "https://github.com/honua-io/honua-server/issues/7013"
           }
         ],
         "label": "cap/ops"
@@ -15012,9 +16451,19 @@
         "count": 8,
         "refs": [
           {
+            "number": 2457,
+            "title": "Epic: Operate slice 2 \u2014 ask\u2013explain\u2013fix on the paved path (serving-plane findings, LLM seat, truthful rollback, self-operating demo)",
+            "url": "https://github.com/honua-io/honua-server/issues/2457"
+          },
+          {
             "number": 3099,
             "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
             "url": "https://github.com/honua-io/honua-server/issues/3099"
+          },
+          {
+            "number": 3300,
+            "title": "feat(operate): serving-plane findings v3 \u2014 per-service latency/error, tile-cache hit-rate & seed backlog, pool saturation, slow-query hotspot",
+            "url": "https://github.com/honua-io/honua-server/issues/3300"
           },
           {
             "number": 3445,
@@ -15040,25 +16489,25 @@
             "number": 3462,
             "title": "perf(scene): fault and load certify origin cache, range, and revision SLOs",
             "url": "https://github.com/honua-io/honua-server/issues/3462"
-          },
-          {
-            "number": 6984,
-            "title": "feat(ops): add a time-boxed log-level override",
-            "url": "https://github.com/honua-io/honua-server/issues/6984"
-          },
-          {
-            "number": 7013,
-            "title": "feat(ops): record a sampled request log with the layer and the caller",
-            "url": "https://github.com/honua-io/honua-server/issues/7013"
           }
         ],
         "categoryLevel": true,
         "keyRefs": [],
         "categoryRefs": [
           {
+            "number": 2457,
+            "title": "Epic: Operate slice 2 \u2014 ask\u2013explain\u2013fix on the paved path (serving-plane findings, LLM seat, truthful rollback, self-operating demo)",
+            "url": "https://github.com/honua-io/honua-server/issues/2457"
+          },
+          {
             "number": 3099,
             "title": "postgres(raster): benchmark and codify tiled, monolithic, and object-store storage policy",
             "url": "https://github.com/honua-io/honua-server/issues/3099"
+          },
+          {
+            "number": 3300,
+            "title": "feat(operate): serving-plane findings v3 \u2014 per-service latency/error, tile-cache hit-rate & seed backlog, pool saturation, slow-query hotspot",
+            "url": "https://github.com/honua-io/honua-server/issues/3300"
           },
           {
             "number": 3445,
@@ -15084,16 +16533,6 @@
             "number": 3462,
             "title": "perf(scene): fault and load certify origin cache, range, and revision SLOs",
             "url": "https://github.com/honua-io/honua-server/issues/3462"
-          },
-          {
-            "number": 6984,
-            "title": "feat(ops): add a time-boxed log-level override",
-            "url": "https://github.com/honua-io/honua-server/issues/6984"
-          },
-          {
-            "number": 7013,
-            "title": "feat(ops): record a sampled request log with the layer and the caller",
-            "url": "https://github.com/honua-io/honua-server/issues/7013"
           }
         ],
         "label": "cap/ops"
@@ -16193,12 +17632,17 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 1,
+        "count": 2,
         "refs": [
           {
             "number": 2447,
             "title": "Directions + isochrone API with turn-by-turn",
             "url": "https://github.com/honua-io/honua-server/issues/2447"
+          },
+          {
+            "number": 7134,
+            "title": "docs: document geocoder and router build-job configuration",
+            "url": "https://github.com/honua-io/honua-server/issues/7134"
           }
         ],
         "categoryLevel": true,
@@ -16208,6 +17652,11 @@
             "number": 2447,
             "title": "Directions + isochrone API with turn-by-turn",
             "url": "https://github.com/honua-io/honua-server/issues/2447"
+          },
+          {
+            "number": 7134,
+            "title": "docs: document geocoder and router build-job configuration",
+            "url": "https://github.com/honua-io/honua-server/issues/7134"
           }
         ],
         "label": "cap/routing"
@@ -19013,7 +20462,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-21T16:56:19.541Z"
+            "at": "2026-11-21T20:49:30.780Z"
           }
         },
         {
@@ -19027,7 +20476,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-21T16:56:19.541Z"
+            "at": "2026-11-21T20:49:30.780Z"
           }
         },
         {
@@ -19041,7 +20490,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-21T16:56:19.541Z"
+            "at": "2026-11-21T20:49:30.780Z"
           }
         },
         {
@@ -19055,7 +20504,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-21T16:56:19.541Z"
+            "at": "2026-11-21T20:49:30.780Z"
           }
         },
         {
@@ -19069,7 +20518,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-21T16:56:19.541Z"
+            "at": "2026-11-21T20:49:30.780Z"
           }
         },
         {
@@ -19085,7 +20534,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-21T16:56:19.541Z"
+            "at": "2026-11-21T20:49:30.780Z"
           }
         },
         {
@@ -19101,7 +20550,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-21T16:56:19.541Z"
+            "at": "2026-11-21T20:49:30.780Z"
           }
         },
         {
@@ -19117,7 +20566,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-21T16:56:19.541Z"
+            "at": "2026-11-21T20:49:30.780Z"
           }
         },
         {
@@ -19131,7 +20580,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-21T16:56:19.541Z"
+            "at": "2026-11-21T20:49:30.780Z"
           }
         }
       ],
@@ -19267,7 +20716,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-21T16:56:19.541Z"
+            "at": "2026-11-21T20:49:30.780Z"
           }
         }
       ],
@@ -24444,7 +25893,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-21T16:56:19.541Z"
+            "at": "2026-11-21T20:49:30.780Z"
           }
         }
       ],
@@ -28722,7 +30171,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-21T16:56:19.541Z"
+            "at": "2026-11-21T20:49:30.780Z"
           }
         },
         {
@@ -28736,7 +30185,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-21T16:56:19.541Z"
+            "at": "2026-11-21T20:49:30.780Z"
           }
         }
       ],
@@ -29176,7 +30625,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-21T16:56:19.541Z"
+            "at": "2026-11-21T20:49:30.780Z"
           }
         }
       ],
@@ -31469,7 +32918,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-21T16:56:19.541Z"
+            "at": "2026-11-21T20:49:30.780Z"
           }
         }
       ],
@@ -33652,7 +35101,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-21T16:56:19.541Z"
+            "at": "2026-11-21T20:49:30.780Z"
           }
         }
       ],
@@ -38218,7 +39667,7 @@
           "lastRun": {
             "outcome": "pass",
             "serverVersion": "2026.1.0-nightly.g532565b+532565b",
-            "at": "2026-11-21T16:56:19.541Z"
+            "at": "2026-11-21T20:49:30.780Z"
           }
         }
       ],
@@ -40874,14 +42323,14 @@
             "url": "https://github.com/honua-io/honua-server/issues/7339"
           },
           {
-            "number": 7342,
-            "title": "feat(streaming): feature-change streams across tasks from the feature change log (rc.3)",
-            "url": "https://github.com/honua-io/honua-server/issues/7342"
-          },
-          {
             "number": 7343,
             "title": "feat(realtime): per-subscriber authorization and event-driven revocation (rc.3)",
             "url": "https://github.com/honua-io/honua-server/issues/7343"
+          },
+          {
+            "number": 7349,
+            "title": "test(realtime): two-task acceptance, scale run and live CDN check (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7349"
           }
         ],
         "categoryLevel": true,
@@ -40928,14 +42377,14 @@
             "url": "https://github.com/honua-io/honua-server/issues/7339"
           },
           {
-            "number": 7342,
-            "title": "feat(streaming): feature-change streams across tasks from the feature change log (rc.3)",
-            "url": "https://github.com/honua-io/honua-server/issues/7342"
-          },
-          {
             "number": 7343,
             "title": "feat(realtime): per-subscriber authorization and event-driven revocation (rc.3)",
             "url": "https://github.com/honua-io/honua-server/issues/7343"
+          },
+          {
+            "number": 7349,
+            "title": "test(realtime): two-task acceptance, scale run and live CDN check (rc.3)",
+            "url": "https://github.com/honua-io/honua-server/issues/7349"
           }
         ],
         "label": "cap/streaming"
@@ -40972,8 +42421,13 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
+        "count": 3,
         "refs": [
+          {
+            "number": 2439,
+            "title": "Epic: outcome-based Studio starter recipes for configurable map apps",
+            "url": "https://github.com/honua-io/honua-server/issues/2439"
+          },
           {
             "number": 2441,
             "title": "Military symbology rendering (MIL-STD-2525 / APP-6)",
@@ -40988,6 +42442,11 @@
         "categoryLevel": true,
         "keyRefs": [],
         "categoryRefs": [
+          {
+            "number": 2439,
+            "title": "Epic: outcome-based Studio starter recipes for configurable map apps",
+            "url": "https://github.com/honua-io/honua-server/issues/2439"
+          },
           {
             "number": 2441,
             "title": "Military symbology rendering (MIL-STD-2525 / APP-6)",
@@ -41042,8 +42501,13 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
+        "count": 3,
         "refs": [
+          {
+            "number": 2439,
+            "title": "Epic: outcome-based Studio starter recipes for configurable map apps",
+            "url": "https://github.com/honua-io/honua-server/issues/2439"
+          },
           {
             "number": 2441,
             "title": "Military symbology rendering (MIL-STD-2525 / APP-6)",
@@ -41058,6 +42522,11 @@
         "categoryLevel": true,
         "keyRefs": [],
         "categoryRefs": [
+          {
+            "number": 2439,
+            "title": "Epic: outcome-based Studio starter recipes for configurable map apps",
+            "url": "https://github.com/honua-io/honua-server/issues/2439"
+          },
           {
             "number": 2441,
             "title": "Military symbology rendering (MIL-STD-2525 / APP-6)",
@@ -41123,8 +42592,13 @@
       },
       "samples": [],
       "openIssues": {
-        "count": 2,
+        "count": 3,
         "refs": [
+          {
+            "number": 2439,
+            "title": "Epic: outcome-based Studio starter recipes for configurable map apps",
+            "url": "https://github.com/honua-io/honua-server/issues/2439"
+          },
           {
             "number": 2441,
             "title": "Military symbology rendering (MIL-STD-2525 / APP-6)",
@@ -41139,6 +42613,11 @@
         "categoryLevel": true,
         "keyRefs": [],
         "categoryRefs": [
+          {
+            "number": 2439,
+            "title": "Epic: outcome-based Studio starter recipes for configurable map apps",
+            "url": "https://github.com/honua-io/honua-server/issues/2439"
+          },
           {
             "number": 2441,
             "title": "Military symbology rendering (MIL-STD-2525 / APP-6)",
