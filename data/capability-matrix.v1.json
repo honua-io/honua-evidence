@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-11-22T17:11:25Z",
+  "generatedAt": "2026-11-22T18:02:44Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -28,67 +28,67 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-11-22T17:11:13Z",
-      "sourceVersion": "f7344c254d21@2026-11-21T22:06:50Z",
+      "fetchedAt": "2026-11-22T18:02:30Z",
+      "sourceVersion": "d08f9b45ae21@2026-11-22T18:02:09Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-22T17:11:13Z",
+      "observedAt": "2026-11-22T18:02:30Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-11-22T17:11:14Z",
+      "fetchedAt": "2026-11-22T18:02:30Z",
       "sourceVersion": "28ec78d7a3fa@2026-11-20T18:52:17Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-22T17:11:14Z",
+      "observedAt": "2026-11-22T18:02:30Z",
       "ageDays": 0,
       "sourceAgeDays": 1,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-11-22T17:11:14Z",
+      "fetchedAt": "2026-11-22T18:02:31Z",
       "sourceVersion": "3d4fe3e432fc@2026-11-14T11:43:35Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-22T17:11:14Z",
+      "observedAt": "2026-11-22T18:02:31Z",
       "ageDays": 0,
       "sourceAgeDays": 8,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-11-22T17:11:14Z",
+      "fetchedAt": "2026-11-22T18:02:31Z",
       "sourceVersion": "6630054f356b@2026-11-14T23:07:17Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-22T17:11:14Z",
+      "observedAt": "2026-11-22T18:02:31Z",
       "ageDays": 0,
       "sourceAgeDays": 7,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-11-22T17:11:15Z",
+      "fetchedAt": "2026-11-22T18:02:31Z",
       "sourceVersion": "afe1d6e315ed@2026-11-15T01:29:36Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-22T17:11:15Z",
+      "observedAt": "2026-11-22T18:02:31Z",
       "ageDays": 0,
       "sourceAgeDays": 7,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-11-22T17:11:15Z",
+      "fetchedAt": "2026-11-22T18:02:32Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "run 45047332819 has no samples-coverage artifact"
     },
     "open-issues": {
-      "fetchedAt": "2026-11-22T17:11:25Z",
+      "fetchedAt": "2026-11-22T18:02:44Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-22T17:11:25Z",
+      "observedAt": "2026-11-22T18:02:44Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-11-22T17:11:16Z",
+      "fetchedAt": "2026-11-22T18:02:32Z",
       "sourceVersion": "bbd805166257@2026-11-20T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-11-20T00:00:00Z",
@@ -97,7 +97,7 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-11-22T17:11:16Z",
+      "fetchedAt": "2026-11-22T18:02:32Z",
       "sourceVersion": "82b8ba183b60@2026-11-22T14:43:23Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-11-22T14:43:23Z",
@@ -131,8 +131,6 @@
     "open-issues: honua-io/honua-server#7014: 'Capability Key(s)' field references unknown capability key 'cap/identity' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#7017: 'Capability Key(s)' field references unknown capability key 'cap/control-plane' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#7019: 'Capability Key(s)' field references unknown capability key 'cap/extensibility' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
-    "open-issues: honua-io/honua-server#7426: 'Capability Key(s)' field references unknown capability key 'assets' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
-    "open-issues: honua-io/honua-server#7426: 'Capability Key(s)' field references unknown capability key 'tasks' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#7432: 'Capability Key(s)' field references unknown capability key 'assets' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#7432: 'Capability Key(s)' field references unknown capability key 'tasks' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
     "open-issues: honua-io/honua-server#8715: 'Capability Key(s)' field references unknown capability key 'serve-geoservices' (not in honua-server's canonical capability-keys.v1.json) -- ignored",
@@ -6025,7 +6023,7 @@
       },
       "samples": null,
       "openIssues": {
-        "count": 9,
+        "count": 8,
         "refs": [
           {
             "number": 7300,
@@ -6046,11 +6044,6 @@
             "number": 7333,
             "title": "feat: Open311 GeoReport v2 API for public service requests (rc.3)",
             "url": "https://github.com/honua-io/honua-server/issues/7333"
-          },
-          {
-            "number": 7426,
-            "title": "feat: atomic task completion with inspection/service record and asset summary watermarks (rc.3)",
-            "url": "https://github.com/honua-io/honua-server/issues/7426"
           },
           {
             "number": 7432,
@@ -6095,11 +6088,6 @@
             "number": 7333,
             "title": "feat: Open311 GeoReport v2 API for public service requests (rc.3)",
             "url": "https://github.com/honua-io/honua-server/issues/7333"
-          },
-          {
-            "number": 7426,
-            "title": "feat: atomic task completion with inspection/service record and asset summary watermarks (rc.3)",
-            "url": "https://github.com/honua-io/honua-server/issues/7426"
           },
           {
             "number": 7432,
@@ -6172,7 +6160,7 @@
       },
       "samples": null,
       "openIssues": {
-        "count": 9,
+        "count": 8,
         "refs": [
           {
             "number": 7300,
@@ -6193,11 +6181,6 @@
             "number": 7333,
             "title": "feat: Open311 GeoReport v2 API for public service requests (rc.3)",
             "url": "https://github.com/honua-io/honua-server/issues/7333"
-          },
-          {
-            "number": 7426,
-            "title": "feat: atomic task completion with inspection/service record and asset summary watermarks (rc.3)",
-            "url": "https://github.com/honua-io/honua-server/issues/7426"
           },
           {
             "number": 7432,
@@ -6244,11 +6227,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/7333"
           },
           {
-            "number": 7426,
-            "title": "feat: atomic task completion with inspection/service record and asset summary watermarks (rc.3)",
-            "url": "https://github.com/honua-io/honua-server/issues/7426"
-          },
-          {
             "number": 7432,
             "title": "feat: completion writes mapped asset columns, outbox intent and attachments (rc.3)",
             "url": "https://github.com/honua-io/honua-server/issues/7432"
@@ -6287,6 +6265,43 @@
         "category": "Format",
         "edition": "Community"
       },
+      "cite": [],
+      "parity": [],
+      "esriAssess": [],
+      "interop": [],
+      "geobench": [],
+      "dr": [],
+      "liveCanary": [],
+      "sdks": {
+        "js": {
+          "status": "not-covered"
+        },
+        "dotnet": {
+          "status": "not-covered"
+        },
+        "python": {
+          "status": "not-covered"
+        }
+      },
+      "samples": null,
+      "openIssues": {
+        "count": 0,
+        "refs": [],
+        "categoryLevel": true,
+        "keyRefs": [],
+        "categoryRefs": [],
+        "label": "cap/format"
+      }
+    },
+    {
+      "key": "format.geoparquet",
+      "displayName": "GeoParquet Format",
+      "category": "Format",
+      "edition": "Community",
+      "entryCount": 0,
+      "provingTestCount": 0,
+      "maturity": {},
+      "noSurface": null,
       "cite": [],
       "parity": [],
       "esriAssess": [],
