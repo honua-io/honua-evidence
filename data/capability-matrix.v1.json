@@ -2,7 +2,7 @@
   "schemaVersion": "2.4.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-11-23T06:16:04Z",
+  "generatedAt": "2026-11-23T08:00:40Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -28,67 +28,67 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-11-23T06:15:48Z",
+      "fetchedAt": "2026-11-23T08:00:26Z",
       "sourceVersion": "f9b8936d5185@2026-11-22T18:07:04Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-23T06:15:48Z",
+      "observedAt": "2026-11-23T08:00:26Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-11-23T06:15:48Z",
-      "sourceVersion": "28ec78d7a3fa@2026-11-20T18:52:17Z",
+      "fetchedAt": "2026-11-23T08:00:26Z",
+      "sourceVersion": "0db25ce63d65@2026-11-23T08:00:07Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-23T06:15:48Z",
+      "observedAt": "2026-11-23T08:00:26Z",
       "ageDays": 0,
-      "sourceAgeDays": 2,
+      "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-11-23T06:15:49Z",
+      "fetchedAt": "2026-11-23T08:00:27Z",
       "sourceVersion": "3d4fe3e432fc@2026-11-14T11:43:35Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-23T06:15:49Z",
+      "observedAt": "2026-11-23T08:00:27Z",
       "ageDays": 0,
       "sourceAgeDays": 8,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-11-23T06:15:49Z",
+      "fetchedAt": "2026-11-23T08:00:27Z",
       "sourceVersion": "6630054f356b@2026-11-14T23:07:17Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-23T06:15:49Z",
+      "observedAt": "2026-11-23T08:00:27Z",
       "ageDays": 0,
       "sourceAgeDays": 8,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-11-23T06:15:50Z",
+      "fetchedAt": "2026-11-23T08:00:27Z",
       "sourceVersion": "afe1d6e315ed@2026-11-15T01:29:36Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-23T06:15:50Z",
+      "observedAt": "2026-11-23T08:00:27Z",
       "ageDays": 0,
       "sourceAgeDays": 8,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-11-23T06:15:51Z",
+      "fetchedAt": "2026-11-23T08:00:28Z",
       "sourceVersion": null,
       "status": "missing",
       "detail": "run 45122586282 has no samples-coverage artifact"
     },
     "open-issues": {
-      "fetchedAt": "2026-11-23T06:16:04Z",
+      "fetchedAt": "2026-11-23T08:00:40Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-23T06:16:04Z",
+      "observedAt": "2026-11-23T08:00:40Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-11-23T06:15:51Z",
+      "fetchedAt": "2026-11-23T08:00:28Z",
       "sourceVersion": "bbd805166257@2026-11-20T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-11-20T00:00:00Z",
@@ -97,7 +97,7 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-11-23T06:15:51Z",
+      "fetchedAt": "2026-11-23T08:00:28Z",
       "sourceVersion": "82b8ba183b60@2026-11-22T14:43:23Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-11-22T14:43:23Z",
@@ -140,11 +140,11 @@
       "displayName": "Admin Control Plane",
       "category": "ControlPlane",
       "edition": "Community",
-      "entryCount": 433,
-      "provingTestCount": 1998,
+      "entryCount": 440,
+      "provingTestCount": 2046,
       "maturity": {
-        "implemented": 430,
-        "experimental": 3
+        "implemented": 438,
+        "experimental": 2
       },
       "noSurface": null,
       "cite": [],
@@ -307,7 +307,7 @@
       "category": "Internal",
       "edition": "Enterprise",
       "entryCount": 7,
-      "provingTestCount": 13,
+      "provingTestCount": 14,
       "maturity": {
         "internal": 7
       },
@@ -660,7 +660,7 @@
       "category": "AI",
       "edition": "Pro",
       "entryCount": 2,
-      "provingTestCount": 11,
+      "provingTestCount": 14,
       "maturity": {
         "implemented": 2
       },
@@ -1641,7 +1641,7 @@
       "category": "Analytics",
       "edition": "Pro",
       "entryCount": 1,
-      "provingTestCount": 11,
+      "provingTestCount": 12,
       "maturity": {
         "implemented": 1
       },
@@ -3332,7 +3332,7 @@
       "category": "Discovery",
       "edition": "Community",
       "entryCount": 2,
-      "provingTestCount": 60,
+      "provingTestCount": 63,
       "maturity": {
         "implemented": 2
       },
@@ -5691,7 +5691,7 @@
       "category": "Editing",
       "edition": "Pro",
       "entryCount": 6,
-      "provingTestCount": 181,
+      "provingTestCount": 189,
       "maturity": {
         "implemented": 6
       },
@@ -5852,10 +5852,10 @@
       "displayName": "Field Collection Forms",
       "category": "FieldOps",
       "edition": "Community",
-      "entryCount": 21,
-      "provingTestCount": 37,
+      "entryCount": 33,
+      "provingTestCount": 95,
       "maturity": {
-        "implemented": 21
+        "implemented": 33
       },
       "noSurface": null,
       "cite": [],
@@ -5886,7 +5886,7 @@
       },
       "samples": null,
       "openIssues": {
-        "count": 8,
+        "count": 10,
         "refs": [
           {
             "number": 7300,
@@ -5927,6 +5927,16 @@
             "number": 7549,
             "title": "field sync adoption prerequisites: canonical data, scoped identity and domain receipts",
             "url": "https://github.com/honua-io/honua-server/issues/7549"
+          },
+          {
+            "number": 9477,
+            "title": "bug(fieldcollection): oversized changeId or featureId returns 500 from the primary-key index instead of 400",
+            "url": "https://github.com/honua-io/honua-server/issues/9477"
+          },
+          {
+            "number": 9478,
+            "title": "bug(fieldcollection): NUL characters in sync identifiers or the feature payload return 500 instead of 400",
+            "url": "https://github.com/honua-io/honua-server/issues/9478"
           }
         ],
         "categoryLevel": true,
@@ -5971,6 +5981,16 @@
             "number": 7549,
             "title": "field sync adoption prerequisites: canonical data, scoped identity and domain receipts",
             "url": "https://github.com/honua-io/honua-server/issues/7549"
+          },
+          {
+            "number": 9477,
+            "title": "bug(fieldcollection): oversized changeId or featureId returns 500 from the primary-key index instead of 400",
+            "url": "https://github.com/honua-io/honua-server/issues/9477"
+          },
+          {
+            "number": 9478,
+            "title": "bug(fieldcollection): NUL characters in sync identifiers or the feature payload return 500 instead of 400",
+            "url": "https://github.com/honua-io/honua-server/issues/9478"
           }
         ],
         "label": "cap/field-ops"
@@ -5982,7 +6002,7 @@
       "category": "FieldOps",
       "edition": "Pro",
       "entryCount": 18,
-      "provingTestCount": 201,
+      "provingTestCount": 207,
       "maturity": {
         "preview": 18
       },
@@ -6023,7 +6043,7 @@
       },
       "samples": null,
       "openIssues": {
-        "count": 8,
+        "count": 10,
         "refs": [
           {
             "number": 7300,
@@ -6064,6 +6084,16 @@
             "number": 7549,
             "title": "field sync adoption prerequisites: canonical data, scoped identity and domain receipts",
             "url": "https://github.com/honua-io/honua-server/issues/7549"
+          },
+          {
+            "number": 9477,
+            "title": "bug(fieldcollection): oversized changeId or featureId returns 500 from the primary-key index instead of 400",
+            "url": "https://github.com/honua-io/honua-server/issues/9477"
+          },
+          {
+            "number": 9478,
+            "title": "bug(fieldcollection): NUL characters in sync identifiers or the feature payload return 500 instead of 400",
+            "url": "https://github.com/honua-io/honua-server/issues/9478"
           }
         ],
         "categoryLevel": true,
@@ -6108,6 +6138,16 @@
             "number": 7549,
             "title": "field sync adoption prerequisites: canonical data, scoped identity and domain receipts",
             "url": "https://github.com/honua-io/honua-server/issues/7549"
+          },
+          {
+            "number": 9477,
+            "title": "bug(fieldcollection): oversized changeId or featureId returns 500 from the primary-key index instead of 400",
+            "url": "https://github.com/honua-io/honua-server/issues/9477"
+          },
+          {
+            "number": 9478,
+            "title": "bug(fieldcollection): NUL characters in sync identifiers or the feature payload return 500 instead of 400",
+            "url": "https://github.com/honua-io/honua-server/issues/9478"
           }
         ],
         "label": "cap/field-ops"
@@ -6164,7 +6204,13 @@
       "entryCount": 0,
       "provingTestCount": 0,
       "maturity": {},
-      "noSurface": null,
+      "noSurface": {
+        "capability": "format.geoparquet",
+        "reasonCode": "content-negotiation",
+        "reason": "GeoParquet is selected with f=parquet on FeatureServer, $format=parquet on OData, format=geoparquet on bulk export, and file upload import; it has no separate route.",
+        "category": "Format",
+        "edition": "Community"
+      },
       "cite": [],
       "parity": [],
       "esriAssess": [],
@@ -6198,10 +6244,10 @@
       "displayName": "Batch Geocoding",
       "category": "Geocoding",
       "edition": "Enterprise",
-      "entryCount": 3,
-      "provingTestCount": 21,
+      "entryCount": 4,
+      "provingTestCount": 22,
       "maturity": {
-        "implemented": 3
+        "implemented": 4
       },
       "noSurface": null,
       "cite": [],
@@ -6349,10 +6395,10 @@
       "displayName": "Forward Geocoding",
       "category": "Geocoding",
       "edition": "Community",
-      "entryCount": 11,
-      "provingTestCount": 64,
+      "entryCount": 12,
+      "provingTestCount": 66,
       "maturity": {
-        "implemented": 11
+        "implemented": 12
       },
       "noSurface": null,
       "cite": [],
@@ -8480,10 +8526,10 @@
       "displayName": "Reverse Geocoding",
       "category": "Geocoding",
       "edition": "Community",
-      "entryCount": 3,
-      "provingTestCount": 13,
+      "entryCount": 4,
+      "provingTestCount": 14,
       "maturity": {
-        "implemented": 3
+        "implemented": 4
       },
       "noSurface": null,
       "cite": [],
@@ -8857,7 +8903,7 @@
       "category": "Identity",
       "edition": "Pro",
       "entryCount": 9,
-      "provingTestCount": 43,
+      "provingTestCount": 46,
       "maturity": {
         "implemented": 9
       },
@@ -9758,7 +9804,7 @@
       "category": "Import",
       "edition": "Community",
       "entryCount": 79,
-      "provingTestCount": 293,
+      "provingTestCount": 294,
       "maturity": {
         "implemented": 79
       },
@@ -16876,10 +16922,10 @@
       "displayName": "Geoprocessing Task Execution",
       "category": "Process",
       "edition": "Community",
-      "entryCount": 19,
-      "provingTestCount": 260,
+      "entryCount": 20,
+      "provingTestCount": 261,
       "maturity": {
-        "preview": 19
+        "preview": 20
       },
       "noSurface": null,
       "cite": [],
@@ -17129,7 +17175,7 @@
       "category": "Process",
       "edition": "Community",
       "entryCount": 10,
-      "provingTestCount": 202,
+      "provingTestCount": 207,
       "maturity": {
         "preview": 10
       },
@@ -17338,7 +17384,7 @@
       "category": "Raster",
       "edition": "Pro",
       "entryCount": 8,
-      "provingTestCount": 35,
+      "provingTestCount": 37,
       "maturity": {
         "implemented": 8
       },
@@ -17516,7 +17562,7 @@
       "category": "Raster",
       "edition": "Pro",
       "entryCount": 12,
-      "provingTestCount": 27,
+      "provingTestCount": 30,
       "maturity": {
         "implemented": 12
       },
@@ -17756,7 +17802,7 @@
       "category": "Routing",
       "edition": "Pro",
       "entryCount": 32,
-      "provingTestCount": 122,
+      "provingTestCount": 125,
       "maturity": {
         "implemented": 32
       },
@@ -17968,10 +18014,10 @@
       "displayName": "Scene Catalog",
       "category": "Scene",
       "edition": "Community",
-      "entryCount": 3,
-      "provingTestCount": 15,
+      "entryCount": 9,
+      "provingTestCount": 41,
       "maturity": {
-        "deferred": 3
+        "deferred": 9
       },
       "noSurface": null,
       "cite": [],
@@ -18109,7 +18155,7 @@
       "category": "Scene",
       "edition": "Enterprise",
       "entryCount": 1,
-      "provingTestCount": 11,
+      "provingTestCount": 12,
       "maturity": {
         "experimental": 1
       },
@@ -18239,10 +18285,10 @@
       "displayName": "3D Tiles Scene Serving",
       "category": "Serve",
       "edition": "Community",
-      "entryCount": 6,
-      "provingTestCount": 78,
+      "entryCount": 15,
+      "provingTestCount": 106,
       "maturity": {
-        "experimental": 6
+        "experimental": 15
       },
       "noSurface": null,
       "cite": [],
@@ -18484,7 +18530,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 49,
-      "provingTestCount": 624,
+      "provingTestCount": 643,
       "maturity": {
         "implemented": 49
       },
@@ -21116,7 +21162,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 47,
-      "provingTestCount": 463,
+      "provingTestCount": 496,
       "maturity": {
         "implemented": 45,
         "preview": 2
@@ -23334,7 +23380,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 21,
-      "provingTestCount": 135,
+      "provingTestCount": 140,
       "maturity": {
         "implemented": 21
       },
@@ -23456,7 +23502,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 9,
-      "provingTestCount": 46,
+      "provingTestCount": 47,
       "maturity": {
         "implemented": 9
       },
@@ -23687,10 +23733,10 @@
       "displayName": "I3S Scene Serving",
       "category": "Serve",
       "edition": "Enterprise",
-      "entryCount": 14,
-      "provingTestCount": 65,
+      "entryCount": 16,
+      "provingTestCount": 68,
       "maturity": {
-        "implemented": 14
+        "implemented": 16
       },
       "noSurface": null,
       "cite": [],
@@ -23810,7 +23856,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 30,
-      "provingTestCount": 256,
+      "provingTestCount": 259,
       "maturity": {
         "implemented": 30
       },
@@ -26015,7 +26061,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 8,
-      "provingTestCount": 53,
+      "provingTestCount": 57,
       "maturity": {
         "preview": 8
       },
@@ -30286,7 +30332,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 12,
-      "provingTestCount": 152,
+      "provingTestCount": 157,
       "maturity": {
         "implemented": 12
       },
@@ -30431,7 +30477,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 7,
-      "provingTestCount": 67,
+      "provingTestCount": 75,
       "maturity": {
         "implemented": 7
       },
@@ -30563,7 +30609,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 13,
-      "provingTestCount": 79,
+      "provingTestCount": 81,
       "maturity": {
         "implemented": 13
       },
@@ -30711,7 +30757,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 64,
-      "provingTestCount": 250,
+      "provingTestCount": 251,
       "maturity": {
         "preview": 64
       },
@@ -30822,7 +30868,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 11,
-      "provingTestCount": 151,
+      "provingTestCount": 169,
       "maturity": {
         "implemented": 11
       },
@@ -32996,9 +33042,11 @@
       "displayName": "Quantized-Mesh Terrain",
       "category": "Serve",
       "edition": "Community",
-      "entryCount": 0,
-      "provingTestCount": 0,
-      "maturity": {},
+      "entryCount": 2,
+      "provingTestCount": 7,
+      "maturity": {
+        "implemented": 2
+      },
       "noSurface": null,
       "cite": [],
       "parity": [],
@@ -33106,7 +33154,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 11,
-      "provingTestCount": 112,
+      "provingTestCount": 116,
       "maturity": {
         "implemented": 11
       },
@@ -37455,7 +37503,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 2,
-      "provingTestCount": 165,
+      "provingTestCount": 170,
       "maturity": {
         "implemented": 2
       },
@@ -37639,7 +37687,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 1,
-      "provingTestCount": 30,
+      "provingTestCount": 31,
       "maturity": {
         "implemented": 1
       },
@@ -39849,7 +39897,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 1,
-      "provingTestCount": 16,
+      "provingTestCount": 17,
       "maturity": {
         "preview": 1
       },
@@ -42339,7 +42387,7 @@
       "category": "Streaming",
       "edition": "Pro",
       "entryCount": 7,
-      "provingTestCount": 153,
+      "provingTestCount": 155,
       "maturity": {
         "experimental": 7
       },
@@ -42485,7 +42533,7 @@
       "category": "Styling",
       "edition": "Pro",
       "entryCount": 2,
-      "provingTestCount": 9,
+      "provingTestCount": 10,
       "maturity": {
         "implemented": 2
       },
@@ -42635,10 +42683,10 @@
       "displayName": "OGC API Styles",
       "category": "Styling",
       "edition": "Community",
-      "entryCount": 8,
-      "provingTestCount": 76,
+      "entryCount": 9,
+      "provingTestCount": 90,
       "maturity": {
-        "implemented": 8
+        "implemented": 9
       },
       "noSurface": null,
       "cite": [],
@@ -42809,7 +42857,7 @@
       "category": "Temporal",
       "edition": "Community",
       "entryCount": 6,
-      "provingTestCount": 24,
+      "provingTestCount": 25,
       "maturity": {
         "implemented": 6
       },
@@ -42848,7 +42896,7 @@
       "category": "Temporal",
       "edition": "Pro",
       "entryCount": 2,
-      "provingTestCount": 9,
+      "provingTestCount": 12,
       "maturity": {
         "implemented": 2
       },
