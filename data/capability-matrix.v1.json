@@ -1,8 +1,8 @@
 {
-  "schemaVersion": "2.4.0",
+  "schemaVersion": "2.5.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-11-23T08:00:40Z",
+  "generatedAt": "2026-11-23T16:11:50Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -28,67 +28,70 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-11-23T08:00:26Z",
+      "fetchedAt": "2026-11-23T16:11:30Z",
       "sourceVersion": "f9b8936d5185@2026-11-22T18:07:04Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-23T08:00:26Z",
+      "observedAt": "2026-11-23T16:11:30Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-11-23T08:00:26Z",
+      "fetchedAt": "2026-11-23T16:11:31Z",
       "sourceVersion": "0db25ce63d65@2026-11-23T08:00:07Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-23T08:00:26Z",
+      "observedAt": "2026-11-23T16:11:31Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-11-23T08:00:27Z",
+      "fetchedAt": "2026-11-23T16:11:31Z",
       "sourceVersion": "3d4fe3e432fc@2026-11-14T11:43:35Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-23T08:00:27Z",
+      "observedAt": "2026-11-23T16:11:31Z",
       "ageDays": 0,
-      "sourceAgeDays": 8,
+      "sourceAgeDays": 9,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-11-23T08:00:27Z",
+      "fetchedAt": "2026-11-23T16:11:32Z",
       "sourceVersion": "6630054f356b@2026-11-14T23:07:17Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-23T08:00:27Z",
+      "observedAt": "2026-11-23T16:11:32Z",
       "ageDays": 0,
       "sourceAgeDays": 8,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-11-23T08:00:27Z",
+      "fetchedAt": "2026-11-23T16:11:33Z",
       "sourceVersion": "afe1d6e315ed@2026-11-15T01:29:36Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-23T08:00:27Z",
+      "observedAt": "2026-11-23T16:11:33Z",
       "ageDays": 0,
       "sourceAgeDays": 8,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-11-23T08:00:28Z",
-      "sourceVersion": null,
-      "status": "missing",
-      "detail": "run 45122586282 has no samples-coverage artifact"
+      "fetchedAt": "2026-11-23T16:11:34Z",
+      "sourceVersion": "29777eab0d06@2026-11-23T16:11:07Z",
+      "freshnessBasis": "observation",
+      "observedAt": "2026-11-23T16:11:07Z",
+      "ageDays": 0,
+      "sourceAgeDays": 0,
+      "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-11-23T08:00:40Z",
+      "fetchedAt": "2026-11-23T16:11:50Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-23T08:00:40Z",
+      "observedAt": "2026-11-23T16:11:50Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-11-23T08:00:28Z",
+      "fetchedAt": "2026-11-23T16:11:35Z",
       "sourceVersion": "bbd805166257@2026-11-20T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-11-20T00:00:00Z",
@@ -97,12 +100,12 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-11-23T08:00:28Z",
+      "fetchedAt": "2026-11-23T16:11:35Z",
       "sourceVersion": "82b8ba183b60@2026-11-22T14:43:23Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-11-22T14:43:23Z",
-      "ageDays": 0,
-      "sourceAgeDays": 0,
+      "ageDays": 1,
+      "sourceAgeDays": 1,
       "status": "fresh"
     }
   },
@@ -162,6 +165,7 @@
         }
       ],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -189,7 +193,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 10,
         "refs": [
@@ -317,6 +321,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -330,7 +335,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -360,6 +365,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -385,7 +391,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 10,
         "refs": [
@@ -517,6 +523,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -542,7 +549,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 10,
         "refs": [
@@ -670,6 +677,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -683,7 +691,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 10,
         "refs": [
@@ -811,6 +819,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -833,7 +842,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 10,
         "refs": [
@@ -961,6 +970,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -979,7 +989,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 10,
         "refs": [
@@ -1107,6 +1117,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -1124,7 +1135,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 10,
         "refs": [
@@ -1256,6 +1267,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -1274,7 +1286,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 5,
         "refs": [
@@ -1356,6 +1368,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -1374,7 +1387,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 5,
         "refs": [
@@ -1452,6 +1465,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -1473,7 +1487,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 5,
         "refs": [
@@ -1555,6 +1569,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -1573,7 +1588,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 5,
         "refs": [
@@ -1651,6 +1666,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -1664,7 +1680,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 6,
         "refs": [
@@ -1752,6 +1768,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -1765,7 +1782,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 6,
         "refs": [
@@ -1853,6 +1870,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -1866,7 +1884,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 6,
         "refs": [
@@ -1954,6 +1972,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -1967,7 +1986,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 6,
         "refs": [
@@ -2055,6 +2074,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -2068,7 +2088,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 6,
         "refs": [
@@ -2156,6 +2176,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -2169,7 +2190,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 6,
         "refs": [
@@ -2257,6 +2278,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -2276,7 +2298,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 6,
         "refs": [
@@ -2364,6 +2386,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -2377,7 +2400,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 6,
         "refs": [
@@ -2465,6 +2488,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -2478,7 +2502,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 6,
         "refs": [
@@ -2566,6 +2590,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -2579,7 +2604,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 6,
         "refs": [
@@ -2667,6 +2692,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -2680,7 +2706,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 6,
         "refs": [
@@ -2772,6 +2798,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -2785,7 +2812,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 10,
         "refs": [
@@ -2917,6 +2944,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -2930,7 +2958,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -2960,6 +2988,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -2973,7 +3002,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -3003,6 +3032,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -3016,7 +3046,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -3046,6 +3076,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -3059,7 +3090,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -3089,6 +3120,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -3102,7 +3134,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -3132,6 +3164,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -3145,7 +3178,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -3175,6 +3208,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -3188,7 +3222,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -3214,6 +3248,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -3235,7 +3270,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 4,
         "refs": [
@@ -3303,6 +3338,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -3316,7 +3352,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -3342,6 +3378,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [
         {
@@ -5354,7 +5391,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -5456,6 +5493,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -5469,7 +5507,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -5499,6 +5537,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -5512,7 +5551,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -5542,6 +5581,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -5555,7 +5595,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -5585,6 +5625,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -5598,7 +5639,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -5630,6 +5671,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -5643,7 +5685,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 3,
         "refs": [
@@ -5701,6 +5743,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -5739,7 +5782,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 3,
         "refs": [
@@ -5797,6 +5840,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -5815,7 +5859,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 2,
         "refs": [
@@ -5863,6 +5907,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -5884,7 +5929,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 10,
         "refs": [
@@ -5929,14 +5974,14 @@
             "url": "https://github.com/honua-io/honua-server/issues/7549"
           },
           {
-            "number": 9477,
-            "title": "bug(fieldcollection): oversized changeId or featureId returns 500 from the primary-key index instead of 400",
-            "url": "https://github.com/honua-io/honua-server/issues/9477"
+            "number": 9592,
+            "title": "bug(field-review): NUL characters in review assignment, decision note or comment return 500, and none has a length limit",
+            "url": "https://github.com/honua-io/honua-server/issues/9592"
           },
           {
-            "number": 9478,
-            "title": "bug(fieldcollection): NUL characters in sync identifiers or the feature payload return 500 instead of 400",
-            "url": "https://github.com/honua-io/honua-server/issues/9478"
+            "number": 9593,
+            "title": "bug(field-workflows): NUL characters in submission list or export filters return 500",
+            "url": "https://github.com/honua-io/honua-server/issues/9593"
           }
         ],
         "categoryLevel": true,
@@ -5983,14 +6028,14 @@
             "url": "https://github.com/honua-io/honua-server/issues/7549"
           },
           {
-            "number": 9477,
-            "title": "bug(fieldcollection): oversized changeId or featureId returns 500 from the primary-key index instead of 400",
-            "url": "https://github.com/honua-io/honua-server/issues/9477"
+            "number": 9592,
+            "title": "bug(field-review): NUL characters in review assignment, decision note or comment return 500, and none has a length limit",
+            "url": "https://github.com/honua-io/honua-server/issues/9592"
           },
           {
-            "number": 9478,
-            "title": "bug(fieldcollection): NUL characters in sync identifiers or the feature payload return 500 instead of 400",
-            "url": "https://github.com/honua-io/honua-server/issues/9478"
+            "number": 9593,
+            "title": "bug(field-workflows): NUL characters in submission list or export filters return 500",
+            "url": "https://github.com/honua-io/honua-server/issues/9593"
           }
         ],
         "label": "cap/field-ops"
@@ -6012,6 +6057,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -6041,7 +6087,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 10,
         "refs": [
@@ -6086,14 +6132,14 @@
             "url": "https://github.com/honua-io/honua-server/issues/7549"
           },
           {
-            "number": 9477,
-            "title": "bug(fieldcollection): oversized changeId or featureId returns 500 from the primary-key index instead of 400",
-            "url": "https://github.com/honua-io/honua-server/issues/9477"
+            "number": 9592,
+            "title": "bug(field-review): NUL characters in review assignment, decision note or comment return 500, and none has a length limit",
+            "url": "https://github.com/honua-io/honua-server/issues/9592"
           },
           {
-            "number": 9478,
-            "title": "bug(fieldcollection): NUL characters in sync identifiers or the feature payload return 500 instead of 400",
-            "url": "https://github.com/honua-io/honua-server/issues/9478"
+            "number": 9593,
+            "title": "bug(field-workflows): NUL characters in submission list or export filters return 500",
+            "url": "https://github.com/honua-io/honua-server/issues/9593"
           }
         ],
         "categoryLevel": true,
@@ -6140,14 +6186,14 @@
             "url": "https://github.com/honua-io/honua-server/issues/7549"
           },
           {
-            "number": 9477,
-            "title": "bug(fieldcollection): oversized changeId or featureId returns 500 from the primary-key index instead of 400",
-            "url": "https://github.com/honua-io/honua-server/issues/9477"
+            "number": 9592,
+            "title": "bug(field-review): NUL characters in review assignment, decision note or comment return 500, and none has a length limit",
+            "url": "https://github.com/honua-io/honua-server/issues/9592"
           },
           {
-            "number": 9478,
-            "title": "bug(fieldcollection): NUL characters in sync identifiers or the feature payload return 500 instead of 400",
-            "url": "https://github.com/honua-io/honua-server/issues/9478"
+            "number": 9593,
+            "title": "bug(field-workflows): NUL characters in submission list or export filters return 500",
+            "url": "https://github.com/honua-io/honua-server/issues/9593"
           }
         ],
         "label": "cap/field-ops"
@@ -6173,6 +6219,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -6186,7 +6233,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -6216,6 +6263,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -6229,7 +6277,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -6255,6 +6303,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -6273,7 +6322,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 3,
         "refs": [
@@ -6335,6 +6384,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -6348,7 +6398,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 3,
         "refs": [
@@ -6406,6 +6456,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [
         {
@@ -8479,7 +8530,17 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [
+        {
+          "id": "geocode-single-line",
+          "title": "Single-line forward geocode (plain REST)",
+          "url": "https://samples.honua.io/geocode-single-line",
+          "sdks": [
+            "rest"
+          ],
+          "edition": "pro"
+        }
+      ],
       "openIssues": {
         "count": 3,
         "refs": [
@@ -8537,6 +8598,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -8569,7 +8631,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 3,
         "refs": [
@@ -8631,6 +8693,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -8644,9 +8707,9 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 10,
+        "count": 5,
         "refs": [
           {
             "number": 1273,
@@ -8672,31 +8735,6 @@
             "number": 7277,
             "title": "feat: browser administrator session sign-in and CSRF protection",
             "url": "https://github.com/honua-io/honua-server/issues/7277"
-          },
-          {
-            "number": 9407,
-            "title": "bug(scim): Users and Groups lists ignore an unsupported filter and return every resource",
-            "url": "https://github.com/honua-io/honua-server/issues/9407"
-          },
-          {
-            "number": 9408,
-            "title": "test(identity): OIDC provider undo with a stale revision and parallel edits at the admin endpoint",
-            "url": "https://github.com/honua-io/honua-server/issues/9408"
-          },
-          {
-            "number": 9409,
-            "title": "test(identity): non-admin key on identity-provider admin and malformed mobile token requests",
-            "url": "https://github.com/honua-io/honua-server/issues/9409"
-          },
-          {
-            "number": 9418,
-            "title": "bug(roles): duplicate role name and control characters return 500 instead of 409 and 400",
-            "url": "https://github.com/honua-io/honua-server/issues/9418"
-          },
-          {
-            "number": 9419,
-            "title": "bug(oidc): concurrent edits to one OIDC provider return 500",
-            "url": "https://github.com/honua-io/honua-server/issues/9419"
           }
         ],
         "categoryLevel": true,
@@ -8726,31 +8764,6 @@
             "number": 7277,
             "title": "feat: browser administrator session sign-in and CSRF protection",
             "url": "https://github.com/honua-io/honua-server/issues/7277"
-          },
-          {
-            "number": 9407,
-            "title": "bug(scim): Users and Groups lists ignore an unsupported filter and return every resource",
-            "url": "https://github.com/honua-io/honua-server/issues/9407"
-          },
-          {
-            "number": 9408,
-            "title": "test(identity): OIDC provider undo with a stale revision and parallel edits at the admin endpoint",
-            "url": "https://github.com/honua-io/honua-server/issues/9408"
-          },
-          {
-            "number": 9409,
-            "title": "test(identity): non-admin key on identity-provider admin and malformed mobile token requests",
-            "url": "https://github.com/honua-io/honua-server/issues/9409"
-          },
-          {
-            "number": 9418,
-            "title": "bug(roles): duplicate role name and control characters return 500 instead of 409 and 400",
-            "url": "https://github.com/honua-io/honua-server/issues/9418"
-          },
-          {
-            "number": 9419,
-            "title": "bug(oidc): concurrent edits to one OIDC provider return 500",
-            "url": "https://github.com/honua-io/honua-server/issues/9419"
           }
         ],
         "label": "cap/identity"
@@ -8772,6 +8785,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -8785,9 +8799,9 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 10,
+        "count": 5,
         "refs": [
           {
             "number": 1273,
@@ -8813,31 +8827,6 @@
             "number": 7277,
             "title": "feat: browser administrator session sign-in and CSRF protection",
             "url": "https://github.com/honua-io/honua-server/issues/7277"
-          },
-          {
-            "number": 9407,
-            "title": "bug(scim): Users and Groups lists ignore an unsupported filter and return every resource",
-            "url": "https://github.com/honua-io/honua-server/issues/9407"
-          },
-          {
-            "number": 9408,
-            "title": "test(identity): OIDC provider undo with a stale revision and parallel edits at the admin endpoint",
-            "url": "https://github.com/honua-io/honua-server/issues/9408"
-          },
-          {
-            "number": 9409,
-            "title": "test(identity): non-admin key on identity-provider admin and malformed mobile token requests",
-            "url": "https://github.com/honua-io/honua-server/issues/9409"
-          },
-          {
-            "number": 9418,
-            "title": "bug(roles): duplicate role name and control characters return 500 instead of 409 and 400",
-            "url": "https://github.com/honua-io/honua-server/issues/9418"
-          },
-          {
-            "number": 9419,
-            "title": "bug(oidc): concurrent edits to one OIDC provider return 500",
-            "url": "https://github.com/honua-io/honua-server/issues/9419"
           }
         ],
         "categoryLevel": true,
@@ -8867,31 +8856,6 @@
             "number": 7277,
             "title": "feat: browser administrator session sign-in and CSRF protection",
             "url": "https://github.com/honua-io/honua-server/issues/7277"
-          },
-          {
-            "number": 9407,
-            "title": "bug(scim): Users and Groups lists ignore an unsupported filter and return every resource",
-            "url": "https://github.com/honua-io/honua-server/issues/9407"
-          },
-          {
-            "number": 9408,
-            "title": "test(identity): OIDC provider undo with a stale revision and parallel edits at the admin endpoint",
-            "url": "https://github.com/honua-io/honua-server/issues/9408"
-          },
-          {
-            "number": 9409,
-            "title": "test(identity): non-admin key on identity-provider admin and malformed mobile token requests",
-            "url": "https://github.com/honua-io/honua-server/issues/9409"
-          },
-          {
-            "number": 9418,
-            "title": "bug(roles): duplicate role name and control characters return 500 instead of 409 and 400",
-            "url": "https://github.com/honua-io/honua-server/issues/9418"
-          },
-          {
-            "number": 9419,
-            "title": "bug(oidc): concurrent edits to one OIDC provider return 500",
-            "url": "https://github.com/honua-io/honua-server/issues/9419"
           }
         ],
         "label": "cap/identity"
@@ -8913,6 +8877,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -8941,9 +8906,9 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 10,
+        "count": 5,
         "refs": [
           {
             "number": 1273,
@@ -8969,31 +8934,6 @@
             "number": 7277,
             "title": "feat: browser administrator session sign-in and CSRF protection",
             "url": "https://github.com/honua-io/honua-server/issues/7277"
-          },
-          {
-            "number": 9407,
-            "title": "bug(scim): Users and Groups lists ignore an unsupported filter and return every resource",
-            "url": "https://github.com/honua-io/honua-server/issues/9407"
-          },
-          {
-            "number": 9408,
-            "title": "test(identity): OIDC provider undo with a stale revision and parallel edits at the admin endpoint",
-            "url": "https://github.com/honua-io/honua-server/issues/9408"
-          },
-          {
-            "number": 9409,
-            "title": "test(identity): non-admin key on identity-provider admin and malformed mobile token requests",
-            "url": "https://github.com/honua-io/honua-server/issues/9409"
-          },
-          {
-            "number": 9418,
-            "title": "bug(roles): duplicate role name and control characters return 500 instead of 409 and 400",
-            "url": "https://github.com/honua-io/honua-server/issues/9418"
-          },
-          {
-            "number": 9419,
-            "title": "bug(oidc): concurrent edits to one OIDC provider return 500",
-            "url": "https://github.com/honua-io/honua-server/issues/9419"
           }
         ],
         "categoryLevel": true,
@@ -9023,31 +8963,6 @@
             "number": 7277,
             "title": "feat: browser administrator session sign-in and CSRF protection",
             "url": "https://github.com/honua-io/honua-server/issues/7277"
-          },
-          {
-            "number": 9407,
-            "title": "bug(scim): Users and Groups lists ignore an unsupported filter and return every resource",
-            "url": "https://github.com/honua-io/honua-server/issues/9407"
-          },
-          {
-            "number": 9408,
-            "title": "test(identity): OIDC provider undo with a stale revision and parallel edits at the admin endpoint",
-            "url": "https://github.com/honua-io/honua-server/issues/9408"
-          },
-          {
-            "number": 9409,
-            "title": "test(identity): non-admin key on identity-provider admin and malformed mobile token requests",
-            "url": "https://github.com/honua-io/honua-server/issues/9409"
-          },
-          {
-            "number": 9418,
-            "title": "bug(roles): duplicate role name and control characters return 500 instead of 409 and 400",
-            "url": "https://github.com/honua-io/honua-server/issues/9418"
-          },
-          {
-            "number": 9419,
-            "title": "bug(oidc): concurrent edits to one OIDC provider return 500",
-            "url": "https://github.com/honua-io/honua-server/issues/9419"
           }
         ],
         "label": "cap/identity"
@@ -9073,6 +8988,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -9091,9 +9007,9 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 10,
+        "count": 5,
         "refs": [
           {
             "number": 1273,
@@ -9119,31 +9035,6 @@
             "number": 7277,
             "title": "feat: browser administrator session sign-in and CSRF protection",
             "url": "https://github.com/honua-io/honua-server/issues/7277"
-          },
-          {
-            "number": 9407,
-            "title": "bug(scim): Users and Groups lists ignore an unsupported filter and return every resource",
-            "url": "https://github.com/honua-io/honua-server/issues/9407"
-          },
-          {
-            "number": 9408,
-            "title": "test(identity): OIDC provider undo with a stale revision and parallel edits at the admin endpoint",
-            "url": "https://github.com/honua-io/honua-server/issues/9408"
-          },
-          {
-            "number": 9409,
-            "title": "test(identity): non-admin key on identity-provider admin and malformed mobile token requests",
-            "url": "https://github.com/honua-io/honua-server/issues/9409"
-          },
-          {
-            "number": 9418,
-            "title": "bug(roles): duplicate role name and control characters return 500 instead of 409 and 400",
-            "url": "https://github.com/honua-io/honua-server/issues/9418"
-          },
-          {
-            "number": 9419,
-            "title": "bug(oidc): concurrent edits to one OIDC provider return 500",
-            "url": "https://github.com/honua-io/honua-server/issues/9419"
           }
         ],
         "categoryLevel": true,
@@ -9173,31 +9064,6 @@
             "number": 7277,
             "title": "feat: browser administrator session sign-in and CSRF protection",
             "url": "https://github.com/honua-io/honua-server/issues/7277"
-          },
-          {
-            "number": 9407,
-            "title": "bug(scim): Users and Groups lists ignore an unsupported filter and return every resource",
-            "url": "https://github.com/honua-io/honua-server/issues/9407"
-          },
-          {
-            "number": 9408,
-            "title": "test(identity): OIDC provider undo with a stale revision and parallel edits at the admin endpoint",
-            "url": "https://github.com/honua-io/honua-server/issues/9408"
-          },
-          {
-            "number": 9409,
-            "title": "test(identity): non-admin key on identity-provider admin and malformed mobile token requests",
-            "url": "https://github.com/honua-io/honua-server/issues/9409"
-          },
-          {
-            "number": 9418,
-            "title": "bug(roles): duplicate role name and control characters return 500 instead of 409 and 400",
-            "url": "https://github.com/honua-io/honua-server/issues/9418"
-          },
-          {
-            "number": 9419,
-            "title": "bug(oidc): concurrent edits to one OIDC provider return 500",
-            "url": "https://github.com/honua-io/honua-server/issues/9419"
           }
         ],
         "label": "cap/identity"
@@ -9225,6 +9091,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -9251,9 +9118,9 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 10,
+        "count": 5,
         "refs": [
           {
             "number": 1273,
@@ -9279,31 +9146,6 @@
             "number": 7277,
             "title": "feat: browser administrator session sign-in and CSRF protection",
             "url": "https://github.com/honua-io/honua-server/issues/7277"
-          },
-          {
-            "number": 9407,
-            "title": "bug(scim): Users and Groups lists ignore an unsupported filter and return every resource",
-            "url": "https://github.com/honua-io/honua-server/issues/9407"
-          },
-          {
-            "number": 9408,
-            "title": "test(identity): OIDC provider undo with a stale revision and parallel edits at the admin endpoint",
-            "url": "https://github.com/honua-io/honua-server/issues/9408"
-          },
-          {
-            "number": 9409,
-            "title": "test(identity): non-admin key on identity-provider admin and malformed mobile token requests",
-            "url": "https://github.com/honua-io/honua-server/issues/9409"
-          },
-          {
-            "number": 9418,
-            "title": "bug(roles): duplicate role name and control characters return 500 instead of 409 and 400",
-            "url": "https://github.com/honua-io/honua-server/issues/9418"
-          },
-          {
-            "number": 9419,
-            "title": "bug(oidc): concurrent edits to one OIDC provider return 500",
-            "url": "https://github.com/honua-io/honua-server/issues/9419"
           }
         ],
         "categoryLevel": true,
@@ -9333,31 +9175,6 @@
             "number": 7277,
             "title": "feat: browser administrator session sign-in and CSRF protection",
             "url": "https://github.com/honua-io/honua-server/issues/7277"
-          },
-          {
-            "number": 9407,
-            "title": "bug(scim): Users and Groups lists ignore an unsupported filter and return every resource",
-            "url": "https://github.com/honua-io/honua-server/issues/9407"
-          },
-          {
-            "number": 9408,
-            "title": "test(identity): OIDC provider undo with a stale revision and parallel edits at the admin endpoint",
-            "url": "https://github.com/honua-io/honua-server/issues/9408"
-          },
-          {
-            "number": 9409,
-            "title": "test(identity): non-admin key on identity-provider admin and malformed mobile token requests",
-            "url": "https://github.com/honua-io/honua-server/issues/9409"
-          },
-          {
-            "number": 9418,
-            "title": "bug(roles): duplicate role name and control characters return 500 instead of 409 and 400",
-            "url": "https://github.com/honua-io/honua-server/issues/9418"
-          },
-          {
-            "number": 9419,
-            "title": "bug(oidc): concurrent edits to one OIDC provider return 500",
-            "url": "https://github.com/honua-io/honua-server/issues/9419"
           }
         ],
         "label": "cap/identity"
@@ -9379,6 +9196,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -9404,9 +9222,9 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 10,
+        "count": 5,
         "refs": [
           {
             "number": 1273,
@@ -9432,31 +9250,6 @@
             "number": 7277,
             "title": "feat: browser administrator session sign-in and CSRF protection",
             "url": "https://github.com/honua-io/honua-server/issues/7277"
-          },
-          {
-            "number": 9407,
-            "title": "bug(scim): Users and Groups lists ignore an unsupported filter and return every resource",
-            "url": "https://github.com/honua-io/honua-server/issues/9407"
-          },
-          {
-            "number": 9408,
-            "title": "test(identity): OIDC provider undo with a stale revision and parallel edits at the admin endpoint",
-            "url": "https://github.com/honua-io/honua-server/issues/9408"
-          },
-          {
-            "number": 9409,
-            "title": "test(identity): non-admin key on identity-provider admin and malformed mobile token requests",
-            "url": "https://github.com/honua-io/honua-server/issues/9409"
-          },
-          {
-            "number": 9418,
-            "title": "bug(roles): duplicate role name and control characters return 500 instead of 409 and 400",
-            "url": "https://github.com/honua-io/honua-server/issues/9418"
-          },
-          {
-            "number": 9419,
-            "title": "bug(oidc): concurrent edits to one OIDC provider return 500",
-            "url": "https://github.com/honua-io/honua-server/issues/9419"
           }
         ],
         "categoryLevel": true,
@@ -9486,31 +9279,6 @@
             "number": 7277,
             "title": "feat: browser administrator session sign-in and CSRF protection",
             "url": "https://github.com/honua-io/honua-server/issues/7277"
-          },
-          {
-            "number": 9407,
-            "title": "bug(scim): Users and Groups lists ignore an unsupported filter and return every resource",
-            "url": "https://github.com/honua-io/honua-server/issues/9407"
-          },
-          {
-            "number": 9408,
-            "title": "test(identity): OIDC provider undo with a stale revision and parallel edits at the admin endpoint",
-            "url": "https://github.com/honua-io/honua-server/issues/9408"
-          },
-          {
-            "number": 9409,
-            "title": "test(identity): non-admin key on identity-provider admin and malformed mobile token requests",
-            "url": "https://github.com/honua-io/honua-server/issues/9409"
-          },
-          {
-            "number": 9418,
-            "title": "bug(roles): duplicate role name and control characters return 500 instead of 409 and 400",
-            "url": "https://github.com/honua-io/honua-server/issues/9418"
-          },
-          {
-            "number": 9419,
-            "title": "bug(oidc): concurrent edits to one OIDC provider return 500",
-            "url": "https://github.com/honua-io/honua-server/issues/9419"
           }
         ],
         "label": "cap/identity"
@@ -9532,6 +9300,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -9545,9 +9314,9 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 10,
+        "count": 5,
         "refs": [
           {
             "number": 1273,
@@ -9573,31 +9342,6 @@
             "number": 7277,
             "title": "feat: browser administrator session sign-in and CSRF protection",
             "url": "https://github.com/honua-io/honua-server/issues/7277"
-          },
-          {
-            "number": 9407,
-            "title": "bug(scim): Users and Groups lists ignore an unsupported filter and return every resource",
-            "url": "https://github.com/honua-io/honua-server/issues/9407"
-          },
-          {
-            "number": 9408,
-            "title": "test(identity): OIDC provider undo with a stale revision and parallel edits at the admin endpoint",
-            "url": "https://github.com/honua-io/honua-server/issues/9408"
-          },
-          {
-            "number": 9409,
-            "title": "test(identity): non-admin key on identity-provider admin and malformed mobile token requests",
-            "url": "https://github.com/honua-io/honua-server/issues/9409"
-          },
-          {
-            "number": 9418,
-            "title": "bug(roles): duplicate role name and control characters return 500 instead of 409 and 400",
-            "url": "https://github.com/honua-io/honua-server/issues/9418"
-          },
-          {
-            "number": 9419,
-            "title": "bug(oidc): concurrent edits to one OIDC provider return 500",
-            "url": "https://github.com/honua-io/honua-server/issues/9419"
           }
         ],
         "categoryLevel": true,
@@ -9627,31 +9371,6 @@
             "number": 7277,
             "title": "feat: browser administrator session sign-in and CSRF protection",
             "url": "https://github.com/honua-io/honua-server/issues/7277"
-          },
-          {
-            "number": 9407,
-            "title": "bug(scim): Users and Groups lists ignore an unsupported filter and return every resource",
-            "url": "https://github.com/honua-io/honua-server/issues/9407"
-          },
-          {
-            "number": 9408,
-            "title": "test(identity): OIDC provider undo with a stale revision and parallel edits at the admin endpoint",
-            "url": "https://github.com/honua-io/honua-server/issues/9408"
-          },
-          {
-            "number": 9409,
-            "title": "test(identity): non-admin key on identity-provider admin and malformed mobile token requests",
-            "url": "https://github.com/honua-io/honua-server/issues/9409"
-          },
-          {
-            "number": 9418,
-            "title": "bug(roles): duplicate role name and control characters return 500 instead of 409 and 400",
-            "url": "https://github.com/honua-io/honua-server/issues/9418"
-          },
-          {
-            "number": 9419,
-            "title": "bug(oidc): concurrent edits to one OIDC provider return 500",
-            "url": "https://github.com/honua-io/honua-server/issues/9419"
           }
         ],
         "label": "cap/identity"
@@ -9673,6 +9392,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -9686,9 +9406,9 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 10,
+        "count": 5,
         "refs": [
           {
             "number": 1273,
@@ -9714,31 +9434,6 @@
             "number": 7277,
             "title": "feat: browser administrator session sign-in and CSRF protection",
             "url": "https://github.com/honua-io/honua-server/issues/7277"
-          },
-          {
-            "number": 9407,
-            "title": "bug(scim): Users and Groups lists ignore an unsupported filter and return every resource",
-            "url": "https://github.com/honua-io/honua-server/issues/9407"
-          },
-          {
-            "number": 9408,
-            "title": "test(identity): OIDC provider undo with a stale revision and parallel edits at the admin endpoint",
-            "url": "https://github.com/honua-io/honua-server/issues/9408"
-          },
-          {
-            "number": 9409,
-            "title": "test(identity): non-admin key on identity-provider admin and malformed mobile token requests",
-            "url": "https://github.com/honua-io/honua-server/issues/9409"
-          },
-          {
-            "number": 9418,
-            "title": "bug(roles): duplicate role name and control characters return 500 instead of 409 and 400",
-            "url": "https://github.com/honua-io/honua-server/issues/9418"
-          },
-          {
-            "number": 9419,
-            "title": "bug(oidc): concurrent edits to one OIDC provider return 500",
-            "url": "https://github.com/honua-io/honua-server/issues/9419"
           }
         ],
         "categoryLevel": true,
@@ -9768,31 +9463,6 @@
             "number": 7277,
             "title": "feat: browser administrator session sign-in and CSRF protection",
             "url": "https://github.com/honua-io/honua-server/issues/7277"
-          },
-          {
-            "number": 9407,
-            "title": "bug(scim): Users and Groups lists ignore an unsupported filter and return every resource",
-            "url": "https://github.com/honua-io/honua-server/issues/9407"
-          },
-          {
-            "number": 9408,
-            "title": "test(identity): OIDC provider undo with a stale revision and parallel edits at the admin endpoint",
-            "url": "https://github.com/honua-io/honua-server/issues/9408"
-          },
-          {
-            "number": 9409,
-            "title": "test(identity): non-admin key on identity-provider admin and malformed mobile token requests",
-            "url": "https://github.com/honua-io/honua-server/issues/9409"
-          },
-          {
-            "number": 9418,
-            "title": "bug(roles): duplicate role name and control characters return 500 instead of 409 and 400",
-            "url": "https://github.com/honua-io/honua-server/issues/9418"
-          },
-          {
-            "number": 9419,
-            "title": "bug(oidc): concurrent edits to one OIDC provider return 500",
-            "url": "https://github.com/honua-io/honua-server/issues/9419"
           }
         ],
         "label": "cap/identity"
@@ -9814,6 +9484,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -9827,7 +9498,98 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [
+        {
+          "id": "maui-311",
+          "title": "Maui 311 exercise dashboard",
+          "url": "https://samples.honua.io/maui-311",
+          "sdks": [
+            "js",
+            "python",
+            "dotnet"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.0-nightly.g532565b+532565b",
+            "at": "2026-11-23T16:10:03.492Z"
+          }
+        },
+        {
+          "id": "maui-data-pipeline",
+          "title": "Maui County department data pipeline",
+          "url": "https://samples.honua.io/maui-data-pipeline",
+          "sdks": [
+            "rest"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.0-nightly.g532565b+532565b",
+            "at": "2026-11-23T16:10:03.492Z"
+          }
+        },
+        {
+          "id": "maui-emergency",
+          "title": "Maui emergency preparedness exercise",
+          "url": "https://samples.honua.io/maui-emergency",
+          "sdks": [
+            "js",
+            "python",
+            "dotnet"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.0-nightly.g532565b+532565b",
+            "at": "2026-11-23T16:10:03.492Z"
+          }
+        },
+        {
+          "id": "maui-public-works",
+          "title": "Maui roadway assets and maintenance",
+          "url": "https://samples.honua.io/maui-public-works",
+          "sdks": [
+            "js",
+            "python",
+            "dotnet"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.0-nightly.g532565b+532565b",
+            "at": "2026-11-23T16:10:03.492Z"
+          }
+        },
+        {
+          "id": "maui-workbench",
+          "title": "Maui linked analysis Workbench",
+          "url": "https://samples.honua.io/maui-workbench",
+          "sdks": [
+            "js"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.0-nightly.g532565b+532565b",
+            "at": "2026-11-23T16:10:03.492Z"
+          }
+        },
+        {
+          "id": "wms-getmap-check",
+          "title": "WMS GetCapabilities + GetMap check (Node.js)",
+          "url": "https://samples.honua.io/wms-getmap-check",
+          "sdks": [
+            "rest"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.0-nightly.g532565b+532565b",
+            "at": "2026-11-23T16:10:03.492Z"
+          }
+        }
+      ],
       "openIssues": {
         "count": 9,
         "refs": [
@@ -9945,6 +9707,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -9963,7 +9726,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 9,
         "refs": [
@@ -10081,6 +9844,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -10099,7 +9863,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 9,
         "refs": [
@@ -10221,6 +9985,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -10234,7 +9999,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -10264,6 +10029,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -10277,7 +10043,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 10,
         "refs": [
@@ -10405,6 +10171,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [
         {
@@ -12463,7 +12230,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 8,
         "refs": [
@@ -12571,6 +12338,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [
         {
@@ -16662,7 +16430,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 8,
         "refs": [
@@ -16774,6 +16542,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -16803,7 +16572,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 2,
         "refs": [
@@ -16855,6 +16624,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -16868,7 +16638,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -16894,6 +16664,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -16907,7 +16678,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -16939,6 +16710,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -16971,7 +16743,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 17,
         "refs": [
@@ -17185,6 +16957,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -17207,7 +16980,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 3,
         "refs": [
@@ -17269,6 +17042,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -17282,7 +17056,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -17312,6 +17086,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -17325,7 +17100,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -17355,6 +17130,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -17368,7 +17144,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -17394,6 +17170,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -17418,7 +17195,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 5,
         "refs": [
@@ -17511,6 +17288,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -17524,7 +17302,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 2,
         "refs": [
@@ -17572,6 +17350,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -17590,7 +17369,7 @@
           "note": "Read-only: the client can query dimension/variable metadata for an already-registered multidimensional ImageServer via multidimensionalInfo. There is no client surface to register or configure a NetCDF4/HDF5/Zarr multidimensional coverage -- that is server-admin configuration this SDK's control-plane client does not expose."
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 5,
         "refs": [
@@ -17683,6 +17462,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -17703,7 +17483,7 @@
           "note": "mosaic_rule + a single ISO-8601 time instant select a raster temporal mosaic on the ImageServer histogram/statistics/sample analysis operations only. export_image, tile, identify, and query do not accept a typed time/mosaic_rule parameter (only generic extra_params passthrough), so temporal mosaic selection does not extend to raster rendering/export."
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 2,
         "refs": [
@@ -17751,6 +17531,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -17764,7 +17545,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 2,
         "refs": [
@@ -17818,6 +17599,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -17846,7 +17628,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 2,
         "refs": [
@@ -17894,6 +17676,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -17907,7 +17690,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 9,
         "refs": [
@@ -18025,6 +17808,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -18047,7 +17831,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 9,
         "refs": [
@@ -18165,6 +17949,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -18178,7 +17963,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 9,
         "refs": [
@@ -18296,6 +18081,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -18321,7 +18107,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -18419,6 +18205,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -18442,7 +18229,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -18595,6 +18382,7 @@
         "geoservices-query",
         "geoservices-query-diagnostics"
       ],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [
         {
@@ -20674,7 +20462,140 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [
+        {
+          "id": "county-parcel-viewer",
+          "title": "County parcel viewer",
+          "url": "https://samples.honua.io/county-parcel-viewer",
+          "sdks": [
+            "js"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.0-nightly.g532565b+532565b",
+            "at": "2026-11-23T16:10:03.492Z"
+          }
+        },
+        {
+          "id": "create-honua-app-react-ts",
+          "title": "Your first Honua app: create-honua-app react-ts",
+          "url": "https://samples.honua.io/create-honua-app-react-ts",
+          "sdks": [
+            "js"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.0-nightly.g532565b+532565b",
+            "at": "2026-11-23T16:10:03.492Z"
+          }
+        },
+        {
+          "id": "create-honua-app-vanilla-ts",
+          "title": "Your first Honua app: create-honua-app vanilla-ts",
+          "url": "https://samples.honua.io/create-honua-app-vanilla-ts",
+          "sdks": [
+            "js"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.0-nightly.g532565b+532565b",
+            "at": "2026-11-23T16:10:03.492Z"
+          }
+        },
+        {
+          "id": "hello-featureserver-rest",
+          "title": "Query a public FeatureServer (plain REST)",
+          "url": "https://samples.honua.io/hello-featureserver-rest",
+          "sdks": [
+            "rest"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.0-nightly.g532565b+532565b",
+            "at": "2026-11-23T16:10:03.492Z"
+          }
+        },
+        {
+          "id": "maplibre-featureserver-layer",
+          "title": "FeatureServer layer in MapLibre GL JS",
+          "url": "https://samples.honua.io/maplibre-featureserver-layer",
+          "sdks": [
+            "rest"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.0-nightly.g532565b+532565b",
+            "at": "2026-11-23T16:10:03.492Z"
+          }
+        },
+        {
+          "id": "maui-311",
+          "title": "Maui 311 exercise dashboard",
+          "url": "https://samples.honua.io/maui-311",
+          "sdks": [
+            "js",
+            "python",
+            "dotnet"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.0-nightly.g532565b+532565b",
+            "at": "2026-11-23T16:10:03.492Z"
+          }
+        },
+        {
+          "id": "maui-emergency",
+          "title": "Maui emergency preparedness exercise",
+          "url": "https://samples.honua.io/maui-emergency",
+          "sdks": [
+            "js",
+            "python",
+            "dotnet"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.0-nightly.g532565b+532565b",
+            "at": "2026-11-23T16:10:03.492Z"
+          }
+        },
+        {
+          "id": "maui-public-works",
+          "title": "Maui roadway assets and maintenance",
+          "url": "https://samples.honua.io/maui-public-works",
+          "sdks": [
+            "js",
+            "python",
+            "dotnet"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.0-nightly.g532565b+532565b",
+            "at": "2026-11-23T16:10:03.492Z"
+          }
+        },
+        {
+          "id": "maui-workbench",
+          "title": "Maui linked analysis Workbench",
+          "url": "https://samples.honua.io/maui-workbench",
+          "sdks": [
+            "js"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.0-nightly.g532565b+532565b",
+            "at": "2026-11-23T16:10:03.492Z"
+          }
+        }
+      ],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -20778,6 +20699,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -20795,7 +20717,22 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [
+        {
+          "id": "county-parcel-viewer",
+          "title": "County parcel viewer",
+          "url": "https://samples.honua.io/county-parcel-viewer",
+          "sdks": [
+            "js"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.0-nightly.g532565b+532565b",
+            "at": "2026-11-23T16:10:03.492Z"
+          }
+        }
+      ],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -20899,6 +20836,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -20930,7 +20868,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -21035,6 +20973,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -21074,7 +21013,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -21219,6 +21158,7 @@
         "geoservices-export",
         "geoservices-identify"
       ],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [
         {
@@ -23292,7 +23232,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -23396,6 +23336,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -23414,7 +23355,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -23518,6 +23459,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -23531,7 +23473,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -23633,6 +23575,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -23646,7 +23589,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -23744,6 +23687,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -23768,7 +23712,7 @@
           "note": "I3S-tagged scene endpoints resolve and fetch as opaque bytes through the same generic scene-endpoint resolution used for 3D Tiles, but there is no I3S-specific scene-layer-package (.slpk) node/resource-tree parsing -- only the 3D Tiles tileset.json walker (enumerate_tileset_contents) is implemented."
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -23903,6 +23847,7 @@
         }
       ],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [
         {
@@ -25973,7 +25918,22 @@
           "note": "Read/query only (service_document, metadata, layers, features, and pagination helpers). No create/update/delete entity-set operations are implemented, so the write half of 'query and edit features through OData v4' is not covered."
         }
       },
-      "samples": null,
+      "samples": [
+        {
+          "id": "odata-query-rest",
+          "title": "Read spatial features with OData v4",
+          "url": "https://samples.honua.io/odata-query-rest",
+          "sdks": [
+            "rest"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.0-nightly.g532565b+532565b",
+            "at": "2026-11-23T16:10:03.492Z"
+          }
+        }
+      ],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -26071,6 +26031,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -26101,7 +26062,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 5,
         "refs": [
@@ -26215,6 +26176,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [
         {
@@ -28021,7 +27983,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -28168,6 +28130,7 @@
         "spatial-bbox",
         "concurrent"
       ],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [
         {
@@ -30244,7 +30207,36 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [
+        {
+          "id": "maplibre-category-style-legend",
+          "title": "Category style and legend from OGC API Features",
+          "url": "https://samples.honua.io/maplibre-category-style-legend",
+          "sdks": [
+            "rest"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.0-nightly.g532565b+532565b",
+            "at": "2026-11-23T16:10:03.492Z"
+          }
+        },
+        {
+          "id": "ogc-features-python",
+          "title": "Read OGC API Features with Python",
+          "url": "https://samples.honua.io/ogc-features-python",
+          "sdks": [
+            "python"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.0-nightly.g532565b+532565b",
+            "at": "2026-11-23T16:10:03.492Z"
+          }
+        }
+      ],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -30361,6 +30353,7 @@
         }
       ],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -30389,7 +30382,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -30487,6 +30480,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -30521,7 +30515,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -30637,6 +30631,7 @@
         }
       ],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -30669,7 +30664,22 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [
+        {
+          "id": "maplibre-ogc-tiles-mvt",
+          "title": "OGC API Tiles vector tiles in MapLibre GL JS",
+          "url": "https://samples.honua.io/maplibre-ogc-tiles-mvt",
+          "sdks": [
+            "rest"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.0-nightly.g532565b+532565b",
+            "at": "2026-11-23T16:10:03.492Z"
+          }
+        }
+      ],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -30767,6 +30777,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -30780,7 +30791,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -30878,6 +30889,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [
         {
@@ -32955,7 +32967,22 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [
+        {
+          "id": "stac-search-rest",
+          "title": "Discover a public STAC catalog",
+          "url": "https://samples.honua.io/stac-search-rest",
+          "sdks": [
+            "rest"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.0-nightly.g532565b+532565b",
+            "at": "2026-11-23T16:10:03.492Z"
+          }
+        }
+      ],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -33053,6 +33080,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -33066,7 +33094,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -33174,6 +33202,7 @@
         }
       ],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [
         {
@@ -35242,7 +35271,22 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [
+        {
+          "id": "county-parcel-viewer",
+          "title": "County parcel viewer",
+          "url": "https://samples.honua.io/county-parcel-viewer",
+          "sdks": [
+            "js"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.0-nightly.g532565b+532565b",
+            "at": "2026-11-23T16:10:03.492Z"
+          }
+        }
+      ],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -35350,6 +35394,7 @@
       "geobench": [
         "wcs"
       ],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [
         {
@@ -37415,7 +37460,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -37566,6 +37611,7 @@
         "wfs-getfeature",
         "wfs-filtered"
       ],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -37599,7 +37645,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -37738,6 +37784,7 @@
         "wms-getfeatureinfo",
         "wms-filtered"
       ],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [
         {
@@ -39809,7 +39856,22 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [
+        {
+          "id": "wms-getmap-check",
+          "title": "WMS GetCapabilities + GetMap check (Node.js)",
+          "url": "https://samples.honua.io/wms-getmap-check",
+          "sdks": [
+            "rest"
+          ],
+          "edition": "community",
+          "lastRun": {
+            "outcome": "pass",
+            "serverVersion": "2026.1.0-nightly.g532565b+532565b",
+            "at": "2026-11-23T16:10:03.492Z"
+          }
+        }
+      ],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -39945,6 +40007,7 @@
       "geobench": [
         "wmts"
       ],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [
         {
@@ -42015,7 +42078,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -42121,6 +42184,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -42134,7 +42198,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 7,
         "refs": [
@@ -42236,6 +42300,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -42249,7 +42314,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 1,
         "refs": [
@@ -42291,6 +42356,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -42304,7 +42370,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 1,
         "refs": [
@@ -42346,6 +42412,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -42359,7 +42426,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 1,
         "refs": [
@@ -42397,6 +42464,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -42425,9 +42493,9 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
-        "count": 9,
+        "count": 8,
         "refs": [
           {
             "number": 2437,
@@ -42463,11 +42531,6 @@
             "number": 7339,
             "title": "Epic: cross-node realtime on a PostgreSQL event log (rc.3)",
             "url": "https://github.com/honua-io/honua-server/issues/7339"
-          },
-          {
-            "number": 7343,
-            "title": "feat(realtime): per-subscriber authorization and event-driven revocation (rc.3)",
-            "url": "https://github.com/honua-io/honua-server/issues/7343"
           },
           {
             "number": 7349,
@@ -42514,11 +42577,6 @@
             "url": "https://github.com/honua-io/honua-server/issues/7339"
           },
           {
-            "number": 7343,
-            "title": "feat(realtime): per-subscriber authorization and event-driven revocation (rc.3)",
-            "url": "https://github.com/honua-io/honua-server/issues/7343"
-          },
-          {
             "number": 7349,
             "title": "test(realtime): two-task acceptance, scale run and live CDN check (rc.3)",
             "url": "https://github.com/honua-io/honua-server/issues/7349"
@@ -42543,6 +42601,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -42556,7 +42615,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 3,
         "refs": [
@@ -42618,6 +42677,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -42636,7 +42696,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 3,
         "refs": [
@@ -42694,6 +42754,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -42727,7 +42788,7 @@
           ]
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 3,
         "refs": [
@@ -42789,6 +42850,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -42802,7 +42864,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -42828,6 +42890,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -42841,7 +42904,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -42867,6 +42930,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -42880,7 +42944,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -42906,6 +42970,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -42919,7 +42984,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
@@ -42949,6 +43014,7 @@
       "esriAssess": [],
       "interop": [],
       "geobench": [],
+      "geobenchResults": [],
       "dr": [],
       "liveCanary": [],
       "sdks": {
@@ -42962,7 +43028,7 @@
           "status": "not-covered"
         }
       },
-      "samples": null,
+      "samples": [],
       "openIssues": {
         "count": 0,
         "refs": [],
