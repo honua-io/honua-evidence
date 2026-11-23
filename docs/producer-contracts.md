@@ -377,3 +377,22 @@ revision (`--sdk-dotnet-pin-manifest`, which `aggregate.yml` always passes), pac
 version and digest must equal `clientArtifacts.honua-sdk-dotnet`. Both fields reach
 the ledger cell. Governed rows cannot carry them, the receipt identity stays closed,
 and every other lane keeps the existing refusal.
+
+
+## Diagnostic nightly capability observations (matrix 2.5.0)
+
+The Phase-B matrix preserves the server's optional `nightlyEvidence` provenance,
+`evidenceFreshness` collection anchor, and per-capability `geobenchResults`
+metrics alongside CITE and interop observations. These runs are diagnostic;
+they do not replace candidate certification or its pinned source identities.
+
+Aggregation evaluates each observation's timezone-qualified `runDate` against
+its own evaluation time, capped at the producer's maximum age (at most 14 days).
+A stale collection remains stale after a successful fetch. Future, malformed,
+unqualified, or inconsistent collection timestamps fail closed, as do observations
+newer than the collection. Failed, stale, and unknown producer rows never become
+fresh through aggregation. CITE rows without fresh observations have a zero
+`passRate`; their original measurements and run provenance remain inspectable.
+`evidenceFreshness.evaluatedAt` records when this age check ran. The existing
+pull-status ledger continues to describe transport availability independently.
+Legacy producers without nightly metadata retain their existing interpretation.
