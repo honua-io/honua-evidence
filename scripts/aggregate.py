@@ -68,13 +68,15 @@ import sys
 import urllib.error
 import urllib.request
 import zipfile
+import copy
+from nightly_capability import apply_nightly_evidence
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = REPO_ROOT / "data" / "capability-matrix.v1.json"
-SCHEMA_VERSION = "2.4.0"
+SCHEMA_VERSION = "2.5.0"
 USER_AGENT = "honua-evidence-aggregate/1 (+https://github.com/honua-io/honua-evidence)"
 
 SERVER_KEYS_URL = "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json"
@@ -988,11 +990,12 @@ def build_matrix(*, staleness: dict[str, int]) -> tuple[dict[str, Any], list[str
                 "provingTestCount": base.get("provingTestCount", 0),
                 "maturity": base.get("maturity", {}),
                 "noSurface": base.get("noSurface"),
-                "cite": base.get("cite", []),
+                "cite": copy.deepcopy(base.get("cite", [])),
                 "parity": base.get("parity", []),
                 "esriAssess": base.get("esriAssess", []),
-                "interop": base.get("interop", []),
+                "interop": copy.deepcopy(base.get("interop", [])),
                 "geobench": base.get("geobench", []),
+                "geobenchResults": copy.deepcopy(base.get("geobenchResults", [])),
                 "dr": dr_by_key.get(key, []),
                 "liveCanary": live_by_key.get(key, []),
                 "sdks": sdks_entry,
@@ -1069,6 +1072,8 @@ def build_matrix(*, staleness: dict[str, int]) -> tuple[dict[str, Any], list[str
         "ingestionWarnings": ingestion_warnings,
         "capabilities": capabilities_out,
     }
+    if server_matrix.ok:
+        apply_nightly_evidence(matrix, server_matrix.data, matrix["generatedAt"])
     return matrix, sorted(unknown_keys)
 
 
