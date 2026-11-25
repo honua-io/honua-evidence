@@ -2,7 +2,7 @@
   "schemaVersion": "2.5.0",
   "generator": "scripts/aggregate.py",
   "trackingIssue": "honua-io/honua-evidence#1",
-  "generatedAt": "2026-11-25T10:37:45Z",
+  "generatedAt": "2026-11-25T10:47:00Z",
   "description": "Phase-B enriched capability evidence matrix. Ingests honua-server's Phase-A capability-matrix.v1.json as a producer snapshot (does not re-derive it) and joins SDK coverage, executable-sample coverage, a known-gaps preview, CITE freshness, and pushed-envelope cross-repo evidence (terraform DR drills, live/canary probes -- issue #8), keyed to honua-server's canonical capability vocabulary. See freshness for per-producer pull status and docs/producer-contracts.md for the pushed-envelope schemas.",
   "sourceArtifacts": {
     "server-keys": "https://raw.githubusercontent.com/honua-io/honua-server/trunk/docs/gis/data/capability-keys.v1.json",
@@ -28,52 +28,52 @@
   ],
   "freshness": {
     "server-keys": {
-      "fetchedAt": "2026-11-25T10:37:30Z",
-      "sourceVersion": "183910040a47@2026-11-25T10:37:09Z",
+      "fetchedAt": "2026-11-25T10:46:44Z",
+      "sourceVersion": "3af8adfeca92@2026-11-25T10:46:25Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-25T10:37:30Z",
+      "observedAt": "2026-11-25T10:46:44Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "server-matrix": {
-      "fetchedAt": "2026-11-25T10:37:31Z",
-      "sourceVersion": "95bde9204b75@2026-11-25T05:35:56Z",
+      "fetchedAt": "2026-11-25T10:46:44Z",
+      "sourceVersion": "3af8adfeca92@2026-11-25T10:46:25Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-25T10:37:31Z",
+      "observedAt": "2026-11-25T10:46:44Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-js": {
-      "fetchedAt": "2026-11-25T10:37:31Z",
+      "fetchedAt": "2026-11-25T10:46:45Z",
       "sourceVersion": "9d26d85148a5@2026-11-24T22:02:31Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-25T10:37:31Z",
+      "observedAt": "2026-11-25T10:46:45Z",
       "ageDays": 0,
       "sourceAgeDays": 0,
       "status": "fresh"
     },
     "sdk-dotnet": {
-      "fetchedAt": "2026-11-25T10:37:32Z",
+      "fetchedAt": "2026-11-25T10:46:45Z",
       "sourceVersion": "6630054f356b@2026-11-14T23:07:17Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-25T10:37:32Z",
+      "observedAt": "2026-11-25T10:46:45Z",
       "ageDays": 0,
       "sourceAgeDays": 10,
       "status": "fresh"
     },
     "sdk-python": {
-      "fetchedAt": "2026-11-25T10:37:32Z",
+      "fetchedAt": "2026-11-25T10:46:46Z",
       "sourceVersion": "afe1d6e315ed@2026-11-15T01:29:36Z",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-25T10:37:32Z",
+      "observedAt": "2026-11-25T10:46:46Z",
       "ageDays": 0,
       "sourceAgeDays": 10,
       "status": "fresh"
     },
     "samples": {
-      "fetchedAt": "2026-11-25T10:37:33Z",
+      "fetchedAt": "2026-11-25T10:46:47Z",
       "sourceVersion": "d0d195886ed0@2026-11-24T19:51:14Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-11-24T19:51:14Z",
@@ -82,16 +82,16 @@
       "status": "fresh"
     },
     "open-issues": {
-      "fetchedAt": "2026-11-25T10:37:45Z",
+      "fetchedAt": "2026-11-25T10:47:00Z",
       "sourceVersion": "live-query",
       "freshnessBasis": "fetch",
-      "observedAt": "2026-11-25T10:37:45Z",
+      "observedAt": "2026-11-25T10:47:00Z",
       "ageDays": 0,
       "sourceAgeDays": null,
       "status": "fresh"
     },
     "cite": {
-      "fetchedAt": "2026-11-25T10:37:34Z",
+      "fetchedAt": "2026-11-25T10:46:47Z",
       "sourceVersion": "bbd805166257@2026-11-20T00:00:00Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-11-20T00:00:00Z",
@@ -100,7 +100,7 @@
       "status": "fresh"
     },
     "live-canary": {
-      "fetchedAt": "2026-11-25T10:37:34Z",
+      "fetchedAt": "2026-11-25T10:46:47Z",
       "sourceVersion": "565315ae9f04@2026-11-24T17:56:08Z",
       "freshnessBasis": "observation",
       "observedAt": "2026-11-24T17:56:08Z",
@@ -144,7 +144,7 @@
       "category": "ControlPlane",
       "edition": "Community",
       "entryCount": 440,
-      "provingTestCount": 2081,
+      "provingTestCount": 2085,
       "maturity": {
         "implemented": 438,
         "experimental": 2
@@ -809,7 +809,7 @@
       "category": "AI",
       "edition": "Community",
       "entryCount": 4,
-      "provingTestCount": 179,
+      "provingTestCount": 185,
       "maturity": {
         "implemented": 4
       },
@@ -1656,7 +1656,7 @@
       "category": "Analytics",
       "edition": "Pro",
       "entryCount": 1,
-      "provingTestCount": 12,
+      "provingTestCount": 13,
       "maturity": {
         "implemented": 1
       },
@@ -1758,7 +1758,7 @@
       "category": "Analytics",
       "edition": "Pro",
       "entryCount": 1,
-      "provingTestCount": 16,
+      "provingTestCount": 17,
       "maturity": {
         "implemented": 1
       },
@@ -1962,7 +1962,7 @@
       "category": "Analytics",
       "edition": "Pro",
       "entryCount": 1,
-      "provingTestCount": 10,
+      "provingTestCount": 11,
       "maturity": {
         "implemented": 1
       },
@@ -2064,7 +2064,7 @@
       "category": "Analytics",
       "edition": "Pro",
       "entryCount": 4,
-      "provingTestCount": 36,
+      "provingTestCount": 38,
       "maturity": {
         "implemented": 4
       },
@@ -2166,7 +2166,7 @@
       "category": "Analytics",
       "edition": "Pro",
       "entryCount": 1,
-      "provingTestCount": 7,
+      "provingTestCount": 8,
       "maturity": {
         "implemented": 1
       },
@@ -2268,7 +2268,7 @@
       "category": "Analytics",
       "edition": "Community",
       "entryCount": 2,
-      "provingTestCount": 6,
+      "provingTestCount": 8,
       "maturity": {
         "implemented": 2
       },
@@ -2376,7 +2376,7 @@
       "category": "Analytics",
       "edition": "Pro",
       "entryCount": 1,
-      "provingTestCount": 5,
+      "provingTestCount": 6,
       "maturity": {
         "implemented": 1
       },
@@ -2478,7 +2478,7 @@
       "category": "Analytics",
       "edition": "Pro",
       "entryCount": 1,
-      "provingTestCount": 11,
+      "provingTestCount": 12,
       "maturity": {
         "implemented": 1
       },
@@ -2580,7 +2580,7 @@
       "category": "Analytics",
       "edition": "Pro",
       "entryCount": 1,
-      "provingTestCount": 5,
+      "provingTestCount": 6,
       "maturity": {
         "implemented": 1
       },
@@ -2682,7 +2682,7 @@
       "category": "Analytics",
       "edition": "Pro",
       "entryCount": 1,
-      "provingTestCount": 6,
+      "provingTestCount": 7,
       "maturity": {
         "implemented": 1
       },
@@ -9691,7 +9691,7 @@
       "entryCount": 5,
       "provingTestCount": 18,
       "maturity": {
-        "implemented": 5
+        "preview": 5
       },
       "noSurface": null,
       "cite": [],
@@ -9826,7 +9826,7 @@
       "category": "Import",
       "edition": "Enterprise",
       "entryCount": 10,
-      "provingTestCount": 53,
+      "provingTestCount": 58,
       "maturity": {
         "implemented": 10
       },
@@ -17561,7 +17561,7 @@
       "category": "Raster",
       "edition": "Community",
       "entryCount": 2,
-      "provingTestCount": 17,
+      "provingTestCount": 21,
       "maturity": {
         "implemented": 2
       },
@@ -18235,7 +18235,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 2,
-      "provingTestCount": 29,
+      "provingTestCount": 34,
       "maturity": {
         "implemented": 2
       },
@@ -18243,7 +18243,17 @@
       "cite": [],
       "parity": [],
       "esriAssess": [],
-      "interop": [],
+      "interop": [
+        {
+          "clientLane": "js-cesium",
+          "protocol": "elevation",
+          "freshness": {
+            "state": "fresh",
+            "ageDays": 0,
+            "runDate": "2026-11-25T06:59:10.470000Z"
+          }
+        }
+      ],
       "geobench": [],
       "geobenchResults": [],
       "dr": [],
@@ -18395,7 +18405,7 @@
           "protocol": "featureserver",
           "freshness": {
             "state": "stale",
-            "ageDays": 0,
+            "ageDays": 1,
             "runDate": "2026-11-23T07:15:30.096120Z"
           }
         },
@@ -18404,7 +18414,7 @@
           "protocol": "featureserver",
           "freshness": {
             "state": "fresh",
-            "ageDays": 0,
+            "ageDays": 1,
             "runDate": "2026-11-23T20:16:07.831211Z"
           }
         },
@@ -21226,7 +21236,7 @@
           "protocol": "mapserver",
           "freshness": {
             "state": "stale",
-            "ageDays": 0,
+            "ageDays": 1,
             "runDate": "2026-11-23T07:15:30.298080Z"
           }
         },
@@ -21235,7 +21245,7 @@
           "protocol": "mapserver",
           "freshness": {
             "state": "fresh",
-            "ageDays": 0,
+            "ageDays": 1,
             "runDate": "2026-11-23T11:04:36.127067Z"
           }
         },
@@ -28228,7 +28238,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 19,
-      "provingTestCount": 385,
+      "provingTestCount": 389,
       "maturity": {
         "implemented": 19
       },
@@ -28250,7 +28260,7 @@
           "protocol": "ogc-features",
           "freshness": {
             "state": "stale",
-            "ageDays": 200,
+            "ageDays": 201,
             "runDate": "2026-05-07T14:05:39.990000Z"
           }
         },
@@ -28259,7 +28269,7 @@
           "protocol": "ogc-features",
           "freshness": {
             "state": "stale",
-            "ageDays": 93,
+            "ageDays": 95,
             "runDate": "2026-08-22T02:57:06.792964Z"
           }
         },
@@ -28268,7 +28278,7 @@
           "protocol": "ogc-features",
           "freshness": {
             "state": "fresh",
-            "ageDays": 0,
+            "ageDays": 1,
             "runDate": "2026-11-23T11:04:36.127067Z"
           }
         },
@@ -30511,7 +30521,7 @@
           "protocol": "ogc-maps",
           "freshness": {
             "state": "stale",
-            "ageDays": 200,
+            "ageDays": 201,
             "runDate": "2026-05-07T14:05:39.755000Z"
           }
         },
@@ -30520,7 +30530,7 @@
           "protocol": "ogc-maps",
           "freshness": {
             "state": "stale",
-            "ageDays": 200,
+            "ageDays": 201,
             "runDate": "2026-05-07T14:05:53.364000Z"
           }
         }
@@ -30651,7 +30661,17 @@
       "cite": [],
       "parity": [],
       "esriAssess": [],
-      "interop": [],
+      "interop": [
+        {
+          "clientLane": "py-owslib",
+          "protocol": "ogc-api-records",
+          "freshness": {
+            "state": "fresh",
+            "ageDays": 0,
+            "runDate": "2026-11-25T05:36:49.261006Z"
+          }
+        }
+      ],
       "geobench": [],
       "geobenchResults": [],
       "dr": [],
@@ -30798,7 +30818,7 @@
           "protocol": "ogc-tiles",
           "freshness": {
             "state": "stale",
-            "ageDays": 200,
+            "ageDays": 201,
             "runDate": "2026-05-07T14:05:53.364000Z"
           }
         }
@@ -31060,7 +31080,17 @@
       "cite": [],
       "parity": [],
       "esriAssess": [],
-      "interop": [],
+      "interop": [
+        {
+          "clientLane": "py-pystac",
+          "protocol": "stac",
+          "freshness": {
+            "state": "fresh",
+            "ageDays": 0,
+            "runDate": "2026-11-25T04:12:19.678816Z"
+          }
+        }
+      ],
       "geobench": [],
       "geobenchResults": [],
       "dr": [],
@@ -33259,7 +33289,7 @@
       "category": "Serve",
       "edition": "Community",
       "entryCount": 2,
-      "provingTestCount": 8,
+      "provingTestCount": 26,
       "maturity": {
         "implemented": 2
       },
@@ -33267,7 +33297,17 @@
       "cite": [],
       "parity": [],
       "esriAssess": [],
-      "interop": [],
+      "interop": [
+        {
+          "clientLane": "js-cesium",
+          "protocol": "quantized-mesh",
+          "freshness": {
+            "state": "fresh",
+            "ageDays": 0,
+            "runDate": "2026-11-25T06:52:57.496000Z"
+          }
+        }
+      ],
       "geobench": [],
       "geobenchResults": [],
       "dr": [],
@@ -33385,7 +33425,7 @@
           "protocol": "mvt",
           "freshness": {
             "state": "stale",
-            "ageDays": 200,
+            "ageDays": 201,
             "runDate": "2026-05-07T14:05:52.394000Z"
           }
         }
@@ -37805,7 +37845,7 @@
           "protocol": "wfs",
           "freshness": {
             "state": "stale",
-            "ageDays": 200,
+            "ageDays": 201,
             "runDate": "2026-05-07T14:05:40.991000Z"
           }
         },
@@ -37814,7 +37854,7 @@
           "protocol": "wfs",
           "freshness": {
             "state": "stale",
-            "ageDays": 93,
+            "ageDays": 95,
             "runDate": "2026-08-22T02:57:06.793352Z"
           }
         },
@@ -37823,7 +37863,7 @@
           "protocol": "wfs",
           "freshness": {
             "state": "fresh",
-            "ageDays": 0,
+            "ageDays": 1,
             "runDate": "2026-11-23T11:04:36.127067Z"
           }
         }
@@ -37976,7 +38016,7 @@
           "protocol": "wms",
           "freshness": {
             "state": "stale",
-            "ageDays": 200,
+            "ageDays": 201,
             "runDate": "2026-05-07T14:05:39.001000Z"
           }
         },
@@ -37985,7 +38025,7 @@
           "protocol": "wms",
           "freshness": {
             "state": "stale",
-            "ageDays": 200,
+            "ageDays": 201,
             "runDate": "2026-05-07T14:05:53.364000Z"
           }
         },
@@ -40218,7 +40258,7 @@
           "protocol": "wmts",
           "freshness": {
             "state": "stale",
-            "ageDays": 200,
+            "ageDays": 201,
             "runDate": "2026-05-07T14:05:37.557000Z"
           }
         },
@@ -40227,7 +40267,7 @@
           "protocol": "wmts",
           "freshness": {
             "state": "stale",
-            "ageDays": 200,
+            "ageDays": 201,
             "runDate": "2026-05-07T14:05:53.364000Z"
           }
         },
@@ -42844,7 +42884,7 @@
       "category": "Styling",
       "edition": "Pro",
       "entryCount": 2,
-      "provingTestCount": 10,
+      "provingTestCount": 25,
       "maturity": {
         "implemented": 2
       },
@@ -43133,7 +43173,7 @@
       "category": "Temporal",
       "edition": "Community",
       "entryCount": 1,
-      "provingTestCount": 17,
+      "provingTestCount": 20,
       "maturity": {
         "implemented": 1
       },
@@ -43213,7 +43253,7 @@
       "category": "Temporal",
       "edition": "Pro",
       "entryCount": 2,
-      "provingTestCount": 12,
+      "provingTestCount": 22,
       "maturity": {
         "implemented": 2
       },
